@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
+public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
 
-    private List<WorkOutHistory> mWorkOutHistoryList;
+    private List<WorkOutHistory> mPlanList;
     private int lastSelectedPosition = -1;
 
-    public HistoryRecyclerViewAdapter(List<WorkOutHistory> workOutHistoryList) {
-        mWorkOutHistoryList = workOutHistoryList;
+    public PlanRecyclerViewAdapter(List<WorkOutHistory> planList) {
+        mPlanList = planList;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkOutHistory workOutHistory = mWorkOutHistoryList.get(position);
+        final WorkOutHistory workOutHistory = mPlanList.get(position);
         holder.facilityView.setText(workOutHistory.getFacility().getName());
         holder.sportView.setText(workOutHistory.getSport().getText());
         holder.dateView.setText(workOutHistory.getDate().toString());
@@ -40,7 +40,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public int getItemCount() {
-        return mWorkOutHistoryList == null ? 0 : mWorkOutHistoryList.size();
+        return mPlanList == null ? 0 : mPlanList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

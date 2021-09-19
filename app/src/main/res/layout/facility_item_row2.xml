@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/select_facility_image2"
+                android:id="@+id/plan_sport_image"
                 android:layout_width="140sp"
                 android:layout_height="140sp"
                 android:layout_marginTop="16dp"
@@ -31,7 +31,7 @@
                 app:srcCompat="@drawable/swimming" />
 
             <TextView
-                android:id="@+id/select_facility_name2"
+                android:id="@+id/plan_sport_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
@@ -43,7 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/select_facility_distance2"
+                android:id="@+id/plan_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
@@ -51,7 +51,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="Duration"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/select_facility_name2"
+                app:layout_constraintBottom_toTopOf="@+id/plan_sport_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.39" />

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     public Sport finalChoice;
     private Context context;
     private ArrayList<Sport> secondList;
-    private int index = -1;//标记当前选择的选项
+    private int index = -1;
 
     public AddPlanAdapter(Context context, ArrayList<Sport> secondList) {
         this.context = context;
@@ -32,13 +33,13 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.tv_question_item.setText(secondList.get(position).getText());
         holder.iv_question_item.setImageResource(secondList.get(position).getImage());
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     //Toast.makeText(context,"你选择的选项是"+secondList.get(position),Toast.LENGTH_SHORT).show();
                     index = position;
                     notifyDataSetChanged();

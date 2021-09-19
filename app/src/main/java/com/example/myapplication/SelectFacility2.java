@@ -51,14 +51,14 @@ public class SelectFacility2 extends AppCompatActivity {
                         intent1 = new Intent(getApplicationContext(), SelectSport.class);
                         startActivity(intent1);
                         break;
-                    case R.id.history:
+                    case R.id.workOutHistory:
                         Intent intent2;
-                        intent2 = new Intent(getApplicationContext(), ViewHistory.class);
+                        intent2 = new Intent(getApplicationContext(), ViewPlan.class);
                         startActivity(intent2);
                         break;
                     case R.id.me:
                         Intent intent3;
-                        intent3 = new Intent(getApplicationContext(), ViewHistory.class);
+                        intent3 = new Intent(getApplicationContext(), ViewPlan.class);
                         startActivity(intent3);
                         break;
                 }

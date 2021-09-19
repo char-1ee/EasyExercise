@@ -12,7 +12,7 @@
         android:title="plan"/>
 
     <item
-        android:id="@+id/history"
+        android:id="@+id/workOutHistory"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_history_24"
         android:title="community"/>

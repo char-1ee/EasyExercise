@@ -17,7 +17,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
     public Sport finalChoice;
     private Context context;
     private ArrayList<Sport> secondList;
-    private int index = -1;//标记当前选择的选项
+    private int index = -1;
 
     public CheckInSportAdapter(Context context, ArrayList<Sport> secondList) {
         this.context = context;

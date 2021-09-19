@@ -31,17 +31,17 @@ public class MainActivity extends AppCompatActivity {
                 switch(id){
                     case R.id.plan:
                         Intent intent1;
-                        intent1= new Intent(MainActivity.this, ViewHistory.class);
+                        intent1= new Intent(MainActivity.this, ViewPlan.class);
                         startActivity(intent1);
                         return true;
-                    case R.id.history:
+                    case R.id.workOutHistory:
                         Intent intent2;
-                        intent2 = new Intent(MainActivity.this,ViewHistory.class);
+                        intent2 = new Intent(MainActivity.this, ViewPlan.class);
                         startActivity(intent2);
                         return true;
                     case R.id.me:
                         Intent intent3;
-                        intent3 = new Intent(MainActivity.this, ViewHistory.class);
+                        intent3 = new Intent(MainActivity.this, ViewPlan.class);
                         startActivity(intent3);
                         return true;
                 }

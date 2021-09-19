@@ -40,23 +40,23 @@ public class SelectFacility2 extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
-                    case R.id.home:
+                    case R.id.navigation_home:
                         Intent intent0;
-                        intent0 = new Intent(getApplicationContext(), MainActivity.class);
+                        intent0 = new Intent(getApplicationContext(), MainActivity2.class);
                         startActivity(intent0);
                         break;
 
-                    case R.id.plan:
+                    case R.id.navigation_plans:
                         Intent intent1;
                         intent1 = new Intent(getApplicationContext(), SelectSport.class);
                         startActivity(intent1);
                         break;
-                    case R.id.history:
+                    case R.id.navigation_community:
                         Intent intent2;
                         intent2 = new Intent(getApplicationContext(), ViewHistory.class);
                         startActivity(intent2);
                         break;
-                    case R.id.me:
+                    case R.id.navigation_me:
                         Intent intent3;
                         intent3 = new Intent(getApplicationContext(), ViewHistory.class);
                         startActivity(intent3);

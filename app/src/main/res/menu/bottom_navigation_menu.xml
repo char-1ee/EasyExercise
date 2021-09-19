@@ -1,26 +1,26 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@+id/navigation_home"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="home"/>
+        android:title="@string/title_home"/>
     <item
-        android:id="@+id/plan"
+        android:id="@+id/navigation_plans"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_checklist_rtl_24"
-        android:title="plan"/>
+        android:title="@string/title_plans"/>
 
     <item
-        android:id="@+id/history"
+        android:id="@+id/navigation_community"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_history_24"
-        android:title="community"/>
+        android:title="@string/title_community"/>
 
     <item
-        android:id="@+id/me"
+        android:id="@+id/navigation_me"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_outline_24"
-        android:title="me"/>
+        android:title="@string/title_me"/>
 
 </menu>

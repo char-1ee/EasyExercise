@@ -62,17 +62,17 @@ public class SelectSport extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
-                    case R.id.home:
+                    case R.id.navigation_home:
                         Intent intent0;
-                        intent0 = new Intent(SelectSport.this, MainActivity.class);
+                        intent0 = new Intent(SelectSport.this, MainActivity2.class);
                         startActivity(intent0);
                         return true;
-                    case R.id.history:
+                    case R.id.navigation_community:
                         Intent intent2;
                         intent2 = new Intent(SelectSport.this, ViewHistory.class);
                         startActivity(intent2);
                         return true;
-                    case R.id.me:
+                    case R.id.navigation_me:
                         Intent intent3;
                         intent3 = new Intent(SelectSport.this, ViewHistory.class);
                         startActivity(intent3);

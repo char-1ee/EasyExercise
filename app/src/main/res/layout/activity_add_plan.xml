@@ -59,7 +59,7 @@
     <Button
         android:id="@+id/add_plan_button"
         android:layout_width="240dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="add plan"
         app:layout_constraintBottom_toBottomOf="parent"

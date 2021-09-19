@@ -1,4 +1,17 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Ontology</string>
     <string name="default_web_client_id_hardcode">867339313395-lks5qqe1heeijqa0564p2ld4tlreglhc.apps.googleusercontent.com</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_plans">Plans</string>
+    <string name="title_community">Community</string>
+    <string name="title_me">Me</string>
+    <string name="plan_button_text">Plan</string>
+    <string name="home_main_message_text">Message</string>
+    <string name="home_main_title_text">Title</string>
+    <string name="checkin_button_text">Check In</string>
+    <string name="home_main_image_description">Home image</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

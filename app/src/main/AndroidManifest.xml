@@ -10,15 +10,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".ViewHistory"
+            android:exported="true" />
+        <activity
+            android:name=".SelectSport"
+            android:exported="true" />
+        <activity
+            android:name=".SelectFacility2"
+            android:exported="true" />
+        <activity
+            android:name=".SelectFacility"
+            android:exported="true" />
+        <activity
+            android:name=".CheckIn"
+            android:exported="true" />
+        <activity
+            android:name=".AddPlan"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"/>
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true" />
+        <activity android:name=".UserActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -6,27 +6,28 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.databinding.ActivityMainBinding;
+//import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.databinding.ActivityUserBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     public static final String ANONYMOUS = "anonymous";
 
     private GoogleSignInClient mSignInClient;
 
-    private ActivityMainBinding mBinding;
+    private ActivityUserBinding mBinding;
 
     private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        mBinding = ActivityUserBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
         mBinding.signOut.setOnClickListener(v -> signOut());
         // Initialize Firebase Auth and check if the user is signed in

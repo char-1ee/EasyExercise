@@ -41,18 +41,17 @@ public class ViewPlan extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
-                    case R.id.home:
+                    case R.id.navigation_home:
                         Intent intent0;
                         intent0 = new Intent(ViewPlan.this, MainActivity.class);
                         startActivity(intent0);
                         return true;
-
-                    case R.id.plan:
+                    case R.id.navigation_plans:
                         Intent intent1;
                         intent1 = new Intent(ViewPlan.this, SelectSport.class);
                         startActivity(intent1);
                         return true;
-                    case R.id.me:
+                    case R.id.navigation_me:
                         Intent intent3;
                         intent3 = new Intent(ViewPlan.this, ViewPlan.class);
                         startActivity(intent3);

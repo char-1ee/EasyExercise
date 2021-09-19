@@ -59,9 +59,9 @@ public class FacilityRecyclerViewAdapter extends RecyclerView.Adapter<FacilityRe
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            mSelectFacilityDistance= (TextView) itemView.findViewById(R.id.select_facility_distance2);
-            mSelectFacilityImage= (ImageView) itemView.findViewById(R.id.select_facility_image2);
-            mSelectFacilityName= (TextView)itemView.findViewById(R.id.select_facility_name2);
+            mSelectFacilityDistance= (TextView) itemView.findViewById(R.id.plan_date);
+            mSelectFacilityImage= (ImageView) itemView.findViewById(R.id.plan_sport_image);
+            mSelectFacilityName= (TextView)itemView.findViewById(R.id.plan_sport_name);
 
         }
     }

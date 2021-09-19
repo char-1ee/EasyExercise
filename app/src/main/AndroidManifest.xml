@@ -10,8 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ViewHistory"
-            android:exported="true" />
+            android:name=".ViewMe"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ViewPlan">
+
+        </activity>
         <activity
             android:name=".SelectSport"
             android:exported="true" />
@@ -26,15 +36,15 @@
             android:exported="true" />
         <activity
             android:name=".AddPlan"
-            android:exported="true" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".MainActivity2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -48,9 +58,7 @@
         <activity
             android:name=".signin.SignInActivity"
             android:exported="true" />
-        <activity android:name=".UserActivity">
-
-        </activity>
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>

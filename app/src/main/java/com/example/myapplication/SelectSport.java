@@ -67,14 +67,14 @@ public class SelectSport extends AppCompatActivity {
                         intent0 = new Intent(SelectSport.this, MainActivity2.class);
                         startActivity(intent0);
                         return true;
-                    case R.id.navigation_community:
+                    case R.id.workOutHistory:
                         Intent intent2;
-                        intent2 = new Intent(SelectSport.this, ViewHistory.class);
+                        intent2 = new Intent(SelectSport.this, ViewPlan.class);
                         startActivity(intent2);
                         return true;
                     case R.id.navigation_me:
                         Intent intent3;
-                        intent3 = new Intent(SelectSport.this, ViewHistory.class);
+                        intent3 = new Intent(SelectSport.this, ViewPlan.class);
                         startActivity(intent3);
                         return true;
                 }

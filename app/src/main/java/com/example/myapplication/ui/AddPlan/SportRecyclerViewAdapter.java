@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.plan;
+package com.example.myapplication.ui.AddPlan;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;

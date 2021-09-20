@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.plan;
+package com.example.myapplication.ui.AddPlan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.example.myapplication.R;
 import com.example.myapplication.classes.Sport;
+import com.example.myapplication.ui.ViewPlan.ViewPlan;
 import com.example.myapplication.ui.main.MainActivity2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

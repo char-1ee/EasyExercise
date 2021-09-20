@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.history;
+package com.example.myapplication.ui.ViewMe;
 
 import android.view.LayoutInflater;
 import android.view.View;

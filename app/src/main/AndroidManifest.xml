@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.me.ViewMe"
+            android:name=".ui.ViewMe.ViewMe"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,23 +18,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.plan.ViewPlan">
+        <activity android:name=".ui.ViewPlan.ViewPlan">
 
         </activity>
         <activity
-            android:name=".ui.plan.SelectSport"
+            android:name=".ui.AddPlan.SelectSport"
             android:exported="true" />
         <activity
-            android:name=".ui.plan.SelectFacility2"
+            android:name=".ui.AddPlan.SelectFacility2"
             android:exported="true" />
         <activity
-            android:name=".ui.plan.SelectFacility"
+            android:name=".ui.AddPlan.SelectFacility"
             android:exported="true" />
         <activity
             android:name=".ui.checkin.CheckIn"
             android:exported="true" />
         <activity
-            android:name=".ui.plan.AddPlan"
+            android:name=".ui.AddPlan.AddPlan"
             android:exported="true">
 
         </activity>

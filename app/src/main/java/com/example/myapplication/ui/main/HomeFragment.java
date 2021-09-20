@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.plan.SelectSport;
+import com.example.myapplication.ui.AddPlan.SelectSport;
 
 /**
  * A simple {@link Fragment} subclass.

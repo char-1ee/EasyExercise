@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.plan;
+package com.example.myapplication.ui.ViewPlan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.classes.Facility;
 import com.example.myapplication.classes.Sport;
 import com.example.myapplication.classes.WorkoutHistory;
+import com.example.myapplication.ui.AddPlan.SelectSport;
 import com.example.myapplication.ui.main.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

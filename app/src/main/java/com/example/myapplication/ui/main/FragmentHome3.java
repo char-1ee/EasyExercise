@@ -11,14 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.AddPlan.SelectSport;
+import com.example.myapplication.ui.addPlan.SelectSport;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link FragmentHome3#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class FragmentHome3 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public HomeFragment() {
+    public FragmentHome3() {
         // Required empty public constructor
     }
 
@@ -42,8 +42,8 @@ public class HomeFragment extends Fragment {
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static FragmentHome3 newInstance(String param1, String param2) {
+        FragmentHome3 fragment = new FragmentHome3();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

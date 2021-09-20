@@ -1,10 +1,7 @@
 package com.example.myapplication.ui.ViewPlan;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,10 +10,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.classes.Facility;
 import com.example.myapplication.classes.Sport;
 import com.example.myapplication.classes.WorkoutHistory;
-import com.example.myapplication.ui.AddPlan.SelectSport;
-import com.example.myapplication.ui.main.MainActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -28,7 +21,6 @@ public class ViewPlan extends AppCompatActivity {
     private List<WorkoutHistory> mWorkOutHistoryList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,31 +33,7 @@ public class ViewPlan extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.navigation_home:
-                        Intent intent0;
-                        intent0 = new Intent(ViewPlan.this, MainActivity.class);
-                        startActivity(intent0);
-                        return true;
-                    case R.id.navigation_plans:
-                        Intent intent1;
-                        intent1 = new Intent(ViewPlan.this, SelectSport.class);
-                        startActivity(intent1);
-                        return true;
-                    case R.id.navigation_me:
-                        Intent intent3;
-                        intent3 = new Intent(ViewPlan.this, ViewPlan.class);
-                        startActivity(intent3);
-                        return true;
-                }
-                return false;
-            }
-        });
+
     }
 
     private List<WorkoutHistory> getListData() {

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.classes.Sport;
-import com.example.myapplication.ui.AddPlan.SelectFacility2;
+import com.example.myapplication.ui.addPlan.SelectFacility2;
 
 import java.util.ArrayList;
 

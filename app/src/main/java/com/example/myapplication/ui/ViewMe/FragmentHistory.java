@@ -34,7 +34,7 @@ public class FragmentHistory extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v= inflater.inflate(R.layout.fragment_view_history, container, false);
+        v= inflater.inflate(R.layout.fragment_history, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         mAdapter = new HistoryRecyclerViewAdapter(getListData());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

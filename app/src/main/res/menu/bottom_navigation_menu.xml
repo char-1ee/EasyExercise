@@ -6,13 +6,13 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/title_home"/>
     <item
-        android:id="@+id/navigation_plans"
+        android:id="@+id/navigation_plan"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_checklist_rtl_24"
         android:title="@string/title_plans"/>
 
     <item
-        android:id="@+id/workOutHistory"
+        android:id="@+id/navigation_community"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_history_24"
         android:title="@string/title_community"/>

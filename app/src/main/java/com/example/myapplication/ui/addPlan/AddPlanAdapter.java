@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.AddPlan;
+package com.example.myapplication.ui.addPlan;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

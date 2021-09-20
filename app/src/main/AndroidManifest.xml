@@ -12,50 +12,34 @@
         <activity
             android:name=".ui.ViewMe.ViewMe"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.ViewMe.ViewHistory"
-            android:exported="true">
 
         </activity>
+
         <activity android:name=".ui.ViewPlan.ViewPlan"></activity>
         <activity
-            android:name=".ui.AddPlan.SelectSport"
+            android:name=".ui.addPlan.SelectSport"
             android:exported="true" />
         <activity
-            android:name=".ui.AddPlan.SelectFacility2"
+            android:name=".ui.addPlan.SelectFacility2"
             android:exported="true" />
         <activity
-            android:name=".ui.AddPlan.SelectFacility"
+            android:name=".ui.addPlan.SelectFacility"
             android:exported="true" />
         <activity
             android:name=".ui.checkin.CheckIn"
             android:exported="true" />
         <activity
-            android:name=".ui.AddPlan.AddPlan"
+            android:name=".ui.addPlan.AddPlan"
             android:exported="true"></activity>
-        <activity
-            android:name=".ui.main.MainActivity2"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.signin.SignInActivity"

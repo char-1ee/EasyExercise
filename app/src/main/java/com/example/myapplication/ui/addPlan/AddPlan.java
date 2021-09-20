@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.AddPlan;
+package com.example.myapplication.ui.addPlan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

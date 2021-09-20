@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.ViewMe;
+package com.example.myapplication.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,19 +11,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 
-public class FragmentMe extends Fragment {
+public class FragmentPlan extends Fragment {
     View v;
 
-
-    public FragmentMe() {
+    public FragmentPlan() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v= inflater.inflate(R.layout.fragment_me, container, false);
+        v= inflater.inflate(R.layout.fragment_plan, container, false);
         return v;
     }
-
-
 }

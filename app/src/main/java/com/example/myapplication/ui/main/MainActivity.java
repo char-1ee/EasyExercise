@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.navigation_community:
                             selectedFragment= new FragmentCommunity();
                             break;
-                        case R.id.navigation_me:
-                            Intent intent= new Intent(MainActivity.this, ViewMe.class);
-                            startActivity(intent);
-                            finish();
+                        case R.id.navigation_history:
+                            selectedFragment= new FragmentHistory();
                             break;
+                        case R.id.navigation_me:
+                            selectedFragment= new FragmentMe();
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();

@@ -18,6 +18,12 @@
         android:title="@string/title_community"/>
 
     <item
+        android:id="@+id/navigation_history"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        android:title="@string/title_history"/>
+
+    <item
         android:id="@+id/navigation_me"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_outline_24"

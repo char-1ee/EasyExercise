@@ -2,6 +2,7 @@
     <string name="app_name">Ontology</string>
     <string name="default_web_client_id_hardcode">867339313395-lks5qqe1heeijqa0564p2ld4tlreglhc.apps.googleusercontent.com</string>
 
+    <string name="title_history">History</string>
     <string name="title_home">Home</string>
     <string name="title_plans">Plans</string>
     <string name="title_community">Community</string>

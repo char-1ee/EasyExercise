@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 //import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityUserBinding;
-import com.example.myapplication.signin.SignInActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

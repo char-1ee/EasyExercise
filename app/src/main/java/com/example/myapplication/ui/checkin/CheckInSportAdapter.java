@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.checkin;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
+import com.example.myapplication.classes.Sport;
 
 import java.util.ArrayList;
 
@@ -38,16 +41,16 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     //Toast.makeText(context,"你选择的选项是"+secondList.get(position),Toast.LENGTH_SHORT).show();
                     index = position;
                     notifyDataSetChanged();
                 }
             }
         });
-        if(index==position){
+        if (index == position) {
             holder.rb_question_item.setChecked(true);
-            finalChoice= secondList.get(index);
+            finalChoice = secondList.get(index);
         } else {
             holder.rb_question_item.setChecked(false);
         }
@@ -58,15 +61,16 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
         return secondList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton rb_question_item;
         TextView tv_question_item;
         ImageView iv_question_item;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             rb_question_item = itemView.findViewById(R.id.check_in_sport_radio_button);
             tv_question_item = itemView.findViewById(R.id.check_in_sport_name);
-            iv_question_item= itemView.findViewById(R.id.check_in_sport_image);
+            iv_question_item = itemView.findViewById(R.id.check_in_sport_image);
         }
     }
 

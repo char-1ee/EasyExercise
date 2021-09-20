@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.plan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.classes.Facility;
+import com.example.myapplication.R;
+
 import java.util.List;
 
 public class FacilityRecyclerViewAdapter extends RecyclerView.Adapter<FacilityRecyclerViewAdapter.MyViewHolder> {
@@ -19,7 +22,7 @@ public class FacilityRecyclerViewAdapter extends RecyclerView.Adapter<FacilityRe
 
     public FacilityRecyclerViewAdapter(Context context, List<Facility> facilityList) {
         mFacilityList = facilityList;
-        mContext= context;
+        mContext = context;
     }
 
     @Override
@@ -59,9 +62,9 @@ public class FacilityRecyclerViewAdapter extends RecyclerView.Adapter<FacilityRe
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            mSelectFacilityDistance= (TextView) itemView.findViewById(R.id.plan_date);
-            mSelectFacilityImage= (ImageView) itemView.findViewById(R.id.plan_sport_image);
-            mSelectFacilityName= (TextView)itemView.findViewById(R.id.plan_sport_name);
+            mSelectFacilityDistance = (TextView) itemView.findViewById(R.id.plan_date);
+            mSelectFacilityImage = (ImageView) itemView.findViewById(R.id.plan_sport_image);
+            mSelectFacilityName = (TextView) itemView.findViewById(R.id.plan_sport_name);
 
         }
     }

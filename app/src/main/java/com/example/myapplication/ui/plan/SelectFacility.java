@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.plan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.myapplication.classes.Facility;
+import com.example.myapplication.R;
+import com.example.myapplication.classes.Sport;
+import com.example.myapplication.ui.main.MainActivity2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -45,7 +49,6 @@ public class SelectFacility extends AppCompatActivity {
                         intent0 = new Intent(getApplicationContext(), MainActivity2.class);
                         startActivity(intent0);
                         break;
-
                     case R.id.navigation_plans:
                         Intent intent1;
                         intent1 = new Intent(getApplicationContext(), SelectSport.class);
@@ -65,18 +68,16 @@ public class SelectFacility extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
-    private List<Facility> getListData(){
+    private List<Facility> getListData() {
         mFacilityList = new ArrayList<Facility>();
         List<Sport> mSportList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming",R.drawable.swimming, true));
+            mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
         }
         for (int i = 1; i <= 25; i++) {
-            mFacilityList.add(new Facility("north hill", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList));
+            mFacilityList.add(new Facility("North Hill", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList));
         }
         return mFacilityList;
     }

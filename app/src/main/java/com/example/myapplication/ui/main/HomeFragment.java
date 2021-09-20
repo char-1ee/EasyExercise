@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myapplication.R;
+import com.example.myapplication.ui.plan.SelectSport;
 
 /**
  * A simple {@link Fragment} subclass.

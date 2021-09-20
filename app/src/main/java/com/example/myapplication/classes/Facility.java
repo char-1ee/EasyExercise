@@ -1,4 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.classes;
+
+import com.example.myapplication.classes.Sport;
 
 import java.util.List;
 
@@ -14,23 +16,31 @@ public class Facility {
 
     public Facility(String name, String telephoneNo, String address, int image, List<Sport> sports) {
         this.name = name;
-        this.address= address;
-        this.image= image;
-        this.sports= sports;
-        this.telephoneNo= telephoneNo;
+        this.address = address;
+        this.image = image;
+        this.sports = sports;
+        this.telephoneNo = telephoneNo;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getWebsite(){return website;}
+    public String getWebsite() {
+        return website;
+    }
 
-    public String getTelephoneNo(){return telephoneNo;}
+    public String getTelephoneNo() {
+        return telephoneNo;
+    }
 
-    public int getImage(){return image;};
+    public int getImage() {
+        return image;
+    }
 
-    public List<Sport> getSports(){return sports;}
+    public List<Sport> getSports() {
+        return sports;
+    }
 
     public void setSelected(boolean selected) {
         isSelected = selected;

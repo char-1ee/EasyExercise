@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.myapplication.ui.checkin.CheckIn;
+import com.example.myapplication.R;
+import com.example.myapplication.ui.plan.SelectSport;
+import com.example.myapplication.ui.plan.ViewPlan;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -21,17 +25,17 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        mMakePlanButton= (Button)findViewById(R.id.make_plan_button);
-        mCheckInButton= (Button)findViewById(R.id.check_in_button);
-        mBottomNavigationView= (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mMakePlanButton = (Button) findViewById(R.id.make_plan_button);
+        mCheckInButton = (Button) findViewById(R.id.check_in_button);
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch(id){
+                switch (id) {
                     case R.id.navigation_plans:
                         Intent intent1;
-                        intent1= new Intent(MainActivity2.this, ViewPlan.class);
+                        intent1 = new Intent(MainActivity2.this, ViewPlan.class);
                         startActivity(intent1);
                         return true;
                     case R.id.workOutHistory:

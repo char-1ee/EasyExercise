@@ -1,18 +1,18 @@
-package com.example.myapplication;
+package com.example.myapplication.classes;
 
 import java.sql.Time;
 
-public class WorkOut {
+public class Workout {
     private Sport sport;
     private Facility facility;
     private float duration;
     private Time startTIme;
 
-    public WorkOut(Sport sport, Facility facility, float duration, Time startTIme){
-        this.duration= duration;
-        this.sport= sport;
-        this.startTIme= startTIme;
-        this.facility= facility;
+    public Workout(Sport sport, Facility facility, float duration, Time startTIme) {
+        this.duration = duration;
+        this.sport = sport;
+        this.startTIme = startTIme;
+        this.facility = facility;
     }
 
     public Facility getFacility() {

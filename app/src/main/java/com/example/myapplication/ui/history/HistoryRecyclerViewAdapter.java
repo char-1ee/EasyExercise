@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.history;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
+import com.example.myapplication.classes.WorkoutHistory;
+
 import java.util.List;
 
-public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
+public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
-    private List<WorkOutHistory> mPlanList;
+    private List<WorkoutHistory> mWorkOutHistoryList;
     private int lastSelectedPosition = -1;
 
-    public PlanRecyclerViewAdapter(List<WorkOutHistory> planList) {
-        mPlanList = planList;
+    public HistoryRecyclerViewAdapter(List<WorkoutHistory> workOutHistoryList) {
+        mWorkOutHistoryList = workOutHistoryList;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkOutHistory workOutHistory = mPlanList.get(position);
+        final WorkoutHistory workOutHistory = mWorkOutHistoryList.get(position);
         holder.facilityView.setText(workOutHistory.getFacility().getName());
         holder.sportView.setText(workOutHistory.getSport().getText());
         holder.dateView.setText(workOutHistory.getDate().toString());
@@ -40,7 +43,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public int getItemCount() {
-        return mPlanList == null ? 0 : mPlanList.size();
+        return mWorkOutHistoryList == null ? 0 : mWorkOutHistoryList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,12 +60,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            planType= (TextView)itemView.findViewById(R.id.plan_type);
+            planType = (TextView) itemView.findViewById(R.id.plan_type);
             sportView = (TextView) itemView.findViewById(R.id.plan_sport_name);
-            facilityView=(TextView) itemView.findViewById(R.id.plan_facility_name);
-            dateView=(TextView)itemView.findViewById(R.id.plan_date);
-            imageView= (ImageView)itemView.findViewById(R.id.plan_sport_image);
-            cardView= (CardView)itemView.findViewById(R.id.history_card);
+            facilityView = (TextView) itemView.findViewById(R.id.plan_facility_name);
+            dateView = (TextView) itemView.findViewById(R.id.plan_date);
+            imageView = (ImageView) itemView.findViewById(R.id.plan_sport_image);
+            cardView = (CardView) itemView.findViewById(R.id.history_card);
         }
     }
 }

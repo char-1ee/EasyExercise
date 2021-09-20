@@ -1,27 +1,27 @@
-package com.example.myapplication;
+package com.example.myapplication.classes;
 
 public class Sport {
     private String text;
     private int image;
     private boolean isSelected = false;
     private boolean inDoor;
-    private boolean isRecommended= false;
+    private boolean isRecommended = false;
 
     public Sport(String text, int image, boolean inDoor) {
         this.text = text;
-        this.image= image;
-        this.inDoor= inDoor;
+        this.image = image;
+        this.inDoor = inDoor;
     }
 
     public String getText() {
         return text;
     }
 
-    public int getImage(){
+    public int getImage() {
         return image;
     }
 
-    public boolean isInDoor(){
+    public boolean isInDoor() {
         return inDoor;
     }
 
@@ -33,10 +33,11 @@ public class Sport {
         return isSelected;
     }
 
-    public void setRecommended(boolean recommended){
-        isRecommended= recommended;
+    public void setRecommended(boolean recommended) {
+        isRecommended = recommended;
     }
-    public boolean isRecommended(){
+
+    public boolean isRecommended() {
         return isRecommended;
     }
 }

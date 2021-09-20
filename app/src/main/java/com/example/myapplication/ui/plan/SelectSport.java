@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.plan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.myapplication.R;
+import com.example.myapplication.classes.Sport;
+import com.example.myapplication.ui.main.MainActivity2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -25,13 +28,13 @@ public class SelectSport extends AppCompatActivity {
     private RecyclerView mRecyclerView, mRecyclerView2;
     private RecyclerView.Adapter mAdapter, mAdapter2;
     private BottomNavigationView mBottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_sport);
 
-        mSportChoicesConfirmButton= (Button) findViewById(R.id.sport_choices_confirm_button);
+        mSportChoicesConfirmButton = (Button) findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mAdapter = new SportRecyclerViewAdapter(getListData());
         LinearLayoutManager manager = new GridLayoutManager(SelectSport.this, 2);
@@ -49,7 +52,7 @@ public class SelectSport extends AppCompatActivity {
         mSportChoicesConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context= SelectSport.this;
+                Context context = SelectSport.this;
                 Class destinationActivity = SelectFacility.class;
                 Intent startChildActivityIntent = new Intent(context, destinationActivity);
                 startActivity(startChildActivityIntent);
@@ -86,7 +89,7 @@ public class SelectSport extends AppCompatActivity {
     private List<Sport> getListData() {
         mSportList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming",R.drawable.swimming, true));
+            mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
         }
         return mSportList;
     }

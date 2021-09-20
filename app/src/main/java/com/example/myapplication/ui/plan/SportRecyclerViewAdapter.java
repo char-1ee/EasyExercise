@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.plan;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
+import com.example.myapplication.classes.Sport;
 
 import java.util.List;
 
@@ -46,19 +49,17 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         private View view;
         private TextView textView;
         private ImageView imageView;
         private CardView cardView;
 
-
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            cardView= (CardView)itemView.findViewById(R.id.sportView);
+            cardView = (CardView) itemView.findViewById(R.id.sportView);
             textView = (TextView) itemView.findViewById(R.id.sport_title);
-            imageView= (ImageView) itemView.findViewById(R.id.sport_image);
+            imageView = (ImageView) itemView.findViewById(R.id.sport_image);
         }
     }
 }

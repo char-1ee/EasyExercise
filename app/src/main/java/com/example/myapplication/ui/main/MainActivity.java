@@ -1,9 +1,13 @@
 package com.example.myapplication.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ViewMe.FragmentHistory;
+import com.example.myapplication.ui.ViewMe.FragmentMe;
+import com.example.myapplication.ui.ViewMe.ViewMe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
 
@@ -39,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.navigation_community:
                             selectedFragment= new FragmentCommunity();
+                            break;
+                        case R.id.navigation_me:
+                            Intent intent= new Intent(MainActivity.this, ViewMe.class);
+                            startActivity(intent);
+                            finish();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

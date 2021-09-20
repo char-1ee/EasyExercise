@@ -1,11 +1,14 @@
 package com.example.myapplication.ui.checkin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,7 +16,13 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.classes.Sport;
+import com.example.myapplication.ui.ViewMe.ViewMe;
 import com.example.myapplication.ui.addPlan.SelectFacility2;
+import com.example.myapplication.ui.main.FragmentCommunity;
+import com.example.myapplication.ui.main.FragmentHome;
+import com.example.myapplication.ui.main.FragmentPlan;
+import com.example.myapplication.ui.main.MainActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -57,5 +66,38 @@ public class CheckIn extends AppCompatActivity {
 
             }
         });
+
+//        BottomNavigationView navView = findViewById(R.id.nav_view);
+//        navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+
+
     }
+
+//    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
+//            new BottomNavigationView.OnNavigationItemSelectedListener() {
+//                @Override
+//                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                    Fragment selectedFragment= null;
+//                    switch (item.getItemId()){
+//                        case R.id.navigation_home:
+//                            selectedFragment= new FragmentHome();
+//                            break;
+//                        case R.id.navigation_plan:
+//                            selectedFragment= new FragmentPlan();
+//                            break;
+//                        case R.id.navigation_community:
+//                            selectedFragment= new FragmentCommunity();
+//                            break;
+//                        case R.id.navigation_me:
+//                            Intent intent= new Intent(CheckIn.this, ViewMe.class);
+//                            startActivity(intent);
+//                            finish();
+//                            break;
+//                    }
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                            selectedFragment).commit();
+//                    return true;
+//                }
+//            };
 }

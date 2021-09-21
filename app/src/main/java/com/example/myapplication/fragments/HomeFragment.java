@@ -1,0 +1,51 @@
+package com.example.myapplication.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.myapplication.R;
+import com.example.myapplication.activity.AddPlanActivity;
+import com.example.myapplication.activity.CheckInActivity;
+
+public class HomeFragment extends Fragment {
+    View v;
+    Button mMakePlanButton;
+    Button mCheckInButton;
+
+    public HomeFragment() {
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_home, container, false);
+        mMakePlanButton= v.findViewById(R.id.home_plan_button);
+        mCheckInButton= v.findViewById(R.id.home_checkin_button);
+
+        mMakePlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), AddPlanActivity.class);
+                startActivity(intent);
+            }
+        });
+        mCheckInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), CheckInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return v;
+    }
+
+}

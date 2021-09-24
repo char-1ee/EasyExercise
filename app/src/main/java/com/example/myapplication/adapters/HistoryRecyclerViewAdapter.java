@@ -34,7 +34,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final WorkoutHistoryItem workOutHistory = mWorkOutHistoryList.get(position);
         holder.facilityView.setText(workOutHistory.getFacility().getName());
-        holder.sportView.setText(workOutHistory.getSport().getText());
+        holder.sportView.setText(workOutHistory.getSport().getName());
         holder.dateView.setText(workOutHistory.getDate().toString());
         holder.imageView.setImageResource(workOutHistory.getSport().getImage());
         holder.planType.setText(String.valueOf(workOutHistory.isPublic()));

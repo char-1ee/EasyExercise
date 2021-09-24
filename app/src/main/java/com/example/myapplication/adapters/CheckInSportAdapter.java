@@ -36,7 +36,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.tv_question_item.setText(secondList.get(position).getText());
+        holder.tv_question_item.setText(secondList.get(position).getName());
         holder.iv_question_item.setImageResource(secondList.get(position).getImage());
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

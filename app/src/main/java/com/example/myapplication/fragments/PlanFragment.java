@@ -47,7 +47,7 @@ public class PlanFragment extends Fragment {
             Sport sport = new Sport("Swimming", R.drawable.swimming, false);
             List<Sport> mSportList = new ArrayList<>();
             mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
-            Facility facility = new Facility("North Hill", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList);
+            Facility facility = new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList);
             Date date = new Date(2021, 9, 19);
             Time time = new Time(10, 35, 4);
             mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, 24, time, true, date));

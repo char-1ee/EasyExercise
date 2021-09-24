@@ -8,6 +8,13 @@ public class Workout {
     private float duration;
     private Time startTIme;
 
+    public Workout(Sport sport, Facility facility, float duration, Time startTIme) {
+        this.sport = sport;
+        this.facility = facility;
+        this.duration = duration;
+        this.startTIme = startTIme;
+    }
+
     public Sport getSport() {
         return sport;
     }
@@ -38,12 +45,5 @@ public class Workout {
 
     public void setStartTIme(Time startTIme) {
         this.startTIme = startTIme;
-    }
-
-    public Workout(Sport sport, Facility facility, float duration, Time startTIme) {
-        this.duration = duration;
-        this.sport = sport;
-        this.startTIme = startTIme;
-        this.facility = facility;
     }
 }

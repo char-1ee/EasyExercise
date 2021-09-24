@@ -39,7 +39,7 @@ public class SelectFacility2Activity extends AppCompatActivity {
             mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
         }
         for (int i = 1; i <= 25; i++) {
-            mFacilityList.add(new Facility("North Hill", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList));
+            mFacilityList.add(new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList));
         }
         return mFacilityList;
     }

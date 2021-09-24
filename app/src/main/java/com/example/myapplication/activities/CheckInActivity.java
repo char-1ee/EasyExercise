@@ -45,7 +45,7 @@ public class CheckInActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getText() + " selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
 

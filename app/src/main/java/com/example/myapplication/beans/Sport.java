@@ -1,18 +1,24 @@
 package com.example.myapplication.beans;
 
 public class Sport {
-    private String text;
+    private String name;
     private int image;
+    private boolean isIndoor;
     private boolean isSelected = false;
-    private boolean inDoor;
     private boolean isRecommended = false;
 
-    public String getText() {
-        return text;
+    public Sport(String name, int image, boolean isIndoor) {
+        this.name = name;
+        this.image = image;
+        this.isIndoor = isIndoor;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getImage() {
@@ -23,6 +29,14 @@ public class Sport {
         this.image = image;
     }
 
+    public boolean isIndoor() {
+        return isIndoor;
+    }
+
+    public void setIndoor(boolean indoor) {
+        this.isIndoor = indoor;
+    }
+
     public boolean isSelected() {
         return isSelected;
     }
@@ -31,25 +45,11 @@ public class Sport {
         isSelected = selected;
     }
 
-    public boolean isInDoor() {
-        return inDoor;
-    }
-
-    public void setInDoor(boolean inDoor) {
-        this.inDoor = inDoor;
-    }
-
     public boolean isRecommended() {
         return isRecommended;
     }
 
     public void setRecommended(boolean recommended) {
         isRecommended = recommended;
-    }
-
-    public Sport(String text, int image, boolean inDoor) {
-        this.text = text;
-        this.image = image;
-        this.inDoor = inDoor;
     }
 }

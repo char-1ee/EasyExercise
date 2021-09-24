@@ -11,12 +11,13 @@ public class Facility {
     private List<Sport> sports;
     private boolean isSelected = false;
 
-    public Facility(String name, String telephoneNo, String address, int image, List<Sport> sports) {
+    public Facility(String name, String website, String telephoneNo, String address, int image, List<Sport> sports) {
         this.name = name;
+        this.website = website;
+        this.telephoneNo = telephoneNo;
         this.address = address;
         this.image = image;
         this.sports = sports;
-        this.telephoneNo = telephoneNo;
     }
 
     public String getName() {

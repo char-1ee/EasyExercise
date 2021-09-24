@@ -32,7 +32,7 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Sport sport = mSportList.get(position);
-        holder.textView.setText(sport.getText());
+        holder.textView.setText(sport.getName());
         holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

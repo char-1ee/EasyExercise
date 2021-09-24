@@ -43,7 +43,7 @@ public class AddPlanActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AddPlanActivity.this, "Option" + firstAdapter.finalChoice.getText() + "selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPlanActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
     }

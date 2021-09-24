@@ -7,37 +7,50 @@ public class Sport {
     private boolean inDoor;
     private boolean isRecommended = false;
 
-    public Sport(String text, int image, boolean inDoor) {
-        this.text = text;
-        this.image = image;
-        this.inDoor = inDoor;
-    }
-
     public String getText() {
         return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getImage() {
         return image;
     }
 
-    public boolean isInDoor() {
-        return inDoor;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public boolean isSelected() {
         return isSelected;
     }
 
-    public void setRecommended(boolean recommended) {
-        isRecommended = recommended;
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isInDoor() {
+        return inDoor;
+    }
+
+    public void setInDoor(boolean inDoor) {
+        this.inDoor = inDoor;
     }
 
     public boolean isRecommended() {
         return isRecommended;
     }
+
+    public void setRecommended(boolean recommended) {
+        isRecommended = recommended;
+    }
+
+    public Sport(String text, int image, boolean inDoor) {
+        this.text = text;
+        this.image = image;
+        this.inDoor = inDoor;
+    }
+
 }

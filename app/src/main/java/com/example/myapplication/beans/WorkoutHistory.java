@@ -8,33 +8,33 @@ public class WorkoutHistory extends Workout {
     private Date date;
     private Time endTime;
 
-    public WorkoutHistory(Sport sport, Facility facility, float duration, Time startTIme, boolean isPublic, Date date) {
-        super(sport, facility, duration, startTIme);
-        this.date = date;
-        this.isPublic = isPublic;
+    public boolean isPublic() {
+        return isPublic;
     }
 
-    public Facility getFacility() {
-        return super.getFacility();
-    }
-
-    public float getDuration() {
-        return super.getDuration();
-    }
-
-    public Sport getSport() {
-        return super.getSport();
-    }
-
-    public Time getStartTIme() {
-        return super.getStartTIme();
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public boolean isPublic() {
-        return isPublic;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public WorkoutHistory(Sport sport, Facility facility, float duration, Time startTIme, boolean isPublic, Date date) {
+        super(sport, facility, duration, startTIme);
+        this.date = date;
+        this.isPublic = isPublic;
     }
 }

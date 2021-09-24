@@ -14,27 +14,27 @@ public class WorkoutHistoryItem extends Workout {
         this.isPublic = isPublic;
     }
 
-    public Facility getFacility() {
-        return super.getFacility();
+    public boolean isPublic() {
+        return isPublic;
     }
 
-    public float getDuration() {
-        return super.getDuration();
-    }
-
-    public Sport getSport() {
-        return super.getSport();
-    }
-
-    public Time getStartTIme() {
-        return super.getStartTIme();
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public boolean isPublic() {
-        return isPublic;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
     }
 }

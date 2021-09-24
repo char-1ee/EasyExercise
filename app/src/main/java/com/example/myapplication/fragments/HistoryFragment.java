@@ -1,4 +1,4 @@
-package com.example.myapplication.fragment;
+package com.example.myapplication.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.bean.Facility;
-import com.example.myapplication.bean.Sport;
-import com.example.myapplication.bean.WorkoutHistory;
-import com.example.myapplication.adapter.HistoryRecyclerViewAdapter;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.WorkoutHistory;
+import com.example.myapplication.adapters.HistoryRecyclerViewAdapter;
 
 import java.sql.Time;
 import java.util.ArrayList;

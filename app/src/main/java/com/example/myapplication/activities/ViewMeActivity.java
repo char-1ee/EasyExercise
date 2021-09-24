@@ -19,7 +19,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 public class ViewMeActivity extends AppCompatActivity {
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private HistoryPagerAdapter historyPagerAdapter;
@@ -29,11 +28,11 @@ public class ViewMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_me);
 
-        tabLayout= (TabLayout) findViewById(R.id.tab_layout);
-        viewPager=(ViewPager) findViewById(R.id.view_pager);
-        historyPagerAdapter= new HistoryPagerAdapter(getSupportFragmentManager());
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        historyPagerAdapter = new HistoryPagerAdapter(getSupportFragmentManager());
         historyPagerAdapter.AddFragment(new MeFragment(), "Me");
-        historyPagerAdapter.AddFragment(new HistoryFragment(),"History");
+        historyPagerAdapter.AddFragment(new HistoryFragment(), "History");
 
         viewPager.setAdapter(historyPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -43,20 +42,20 @@ public class ViewMeActivity extends AppCompatActivity {
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment= null;
-                    switch (item.getItemId()){
+                    Fragment selectedFragment = null;
+                    switch (item.getItemId()) {
                         case R.id.navigation_home:
-                            selectedFragment= new HomeFragment();
+                            selectedFragment = new HomeFragment();
                             break;
                         case R.id.navigation_plan:
-                            selectedFragment= new PlanFragment();
+                            selectedFragment = new PlanFragment();
                             break;
                         case R.id.navigation_community:
-                            selectedFragment= new CommunityFragment();
+                            selectedFragment = new CommunityFragment();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

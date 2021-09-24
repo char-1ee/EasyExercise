@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectFacility2Activity extends AppCompatActivity {
-
     private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;

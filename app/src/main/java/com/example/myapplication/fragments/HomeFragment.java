@@ -27,20 +27,20 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home, container, false);
-        mMakePlanButton= v.findViewById(R.id.home_plan_button);
-        mCheckInButton= v.findViewById(R.id.home_checkin_button);
+        mMakePlanButton = v.findViewById(R.id.home_plan_button);
+        mCheckInButton = v.findViewById(R.id.home_checkin_button);
 
         mMakePlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getActivity(), AddPlanActivity.class);
+                Intent intent = new Intent(getActivity(), AddPlanActivity.class);
                 startActivity(intent);
             }
         });
         mCheckInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getActivity(), CheckInActivity.class);
+                Intent intent = new Intent(getActivity(), CheckInActivity.class);
                 startActivity(intent);
             }
         });

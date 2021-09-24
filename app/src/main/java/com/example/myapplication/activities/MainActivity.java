@@ -30,26 +30,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment= null;
-                    switch (item.getItemId()){
+                    Fragment selectedFragment = null;
+                    switch (item.getItemId()) {
                         case R.id.navigation_home:
-                            selectedFragment= new HomeFragment();
+                            selectedFragment = new HomeFragment();
                             break;
                         case R.id.navigation_plan:
-                            selectedFragment= new PlanFragment();
+                            selectedFragment = new PlanFragment();
                             break;
                         case R.id.navigation_community:
-                            selectedFragment= new CommunityFragment();
+                            selectedFragment = new CommunityFragment();
                             break;
                         case R.id.navigation_history:
-                            selectedFragment= new HistoryFragment();
+                            selectedFragment = new HistoryFragment();
                             break;
                         case R.id.navigation_me:
-                            selectedFragment= new MeFragment();
+                            selectedFragment = new MeFragment();
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();

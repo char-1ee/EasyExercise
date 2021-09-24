@@ -27,13 +27,14 @@ public class PlanFragment extends Fragment {
     private List<WorkoutHistory> mWorkOutHistoryList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+
     public PlanFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v= inflater.inflate(R.layout.fragment_plan, container, false);
+        v = inflater.inflate(R.layout.fragment_plan, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         mAdapter = new PlanRecyclerViewAdapter(getListData());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

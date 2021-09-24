@@ -62,7 +62,6 @@ public class CheckInActivity extends AppCompatActivity {
 //        navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
 
-
     }
 
 //    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=

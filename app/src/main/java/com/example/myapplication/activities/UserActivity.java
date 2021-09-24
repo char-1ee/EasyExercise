@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserActivity extends AppCompatActivity {
-
     public static final String ANONYMOUS = "anonymous";
 
     private GoogleSignInClient mSignInClient;

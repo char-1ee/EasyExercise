@@ -15,11 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectFacilityActivity extends AppCompatActivity {
-
     private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

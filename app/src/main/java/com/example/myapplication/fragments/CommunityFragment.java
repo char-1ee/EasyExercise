@@ -13,6 +13,7 @@ import com.example.myapplication.R;
 
 public class CommunityFragment extends Fragment {
     View v;
+
     public CommunityFragment() {
     }
 

@@ -16,13 +16,11 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ExerciseActivity extends AppCompatActivity
-{
+public class ExerciseActivity extends AppCompatActivity {
     TextView timerText;
     Button stopStartButton;
 
     Button checkOutButton;
-
 
     Timer timer;
     TimerTask timerTask;
@@ -31,14 +29,13 @@ public class ExerciseActivity extends AppCompatActivity
     boolean timerStarted = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
         timerText = (TextView) findViewById(R.id.timerText);
         stopStartButton = (Button) findViewById(R.id.start_stop_button);
-        checkOutButton= (Button) findViewById(R.id.check_out_button);
+        checkOutButton = (Button) findViewById(R.id.check_out_button);
 
         timer = new Timer();
         timerStarted = true;
@@ -48,17 +45,13 @@ public class ExerciseActivity extends AppCompatActivity
 
     }
 
-    public void startStopTapped(View view)
-    {
-        if(timerStarted == false)
-        {
+    public void startStopTapped(View view) {
+        if (timerStarted == false) {
             timerStarted = true;
             setButtonUI("STOP", R.color.purple_200);
 
             startTimer();
-        }
-        else
-        {
+        } else {
             timerStarted = false;
             setButtonUI("START", R.color.purple_700);
 
@@ -67,25 +60,18 @@ public class ExerciseActivity extends AppCompatActivity
     }
 
 
-
-    private void setButtonUI(String start, int color)
-    {
+    private void setButtonUI(String start, int color) {
         stopStartButton.setText(start);
         stopStartButton.setTextColor(ContextCompat.getColor(this, color));
     }
 
-    private void startTimer()
-    {
-        timerTask = new TimerTask()
-        {
+    private void startTimer() {
+        timerTask = new TimerTask() {
             @Override
-            public void run()
-            {
-                runOnUiThread(new Runnable()
-                {
+            public void run() {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         time++;
                         timerText.setText(getTimerText());
                     }
@@ -93,12 +79,11 @@ public class ExerciseActivity extends AppCompatActivity
             }
 
         };
-        timer.scheduleAtFixedRate(timerTask, 0 ,1000);
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
 
-    private String getTimerText()
-    {
+    private String getTimerText() {
         int rounded = (int) Math.round(time);
 
         int seconds = ((rounded % 86400) % 3600) % 60;
@@ -108,9 +93,8 @@ public class ExerciseActivity extends AppCompatActivity
         return formatTime(seconds, minutes, hours);
     }
 
-    private String formatTime(int seconds, int minutes, int hours)
-    {
-        return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
+    private String formatTime(int seconds, int minutes, int hours) {
+        return String.format("%02d", hours) + " : " + String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
     }
 
 }

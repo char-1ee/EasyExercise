@@ -11,16 +11,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.beans.WorkoutHistory;
+import com.example.myapplication.beans.WorkoutHistoryItem;
 
 import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
 
-    private List<WorkoutHistory> mPlanList;
+    private List<WorkoutHistoryItem> mPlanList;
     private int lastSelectedPosition = -1;
 
-    public PlanRecyclerViewAdapter(List<WorkoutHistory> planList) {
+    public PlanRecyclerViewAdapter(List<WorkoutHistoryItem> planList) {
         mPlanList = planList;
     }
 
@@ -32,7 +32,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutHistory workOutHistory = mPlanList.get(position);
+        final WorkoutHistoryItem workOutHistory = mPlanList.get(position);
         holder.facilityView.setText(workOutHistory.getFacility().getName());
         holder.sportView.setText(workOutHistory.getSport().getText());
         holder.dateView.setText(workOutHistory.getDate().toString());

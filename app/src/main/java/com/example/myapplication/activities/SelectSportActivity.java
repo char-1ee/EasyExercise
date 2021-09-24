@@ -53,8 +53,6 @@ public class SelectSportActivity extends AppCompatActivity {
                 startActivity(startChildActivityIntent);
             }
         });
-
-
     }
 
     private List<Sport> getListData() {

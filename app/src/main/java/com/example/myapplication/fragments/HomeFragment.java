@@ -16,7 +16,7 @@ import com.example.myapplication.activities.AddPlanActivity;
 import com.example.myapplication.activities.CheckInActivity;
 
 public class HomeFragment extends Fragment {
-    View v;
+    View view;
     Button mMakePlanButton;
     Button mCheckInButton;
 
@@ -26,9 +26,9 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_home, container, false);
-        mMakePlanButton = v.findViewById(R.id.home_plan_button);
-        mCheckInButton = v.findViewById(R.id.home_checkin_button);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        mMakePlanButton = view.findViewById(R.id.home_plan_button);
+        mCheckInButton = view.findViewById(R.id.home_checkin_button);
 
         mMakePlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        return v;
+        return view;
     }
 
 }

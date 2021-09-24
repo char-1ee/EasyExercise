@@ -74,5 +74,4 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
             iv_question_item = itemView.findViewById(R.id.check_in_sport_image);
         }
     }
-
 }

@@ -36,7 +36,7 @@ public class CheckInActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         imageView.setImageResource(R.drawable.swimming);
 
-        //RecyclerView适配器
+        // RecyclerView adapter
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInActivity.this, LinearLayoutManager.VERTICAL, false));
         CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInActivity.this, secondList);
         rv_test.setAdapter(firstAdapter);
@@ -45,7 +45,7 @@ public class CheckInActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CheckInActivity.this, "你选择的选项是" + firstAdapter.finalChoice.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getText() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
 

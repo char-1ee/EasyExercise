@@ -42,7 +42,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //Toast.makeText(context,"你选择的选项是"+secondList.get(position),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Option " + secondList.get(position) + " selected", Toast.LENGTH_SHORT).show();
                     index = position;
                     notifyDataSetChanged();
                 }

@@ -63,5 +63,4 @@ public class ViewMeActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
 }

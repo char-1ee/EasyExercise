@@ -12,15 +12,12 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 
 public class CommunityFragment extends Fragment {
-    View v;
-
-    public CommunityFragment() {
-    }
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_community, container, false);
-        return v;
+        view = inflater.inflate(R.layout.fragment_community, container, false);
+        return view;
     }
 }

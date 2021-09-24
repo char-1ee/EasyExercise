@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter;
+package com.example.myapplication.adapters;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.bean.Sport;
+import com.example.myapplication.beans.Sport;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter;
+package com.example.myapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.bean.Facility;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
-import com.example.myapplication.activity.AddPlanActivity;
+import com.example.myapplication.activities.AddPlanActivity;
 
 import java.util.List;
 

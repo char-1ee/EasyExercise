@@ -1,4 +1,4 @@
-package com.example.myapplication.activity;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.bean.Sport;
-import com.example.myapplication.adapter.CheckInSportAdapter;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.adapters.CheckInSportAdapter;
 
 import java.util.ArrayList;
 

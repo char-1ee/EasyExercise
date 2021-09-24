@@ -1,4 +1,4 @@
-package com.example.myapplication.activity;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.R;
-import com.example.myapplication.bean.Sport;
-import com.example.myapplication.adapter.SportRecyclerViewAdapter;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.adapters.SportRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

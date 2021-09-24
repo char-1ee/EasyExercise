@@ -1,4 +1,4 @@
-package com.example.myapplication.activity;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.myapplication.bean.Facility;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
-import com.example.myapplication.bean.Sport;
-import com.example.myapplication.adapter.FacilityRecyclerViewAdapter;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.adapters.FacilityRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

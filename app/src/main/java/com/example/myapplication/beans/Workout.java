@@ -1,4 +1,4 @@
-package com.example.myapplication.bean;
+package com.example.myapplication.beans;
 
 import java.sql.Time;
 

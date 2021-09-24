@@ -1,14 +1,14 @@
-package com.example.myapplication.activity;
+package com.example.myapplication.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.myapplication.R;
-import com.example.myapplication.fragment.HistoryFragment;
-import com.example.myapplication.fragment.MeFragment;
-import com.example.myapplication.fragment.CommunityFragment;
-import com.example.myapplication.fragment.HomeFragment;
-import com.example.myapplication.fragment.PlanFragment;
+import com.example.myapplication.fragments.HistoryFragment;
+import com.example.myapplication.fragments.MeFragment;
+import com.example.myapplication.fragments.CommunityFragment;
+import com.example.myapplication.fragments.HomeFragment;
+import com.example.myapplication.fragments.PlanFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
 

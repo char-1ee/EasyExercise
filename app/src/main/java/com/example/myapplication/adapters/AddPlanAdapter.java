@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter;
+package com.example.myapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.bean.Sport;
+import com.example.myapplication.beans.Sport;
 
 import java.util.ArrayList;
 

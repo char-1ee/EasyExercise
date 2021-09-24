@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =

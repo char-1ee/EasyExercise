@@ -46,6 +46,4 @@ public class Workout {
         this.startTIme = startTIme;
         this.facility = facility;
     }
-
-
 }

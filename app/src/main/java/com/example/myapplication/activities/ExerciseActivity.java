@@ -19,7 +19,6 @@ import java.util.TimerTask;
 public class ExerciseActivity extends AppCompatActivity {
     TextView timerText;
     Button stopStartButton;
-
     Button checkOutButton;
 
     Timer timer;
@@ -49,16 +48,13 @@ public class ExerciseActivity extends AppCompatActivity {
         if (timerStarted == false) {
             timerStarted = true;
             setButtonUI("STOP", R.color.purple_200);
-
             startTimer();
         } else {
             timerStarted = false;
             setButtonUI("START", R.color.purple_700);
-
             timerTask.cancel();
         }
     }
-
 
     private void setButtonUI(String start, int color) {
         stopStartButton.setText(start);
@@ -85,16 +81,15 @@ public class ExerciseActivity extends AppCompatActivity {
 
     private String getTimerText() {
         int rounded = (int) Math.round(time);
-
         int seconds = ((rounded % 86400) % 3600) % 60;
         int minutes = ((rounded % 86400) % 3600) / 60;
         int hours = ((rounded % 86400) / 3600);
-
         return formatTime(seconds, minutes, hours);
     }
 
     private String formatTime(int seconds, int minutes, int hours) {
-        return String.format("%02d", hours) + " : " + String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
+        return String.format("%02d", hours) + " : " +
+                String.format("%02d", minutes) + " : " +
+                String.format("%02d", seconds);
     }
-
 }

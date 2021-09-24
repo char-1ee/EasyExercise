@@ -27,9 +27,9 @@ public class CheckInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-        secondList.add(new Sport("swimming", R.drawable.swimming, true));
-        secondList.add(new Sport("swimming", R.drawable.swimming, true));
-        secondList.add(new Sport("swimming", R.drawable.swimming, true));
+        secondList.add(new Sport("Swimming", R.drawable.swimming, true));
+        secondList.add(new Sport("Swimming", R.drawable.swimming, true));
+        secondList.add(new Sport("Swimming", R.drawable.swimming, true));
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button1 = findViewById(R.id.check_in_sport_choice_button);
         button2 = findViewById(R.id.choose_another_facility_button);

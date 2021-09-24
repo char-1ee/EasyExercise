@@ -52,5 +52,4 @@ public class Sport {
         this.image = image;
         this.inDoor = inDoor;
     }
-
 }

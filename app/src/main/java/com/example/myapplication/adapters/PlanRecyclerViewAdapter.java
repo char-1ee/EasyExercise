@@ -16,7 +16,6 @@ import com.example.myapplication.beans.WorkoutHistoryItem;
 import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
-
     private List<WorkoutHistoryItem> mPlanList;
     private int lastSelectedPosition = -1;
 
@@ -47,7 +46,6 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         private View view;
         private TextView sportView;
         private TextView facilityView;
@@ -55,7 +53,6 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         private ImageView imageView;
         private CardView cardView;
         private TextView planType;
-
 
         private MyViewHolder(View itemView) {
             super(itemView);

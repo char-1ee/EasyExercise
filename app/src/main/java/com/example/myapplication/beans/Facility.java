@@ -11,6 +11,14 @@ public class Facility {
     private List<Sport> sports;
     private boolean isSelected = false;
 
+    public Facility(String name, String telephoneNo, String address, int image, List<Sport> sports) {
+        this.name = name;
+        this.address = address;
+        this.image = image;
+        this.sports = sports;
+        this.telephoneNo = telephoneNo;
+    }
+
     public String getName() {
         return name;
     }
@@ -65,13 +73,5 @@ public class Facility {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-    }
-
-    public Facility(String name, String telephoneNo, String address, int image, List<Sport> sports) {
-        this.name = name;
-        this.address = address;
-        this.image = image;
-        this.sports = sports;
-        this.telephoneNo = telephoneNo;
     }
 }

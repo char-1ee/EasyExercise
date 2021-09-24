@@ -47,7 +47,6 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         private View view;
         private TextView sportView;
         private TextView facilityView;

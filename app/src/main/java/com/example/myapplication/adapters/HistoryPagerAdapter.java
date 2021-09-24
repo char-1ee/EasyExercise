@@ -39,6 +39,4 @@ public class HistoryPagerAdapter extends FragmentPagerAdapter {
         fragments.add(fragment);
         titles.add(title);
     }
-
-
 }

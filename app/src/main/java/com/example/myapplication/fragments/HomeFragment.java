@@ -20,9 +20,6 @@ public class HomeFragment extends Fragment {
     Button mMakePlanButton;
     Button mCheckInButton;
 
-    public HomeFragment() {
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,5 +44,4 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
 }

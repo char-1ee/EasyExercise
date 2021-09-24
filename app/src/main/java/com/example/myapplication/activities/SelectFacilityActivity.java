@@ -30,7 +30,6 @@ public class SelectFacilityActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     private List<Facility> getListData() {

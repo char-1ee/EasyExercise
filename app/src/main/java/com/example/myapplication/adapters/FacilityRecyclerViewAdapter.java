@@ -37,7 +37,7 @@ public class FacilityRecyclerViewAdapter extends RecyclerView.Adapter<FacilityRe
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
         holder.mSelectFacilityImage.setImageResource(R.drawable.tanjong);
-        holder.mSelectFacilityDistance.setText("0.8 km away");
+        holder.mSelectFacilityDistance.setText("0.8 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

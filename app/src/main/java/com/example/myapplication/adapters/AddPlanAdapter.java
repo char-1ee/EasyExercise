@@ -43,7 +43,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-//                    Toast.makeText(context, "Option" + secondList.get(position) + "selected", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Option " + secondList.get(position) + " selected", Toast.LENGTH_SHORT).show();
                     index = position;
                     notifyDataSetChanged();
                 }

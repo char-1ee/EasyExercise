@@ -39,7 +39,6 @@ public class ViewMeActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =

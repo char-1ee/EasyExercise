@@ -1,6 +1,5 @@
-package com.example.myapplication.adapters;
+package com.example.myapplication.ui.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +16,13 @@ import com.example.myapplication.beans.Sport;
 
 import java.util.ArrayList;
 
-public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHolder> {
+public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapter.MyViewHolder> {
     public Sport finalChoice;
     private Context context;
     private ArrayList<Sport> secondList;
     private int index = -1;
 
-    public AddPlanAdapter(Context context, ArrayList<Sport> secondList) {
+    public CheckInSportAdapter(Context context, ArrayList<Sport> secondList) {
         this.context = context;
         this.secondList = secondList;
     }
@@ -36,7 +35,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tv_question_item.setText(secondList.get(position).getName());
         holder.iv_question_item.setImageResource(secondList.get(position).getImage());
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -74,4 +73,6 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
             iv_question_item = itemView.findViewById(R.id.check_in_sport_image);
         }
     }
+
 }
+

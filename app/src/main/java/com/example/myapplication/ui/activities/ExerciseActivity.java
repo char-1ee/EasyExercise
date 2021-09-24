@@ -1,5 +1,5 @@
 
-package com.example.myapplication.activities;
+package com.example.myapplication.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

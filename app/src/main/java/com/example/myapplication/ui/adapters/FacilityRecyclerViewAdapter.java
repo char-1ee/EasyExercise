@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters;
+package com.example.myapplication.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,25 +10,25 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.activities.CheckInActivity;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.activities.AddPlanActivity;
 
 import java.util.List;
 
-public class FacilityRecyclerViewAdapter2 extends RecyclerView.Adapter<FacilityRecyclerViewAdapter2.MyViewHolder> {
+public class FacilityRecyclerViewAdapter extends RecyclerView.Adapter<FacilityRecyclerViewAdapter.MyViewHolder> {
 
     private List<Facility> mFacilityList;
     private Context mContext;
 
-    public FacilityRecyclerViewAdapter2(Context context, List<Facility> facilityList) {
+    public FacilityRecyclerViewAdapter(Context context, List<Facility> facilityList) {
         mFacilityList = facilityList;
         mContext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.facility_item_row2, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.facility_item_row, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -37,11 +37,11 @@ public class FacilityRecyclerViewAdapter2 extends RecyclerView.Adapter<FacilityR
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
         holder.mSelectFacilityImage.setImageResource(R.drawable.tanjong);
-        holder.mSelectFacilityDistance.setText("0.6 km");
+        holder.mSelectFacilityDistance.setText("0.8 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Class destinationActivity = CheckInActivity.class;
+                Class destinationActivity = AddPlanActivity.class;
                 Intent startChildActivityIntent = new Intent(mContext, destinationActivity);
                 mContext.startActivity(startChildActivityIntent);
             }
@@ -70,4 +70,3 @@ public class FacilityRecyclerViewAdapter2 extends RecyclerView.Adapter<FacilityR
         }
     }
 }
-

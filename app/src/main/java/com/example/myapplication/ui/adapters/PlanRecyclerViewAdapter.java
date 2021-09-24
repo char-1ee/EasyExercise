@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters;
+package com.example.myapplication.ui.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +15,12 @@ import com.example.myapplication.beans.WorkoutHistoryItem;
 
 import java.util.List;
 
-public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
-
-    private List<WorkoutHistoryItem> mWorkOutHistoryList;
+public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
+    private List<WorkoutHistoryItem> mPlanList;
     private int lastSelectedPosition = -1;
 
-    public HistoryRecyclerViewAdapter(List<WorkoutHistoryItem> workOutHistoryList) {
-        mWorkOutHistoryList = workOutHistoryList;
+    public PlanRecyclerViewAdapter(List<WorkoutHistoryItem> planList) {
+        mPlanList = planList;
     }
 
     @Override
@@ -32,7 +31,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutHistoryItem workOutHistory = mWorkOutHistoryList.get(position);
+        final WorkoutHistoryItem workOutHistory = mPlanList.get(position);
         holder.facilityView.setText(workOutHistory.getFacility().getName());
         holder.sportView.setText(workOutHistory.getSport().getName());
         holder.dateView.setText(workOutHistory.getDate().toString());
@@ -43,7 +42,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public int getItemCount() {
-        return mWorkOutHistoryList == null ? 0 : mWorkOutHistoryList.size();
+        return mPlanList == null ? 0 : mPlanList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -54,7 +53,6 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         private ImageView imageView;
         private CardView cardView;
         private TextView planType;
-
 
         private MyViewHolder(View itemView) {
             super(itemView);

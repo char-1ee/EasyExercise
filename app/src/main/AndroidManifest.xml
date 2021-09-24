@@ -10,29 +10,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".activities.ExerciseActivity"
+            android:name=".ui.activities.ExerciseActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".activities.ViewMeActivity"
+            android:name=".ui.activities.ViewMeActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.SelectSportActivity"
+            android:name=".ui.activities.SelectSportActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.SelectFacility2Activity"
+            android:name=".ui.activities.SelectFacility2Activity"
             android:exported="true" />
         <activity
-            android:name=".activities.SelectFacilityActivity"
+            android:name=".ui.activities.SelectFacilityActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.CheckInActivity"
+            android:name=".ui.activities.CheckInActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.AddPlanActivity"
+            android:name=".ui.activities.AddPlanActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,10 +40,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SignInActivity"
+            android:name=".ui.activities.SignInActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.UserActivity"
+            android:name=".ui.activities.UserActivity"
             android:exported="true" />
     </application>
 

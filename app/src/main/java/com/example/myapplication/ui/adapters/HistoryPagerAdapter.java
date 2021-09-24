@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters;
+package com.example.myapplication.ui.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +12,6 @@ import java.util.List;
 public class HistoryPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> fragments = new ArrayList<>();
     private final List<String> titles = new ArrayList<>();
-
 
     public HistoryPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);

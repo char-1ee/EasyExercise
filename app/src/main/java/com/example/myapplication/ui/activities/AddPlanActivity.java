@@ -1,4 +1,4 @@
-package com.example.myapplication.activities;
+package com.example.myapplication.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.adapters.AddPlanAdapter;
+import com.example.myapplication.ui.adapters.AddPlanAdapter;
 
 import java.util.ArrayList;
 

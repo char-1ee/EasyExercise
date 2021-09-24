@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.AddPlanActivity;
-import com.example.myapplication.activities.CheckInActivity;
+import com.example.myapplication.ui.activities.AddPlanActivity;
+import com.example.myapplication.ui.activities.CheckInActivity;
 
 public class HomeFragment extends Fragment {
     View view;

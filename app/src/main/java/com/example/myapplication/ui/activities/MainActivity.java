@@ -1,48 +1,36 @@
-package com.example.myapplication.activities;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+package com.example.myapplication.ui.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.myapplication.R;
-import com.example.myapplication.fragments.HistoryFragment;
-import com.example.myapplication.adapters.HistoryPagerAdapter;
-import com.example.myapplication.fragments.MeFragment;
-import com.example.myapplication.fragments.CommunityFragment;
-import com.example.myapplication.fragments.HomeFragment;
-import com.example.myapplication.fragments.PlanFragment;
+import com.example.myapplication.ui.fragments.HistoryFragment;
+import com.example.myapplication.ui.fragments.MeFragment;
+import com.example.myapplication.ui.fragments.CommunityFragment;
+import com.example.myapplication.ui.fragments.HomeFragment;
+import com.example.myapplication.ui.fragments.PlanFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
 
-public class ViewMeActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private HistoryPagerAdapter historyPagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_me);
-
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        historyPagerAdapter = new HistoryPagerAdapter(getSupportFragmentManager());
-        historyPagerAdapter.AddFragment(new MeFragment(), "Me");
-        historyPagerAdapter.AddFragment(new HistoryFragment(), "History");
-
-        viewPager.setAdapter(historyPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        setContentView(R.layout.activity_main);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new HomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
+            new OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
@@ -56,6 +44,11 @@ public class ViewMeActivity extends AppCompatActivity {
                         case R.id.navigation_community:
                             selectedFragment = new CommunityFragment();
                             break;
+                        case R.id.navigation_history:
+                            selectedFragment = new HistoryFragment();
+                            break;
+                        case R.id.navigation_me:
+                            selectedFragment = new MeFragment();
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();

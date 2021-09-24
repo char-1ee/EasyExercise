@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,25 +15,25 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutHistoryItem;
-import com.example.myapplication.adapters.PlanRecyclerViewAdapter;
+import com.example.myapplication.ui.adapters.HistoryRecyclerViewAdapter;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PlanFragment extends Fragment {
-    private View view;
+public class HistoryFragment extends Fragment {
     private List<WorkoutHistoryItem> mWorkoutHistory;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_plan, container, false);
+        view = inflater.inflate(R.layout.fragment_history, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mAdapter = new PlanRecyclerViewAdapter(getListData());
+        mAdapter = new HistoryRecyclerViewAdapter(getListData());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
@@ -41,13 +41,19 @@ public class PlanFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+
     private List<WorkoutHistoryItem> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            Sport sport = new Sport("Swimming", R.drawable.swimming, false);
-            List<Sport> mSportList = new ArrayList<>();
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
-            Facility facility = new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList);
+            Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, false);
+            List<Sport> sportList = new ArrayList<>();
+            sportList.add(new Sport("Running", R.drawable.ic_baseline_directions_run_24, true));
+            Facility facility = new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, sportList);
             Date date = new Date(2021, 9, 19);
             Time time = new Time(10, 35, 4);
             mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, 24, time, true, date));

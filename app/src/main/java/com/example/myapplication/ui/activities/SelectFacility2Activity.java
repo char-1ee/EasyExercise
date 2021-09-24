@@ -1,4 +1,4 @@
-package com.example.myapplication.activities;
+package com.example.myapplication.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapter2;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.adapters.FacilityRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectFacilityActivity extends AppCompatActivity {
+public class SelectFacility2Activity extends AppCompatActivity {
     private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -22,11 +22,11 @@ public class SelectFacilityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_facility);
+        setContentView(R.layout.activity_select_facility2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapter(SelectFacilityActivity.this, getListData());
-        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityActivity.this);
+        mAdapter = new FacilityRecyclerViewAdapter2(SelectFacility2Activity.this, getListData());
+        LinearLayoutManager manager = new LinearLayoutManager(SelectFacility2Activity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);

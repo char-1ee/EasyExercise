@@ -8,8 +8,8 @@ public class WorkoutHistoryItem extends Workout {
     private Date date;
     private Time endTime;
 
-    public WorkoutHistoryItem(Sport sport, Facility facility, float duration, Time startTIme, boolean isPublic, Date date) {
-        super(sport, facility, duration, startTIme);
+    public WorkoutHistoryItem(Sport sport, Location location, float duration, Time startTime, boolean isPublic, Date date) {
+        super(sport, location, duration, startTime);
         this.date = date;
         this.isPublic = isPublic;
     }

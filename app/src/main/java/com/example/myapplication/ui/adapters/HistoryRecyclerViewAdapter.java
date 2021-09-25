@@ -32,12 +32,14 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutHistoryItem workOutHistory = mWorkOutHistoryList.get(position);
-        holder.facilityView.setText(workOutHistory.getFacility().getName());
-        holder.sportView.setText(workOutHistory.getSport().getName());
-        holder.dateView.setText(workOutHistory.getDate().toString());
-        holder.imageView.setImageResource(workOutHistory.getSport().getImage());
-        holder.planType.setText(String.valueOf(workOutHistory.isPublic()));
+        final WorkoutHistoryItem item = mWorkOutHistoryList.get(position);
+        // holder.facilityView.setText(item.getFacility().getName());
+        // TODO: deprecated: a workout can be done in a customized location as well
+        holder.facilityView.setText("null");
+        holder.sportView.setText(item.getSport().getName());
+        holder.dateView.setText(item.getDate().toString());
+        holder.imageView.setImageResource(item.getSport().getImage());
+        holder.planType.setText(String.valueOf(item.isPublic()));
     }
 
 

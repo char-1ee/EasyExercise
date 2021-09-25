@@ -16,7 +16,7 @@ import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
-import com.example.myapplication.beans.WorkoutHistoryItem;
+import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.ui.adapters.PlanRecyclerViewAdapter;
 
 import java.sql.Time;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class PlanFragment extends Fragment {
     private View view;
-    private List<WorkoutHistoryItem> mWorkoutHistory;
+    private List<WorkoutRecord> mWorkoutHistory;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
@@ -43,7 +43,7 @@ public class PlanFragment extends Fragment {
         return view;
     }
 
-    private List<WorkoutHistoryItem> getListData() {
+    private List<WorkoutRecord> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             Sport sport = new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR);
@@ -59,7 +59,7 @@ public class PlanFragment extends Fragment {
                     mSportList);
             Date date = new Date(2021, 9, 19);
             Time time = new Time(10, 35, 4);
-            mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, 24, time, true, date));
+        //    mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, 24, time, date));
         }
         return mWorkoutHistory;
     }

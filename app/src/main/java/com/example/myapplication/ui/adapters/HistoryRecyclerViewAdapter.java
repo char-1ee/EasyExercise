@@ -11,16 +11,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.beans.WorkoutHistoryItem;
+import com.example.myapplication.beans.WorkoutRecord;
 
 import java.util.List;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
-    private List<WorkoutHistoryItem> mWorkOutHistoryList;
+    private List<WorkoutRecord> mWorkOutHistoryList;
     private int lastSelectedPosition = -1;
 
-    public HistoryRecyclerViewAdapter(List<WorkoutHistoryItem> workOutHistoryList) {
+    public HistoryRecyclerViewAdapter(List<WorkoutRecord> workOutHistoryList) {
         mWorkOutHistoryList = workOutHistoryList;
     }
 
@@ -32,14 +32,15 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutHistoryItem item = mWorkOutHistoryList.get(position);
+        final WorkoutRecord item = mWorkOutHistoryList.get(position);
         // holder.facilityView.setText(item.getFacility().getName());
         // TODO: deprecated: a workout can be done in a customized location as well
         holder.facilityView.setText("null");
         holder.sportView.setText(item.getSport().getName());
-        holder.dateView.setText(item.getDate().toString());
+        holder.dateView.setText(item.getStartTime().toString());
         holder.imageView.setImageResource(item.getSport().getImage());
-        holder.planType.setText(String.valueOf(item.isPublic()));
+        //holder.planType.setText(String.valueOf(item.isPublic()));
+        //should pass in the status of WorkoutPlan instead of WorkoutHistoryItem isPublic(which has been deleted)?
     }
 
 

@@ -4,13 +4,13 @@ import java.sql.Time;
 
 public class Workout {
     private Sport sport;
-    private Facility facility;
+    private Location location;
     private float duration;
     private Time startTime;
 
-    public Workout(Sport sport, Facility facility, float duration, Time startTime) {
+    public Workout(Sport sport, Location location, float duration, Time startTime) {
         this.sport = sport;
-        this.facility = facility;
+        this.location = location;
         this.duration = duration;
         this.startTime = startTime;
     }
@@ -23,12 +23,12 @@ public class Workout {
         this.sport = sport;
     }
 
-    public Facility getFacility() {
-        return facility;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setFacility(Facility facility) {
-        this.facility = facility;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public float getDuration() {

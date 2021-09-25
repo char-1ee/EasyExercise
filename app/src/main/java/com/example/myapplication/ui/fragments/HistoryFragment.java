@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
@@ -54,7 +55,14 @@ public class HistoryFragment extends Fragment {
             Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, SportType.OUTDOOR);
             List<Sport> sportList = new ArrayList<>();
             sportList.add(sport);
-            Facility facility = new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, sportList);
+            Facility facility = new Facility(
+                    new Coordinates(0, 0),
+                    "North Hill",
+                    "https://www.ntu.edu.sg",
+                    "84073568",
+                    "64 Nanyang Cres, Singapore 636959",
+                    R.drawable.tanjong,
+                    sportList);
             Date date = new Date(2021, 9, 19);
             Time time = new Time(10, 35, 4);
             mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, 24, time, true, date));

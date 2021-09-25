@@ -11,14 +11,21 @@ public class Facility extends Location {
     private List<Sport> sportsSupported;
     private boolean isSelected = false;
 
-    public Facility(String name, String website, String telephoneNo, String address, int image, List<Sport> sportsSupported) {
-        super(true);
+    public Facility(Coordinates coordinates,
+                    String name,
+                    String website,
+                    String telephoneNo,
+                    String address,
+                    int image,
+                    List<Sport> sportsSupported) {
+        super(coordinates, true);
         this.name = name;
         this.website = website;
         this.telephoneNo = telephoneNo;
         this.address = address;
         this.image = image;
         this.sportsSupported = sportsSupported;
+        this.isSelected = isSelected;
     }
 
     public String getName() {

@@ -3,13 +3,13 @@ package com.example.myapplication.beans;
 public class WeatherData {
     private float temperature;
     private float humidity;
-    private float uiIndex;
+    private float uvIndex;
     private String precipitation;
 
-    public WeatherData(float temperature, float humidity, float uiIndex, String precipitation) {
+    public WeatherData(float temperature, float humidity, float uvIndex, String precipitation) {
         this.temperature = temperature;
         this.humidity = humidity;
-        this.uiIndex = uiIndex;
+        this.uvIndex = uvIndex;
         this.precipitation = precipitation;
     }
 
@@ -29,12 +29,12 @@ public class WeatherData {
         this.humidity = humidity;
     }
 
-    public float getUiIndex() {
-        return uiIndex;
+    public float getUvIndex() {
+        return uvIndex;
     }
 
-    public void setUiIndex(float uiIndex) {
-        this.uiIndex = uiIndex;
+    public void setUvIndex(float uvIndex) {
+        this.uvIndex = uvIndex;
     }
 
     public String getPrecipitation() {

@@ -2,22 +2,23 @@ package com.example.myapplication.beans;
 
 import java.util.List;
 
-public class Facility {
+public class Facility extends Location {
     private String name;
     private String website;
     private String telephoneNo;
     private String address;
     private int image;
-    private List<Sport> sports;
+    private List<Sport> sportsSupported;
     private boolean isSelected = false;
 
-    public Facility(String name, String website, String telephoneNo, String address, int image, List<Sport> sports) {
+    public Facility(String name, String website, String telephoneNo, String address, int image, List<Sport> sportsSupported) {
+        super(true);
         this.name = name;
         this.website = website;
         this.telephoneNo = telephoneNo;
         this.address = address;
         this.image = image;
-        this.sports = sports;
+        this.sportsSupported = sportsSupported;
     }
 
     public String getName() {
@@ -60,12 +61,12 @@ public class Facility {
         this.image = image;
     }
 
-    public List<Sport> getSports() {
-        return sports;
+    public List<Sport> getSportsSupported() {
+        return sportsSupported;
     }
 
-    public void setSports(List<Sport> sports) {
-        this.sports = sports;
+    public void setSportsSupported(List<Sport> sportsSupported) {
+        this.sportsSupported = sportsSupported;
     }
 
     public boolean isSelected() {

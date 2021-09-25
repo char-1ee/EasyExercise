@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.SportRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class SelectSportActivity extends AppCompatActivity {
     private List<Sport> getListData() {
         mSportList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
+            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         }
         return mSportList;
     }

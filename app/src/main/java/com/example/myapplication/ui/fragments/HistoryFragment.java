@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.SportType;
 import com.example.myapplication.beans.WorkoutHistoryItem;
 import com.example.myapplication.ui.adapters.HistoryRecyclerViewAdapter;
 
@@ -50,9 +51,9 @@ public class HistoryFragment extends Fragment {
     private List<WorkoutHistoryItem> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, false);
+            Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, SportType.OUTDOOR);
             List<Sport> sportList = new ArrayList<>();
-            sportList.add(new Sport("Running", R.drawable.ic_baseline_directions_run_24, true));
+            sportList.add(sport);
             Facility facility = new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, sportList);
             Date date = new Date(2021, 9, 19);
             Time time = new Time(10, 35, 4);

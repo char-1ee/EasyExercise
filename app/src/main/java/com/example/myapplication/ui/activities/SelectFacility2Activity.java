@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapter2;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
@@ -36,7 +37,7 @@ public class SelectFacility2Activity extends AppCompatActivity {
         mFacilityList = new ArrayList<Facility>();
         List<Sport> mSportList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, true));
+            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         }
         for (int i = 1; i <= 25; i++) {
             mFacilityList.add(new Facility("North Hill", "https://www.ntu.edu.sg", "84073568", "64 Nanyang Cres, Singapore 636959", R.drawable.tanjong, mSportList));

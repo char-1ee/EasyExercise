@@ -3,14 +3,15 @@ package com.example.myapplication.beans;
 public class Sport {
     private String name;
     private int image;
-    private boolean isIndoor;
+//    private boolean isIndoor;
+    private SportType type;
     private boolean isSelected = false;
     private boolean isRecommended = false;
 
-    public Sport(String name, int image, boolean isIndoor) {
+    public Sport(String name, int image, SportType type) {
         this.name = name;
         this.image = image;
-        this.isIndoor = isIndoor;
+        this.type = type;
     }
 
     public String getName() {
@@ -29,12 +30,20 @@ public class Sport {
         this.image = image;
     }
 
-    public boolean isIndoor() {
-        return isIndoor;
+//    public boolean isIndoor() {
+//        return isIndoor;
+//    }
+
+//    public void setIndoor(boolean indoor) {
+//        this.isIndoor = indoor;
+//    }
+
+    public SportType getType() {
+        return type;
     }
 
-    public void setIndoor(boolean indoor) {
-        this.isIndoor = indoor;
+    public void setType(SportType type) {
+        this.type = type;
     }
 
     public boolean isSelected() {

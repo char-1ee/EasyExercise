@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
 import java.util.ArrayList;
@@ -27,9 +28,9 @@ public class CheckInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-        secondList.add(new Sport("Swimming", R.drawable.swimming, true));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, true));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, true));
+        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button1 = findViewById(R.id.check_in_sport_choice_button);
         button2 = findViewById(R.id.choose_another_facility_button);

@@ -4,29 +4,29 @@
         android:id="@+id/navigation_home"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/title_home"/>
+        android:title="@string/fragment_home_title"/>
     <item
         android:id="@+id/navigation_plan"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_checklist_rtl_24"
-        android:title="@string/title_plans"/>
+        android:title="@string/fragment_plans_title"/>
 
     <item
         android:id="@+id/navigation_community"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_history_24"
-        android:title="@string/title_community"/>
+        android:title="@string/fragment_community_title"/>
 
     <item
         android:id="@+id/navigation_history"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_outline_24"
-        android:title="@string/title_history"/>
+        android:title="@string/fragment_history_title"/>
 
     <item
         android:id="@+id/navigation_me"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_outline_24"
-        android:title="@string/title_me"/>
+        android:title="@string/fragment_me_title"/>
 
 </menu>

@@ -1,18 +1,31 @@
 <resources>
     <string name="app_name">Ontology</string>
+
     <string name="default_web_client_id_hardcode">867339313395-lks5qqe1heeijqa0564p2ld4tlreglhc.apps.googleusercontent.com</string>
 
-    <string name="title_history">History</string>
-    <string name="title_home">Home</string>
-    <string name="title_plans">Plans</string>
-    <string name="title_community">Community</string>
-    <string name="title_me">Me</string>
-    <string name="plan_button_text">Plan</string>
+    <string name="fragment_home_title">Home</string>
+    <string name="fragment_plans_title">Plans</string>
+    <string name="fragment_community_title">Community</string>
+    <string name="fragment_history_title">History</string>
+    <string name="fragment_me_title">Me</string>
+
     <string name="home_main_message_text">Message</string>
     <string name="home_main_title_text">Title</string>
-    <string name="checkin_button_text">Check In</string>
     <string name="home_main_image_description">Home image</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <string name="confirm_selection_text">Confirm selection</string>
+
+    <string name="make_plan_text">Plan</string>
+    <string name="add_plan_text">Add plan</string>
+
+    <string name="check_in_text">Check in</string>
+    <string name="check_out_text">Check out</string>
+    <string name="select_another_facility_text">Select another facility</string>
+
+    <string name="stop_text">Stop</string>
+
+    <string name="recommended_text">Recommended</string>
+    <string name="all_recommendation_text">All</string>
+
+    <string name="sign_out_text">Sign out</string>
 </resources>

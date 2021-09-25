@@ -25,7 +25,6 @@ public class Facility extends Location {
         this.address = address;
         this.image = image;
         this.sportsSupported = sportsSupported;
-        this.isSelected = isSelected;
     }
 
     public String getName() {

@@ -6,13 +6,13 @@ public class Workout {
     private Sport sport;
     private Facility facility;
     private float duration;
-    private Time startTIme;
+    private Time startTime;
 
-    public Workout(Sport sport, Facility facility, float duration, Time startTIme) {
+    public Workout(Sport sport, Facility facility, float duration, Time startTime) {
         this.sport = sport;
         this.facility = facility;
         this.duration = duration;
-        this.startTIme = startTIme;
+        this.startTime = startTime;
     }
 
     public Sport getSport() {
@@ -39,11 +39,11 @@ public class Workout {
         this.duration = duration;
     }
 
-    public Time getStartTIme() {
-        return startTIme;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    public void setStartTIme(Time startTIme) {
-        this.startTIme = startTIme;
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
 }

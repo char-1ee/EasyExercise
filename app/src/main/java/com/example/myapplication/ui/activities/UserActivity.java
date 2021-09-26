@@ -2,38 +2,39 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-//import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivityUserBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserActivity extends AppCompatActivity {
     public static final String ANONYMOUS = "anonymous";
 
     private GoogleSignInClient mSignInClient;
-
-    private ActivityUserBinding mBinding;
-
+    private Button signOutButton;
+    private TextView profileNameText;
+    private CircleImageView profileImage;
     private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = ActivityUserBinding.inflate(getLayoutInflater());
-        setContentView(mBinding.getRoot());
-        mBinding.signOut.setOnClickListener(v -> signOut());
+        signOutButton.setOnClickListener(v -> signOut());
+
         // Initialize Firebase Auth and check if the user is signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         if (mFirebaseAuth.getCurrentUser() == null) {
-            // Not signed in, launch the Sign In activity
+            // Not signed in, launch the SignInActivity
             startActivity(new Intent(this, SignInActivity.class));
             finish();
             return;
@@ -45,12 +46,11 @@ public class UserActivity extends AppCompatActivity {
                 .build();
         mSignInClient = GoogleSignIn.getClient(this, gso);
         setProfile();
-
     }
 
     private void setProfile() {
-        Glide.with(this).load(getUserPhotoUrl()).into(mBinding.profileImage);
-        mBinding.profileName.setText(getUserName());
+        Glide.with(this).load(getUserPhotoUrl()).into(profileImage);
+        profileNameText.setText(getUserName());
     }
 
     private void signOut() {

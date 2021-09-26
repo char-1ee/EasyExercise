@@ -11,6 +11,13 @@ import java.util.Locale;
  * A utility class for time formatting and parsing
  */
 public class TimeUtil {
+    public static String pattern1 = "yyyy-MM-dd HH:mm:ss:SSS";
+    public static String pattern2 = "yyyy-MM-dd HH:mm";
+    public static String pattern3 = "yyyy-MM-dd";
+    public static String pattern4 = "yyyy_MM_dd";
+    public static String pattern5 = "yyyy-MM-dd-HH-mm";
+    public static String pattern6 = "HH:mm";
+    public static String pattern7 = "HH:mm:ss";
 
     /**
      * SimpleDateFormat formatting

@@ -56,7 +56,7 @@ public class TimeUtil {
         int hour = date / 3600;
         int minute = (date % 3600) / 60;
         int second = (date % 3600) % 60;
-        return String.format("%02d:%02d:%02d", hour, minute, second); // An implicit method can be refactored
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hour, minute, second);
     }
 
     /**

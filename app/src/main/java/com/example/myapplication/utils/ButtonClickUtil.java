@@ -6,7 +6,7 @@ import android.widget.Button;
 /**
  * This utility class is to control {@link Button} click frequency to efficiently avoid multiple repeated clicks. <br/>
  * If a {@link android.widget.Button} is triggered multiple times in a short time, clickListener regards the clicks invalid.<br/>
- *
+ * <p>
  * An example to illustrate its usage:<br/>
  * <pre class="prettyprint">
  *
@@ -26,9 +26,9 @@ public class ButtonClickUtil {
 
     /**
      * Judge time interval of two click events. If less than 1000, it is thought invalid.
+     *
      * @param buttonId {@link com.example.myapplication.R.id} corresponds to {@link Button} object
      * @return isFastDoubleClick(buttonId, DIFF)
-     *
      * @see #isFastDoubleClick()
      * @see #isFastDoubleClick(int, long)
      */
@@ -42,8 +42,9 @@ public class ButtonClickUtil {
 
     /**
      * Judge time interval of two click events. If less than DIFF, it is thought invalid.
+     *
      * @param buttonId {@link com.example.myapplication.R.id} corresponds to {@link Button} object
-     * @param diff predefined time interval DIFF
+     * @param diff     predefined time interval DIFF
      * @return false or true
      */
     private static boolean isFastDoubleClick(int buttonId, long diff) {

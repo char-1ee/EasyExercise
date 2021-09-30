@@ -33,9 +33,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final WorkoutRecord item = mWorkOutHistoryList.get(position);
-        // holder.facilityView.setText(item.getFacility().getName());
-        // TODO: deprecated: a workout can be done in a customized location as well
-        holder.facilityView.setText("null");
+        holder.locationView.setText("null");
         holder.sportView.setText(item.getSport().getName());
         holder.dateView.setText(item.getStartTime().toString());
         holder.imageView.setImageResource(item.getSport().getImage());
@@ -52,7 +50,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private TextView sportView;
-        private TextView facilityView;
+        private TextView locationView;
         private TextView dateView;
         private ImageView imageView;
         private CardView cardView;
@@ -64,7 +62,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             view = itemView;
             planType = (TextView) itemView.findViewById(R.id.plan_type);
             sportView = (TextView) itemView.findViewById(R.id.plan_sport_name);
-            facilityView = (TextView) itemView.findViewById(R.id.plan_facility_name);
+            locationView = (TextView) itemView.findViewById(R.id.plan_location_name);
             dateView = (TextView) itemView.findViewById(R.id.plan_date);
             imageView = (ImageView) itemView.findViewById(R.id.plan_sport_image);
             cardView = (CardView) itemView.findViewById(R.id.history_card);

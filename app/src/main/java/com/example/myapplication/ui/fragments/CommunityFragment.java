@@ -19,5 +19,6 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_community, container, false);
         return view;
+        // TODO: 2021/10/1 !!Need jianjian and zyx redesign the page(what zyx shows me is just too ugly... cannot stand it)
     }
 }

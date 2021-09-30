@@ -29,8 +29,14 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user);
+        initView();
+        initFirebaseAuth();
         signOutButton.setOnClickListener(v -> signOut());
+        setProfile();
+    }
 
+    private void initFirebaseAuth() {
         // Initialize Firebase Auth and check if the user is signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         if (mFirebaseAuth.getCurrentUser() == null) {
@@ -45,8 +51,15 @@ public class UserActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mSignInClient = GoogleSignIn.getClient(this, gso);
-        setProfile();
     }
+
+    private void initView() {
+        signOutButton = findViewById(R.id.button_sign_out);
+        profileNameText = findViewById(R.id.profile_name);
+        profileImage = findViewById(R.id.profile_image);
+    }
+
+
 
     private void setProfile() {
         Glide.with(this).load(getUserPhotoUrl()).into(profileImage);

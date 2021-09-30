@@ -57,7 +57,6 @@ public class CheckInActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2 = new Intent(CheckInActivity.this, SelectFacilityCheckInActivity.class);
                 startActivity(intent2);
-
             }
         });
 

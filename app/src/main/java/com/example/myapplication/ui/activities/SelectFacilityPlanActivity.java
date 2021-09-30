@@ -11,7 +11,7 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
-import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapter;
+import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterPlan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_facility);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapter(SelectFacilityPlanActivity.this, getListData());
+        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, getListData());
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.SportType;
-import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapter2;
+import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterCheckIn;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
@@ -27,7 +27,7 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_facility2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapter2(SelectFacilityCheckInActivity.this, getListData());
+        mAdapter = new FacilityRecyclerViewAdapterCheckIn(SelectFacilityCheckInActivity.this, getListData());
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityCheckInActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

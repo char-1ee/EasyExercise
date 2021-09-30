@@ -20,10 +20,10 @@
             android:name=".ui.activities.SelectSportActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.SelectFacility2Activity"
+            android:name=".ui.activities.SelectFacilityCheckInActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.SelectFacilityActivity"
+            android:name=".ui.activities.SelectFacilityPlanActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.CheckInActivity"

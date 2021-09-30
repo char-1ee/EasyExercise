@@ -16,7 +16,7 @@ import com.example.myapplication.beans.Sport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectFacility2Activity extends AppCompatActivity {
+public class SelectFacilityCheckInActivity extends AppCompatActivity {
     private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -27,8 +27,8 @@ public class SelectFacility2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_select_facility2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapter2(SelectFacility2Activity.this, getListData());
-        LinearLayoutManager manager = new LinearLayoutManager(SelectFacility2Activity.this);
+        mAdapter = new FacilityRecyclerViewAdapter2(SelectFacilityCheckInActivity.this, getListData());
+        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityCheckInActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);

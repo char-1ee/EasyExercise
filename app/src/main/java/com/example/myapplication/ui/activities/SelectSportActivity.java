@@ -49,7 +49,7 @@ public class SelectSportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Context context = SelectSportActivity.this;
-                Class destinationActivity = SelectFacilityActivity.class;
+                Class destinationActivity = SelectFacilityPlanActivity.class;
                 Intent startChildActivityIntent = new Intent(context, destinationActivity);
                 startActivity(startChildActivityIntent);
             }

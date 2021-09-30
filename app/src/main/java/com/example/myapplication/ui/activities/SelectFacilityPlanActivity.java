@@ -16,7 +16,7 @@ import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectFacilityActivity extends AppCompatActivity {
+public class SelectFacilityPlanActivity extends AppCompatActivity {
     private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -27,8 +27,8 @@ public class SelectFacilityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_facility);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapter(SelectFacilityActivity.this, getListData());
-        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityActivity.this);
+        mAdapter = new FacilityRecyclerViewAdapter(SelectFacilityPlanActivity.this, getListData());
+        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);

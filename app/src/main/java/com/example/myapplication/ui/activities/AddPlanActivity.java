@@ -45,6 +45,7 @@ public class AddPlanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AddPlanActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

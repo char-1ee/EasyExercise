@@ -4,13 +4,13 @@ public class WeatherData {
     private float temperature;
     private float humidity;
     private float uvIndex;
-    private String precipitation;
+    private float rainfall;
 
-    public WeatherData(float temperature, float humidity, float uvIndex, String precipitation) {
+    public WeatherData(float temperature, float humidity, float uvIndex, float rainfall) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.uvIndex = uvIndex;
-        this.precipitation = precipitation;
+        this.rainfall = rainfall;
     }
 
     public float getTemperature() {
@@ -37,11 +37,11 @@ public class WeatherData {
         this.uvIndex = uvIndex;
     }
 
-    public String getPrecipitation() {
-        return precipitation;
+    public float getRainfall() {
+        return rainfall;
     }
 
-    public void setPrecipitation(String precipitation) {
-        this.precipitation = precipitation;
+    public void setRainfall(float rainfall) {
+        this.rainfall = rainfall;
     }
 }

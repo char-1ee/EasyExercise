@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONUtil {
-    private Context mContext;
+    private final Context mContext;
 
     public JSONUtil(Context context) {
         mContext = context;
@@ -37,14 +37,14 @@ public class JSONUtil {
         return null;
     }
 
-    public void initData(String jsonString, String name) {
+    public JSONArray getJsonArrayFromString(String jsonString, String name) {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(name);
-            ToastUtil.ToastSize(mContext.getApplicationContext(),
-                    "jsonArray.length() = " + jsonArray.length(), 25);
+            return jsonArray;
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.activities.AddPlanActivity;
 import com.example.myapplication.ui.activities.CheckInActivity;
+import com.example.myapplication.ui.activities.SelectSportActivity;
 
 public class HomeFragment extends Fragment {
     View view;
@@ -30,7 +31,7 @@ public class HomeFragment extends Fragment {
         mMakePlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddPlanActivity.class);
+                Intent intent = new Intent(getActivity(), SelectSportActivity.class);
                 startActivity(intent);
             }
         });

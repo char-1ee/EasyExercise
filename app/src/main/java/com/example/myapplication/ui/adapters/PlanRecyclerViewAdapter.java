@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.WorkoutRecord;
 
 import java.util.List;
@@ -32,14 +33,19 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final WorkoutRecord item = mPlanList.get(position);
-        // holder.facilityView.setText(item.getFacility().getName());
-        // TODO: deprecated: a workout can be done in a customized location as well
-        holder.facilityView.setText("null");
+        //holder.facilityView.setText(item.getFacility().getName());
+        if(item.getLocation().isFacility()== true){
+            Facility f= (Facility)item.getLocation();
+            holder.locationView.setText(f.getName());
+        }
+        else{
+            holder.locationView.setText("what should I put here?");
+        }
         holder.sportView.setText(item.getSport().getName());
         //holder.dateView.setText(item.getDate().toString());
         holder.imageView.setImageResource(item.getSport().getImage());
-        //holder.planType.setText(String.valueOf(item.isPublic()));
-        //should pass in the status of WorkoutPlan instead of WorkoutHistoryItem isPublic(which has been deleted)?
+        holder.planType.setText(item.getStatus().toString());
+        // TODO: 2021/10/1 for public/join plans, need to show their happening time(need additional info in WorkoutPlan)
     }
 
 
@@ -51,7 +57,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private TextView sportView;
-        private TextView facilityView;
+        private TextView locationView;
         private TextView dateView;
         private ImageView imageView;
         private CardView cardView;
@@ -62,7 +68,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
             view = itemView;
             planType = (TextView) itemView.findViewById(R.id.plan_type);
             sportView = (TextView) itemView.findViewById(R.id.plan_sport_name);
-            facilityView = (TextView) itemView.findViewById(R.id.plan_facility_name);
+            locationView = (TextView) itemView.findViewById(R.id.plan_location_name);
             dateView = (TextView) itemView.findViewById(R.id.plan_date);
             imageView = (ImageView) itemView.findViewById(R.id.plan_sport_image);
             cardView = (CardView) itemView.findViewById(R.id.history_card);

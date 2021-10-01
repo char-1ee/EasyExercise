@@ -47,48 +47,18 @@ public class CheckInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
+                Intent intent1= new Intent(CheckInActivity.this, ExerciseActivity.class);
+                startActivity(intent1);
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CheckInActivity.this, SelectFacility2Activity.class);
-                startActivity(intent);
-
+                Intent intent2 = new Intent(CheckInActivity.this, SelectFacilityCheckInActivity.class);
+                startActivity(intent2);
             }
         });
 
-//        BottomNavigationView navView = findViewById(R.id.nav_view);
-//        navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
-
     }
-
-//    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener=
-//            new BottomNavigationView.OnNavigationItemSelectedListener() {
-//                @Override
-//                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                    Fragment selectedFragment= null;
-//                    switch (item.getItemId()){
-//                        case R.id.navigation_home:
-//                            selectedFragment= new FragmentHome();
-//                            break;
-//                        case R.id.navigation_plan:
-//                            selectedFragment= new FragmentPlan();
-//                            break;
-//                        case R.id.navigation_community:
-//                            selectedFragment= new FragmentCommunity();
-//                            break;
-//                        case R.id.navigation_me:
-//                            Intent intent= new Intent(CheckIn.this, ViewMe.class);
-//                            startActivity(intent);
-//                            finish();
-//                            break;
-//                    }
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                            selectedFragment).commit();
-//                    return true;
-//                }
-//            };
 }

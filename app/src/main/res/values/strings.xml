@@ -8,7 +8,9 @@
     <string name="fragment_community_title">Community</string>
     <string name="fragment_history_title">History</string>
     <string name="fragment_me_title">Me</string>
-
+    <string name="no_facility_message">There is no facility around you. Do you want to make a plan at a customized location?</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="proceed_text">Proceed</string>
     <string name="home_main_message_text">Message</string>
     <string name="home_main_title_text">Title</string>
     <string name="home_main_image_description">Home image</string>

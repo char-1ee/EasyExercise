@@ -7,16 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.myapplication.beans.Coordinates;
+import com.example.myapplication.beans.SportType;
+import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterCheckIn;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.SportType;
-import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectFacilityActivity extends AppCompatActivity {
+public class SelectFacilityCheckInActivity extends AppCompatActivity {
     private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -24,11 +24,11 @@ public class SelectFacilityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_facility);
+        setContentView(R.layout.activity_select_facility2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapter(SelectFacilityActivity.this, getListData());
-        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityActivity.this);
+        mAdapter = new FacilityRecyclerViewAdapterCheckIn(SelectFacilityCheckInActivity.this, getListData());
+        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityCheckInActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
@@ -40,7 +40,7 @@ public class SelectFacilityActivity extends AppCompatActivity {
         for (int i = 1; i <= 5; i++) {
             mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         }
-        for (int i = 1; i <= 25; i++) {
+        for (int i = 1; i <= 5; i++) {
             mFacilityList.add(new Facility(
                     new Coordinates(0, 0),
                     "North Hill",

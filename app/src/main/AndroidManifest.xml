@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.ExerciseActivity"
-            android:exported="true">
+            android:name=".ui.activities.NoFacilityActivity"
+            android:exported="true" >
         </activity>
+        <activity
+            android:name=".ui.activities.ExerciseActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".ui.activities.ViewMeActivity"
             android:exported="true" />
@@ -36,6 +39,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -48,6 +48,7 @@ public class SelectSportActivity extends AppCompatActivity {
         mSportChoicesConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO: 2021/10/1 Add condition: if facility, to selectFacility; else, to AddPlan
                 Context context = SelectSportActivity.this;
                 Class destinationActivity = SelectFacilityPlanActivity.class;
                 Intent startChildActivityIntent = new Intent(context, destinationActivity);

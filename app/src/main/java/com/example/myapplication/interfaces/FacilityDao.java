@@ -11,9 +11,9 @@ import com.example.myapplication.models.Sport;
 import java.util.List;
 /*
 @Dao
-public interface SportDao {
+public interface FacilityDao {
 
-    @Query("SELECT * FROM sport")
+    @Query("SELECT * FROM facility")
     List<Sport> getSportList();
 
     @Insert

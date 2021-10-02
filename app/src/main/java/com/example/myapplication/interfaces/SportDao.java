@@ -16,7 +16,7 @@ public interface SportDao {
     @Query("SELECT * FROM sport")
     List<Sport> getSportList();
 
-    @Query("DELETE FROM sport")
+    @Query("DELETE FROM sport") // TODO: can't resolve symbol 'sport'
     void deleteAllSport();
 
     @Insert

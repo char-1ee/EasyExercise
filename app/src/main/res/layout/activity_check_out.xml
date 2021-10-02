@@ -166,6 +166,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

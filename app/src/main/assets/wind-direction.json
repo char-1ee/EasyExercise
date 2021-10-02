@@ -1,0 +1,83 @@
+{
+    "metadata": {
+        "stations": [
+            {
+                "id": "S50",
+                "device_id": "S50",
+                "name": "Clementi Road",
+                "location": {
+                    "latitude": 1.3337,
+                    "longitude": 103.7768
+                }
+            },
+            {
+                "id": "S44",
+                "device_id": "S44",
+                "name": "Nanyang Avenue",
+                "location": {
+                    "latitude": 1.34583,
+                    "longitude": 103.68166
+                }
+            },
+            {
+                "id": "S106",
+                "device_id": "S106",
+                "name": "Pulau Ubin",
+                "location": {
+                    "latitude": 1.4168,
+                    "longitude": 103.9673
+                }
+            },
+            {
+                "id": "S116",
+                "device_id": "S116",
+                "name": "West Coast Highway",
+                "location": {
+                    "latitude": 1.281,
+                    "longitude": 103.754
+                }
+            },
+            {
+                "id": "S100",
+                "device_id": "S100",
+                "name": "Woodlands Road",
+                "location": {
+                    "latitude": 1.4172,
+                    "longitude": 103.74855
+                }
+            }
+        ],
+        "reading_type": "Wind Dir AVG (S) 10M M1M",
+        "reading_unit": "degrees"
+    },
+    "items": [
+        {
+            "timestamp": "2021-10-02T18:25:00+08:00",
+            "readings": [
+                {
+                    "station_id": "S50",
+                    "value": 40
+                },
+                {
+                    "station_id": "S44",
+                    "value": 51
+                },
+                {
+                    "station_id": "S106",
+                    "value": 77
+                },
+                {
+                    "station_id": "S116",
+                    "value": 77
+                },
+                {
+                    "station_id": "S100",
+                    "value": 69
+                }
+            ]
+        }
+    ],
+    "api_info": {
+        "status": "healthy"
+    }
+}

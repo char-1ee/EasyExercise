@@ -10,12 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".ui.activities.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.CheckOutActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activities.NoFacilityActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.activities.ExerciseActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.activities.ViewMeActivity"
             android:exported="true" />

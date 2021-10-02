@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -22,6 +23,7 @@ public class UserActivity extends AppCompatActivity {
 
     private GoogleSignInClient mSignInClient;
     private Button signOutButton;
+    private Button startButton;
     private TextView profileNameText;
     private CircleImageView profileImage;
     private FirebaseAuth mFirebaseAuth;
@@ -33,6 +35,10 @@ public class UserActivity extends AppCompatActivity {
         initView();
         initFirebaseAuth();
         signOutButton.setOnClickListener(v -> signOut());
+        startButton.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        });
         setProfile();
     }
 
@@ -57,9 +63,8 @@ public class UserActivity extends AppCompatActivity {
         signOutButton = findViewById(R.id.button_sign_out);
         profileNameText = findViewById(R.id.profile_name);
         profileImage = findViewById(R.id.profile_image);
+        startButton = findViewById(R.id.button_start);
     }
-
-
 
     private void setProfile() {
         Glide.with(this).load(getUserPhotoUrl()).into(profileImage);

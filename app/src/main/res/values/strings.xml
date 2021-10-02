@@ -30,4 +30,7 @@
     <string name="all_recommendation_text">All</string>
 
     <string name="sign_out_text">Sign out</string>
+
+    <string name="start">Start</string>
+    <string name="anonymous">Anonymous</string>
 </resources>

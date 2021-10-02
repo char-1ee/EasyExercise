@@ -332,200 +332,200 @@
     ],
     "items": [
         {
-            "update_timestamp": "2021-09-28T21:23:52+08:00",
-            "timestamp": "2021-09-28T21:00:00+08:00",
+            "update_timestamp": "2021-09-30T18:08:52+08:00",
+            "timestamp": "2021-09-30T18:00:00+08:00",
             "valid_period": {
-                "start": "2021-09-28T21:00:00+08:00",
-                "end": "2021-09-28T23:00:00+08:00"
+                "start": "2021-09-30T18:00:00+08:00",
+                "end": "2021-09-30T20:00:00+08:00"
             },
             "forecasts": [
                 {
                     "area": "Ang Mo Kio",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Bedok",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Bishan",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Boon Lay",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Bukit Batok",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Bukit Merah",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Bukit Panjang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Bukit Timah",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Central Water Catchment",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Changi",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Choa Chu Kang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Clementi",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "City",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Geylang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Hougang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Jalan Bahar",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Jurong East",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Jurong Island",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Jurong West",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Kallang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Lim Chu Kang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Mandai",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Marine Parade",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Novena",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Pasir Ris",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Paya Lebar",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Pioneer",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Pulau Tekong",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Pulau Ubin",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Punggol",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Queenstown",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Seletar",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Sembawang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Sengkang",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Sentosa",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Serangoon",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Southern Islands",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Sungei Kadut",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Tampines",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Tanglin",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Tengah",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Toa Payoh",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Tuas",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Western Islands",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Western Water Catchment",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Woodlands",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 },
                 {
                     "area": "Yishun",
-                    "forecast": "Cloudy"
+                    "forecast": "Light Rain"
                 }
             ]
         }

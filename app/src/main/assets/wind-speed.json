@@ -20,15 +20,6 @@
                 }
             },
             {
-                "id": "S106",
-                "device_id": "S106",
-                "name": "Pulau Ubin",
-                "location": {
-                    "latitude": 1.4168,
-                    "longitude": 103.9673
-                }
-            },
-            {
                 "id": "S116",
                 "device_id": "S116",
                 "name": "West Coast Highway",
@@ -52,27 +43,23 @@
     },
     "items": [
         {
-            "timestamp": "2021-10-02T18:25:00+08:00",
+            "timestamp": "2021-10-02T18:50:00+08:00",
             "readings": [
                 {
                     "station_id": "S50",
-                    "value": 0.6
+                    "value": 1
                 },
                 {
                     "station_id": "S44",
-                    "value": 2.1
-                },
-                {
-                    "station_id": "S106",
-                    "value": 2.1
+                    "value": 1.9
                 },
                 {
                     "station_id": "S116",
-                    "value": 3.8
+                    "value": 2
                 },
                 {
                     "station_id": "S100",
-                    "value": 1.4
+                    "value": 1.2
                 }
             ]
         }

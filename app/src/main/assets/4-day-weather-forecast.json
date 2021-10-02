@@ -1,0 +1,93 @@
+{
+    "items": [
+        {
+            "update_timestamp": "2021-09-30T16:32:12+08:00",
+            "timestamp": "2021-09-30T16:12:00+08:00",
+            "forecasts": [
+                {
+                    "temperature": {
+                        "low": 24,
+                        "high": 33
+                    },
+                    "date": "2021-10-01",
+                    "forecast": "Cloudy.",
+                    "relative_humidity": {
+                        "low": 60,
+                        "high": 90
+                    },
+                    "wind": {
+                        "speed": {
+                            "low": 10,
+                            "high": 25
+                        },
+                        "direction": "SSW"
+                    },
+                    "timestamp": "2021-10-01T00:00:00+08:00"
+                },
+                {
+                    "temperature": {
+                        "low": 24,
+                        "high": 34
+                    },
+                    "date": "2021-10-02",
+                    "forecast": "Partly cloudy.",
+                    "relative_humidity": {
+                        "low": 60,
+                        "high": 90
+                    },
+                    "wind": {
+                        "speed": {
+                            "low": 5,
+                            "high": 15
+                        },
+                        "direction": "S"
+                    },
+                    "timestamp": "2021-10-02T00:00:00+08:00"
+                },
+                {
+                    "temperature": {
+                        "low": 24,
+                        "high": 34
+                    },
+                    "date": "2021-10-03",
+                    "forecast": "Afternoon thundery showers.",
+                    "relative_humidity": {
+                        "low": 60,
+                        "high": 90
+                    },
+                    "wind": {
+                        "speed": {
+                            "low": 5,
+                            "high": 15
+                        },
+                        "direction": "SSW"
+                    },
+                    "timestamp": "2021-10-03T00:00:00+08:00"
+                },
+                {
+                    "temperature": {
+                        "low": 24,
+                        "high": 34
+                    },
+                    "date": "2021-10-04",
+                    "forecast": "Late morning and early afternoon thundery showers.",
+                    "relative_humidity": {
+                        "low": 60,
+                        "high": 90
+                    },
+                    "wind": {
+                        "speed": {
+                            "low": 10,
+                            "high": 20
+                        },
+                        "direction": "SW"
+                    },
+                    "timestamp": "2021-10-04T00:00:00+08:00"
+                }
+            ]
+        }
+    ],
+    "api_info": {
+        "status": "healthy"
+    }
+}

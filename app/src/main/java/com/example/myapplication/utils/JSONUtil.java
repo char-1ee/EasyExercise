@@ -1,49 +1,54 @@
 package com.example.myapplication.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import android.content.Context;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONUtil {
-    private final Context mContext;
+    private JSONUtil() {}
 
-    public JSONUtil(Context context) {
-        mContext = context;
+    public static JSONArray getJSONArrayFromString(String jsonString) {
+        try {
+            return new JSONArray(jsonString);
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
-    public String convertFileToString(String path) {
+    public static JSONObject getJSONObjectFromString(String jsonString) {
         try {
-            InputStream inputStream = mContext.getAssets().open(path);
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuilder stringBuilder = new StringBuilder();
-            for (String line; (line = bufferedReader.readLine()) != null; ) {
-                stringBuilder.append(line);
+            return new JSONObject(jsonString);
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+    public static String findMatchString(JSONArray jsonArray,
+                                         String conditionKey, String conditionValue, String targetKey) {
+        try {
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                if (object.getString(conditionKey).equals(conditionValue)) {
+                    return object.getString(targetKey);
+                }
             }
-            bufferedReader.close();
-            inputStreamReader.close();
-            inputStream.close();
-            return stringBuilder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (JSONException e) {
+            return null;
         }
         return null;
     }
 
-    public JSONArray getJsonArrayFromString(String jsonString, String name) {
+    public static Double findMatchDouble(JSONArray jsonArray,
+                                         String conditionKey, String conditionValue, String targetKey) {
         try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(name);
-            return jsonArray;
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                if (object.getString(conditionKey).equals(conditionValue)) {
+                    return object.getDouble(targetKey);
+                }
+            }
         } catch (JSONException e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }

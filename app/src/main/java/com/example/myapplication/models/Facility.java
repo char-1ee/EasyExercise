@@ -4,24 +4,24 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "sport")
-public class Sport {
+@Entity(tableName = "facility")
+public class Facility {
 
     @PrimaryKey(autoGenerate = true)
     private int _id;
 
-    @ColumnInfo(name = "sportName")
+    @ColumnInfo(name = "facilityName")
     private String sportName;
 
-    @ColumnInfo(name = "image", typeAffinity = ColumnInfo.BLOB)
-    private byte[] image;
+    @ColumnInfo(name = "website")
+    private String image;
 
-    @ColumnInfo(name = "type")
-    private int type;
+    @ColumnInfo(name = "telephoneNo")
+    private String telephoneNo;
 
     @ColumnInfo(name = "isSelected")
     private boolean isSelected;
 
-    @ColumnInfo(name = "isRecommend")
+    @ColumnInfo(name = "")
     private boolean isRecommend;
 }

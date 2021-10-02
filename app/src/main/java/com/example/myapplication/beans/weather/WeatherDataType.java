@@ -1,4 +1,4 @@
-package com.example.myapplication.json.weather;
+package com.example.myapplication.beans.weather;
 
 public enum WeatherDataType {
     /**
@@ -28,7 +28,18 @@ public enum WeatherDataType {
     WIND_SPEED("Wind Speed"),
 
     /**
-     * Weather forecast for next 2 hours, next 24 hours and next 4 days.
+     * UV Index value averaged over the past hour. Updated every hour between 7
+     * AM and 7 PM everyday.
+     */
+    UV_INDEX("Ultra-violet Index (UVI)"),
+
+    /**
+     * Regional hourly PM2.5 value measured in ug/m3
+     */
+    PM25("PM2.5"),
+
+    /**
+     * Weather forecast for next 2 hours.
      */
     WEATHER_FORECAST("Weather Forecast");
 
@@ -38,7 +49,8 @@ public enum WeatherDataType {
         this.name = name;
     }
 
-    public String getName() {
+    @Override
+    public String toString() {
         return name;
     }
 }

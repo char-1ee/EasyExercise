@@ -9,7 +9,7 @@ import androidx.room.Update;
 import com.example.myapplication.models.Sport;
 
 import java.util.List;
-
+/*
 @Dao
 public interface SportDao {
 
@@ -25,3 +25,5 @@ public interface SportDao {
     @Delete
     void deleteSport(Sport sport);
 }
+*、
+ */

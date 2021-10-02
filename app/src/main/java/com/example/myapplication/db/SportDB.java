@@ -23,5 +23,5 @@ public abstract class SportDB extends RoomDatabase {
         return instance;
     }
 
-    public abstract SportDao sportDao();
+    public abstract SportDao getSportDao();
 }

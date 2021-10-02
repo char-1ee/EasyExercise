@@ -16,12 +16,15 @@ public interface SportDao {
     @Query("SELECT * FROM sport")
     List<Sport> getSportList();
 
+    @Query("DELETE FROM sport")
+    void deleteAllSport();
+
     @Insert
-    void insertSport(Sport sport);
+    void insertSport(Sport... sport);
 
     @Update
-    void updateSport(Sport sport);
+    void updateSport(Sport... sport);
 
     @Delete
-    void deleteSport(Sport sport);
+    void deleteSport(Sport... sport);
 }

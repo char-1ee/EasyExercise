@@ -1,7 +1,6 @@
 package com.example.myapplication.json.weather;
 
 import com.example.myapplication.beans.weather.WeatherDataType;
-
 import com.example.myapplication.json.JSONAPI;
 
 public abstract class WeatherJSONAPI implements JSONAPI {

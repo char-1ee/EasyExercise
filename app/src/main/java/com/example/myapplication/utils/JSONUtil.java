@@ -5,7 +5,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONUtil {
-    private JSONUtil() {}
+    private JSONUtil() {
+    }
 
     public static JSONArray getJSONArrayFromString(String jsonString) {
         try {

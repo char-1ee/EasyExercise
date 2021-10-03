@@ -21,19 +21,21 @@ public class TimeUtil {
 
     /**
      * SimpleDateFormat formatting
-     * @param time time formatting in {@link Date} to be convert to {@link String}
+     *
+     * @param time    time formatting in {@link Date} to be convert to {@link String}
      * @param pattern targeted format
      */
     public static String timeToString(long time, String pattern) {
-        @SuppressLint("SimpleDateFormat")SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
         Date mDate = new Date(time);
         return sdf.format(mDate);
     }
 
     /**
      * SimpleDateFormat parsing
+     *
      * @param timeString time formatting in {@link String} to be parsed to {@link Date}
-     * @param pattern targeted format
+     * @param pattern    targeted format
      */
     public static long stringToTime(String timeString, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
@@ -49,6 +51,7 @@ public class TimeUtil {
 
     /**
      * Convert seconds into hours, minutes, seconds
+     *
      * @param date targeted time
      * @return time formatting in hour, minute, second
      */
@@ -61,6 +64,7 @@ public class TimeUtil {
 
     /**
      * Get current time
+     *
      * @param pattern targeted format
      * @return current time formatting in String
      */

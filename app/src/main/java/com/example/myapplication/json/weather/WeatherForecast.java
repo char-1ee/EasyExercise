@@ -6,13 +6,13 @@ import com.example.myapplication.beans.weather.WeatherForecastResult;
 import com.example.myapplication.utils.DateUtil;
 import com.example.myapplication.utils.JSONUtil;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class WeatherForecast extends WeatherJSONAPI {

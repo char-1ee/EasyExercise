@@ -1,7 +1,6 @@
 package com.example.myapplication.beans.weather;
 
 import com.example.myapplication.beans.Coordinates;
-import com.example.myapplication.beans.weather.WeatherDataType;
 
 import java.util.Date;
 import java.util.Locale;

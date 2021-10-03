@@ -1,12 +1,12 @@
 package com.example.myapplication.utils;
 
+import static android.widget.Toast.makeText;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import static android.widget.Toast.makeText;
 
 /**
  * A utility class for customizing {@link android.widget.Toast} on textSize, position, length etc.

@@ -26,7 +26,7 @@ public class Coordinates {
     /**
      * Get the distance from the current location to another.
      *
-     * @param latitude the latitude of the other location
+     * @param latitude  the latitude of the other location
      * @param longitude the longitude of the other location
      * @return the distance between the two locations in kilometres
      * @see http://www.movable-type.co.uk/scripts/latlong.html

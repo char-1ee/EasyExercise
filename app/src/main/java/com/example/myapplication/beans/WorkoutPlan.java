@@ -1,7 +1,5 @@
 package com.example.myapplication.beans;
 
-import java.util.Date;
-
 public class WorkoutPlan {
     private Sport sport;
     private Location location;

@@ -10,8 +10,8 @@ public class FacilityWithSport {
     @Embedded
     public Facility facility;
     @Relation(
-            parentColumn = "facilityName",
-            entityColumn = "sportName",
+            parentColumn = "facilityId",
+            entityColumn = "sportId",
             associateBy = @Junction(FacilitySportCrossRef.class)
     )
     public List<Sport> sportSupported;

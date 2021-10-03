@@ -9,6 +9,9 @@ import androidx.room.PrimaryKey;
 public class Sport {
 
     @PrimaryKey
+    public long sportId;
+
+    @ColumnInfo(name = "sport_name")
     public String sportName;
 
     @ColumnInfo(name = "sport_type")

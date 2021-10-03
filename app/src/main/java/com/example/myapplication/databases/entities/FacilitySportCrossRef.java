@@ -3,8 +3,8 @@ package com.example.myapplication.databases.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity (primaryKeys = {"facilityName", "sportName"})
+@Entity (primaryKeys = {"facilityId", "sportId"})
 public class FacilitySportCrossRef {
-    public String facilityName;
-    public String sportName;
+    public String facilityId;
+    public String sportId;
 }

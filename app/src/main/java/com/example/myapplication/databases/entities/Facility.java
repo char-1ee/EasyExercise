@@ -9,6 +9,9 @@ import androidx.room.PrimaryKey;
 public class Facility {
 
     @PrimaryKey
+    public long facilityId;
+
+    @ColumnInfo(name = "facility_name")
     public String facilityName;
 
     @ColumnInfo(name = "website")
@@ -28,6 +31,4 @@ public class Facility {
 
     @Embedded
     public Location location;
-
-
 }

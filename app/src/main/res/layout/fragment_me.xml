@@ -32,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/Profile_photo"
-            android:text="@string/user_name"
+            android:text="@string/sample_user_name"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/DOB"
+            android:text="@string/sample_user_DOB"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"/>
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/Gender"
+            android:text="@string/sample_user_gender"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"/>
@@ -131,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/Weight"
+            android:text="@string/sample_user_weight"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"/>
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/Height"
+            android:text="@string/sample_user_height"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"/>
@@ -186,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/BMI"
+            android:text="@string/sample_user_bmi"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"/>
@@ -215,7 +215,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="@string/Join_date"
+            android:text="@string/sample_user_join_date"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"/>

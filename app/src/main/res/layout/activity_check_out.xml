@@ -22,7 +22,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/check_out_sport"
+            android:text="@string/sample_user_check_out_sport"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_below="@id/checkoutSport"
-            android:text="@string/check_out_place"
+            android:text="@string/sample_user_check_out_place"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintLeft_toLeftOf="parent" />
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/checkoutProfile"
             android:id="@+id/checkoutUser"
-            android:text="@string/user_name"
+            android:text="@string/sample_user_name"
             android:layout_marginTop="20dp"
             android:textSize="20dp"
             android:textStyle="bold"/>
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkoutTime"
-            android:text="@string/checkout_time"
+            android:text="@string/sample_user_check_out_time"
             android:layout_below="@id/checkoutUser"
             android:layout_toEndOf="@id/checkoutProfile"
             android:layout_marginTop="5dp"
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/checkout_duration"
+                    android:text="@string/sample_user_check_out_duration"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
                     android:textSize="30dp" />
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/checkout_calories"
+                    android:text="@string/sample_user_check_out_calories"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
                     android:textSize="30dp" />

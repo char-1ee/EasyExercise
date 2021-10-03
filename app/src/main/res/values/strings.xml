@@ -34,17 +34,17 @@
     <string name="start">Start</string>
     <string name="anonymous">Anonymous</string>
 
-    <string name="user_name">Moody Moody</string>
-    <string name="user_email">Moody@gmail.com</string>
-    <string name="DOB">23/02/2002</string>
-    <string name="Gender">Female</string>
-    <string name="Weight">60</string>
-    <string name="Height">175</string>
-    <string name="BMI">19.5</string>
-    <string name="Join_date">10/10/2030</string>
-    <string name="check_out_place">North Hill</string>
-    <string name="check_out_sport">swimming</string>
-    <string name="checkout_time">08/02/2020 18:18</string>
-    <string name="checkout_duration">00:32</string>
-    <string name="checkout_calories">211</string>
+    <string name="sample_user_name">Moody Moody</string>
+    <string name="sample_user_email">Moody@gmail.com</string>
+    <string name="sample_user_DOB">23/02/2002</string>
+    <string name="sample_user_gender">Female</string>
+    <string name="sample_user_weight">60</string>
+    <string name="sample_user_height">175</string>
+    <string name="sample_user_bmi">19.5</string>
+    <string name="sample_user_join_date">10/10/2020</string>
+    <string name="sample_user_check_out_place">North Hill</string>
+    <string name="sample_user_check_out_sport">swimming</string>
+    <string name="sample_user_check_out_time">08/02/2020 18:18</string>
+    <string name="sample_user_check_out_duration">00:32</string>
+    <string name="sample_user_check_out_calories">211</string>
 </resources>

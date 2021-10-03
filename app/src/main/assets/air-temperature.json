@@ -1,0 +1,70 @@
+{
+    "metadata": {
+        "stations": [
+            {
+                "id": "S50",
+                "device_id": "S50",
+                "name": "Clementi Road",
+                "location": {
+                    "latitude": 1.3337,
+                    "longitude": 103.7768
+                }
+            },
+            {
+                "id": "S44",
+                "device_id": "S44",
+                "name": "Nanyang Avenue",
+                "location": {
+                    "latitude": 1.34583,
+                    "longitude": 103.68166
+                }
+            },
+            {
+                "id": "S116",
+                "device_id": "S116",
+                "name": "West Coast Highway",
+                "location": {
+                    "latitude": 1.281,
+                    "longitude": 103.754
+                }
+            },
+            {
+                "id": "S100",
+                "device_id": "S100",
+                "name": "Woodlands Road",
+                "location": {
+                    "latitude": 1.4172,
+                    "longitude": 103.74855
+                }
+            }
+        ],
+        "reading_type": "DBT 1M F",
+        "reading_unit": "deg C"
+    },
+    "items": [
+        {
+            "timestamp": "2021-10-02T18:50:00+08:00",
+            "readings": [
+                {
+                    "station_id": "S50",
+                    "value": 28
+                },
+                {
+                    "station_id": "S44",
+                    "value": 27.7
+                },
+                {
+                    "station_id": "S116",
+                    "value": 28.3
+                },
+                {
+                    "station_id": "S100",
+                    "value": 28.3
+                }
+            ]
+        }
+    ],
+    "api_info": {
+        "status": "healthy"
+    }
+}

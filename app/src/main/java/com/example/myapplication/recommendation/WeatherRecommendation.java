@@ -1,7 +1,8 @@
 package com.example.myapplication.recommendation;
 
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.WeatherData;
+
+import com.example.myapplication.beans.weather.WeatherData;
 
 import java.util.List;
 

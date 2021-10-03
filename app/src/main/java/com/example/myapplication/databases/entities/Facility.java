@@ -1,27 +1,33 @@
 package com.example.myapplication.databases.entities;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "facility")
 public class Facility {
 
-    @PrimaryKey(autoGenerate = true)
-    private int _id;
-
-    @ColumnInfo(name = "facilityName")
-    private String sportName;
+    @PrimaryKey
+    public String facilityName;
 
     @ColumnInfo(name = "website")
-    private String image;
+    public String website;
 
-    @ColumnInfo(name = "telephoneNo")
-    private String telephoneNo;
+    @ColumnInfo(name = "telephone_no")
+    public String telephoneNo;
 
-    @ColumnInfo(name = "isSelected")
-    private boolean isSelected;
+    @ColumnInfo(name = "opening_hour")
+    public String openingHour;
 
-    @ColumnInfo(name = "")
-    private boolean isRecommend;
+    @ColumnInfo(name = "is_selected")
+    public boolean isSelected;
+
+    @ColumnInfo(name = "address")
+    public String address;
+
+    @Embedded
+    public Location location;
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication.db;
+package com.example.myapplication.databases.rooms;
 
 import android.content.Context;
 
@@ -6,8 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.myapplication.interfaces.SportDao;
-import com.example.myapplication.models.Sport;
+import com.example.myapplication.databases.daos.SportDao;
+import com.example.myapplication.databases.entities.Sport;
 
 @Database(entities = Sport.class, exportSchema = false, version = 1)
 public abstract class SportDB extends RoomDatabase {

@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.db.SportDB;
-import com.example.myapplication.interfaces.SportDao;
-import com.example.myapplication.models.Sport;
+import com.example.myapplication.databases.rooms.SportDB;
+import com.example.myapplication.databases.daos.SportDao;
+import com.example.myapplication.databases.entities.Sport;
 
 import java.util.List;
 

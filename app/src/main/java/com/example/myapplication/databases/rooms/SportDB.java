@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.myapplication.databases.daos.SportDao;
 import com.example.myapplication.databases.entities.Sport;
 
-@Database(entities = Sport.class, exportSchema = false, version = 1)
+@Database(entities = Sport.class, exportSchema = false, version = 1)  // TODO: database with a entity list
 public abstract class SportDB extends RoomDatabase {
     private static final String DB_NAME = "sport_db";
     private static SportDB instance;

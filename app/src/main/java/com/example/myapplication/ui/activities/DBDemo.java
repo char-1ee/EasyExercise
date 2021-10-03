@@ -15,6 +15,11 @@ import com.example.myapplication.databases.entities.Sport;
 
 import java.util.List;
 
+/**
+ * This is a demonstration class for developer use on database usage.<br/>
+ * It tells how to instantiated a Room database and how to perform CRUD operations on instantiated database.<br/>
+ * See <a href="https://developer.android.com/training/data-storage/room#usage">Usage</a>
+ */
 public class DBDemo extends AppCompatActivity implements View.OnClickListener{
 
     private Button insert;
@@ -32,14 +37,20 @@ public class DBDemo extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbdemo);
         initView();
+
+        //建立数据库
         sportDB = Room.databaseBuilder(this, SportDB.class,"word_database") //new a database
                 .allowMainThreadQueries()
-                .build(); //建立数据库
+                .build();
+        //获取Dao
+        sportDao = sportDB.getSportDao();
 
-        sportDao = sportDB.getSportDao(); //获取Dao
-        List<Sport> list = sportDao.getSportList(); //获取数据库中全部信息
+        //获取数据库中全部信息
+        List<Sport> list = sportDao.getSportList();
         String text = "";
-        for(int i=0;i<list.size();i++){   //fetch all data from database
+
+        //fetch all data from database
+        for(int i=0;i<list.size();i++){
             Sport item = list.get(i);
             text += item.get_id() + ":" + item.getSportName() + "\n";
         }

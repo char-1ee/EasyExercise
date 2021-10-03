@@ -11,5 +11,5 @@ public class PlanFacility {
             parentColumn = "facilityId",
             entityColumn = "facility_id"
     )
-    private List<Facility> facilitylist;
+    private List<Facility> facilityList;
 }

@@ -47,14 +47,14 @@ public class DBDemo extends AppCompatActivity implements View.OnClickListener{
 
         //获取数据库中全部信息
         List<Sport> list = sportDao.getSportList();
-        String text = "";
+        StringBuilder text = new StringBuilder();
 
         //fetch all data from database
         for(int i=0;i<list.size();i++){
             Sport item = list.get(i);
-            text += item.get_id() + ":" + item.getSportName() + "\n";
+            text.append(item.sportId).append(":").append(item.sportName).append("\n");
         }
-        demoText.setText(text);
+        demoText.setText(text.toString());
     }
 
     private void initView() {
@@ -83,30 +83,30 @@ public class DBDemo extends AppCompatActivity implements View.OnClickListener{
                 id++;
                 byte[] ax = new byte[1];
                 ax[0] = 0;
-                Sport a = new Sport(id,"Swim", ax , 0, false, false);
+                Sport a = new Sport();
                 sportDB.getSportDao().insertSport(a); //插入一个值
                 break;
             case R.id.delete:
                 byte[] bx = new byte[1];
                 bx[0] = 0;
-                Sport b  = new Sport("Swim", bx , 0, false, false);
-                b.set_id(1);
+                Sport b  = new Sport();
+                b.sportId = 1;
                 sportDB.getSportDao().deleteSport(b); // 删除id为1的对象
                 break;
             case R.id.select:
                 List<Sport> list = sportDao.getSportList(); //获取数据库中全部信息
-                String text = "";  //define a value to store data from database
+                StringBuilder text = new StringBuilder();  //define a value to store data from database
                 for(int i=0;i<list.size();i++){   //fetch all data from database
                     Sport item = list.get(i);
-                    text += item.get_id() + ":" + item.getSportName() + "\n";
+                    text.append(item.sportId).append(":").append(item.sportName).append("\n");
                 }
-                demoText.setText(text); //更新显示【其实就是把数据库信息都导进来】
+                demoText.setText(text.toString()); //更新显示【其实就是把数据库信息都导进来】
                 break;
             case R.id.update:
                 byte[] cx = new byte[1];
                 cx[0] = 0;
-                Sport c  = new Sport("Dance", cx , 0, false, false);
-                c.set_id(5);
+                Sport c  = new Sport();
+                c.sportId = 5;
                 sportDB.getSportDao().updateSport(c); //更新id为5的对象的值
                 break;
         }

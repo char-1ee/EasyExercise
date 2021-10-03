@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey;
 
 @Entity (primaryKeys = {"facilityId", "sportId"})
 public class FacilitySportCrossRef {
-    public String facilityId;
-    public String sportId;
+    public long facilityId;
+    public long sportId;
 }

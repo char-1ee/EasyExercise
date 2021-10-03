@@ -11,5 +11,5 @@ public class RecordSport {
             parentColumn = "sportId",
             entityColumn = "sport_id"
     )
-    private List<Sport> sportlist;
+    private List<Sport> sportList;
 }

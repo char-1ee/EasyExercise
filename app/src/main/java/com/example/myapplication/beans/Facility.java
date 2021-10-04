@@ -2,6 +2,7 @@ package com.example.myapplication.beans;
 
 import android.text.TextUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ public class Facility extends Location {
     private final Map<String, String> openingHours;
     private final List<String> facilities;
     private final List<String> sports;
+//    private final List<Sport> sportsSupported;
 
     public Facility(String name, String url, String address, String postalCode,
                     String description, Integer image, Map<String, String> openingHours,
@@ -30,6 +32,7 @@ public class Facility extends Location {
         this.openingHours = openingHours;
         this.facilities = facilities;
         this.sports = sports;
+//        this.sportsSupported = null;  // TODO
     }
 
     public Facility(String name, String url, String address, String postalCode,
@@ -76,6 +79,11 @@ public class Facility extends Location {
 
     public List<String> getSports() {
         return sports;
+    }
+
+    public List<Sport> getSportsSupported() {
+//        return sportsSupported;
+        return new ArrayList<>();
     }
 
     @Override

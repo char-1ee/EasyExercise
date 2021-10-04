@@ -14,6 +14,7 @@ import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterPlan;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SelectFacilityPlanActivity extends AppCompatActivity {
@@ -42,13 +43,17 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         }
         for (int i = 1; i <= 25; i++) {
             mFacilityList.add(new Facility(
-                    new Coordinates(0, 0),
                     "North Hill",
                     "https://www.ntu.edu.sg",
-                    "84073568",
-                    "64 Nanyang Cres, Singapore 636959",
+                    "64 Nanyang Crescent",
+                    "636959",
+                    "NA",
                     R.drawable.tanjong,
-                    mSportList));
+                    new HashMap<String, String>(),
+                    new ArrayList<String>(),
+                    new ArrayList<String>(),
+                    1.3541,
+                    103.6882));
         }
         return mFacilityList;
     }

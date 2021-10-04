@@ -1,85 +1,104 @@
 package com.example.myapplication.beans;
 
+import android.text.TextUtils;
+
 import java.util.List;
+import java.util.Map;
 
 public class Facility extends Location {
-    private String name;
-    private String website;
-    private String telephoneNo;
-    private String address;
-    private int image;
-    private List<Sport> sportsSupported;
-    private boolean isSelected = false;
+    private final String name;
+    private final String url;
+    private final String address;
+    private final String postalCode;
+    private final String description;
+    private final Integer image;
+    private final Map<String, String> openingHours;
+    private final List<String> facilities;
+    private final List<String> sports;
 
-    public Facility(Coordinates coordinates,
-                    String name,
-                    String website,
-                    String telephoneNo,
-                    String address,
-                    int image,
-                    List<Sport> sportsSupported) {
-        super(coordinates, true);
+    public Facility(String name, String url, String address, String postalCode,
+                    String description, Integer image, Map<String, String> openingHours,
+                    List<String> facilities, List<String> sports, double latitude,
+                    double longitude) {
+        super(latitude, longitude, name, LocationType.FACILITY);
         this.name = name;
-        this.website = website;
-        this.telephoneNo = telephoneNo;
+        this.url = url;
         this.address = address;
+        this.postalCode = postalCode;
+        this.description = description;
         this.image = image;
-        this.sportsSupported = sportsSupported;
+        this.openingHours = openingHours;
+        this.facilities = facilities;
+        this.sports = sports;
     }
 
+    public Facility(String name, String url, String address, String postalCode,
+                    String description, Integer image, Map<String, String> openingHours,
+                    List<String> facilities, List<String> sports,
+                    Coordinates coordinates) {
+        this(name, url, address, postalCode, description, image, openingHours,
+                facilities, sports, coordinates.getLatitude(),
+                coordinates.getLongitude());
+    }
+
+    @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getTelephoneNo() {
-        return telephoneNo;
-    }
-
-    public void setTelephoneNo(String telephoneNo) {
-        this.telephoneNo = telephoneNo;
+    public String getURL() {
+        return url;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public int getImage() {
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getImage() {
         return image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public Map<String, String> getOpeningHours() {
+        return openingHours;
     }
 
-    public List<Sport> getSportsSupported() {
-        return sportsSupported;
+    public List<String> getFacilities() {
+        return facilities;
     }
 
-    public void setSportsSupported(List<Sport> sportsSupported) {
-        this.sportsSupported = sportsSupported;
+    public List<String> getSports() {
+        return sports;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    @Override
+    public String toString() {
+        String stringOpeningHours = "";
+        for (var entry : openingHours.entrySet()) {
+            if (!stringOpeningHours.isEmpty()) {
+                stringOpeningHours += "\n";
+            }
+            stringOpeningHours +=
+                    String.format("%s: %s", entry.getKey(), entry.getValue());
+        }
+        if (stringOpeningHours.isEmpty()) {
+            stringOpeningHours = "Opening hours: NA";
+        }
+        String stringFacilities =
+                (facilities.isEmpty()) ? "NA" : TextUtils.join(", ", facilities);
+        String stringSports =
+                (sports.isEmpty()) ? "NA" : TextUtils.join(", ", sports);
+        return String.format("Name: %s\nURL: %s\nAddress: %s\n"
+                        + "Postal code: %s\nCoordinates: %s\n%s\nFacilities: %s\n"
+                        + "Sports: %s\n", name, url, address, postalCode,
+                getCoordinates(), stringOpeningHours, stringFacilities,
+                stringSports);
     }
 }

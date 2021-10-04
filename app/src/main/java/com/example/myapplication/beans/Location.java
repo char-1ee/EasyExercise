@@ -1,27 +1,15 @@
 package com.example.myapplication.beans;
 
-public abstract class Location {
-    private Coordinates coordinates;
-    private boolean isFacility;
+public abstract class Location extends Coordinates {
+    private final LocationType type;
 
-    public Location(Coordinates coordinates, boolean isFacility) {
-        this.coordinates = coordinates;
-        this.isFacility = isFacility;
+    public Location(double latitude, double longitude, String name,
+                    LocationType type) {
+        super(latitude, longitude, name);
+        this.type = type;
     }
 
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public boolean isFacility() {
-        return isFacility;
-    }
-
-    public void setFacility(boolean facility) {
-        isFacility = facility;
+    public LocationType getType() {
+        return type;
     }
 }

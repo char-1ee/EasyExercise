@@ -1,19 +1,19 @@
 package com.example.myapplication.ui.activities;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
-import com.example.myapplication.beans.Coordinates;
+import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterCheckIn;
-import com.example.myapplication.beans.Facility;
-import com.example.myapplication.R;
-import com.example.myapplication.beans.Sport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SelectFacilityCheckInActivity extends AppCompatActivity {
@@ -42,13 +42,17 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
         }
         for (int i = 1; i <= 5; i++) {
             mFacilityList.add(new Facility(
-                    new Coordinates(0, 0),
                     "North Hill",
                     "https://www.ntu.edu.sg",
-                    "84073568",
-                    "64 Nanyang Cres, Singapore 636959",
+                    "64 Nanyang Crescent",
+                    "636959",
+                    "NA",
                     R.drawable.tanjong,
-                    mSportList));
+                    new HashMap<String, String>(),
+                    new ArrayList<String>(),
+                    new ArrayList<String>(),
+                    1.3541,
+                    103.6882));
         }
         return mFacilityList;
     }

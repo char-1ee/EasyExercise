@@ -22,6 +22,7 @@ import com.example.myapplication.ui.adapters.HistoryRecyclerViewAdapter;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class HistoryFragment extends Fragment {
@@ -56,13 +57,17 @@ public class HistoryFragment extends Fragment {
             List<Sport> sportList = new ArrayList<>();
             sportList.add(sport);
             Facility facility = new Facility(
-                    new Coordinates(0, 0),
                     "North Hill",
                     "https://www.ntu.edu.sg",
-                    "84073568",
-                    "64 Nanyang Cres, Singapore 636959",
+                    "64 Nanyang Crescent",
+                    "636959",
+                    "NA",
                     R.drawable.tanjong,
-                    sportList);
+                    new HashMap<String, String>(),
+                    new ArrayList<String>(),
+                    new ArrayList<String>(),
+                    1.3541,
+                    103.6882);
             Date date = new Date(2021, 9, 19);
             Time time = new Time(10, 35, 4);
             //mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, time, date));

@@ -29,7 +29,8 @@ public class Coordinates {
      * @param latitude  the latitude of the other location
      * @param longitude the longitude of the other location
      * @return the distance between the two locations in kilometres
-     * @see http://www.movable-type.co.uk/scripts/latlong.html
+     * @see <a href="http://www.movable-type.co.uk/scripts/latlong.html">
+     * http://www.movable-type.co.uk/scripts/latlong.html</a>
      */
     public double getDistance(double latitude, double longitude) {
         double dLatitude = Math.toRadians(this.latitude - latitude);
@@ -41,6 +42,10 @@ public class Coordinates {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double d = R * c;
         return d;
+    }
+
+    public Coordinates getCoordinates() {
+        return new Coordinates(latitude, longitude, name);
     }
 
     public double getLatitude() {
@@ -57,7 +62,7 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        if (name == null) {
+        if (name.isEmpty()) {
             return String.format("[%s, %s]", latitudeToString(),
                     longitudeToString());
         }
@@ -67,11 +72,11 @@ public class Coordinates {
 
     public String latitudeToString() {
         return String.format(Locale.getDefault(), "%f%s", Math.abs(latitude),
-                latitude >= 0 ? "E" : "W");
+                latitude >= 0 ? "N" : "S");
     }
 
     public String longitudeToString() {
         return String.format(Locale.getDefault(), "%f%s", Math.abs(longitude),
-                longitude >= 0 ? "N" : "S");
+                longitude >= 0 ? "E" : "W");
     }
 }

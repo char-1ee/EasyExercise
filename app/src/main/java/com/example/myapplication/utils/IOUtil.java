@@ -9,6 +9,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 public class IOUtil {
+    private static final String lineSeparator =
+            System.getProperty("line.separator");
+
     private final Context mContext;
 
     public IOUtil(Context context) {
@@ -23,6 +26,7 @@ public class IOUtil {
             StringBuilder stringBuilder = new StringBuilder();
             for (String line; (line = bufferedReader.readLine()) != null; ) {
                 stringBuilder.append(line);
+                stringBuilder.append(lineSeparator);
             }
             bufferedReader.close();
             inputStreamReader.close();
@@ -41,6 +45,7 @@ public class IOUtil {
             StringBuilder stringBuilder = new StringBuilder();
             for (String line; (line = bufferedReader.readLine()) != null; ) {
                 stringBuilder.append(line);
+                stringBuilder.append(lineSeparator);
             }
             bufferedReader.close();
             return stringBuilder.toString();

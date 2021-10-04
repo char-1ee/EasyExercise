@@ -1,25 +1,13 @@
 package com.example.myapplication.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.example.myapplication.R;
-import com.example.myapplication.databases.rooms.SportDB;
-import com.example.myapplication.databases.daos.SportDao;
-import com.example.myapplication.databases.entities.Sport;
-
-import java.util.List;
 
 /**
  * This is a demonstration class for developer use on database usage.<br/>
  * It tells how to instantiated a Room database and how to perform CRUD operations on instantiated database.<br/>
  * See <a href="https://developer.android.com/training/data-storage/room#usage">Usage</a>
  */
+
+/*
 public class DBDemo extends AppCompatActivity implements View.OnClickListener{
 
     private Button insert;
@@ -112,3 +100,4 @@ public class DBDemo extends AppCompatActivity implements View.OnClickListener{
         }
     }
 }
+*/

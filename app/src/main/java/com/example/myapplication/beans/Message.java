@@ -1,19 +1,21 @@
 package com.example.myapplication.beans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
 
     private String messageText;
     private String messageUser;
-    private long messageTime;
+    private String messageTime;
 
     public Message(String messageText, String messageUser) {
         this.messageText = messageText;
         this.messageUser = messageUser;
 
         // Initialize to current time
-        messageTime = new Date().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        messageTime = sdf.format(new Date());
     }
 
     public Message(){
@@ -36,11 +38,11 @@ public class Message {
         this.messageUser = messageUser;
     }
 
-    public long getMessageTime() {
+    public String getMessageTime() {
         return messageTime;
     }
 
-    public void setMessageTime(long messageTime) {
+    public void setMessageTime(String messageTime) {
         this.messageTime = messageTime;
     }
 }

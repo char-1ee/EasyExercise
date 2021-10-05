@@ -9,7 +9,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        id="@+id/messageRecyclerView"
+        android:id="@+id/messageRecyclerView"
         android:layout_width="409dp"
         android:layout_height="681dp"
         app:layout_constraintBottom_toTopOf="@+id/messageInput"

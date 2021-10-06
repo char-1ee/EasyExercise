@@ -39,7 +39,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference mDatabase = database.getReference();
+        DatabaseReference mDatabase = database.getReference().child("chatroom");
 
         inputText = (EditText) findViewById(R.id.inputText);
         send = (Button) findViewById(R.id.send);
@@ -58,13 +58,13 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("chatroom", "Value received!");
-                Message receiveMessage = snapshot.getValue(Message.class);
-                if(receiveMessage != null) {
-                    //Log.w("chatroom", receiveMessage.getMessageText());
+                msgList.clear();
+                for (DataSnapshot s: snapshot.getChildren()){
+                    Message receiveMessage = s.getValue(Message.class);
                     msgList.add(receiveMessage);
-                    adapter.notifyItemInserted(msgList.size());
-                    recyclerView.scrollToPosition(msgList.size());
                 }
+                adapter.notifyItemInserted(msgList.size() - 1);
+                recyclerView.scrollToPosition(msgList.size() - 1);
             }
 
             @Override
@@ -82,7 +82,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(!"".equals(content)){
                     try{
                         Message handleMsg = new Message(content, "Charles");
-                        mDatabase.child("chatroom").child(String.valueOf(msgList.size()+1)).setValue(handleMsg);
+                        mDatabase.child(String.valueOf(msgList.size()+1)).setValue(handleMsg);
                         inputText.setText("");
                     } catch(Exception e){
                         e.printStackTrace();

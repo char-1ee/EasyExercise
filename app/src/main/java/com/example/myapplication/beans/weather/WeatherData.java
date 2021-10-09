@@ -66,23 +66,23 @@ public class WeatherData {
         return timestamp;
     }
 
-    public WeatherResult getTemperature() {
+    public RealTimeWeatherResult getTemperature() {
         return temperature;
     }
 
-    public WeatherResult getRainfall() {
+    public RealTimeWeatherResult getRainfall() {
         return rainfall;
     }
 
-    public WeatherResult getRelativeHumidity() {
+    public RealTimeWeatherResult getRelativeHumidity() {
         return relativeHumidity;
     }
 
-    public WeatherResult getWindDirection() {
+    public RealTimeWeatherResult getWindDirection() {
         return windDirection;
     }
 
-    public WeatherResult getWindSpeed() {
+    public RealTimeWeatherResult getWindSpeed() {
         return windSpeed;
     }
 
@@ -90,7 +90,7 @@ public class WeatherData {
         return uvIndex;
     }
 
-    public WeatherResult getPM25() {
+    public RealTimeWeatherResult getPM25() {
         return pm25;
     }
 

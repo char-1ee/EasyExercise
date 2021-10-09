@@ -119,10 +119,10 @@
                 android:layout_marginLeft="30dp">
 
                 <TextView
+                    android:id="@+id/time_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/sample_user_check_out_duration"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
                     android:textSize="30dp" />

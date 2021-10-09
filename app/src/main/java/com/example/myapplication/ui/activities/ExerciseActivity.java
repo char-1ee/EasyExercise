@@ -3,6 +3,7 @@ package com.example.myapplication.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myapplication.R;
@@ -42,9 +43,20 @@ public class ExerciseActivity extends AppCompatActivity {
 
         startTimer();
 
+        checkOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
+                checkInIntent.putExtra("timeDuration",getTimerText());
+                startActivity(checkInIntent);
+            }
+        });
     }
 
-    public void startStopTapped(View view) {
+
+
+        public void startStopTapped(View view) {
         if (timerStarted == false) {
             timerStarted = true;
             setButtonUI("STOP", R.color.purple_200);
@@ -92,4 +104,6 @@ public class ExerciseActivity extends AppCompatActivity {
                 String.format("%02d", minutes) + " : " +
                 String.format("%02d", seconds);
     }
+
+
 }

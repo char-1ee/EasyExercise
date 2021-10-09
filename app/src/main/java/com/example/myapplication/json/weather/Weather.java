@@ -6,6 +6,23 @@ import com.example.myapplication.beans.weather.WeatherData;
 import java.util.Date;
 
 public class Weather {
+    public static final String AIR_TEMPERATURE_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/air-temperature";
+    public static final String RAINFALL_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/rainfall";
+    public static final String RELATIVE_HUMIDITY_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/relative-humidity";
+    public static final String WIND_DIRECTION_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/wind-direction";
+    public static final String WIND_SPEED_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/wind-speed";
+    public static final String UV_INDEX_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/uv-index";
+    public static final String PM25_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/pm25";
+    public static final String WEATHER_FORECAST_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast";
+
     private final RealTimeWeather airTemperature;
     private final RealTimeWeather rainfall;
     private final RealTimeWeather relativeHumidity;

@@ -43,4 +43,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //enable foreign key constraints like ON UPDATE CASCADE, ON DELETE CASCADE
         db.execSQL("PRAGMA foreign_keys=ON;");
     }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db,oldVersion, newVersion);
+    }
+
 }

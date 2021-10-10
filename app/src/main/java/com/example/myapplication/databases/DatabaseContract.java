@@ -50,7 +50,6 @@ public final class DatabaseContract {
         public static final String KEY_URL = "url";
         public static final String KEY_OPENING_HOUR = "openingHour";
         public static final String KEY_SPORT_ID = "sportId";
-        // TODO need List<String> facilities?
 
         public static final String CREATE_TABLE_FACILITY = "CREATE TABLE " +
                 TABLE_NAME_FACILITY + " (" +
@@ -71,8 +70,6 @@ public final class DatabaseContract {
         public static final String TABLE_NAME_WORKOUT_PLAN = "WorkoutPlan";
         public static final String KEY_SPORT_ID = "sportId";
         public static final String KEY_FACILITY_ID = "facilityId";
-//        public static final String KEY_LOCATION = "location";
-        // TODO haven not add PlanStatus yet
 
         public static final String CREATE_TABLE_WORKOUT_PLAN = "CREATE TABLE " +
                 TABLE_NAME_WORKOUT_PLAN + "(" +

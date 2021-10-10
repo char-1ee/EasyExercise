@@ -36,6 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // TODO delete those generates by Room layer
+
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);

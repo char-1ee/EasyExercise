@@ -12,21 +12,26 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.SportRecyclerViewAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectSportActivity extends AppCompatActivity {
+    private List<Sport> ChosenSport1;
+    private List<Sport> ChosenSport2;
+    private List<Facility> FinalFacility;
     private List<Sport> RecommendedSport;
     private List<Sport> OtherSport;
     private Button mSportChoicesConfirmButton;
     private List<Sport> mSportList;
     private RecyclerView mRecyclerView, mRecyclerView2;
-    private RecyclerView.Adapter mAdapter, mAdapter2;
+    private SportRecyclerViewAdapter mAdapter, mAdapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +59,15 @@ public class SelectSportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Context context = SelectSportActivity.this;
-                Class destinationActivity = SelectFacilityPlanActivity.class;
-                Intent startChildActivityIntent = new Intent(context, destinationActivity);
-                startActivity(startChildActivityIntent);
+                ChosenSport1= mAdapter.getChosenSportList();
+                ChosenSport2= mAdapter2.getChosenSportList();
+                ChosenSport1.addAll(ChosenSport2);
+                // TODO: 2021/10/11 Search qualified facilities basing on sports chosen
+                // TODO: 2021/10/11 the list of sports: ChosenSports1
+                FinalFacility= testGiveFacility();
+                Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
+                intent.putExtra("FacilityQualified",(Serializable) FinalFacility);
+                startActivity(intent);
             }
         });
     }
@@ -69,5 +80,24 @@ public class SelectSportActivity extends AppCompatActivity {
     private List<Sport> getOtherSport(){
         List<Sport> s= (List<Sport>) getIntent().getSerializableExtra("OtherSports");
         return s;
+    }
+
+    private List<Facility> testGiveFacility(){
+        List<Facility> mFacilityList = new ArrayList<Facility>();
+        List<Sport> mSportList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+        }
+        for (int i = 1; i <= 25; i++) {
+            mFacilityList.add(new Facility(
+                    new Coordinates(0, 0),
+                    "North Hill",
+                    "https://www.ntu.edu.sg",
+                    "84073568",
+                    "64 Nanyang Cres, Singapore 636959",
+                    R.drawable.tanjong,
+                    mSportList));
+        }
+        return mFacilityList;
     }
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectFacilityPlanActivity extends AppCompatActivity {
-    private List<Facility> mFacilityList;
+    private List<Facility> FacilityQualified;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
@@ -26,30 +26,18 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_facility);
 
+        FacilityQualified= getFacilityQualified();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, getListData());
+        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified);
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private List<Facility> getListData() {
-        mFacilityList = new ArrayList<Facility>();
-        List<Sport> mSportList = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        }
-        for (int i = 1; i <= 25; i++) {
-            mFacilityList.add(new Facility(
-                    new Coordinates(0, 0),
-                    "North Hill",
-                    "https://www.ntu.edu.sg",
-                    "84073568",
-                    "64 Nanyang Cres, Singapore 636959",
-                    R.drawable.tanjong,
-                    mSportList));
-        }
-        return mFacilityList;
+    private List<Facility> getFacilityQualified(){
+        List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityQualified");
+        return f;
     }
+
 }

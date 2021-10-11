@@ -35,10 +35,10 @@ public class CheckInNormalActivity extends AppCompatActivity {
         facilityList= getFacilityList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_normal);
-        rv_test = findViewById(R.id.check_in_sport_recycler_view);
-        button1 = findViewById(R.id.check_in_sport_choice_button);
+        rv_test = findViewById(R.id.check_in_sport_recycler);
+        button1 = findViewById(R.id.check_in_sport_button);
         button2 = findViewById(R.id.choose_another_facility_button);
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(facility.getImage());
 
         // RecyclerView adapter

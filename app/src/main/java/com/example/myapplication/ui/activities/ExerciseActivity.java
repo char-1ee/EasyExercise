@@ -26,7 +26,6 @@ public class ExerciseActivity extends AppCompatActivity {
     Facility facility;
     Sport sport;
     TextView timerText;
-    Button stopStartButton;
     Button checkOutButton;
     ImageView sportView;
     Timer timer;
@@ -39,17 +38,16 @@ public class ExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
-        Date date = new Date();
+        Date startDate = new Date();
         facility= getFacility();
         sport= getSport();
         sportView= (ImageView) findViewById(R.id.imageView3);
         timerText = (TextView) findViewById(R.id.timerText);
-        stopStartButton = (Button) findViewById(R.id.start_stop_button);
         checkOutButton = (Button) findViewById(R.id.check_out_button);
         sportView.setImageResource(sport.getImage());
         timer = new Timer();
         timerStarted = true;
-        setButtonUI("STOP", R.color.purple_200);
+        //setButtonUI("STOP", R.color.purple_200);
         startTimer();
 
         checkOutButton.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +56,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
                 checkInIntent.putExtra("FacilityExercise", facility);
                 checkInIntent.putExtra("SportExercise", sport);
+                checkInIntent.putExtra("StartDate", startDate);
                 checkInIntent.putExtra("timeDuration",getTimerText());
                 startActivity(checkInIntent);
             }
@@ -77,19 +76,19 @@ public class ExerciseActivity extends AppCompatActivity {
     public void startStopTapped(View view) {
         if (timerStarted == false) {
             timerStarted = true;
-            setButtonUI("STOP", R.color.purple_200);
+            //setButtonUI("STOP", R.color.purple_200);
             startTimer();
         } else {
             timerStarted = false;
-            setButtonUI("START", R.color.purple_700);
+            //setButtonUI("START", R.color.purple_700);
             timerTask.cancel();
         }
     }
 
-    private void setButtonUI(String start, int color) {
-        stopStartButton.setText(start);
-        stopStartButton.setTextColor(ContextCompat.getColor(this, color));
-    }
+//    private void setButtonUI(String start, int color) {
+//        stopStartButton.setText(start);
+//        stopStartButton.setTextColor(ContextCompat.getColor(this, color));
+//    }
 
     private void startTimer() {
         timerTask = new TimerTask() {

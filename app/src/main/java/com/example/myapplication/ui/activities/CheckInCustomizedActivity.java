@@ -13,11 +13,9 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
-import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +31,10 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         customizedLocation= getCustomizedLocation();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_in_normal);
-        rv_test = findViewById(R.id.check_in_sport_recycler_view);
-        button1 = findViewById(R.id.check_in_sport_choice_button);
-        imageView = findViewById(R.id.imageView);
+        setContentView(R.layout.activity_check_in_customized);
+        rv_test = findViewById(R.id.check_in_sport_recycler);
+        button1 = findViewById(R.id.check_in_sport_button);
+        imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(R.drawable.panorama);
 
         // RecyclerView adapter

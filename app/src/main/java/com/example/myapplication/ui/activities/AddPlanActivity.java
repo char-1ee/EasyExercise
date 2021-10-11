@@ -13,11 +13,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
-import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.AddPlanAdapter;
-
-import java.util.ArrayList;
 
 public class AddPlanActivity extends AppCompatActivity {
     private ImageView imageView;
@@ -32,9 +28,9 @@ public class AddPlanActivity extends AppCompatActivity {
 
         facility= getFacility();
 
-        rv_test = findViewById(R.id.check_in_sport_recycler_view);
+        rv_test = findViewById(R.id.check_in_sport_recycler);
         button = findViewById(R.id.add_plan_button);
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(facility.getImage());
 
         // RecyclerView adapter

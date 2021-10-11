@@ -22,9 +22,6 @@
             android:name=".ui.activities.ExerciseActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.ViewMeActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activities.SelectSportActivity"
             android:exported="true" />
         <activity

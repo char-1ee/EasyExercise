@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
-                if( 0==1){
+                if( 1==1){
                     Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
                     intent.putExtra("ClosestFacility",testCheckinClosetFacility());
                     intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());

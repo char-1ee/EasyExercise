@@ -3,6 +3,7 @@ package com.example.myapplication.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myapplication.R;
@@ -48,6 +49,14 @@ public class ExerciseActivity extends AppCompatActivity {
         setButtonUI("STOP", R.color.purple_200);
         startTimer();
 
+        checkOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
+                checkInIntent.putExtra("timeDuration",getTimerText());
+                startActivity(checkInIntent);
+            }
+        });
     }
 
     private Facility getFacility(){

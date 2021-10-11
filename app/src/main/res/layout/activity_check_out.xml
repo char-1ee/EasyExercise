@@ -44,14 +44,14 @@
             android:id="@+id/checkoutPic"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
             android:padding="3dp"
             android:scaleType="centerInside"
-            android:src="@drawable/swimming"
-            android:layout_alignParentRight="true" />
+            android:src="@drawable/swimming" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -66,14 +66,14 @@
         >
 
         <ImageView
+            android:id="@+id/checkoutProfile"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:id="@+id/checkoutProfile"
-            android:src="@drawable/profile"
-            android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/profile" />
 
         <TextView
             android:layout_width="wrap_content"

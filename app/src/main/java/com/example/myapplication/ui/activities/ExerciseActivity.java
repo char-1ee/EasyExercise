@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,6 +39,7 @@ public class ExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+        Date date = new Date();
         facility= getFacility();
         sport= getSport();
         sportView= (ImageView) findViewById(R.id.imageView3);
@@ -53,6 +56,8 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
+                checkInIntent.putExtra("FacilityExercise", facility);
+                checkInIntent.putExtra("SportExercise", sport);
                 checkInIntent.putExtra("timeDuration",getTimerText());
                 startActivity(checkInIntent);
             }

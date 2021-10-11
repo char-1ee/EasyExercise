@@ -13,19 +13,26 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHolder> {
     public Sport finalChoice;
     private Context context;
-    private ArrayList<Sport> secondList;
+    private List<Sport> sportList;
     private int index = -1;
+    private Facility facility;
 
-    public AddPlanAdapter(Context context, ArrayList<Sport> secondList) {
+    public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
-        this.secondList = secondList;
+        this.facility= facility;
+        this.sportList= facility.getSportsSupported();
+    }
+
+    public Sport getFinalChoice() {
+        return finalChoice;
     }
 
     @Override
@@ -37,8 +44,8 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        holder.tv_question_item.setText(secondList.get(position).getName());
-        holder.iv_question_item.setImageResource(secondList.get(position).getImage());
+        holder.tv_question_item.setText(sportList.get(position).getName());
+        holder.iv_question_item.setImageResource(sportList.get(position).getImage());
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -51,7 +58,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         });
         if (index == position) {
             holder.rb_question_item.setChecked(true);
-            finalChoice = secondList.get(index);
+            finalChoice = sportList.get(index);
         } else {
             holder.rb_question_item.setChecked(false);
         }
@@ -59,7 +66,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return secondList.size();
+        return sportList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

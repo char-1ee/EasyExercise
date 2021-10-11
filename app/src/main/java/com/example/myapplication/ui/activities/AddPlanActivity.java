@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.AddPlanAdapter;
@@ -22,24 +23,25 @@ public class AddPlanActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button button;
     private RecyclerView rv_test;
-    private ArrayList<Sport> secondList = new ArrayList<>();
+    private Facility facility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plan);
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+
+        facility= getFacility();
+
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button = findViewById(R.id.add_plan_button);
         imageView = findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.swimming);
+        imageView.setImageResource(facility.getImage());
 
         // RecyclerView adapter
         rv_test.setLayoutManager(new LinearLayoutManager(AddPlanActivity.this, LinearLayoutManager.VERTICAL, false));
-        AddPlanAdapter firstAdapter = new AddPlanAdapter(AddPlanActivity.this, secondList);
+        AddPlanAdapter firstAdapter = new AddPlanAdapter(AddPlanActivity.this, facility);
         rv_test.setAdapter(firstAdapter);
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -50,5 +52,10 @@ public class AddPlanActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private Facility getFacility(){
+        Facility f= (Facility) getIntent().getSerializableExtra("ChosenFacility");
+        return f;
     }
 }

@@ -83,21 +83,31 @@ public class SelectSportActivity extends AppCompatActivity {
     }
 
     private List<Facility> testGiveFacility(){
-        List<Facility> mFacilityList = new ArrayList<Facility>();
-        List<Sport> mSportList = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        }
-        for (int i = 1; i <= 25; i++) {
-            mFacilityList.add(new Facility(
-                    new Coordinates(0, 0),
-                    "North Hill",
-                    "https://www.ntu.edu.sg",
-                    "84073568",
-                    "64 Nanyang Cres, Singapore 636959",
-                    R.drawable.tanjong,
-                    mSportList));
-        }
-        return mFacilityList;
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
+        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport c= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        Facility r= new Facility( new Coordinates(0, 0), "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.wave, sports);
+        List<Facility> f = new ArrayList<Facility>();
+        f.add(testFacility());
+        f.add(r);
+        f.add(testFacility());
+        f.add(r);
+        f.add(testFacility());
+        f.add(r);
+        return f;
+    }
+
+    private Facility testFacility(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
+        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        Facility f= new Facility( new Coordinates(1.290270, 103.851959), "northilla", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.tanjong, sports);
+        return f;
     }
 }

@@ -14,16 +14,22 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.activities.AddPlanActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<FacilityRecyclerViewAdapterPlan.MyViewHolder> {
 
+    private Facility chosenFacility;
     private List<Facility> mFacilityList;
     private Context mContext;
 
     public FacilityRecyclerViewAdapterPlan(Context context, List<Facility> facilityList) {
         mFacilityList = facilityList;
         mContext = context;
+    }
+
+    public Facility getChosenFacility() {
+        return chosenFacility;
     }
 
     @Override
@@ -36,14 +42,15 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        holder.mSelectFacilityImage.setImageResource(R.drawable.tanjong);
+        holder.mSelectFacilityImage.setImageResource(facility.getImage());
         holder.mSelectFacilityDistance.setText("0.8 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Class destinationActivity = AddPlanActivity.class;
-                Intent startChildActivityIntent = new Intent(mContext, destinationActivity);
-                mContext.startActivity(startChildActivityIntent);
+                chosenFacility= facility;
+                Intent intent= new Intent(mContext, AddPlanActivity.class);
+                intent.putExtra("ChosenFacility", chosenFacility);
+                mContext.startActivity(intent);
             }
         });
     }

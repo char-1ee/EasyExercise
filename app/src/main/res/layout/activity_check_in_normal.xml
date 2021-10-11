@@ -20,26 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView5"-->
-<!--                android:layout_width="130dp"-->
-<!--                android:layout_height="130dp"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:layout_marginEnd="32dp"-->
-<!--                android:layout_marginBottom="32dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                tools:srcCompat="@tools:sample/avatars" />-->
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginEnd="50dp"
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:context=".ui.activities.MapsActivity" />
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+
 
             <TextView
                 android:id="@+id/textView"
@@ -48,7 +42,6 @@
                 android:text="TextView"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/map"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

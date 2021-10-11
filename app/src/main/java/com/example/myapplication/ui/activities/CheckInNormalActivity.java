@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +17,15 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +39,9 @@ public class CheckInNormalActivity extends AppCompatActivity {
     private Facility facility;
     private List<Facility> facilityList;
     private Sport ChosenSport;
+    private GoogleMap googleMap;
+    private MapView mMapView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +54,9 @@ public class CheckInNormalActivity extends AppCompatActivity {
         button2 = findViewById(R.id.choose_another_facility_button);
         imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(facility.getImage());
+
+
+
 
         // RecyclerView adapter
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -71,6 +88,8 @@ public class CheckInNormalActivity extends AppCompatActivity {
     }
 
 
+
+
     private Facility getFacility(){
         Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
         return f;
@@ -80,5 +99,9 @@ public class CheckInNormalActivity extends AppCompatActivity {
         List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
         return f;
     }
+
+
+
+
 
 }

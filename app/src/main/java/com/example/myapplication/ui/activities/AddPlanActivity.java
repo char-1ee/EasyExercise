@@ -47,8 +47,9 @@ public class AddPlanActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AddPlanActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPlanActivity.this, "Option " + firstAdapter.getFinalChoice().getName() + " selected", Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
+                // TODO: 2021/10/11 add workout plan before returning
                 startActivity(intent);
             }
         });

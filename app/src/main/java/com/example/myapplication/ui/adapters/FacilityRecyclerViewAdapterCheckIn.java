@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.ui.activities.CheckInActivity;
+import com.example.myapplication.ui.activities.CheckInNormalActivity;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 
@@ -43,7 +43,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
             @Override
             public void onClick(View view) {
                 ChosenFacility = mFacilityList.get(position);
-                Intent intent = new Intent(mContext, CheckInActivity.class);
+                Intent intent = new Intent(mContext, CheckInNormalActivity.class);
                 intent.putExtra("ClosestFacility", ChosenFacility);
                 intent.putExtra("FacilityByDistance",(Serializable)mFacilityList);
                 mContext.startActivity(intent);

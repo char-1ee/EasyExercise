@@ -14,14 +14,13 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInActivity extends AppCompatActivity {
+public class CheckInNormalActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button button1, button2;
     private RecyclerView rv_test;
@@ -35,7 +34,7 @@ public class CheckInActivity extends AppCompatActivity {
         facility= getFacility();
         facilityList= getFacilityList();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_in);
+        setContentView(R.layout.activity_check_in_normal);
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button1 = findViewById(R.id.check_in_sport_choice_button);
         button2 = findViewById(R.id.choose_another_facility_button);
@@ -43,17 +42,17 @@ public class CheckInActivity extends AppCompatActivity {
         imageView.setImageResource(facility.getImage());
 
         // RecyclerView adapter
-        rv_test.setLayoutManager(new LinearLayoutManager(CheckInActivity.this, LinearLayoutManager.VERTICAL, false));
-        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInActivity.this, facility.getSportsSupported());
+        rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
+        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, facility.getSportsSupported());
         rv_test.setAdapter(firstAdapter);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckInNormalActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
                 ChosenSport = firstAdapter.finalChoice;
-                Intent intent= new Intent(CheckInActivity.this, ExerciseActivity.class);
+                Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
                 intent.putExtra("ChosenSport", ChosenSport);
                 intent.putExtra("ChosenFacility", facility);
                 startActivity(intent);
@@ -63,7 +62,7 @@ public class CheckInActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CheckInActivity.this, SelectFacilityCheckInActivity.class);
+                Intent intent = new Intent(CheckInNormalActivity.this, SelectFacilityCheckInActivity.class);
                 intent.putExtra("FacilityByDistance2",(Serializable)facilityList);
                 startActivity(intent);
             }

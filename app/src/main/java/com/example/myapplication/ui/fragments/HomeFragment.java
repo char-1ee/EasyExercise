@@ -15,7 +15,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.ui.activities.CheckInActivity;
+import com.example.myapplication.ui.activities.CheckInNormalActivity;
+import com.example.myapplication.ui.activities.NoFacilityActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
 
 import java.io.Serializable;
@@ -50,10 +51,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
-                Intent intent = new Intent(getActivity(), CheckInActivity.class);
-                intent.putExtra("ClosestFacility",testCheckinClosetFacility());
-                intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());
-                startActivity(intent);
+                if( 0==1){
+                    Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
+                    intent.putExtra("ClosestFacility",testCheckinClosetFacility());
+                    intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent= new Intent(getActivity(), NoFacilityActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

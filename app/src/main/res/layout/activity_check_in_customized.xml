@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.CheckInActivity">
+    tools:context=".ui.activities.CheckInNormalActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -58,25 +58,12 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
-        android:id="@+id/choose_another_facility_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/select_another_facility_text"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_in_sport_choice_button" />
-
-    <Button
         android:id="@+id/check_in_sport_choice_button"
         android:layout_width="240dp"
-        android:layout_height="45dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:text="@string/check_in_text"
-        app:layout_constraintBottom_toTopOf="@+id/choose_another_facility_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

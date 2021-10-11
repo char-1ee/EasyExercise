@@ -10,14 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication" >
         <activity
+            android:name=".ui.activities.CheckInCustomizedActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activities.ChatRoomActivity"
-            android:exported="true">
-
+            android:exported="true" >
         </activity>
-
         <activity
             android:name=".ui.activities.NoFacilityActivity"
-            android:exported="true" />
+            android:exported="true" >
+        </activity>
         <activity
             android:name=".ui.activities.ExerciseActivity"
             android:exported="true" />
@@ -31,7 +33,7 @@
             android:name=".ui.activities.SelectFacilityPlanActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.CheckInActivity"
+            android:name=".ui.activities.CheckInNormalActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.CheckOutActivity"
@@ -54,9 +56,6 @@
         <activity
             android:name=".ui.activities.UserActivity"
             android:exported="true" >
-
-
-
         </activity>
     </application>
 

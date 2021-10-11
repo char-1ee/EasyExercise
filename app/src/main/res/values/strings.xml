@@ -138,4 +138,5 @@
     <string name="sample_user_check_out_time">08/02/2020 18:18</string>
     <string name="sample_user_check_out_duration">00:32</string>
     <string name="sample_user_check_out_calories">211</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

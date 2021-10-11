@@ -1,9 +1,11 @@
 package com.example.myapplication.ui.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.beans.Coordinates;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,16 +33,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInNormalActivity extends AppCompatActivity {
+public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback{
     private ImageView imageView;
     private Button button1, button2;
     private RecyclerView rv_test;
-    private ArrayList<Sport> secondList = new ArrayList<>();
     private Facility facility;
     private List<Facility> facilityList;
     private Sport ChosenSport;
-    private GoogleMap googleMap;
-    private MapView mMapView;
+    private GoogleMap mMap;
 
 
     @Override
@@ -52,10 +52,11 @@ public class CheckInNormalActivity extends AppCompatActivity {
         rv_test = findViewById(R.id.check_in_sport_recycler);
         button1 = findViewById(R.id.check_in_sport_button);
         button2 = findViewById(R.id.choose_another_facility_button);
-        imageView = findViewById(R.id.imageView5);
-        imageView.setImageResource(facility.getImage());
 
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapview);
+        mapFragment.getMapAsync(this);
 
 
         // RecyclerView adapter
@@ -101,7 +102,15 @@ public class CheckInNormalActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        Coordinates c= facility.getCoordinates();
+        // Add a marker in Sydney and move the camera
+        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
+        mMap.addMarker(new MarkerOptions()
+                .position(cur)
+                .title(facility.getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+    }
 }

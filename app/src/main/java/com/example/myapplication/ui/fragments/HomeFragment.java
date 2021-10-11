@@ -40,13 +40,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SelectSportActivity.class);
-
+                // TODO: 2021/10/11 give two sport lists, one is recommended, one is not
+                intent.putExtra("RecommendedSports",(Serializable) testSelectSportRecommended());
+                intent.putExtra("OtherSports",(Serializable) testSelectSportOther());
                 startActivity(intent);
             }
         });
         mCheckInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
                 Intent intent = new Intent(getActivity(), CheckInActivity.class);
                 intent.putExtra("ClosestFacility",testCheckinClosetFacility());
                 intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());
@@ -84,5 +87,27 @@ public class HomeFragment extends Fragment {
         f.add(testCheckinClosetFacility());
         f.add(r);
         return f;
+    }
+
+    private List<Sport> testSelectSportRecommended(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
+        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport c= new Sport("basketball", R.drawable.basketball, com.example.myapplication.beans.SportType.OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        return sports;
+    }
+
+    private List<Sport> testSelectSportOther(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
+        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport c= new Sport("basketball", R.drawable.basketball, com.example.myapplication.beans.SportType.OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        return sports;
     }
 }

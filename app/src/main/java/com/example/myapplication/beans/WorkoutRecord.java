@@ -1,8 +1,9 @@
 package com.example.myapplication.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WorkoutRecord extends WorkoutPlan {
+public class WorkoutRecord extends WorkoutPlan implements Serializable {
     private Date startTime;
     private Date endTime;
 

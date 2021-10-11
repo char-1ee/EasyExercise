@@ -1,8 +1,9 @@
 package com.example.myapplication.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Facility extends Location {
+public class Facility  extends Location implements Serializable{
     private String name;
     private String website;
     private String telephoneNo;

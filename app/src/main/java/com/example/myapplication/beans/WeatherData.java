@@ -1,6 +1,8 @@
 package com.example.myapplication.beans;
 
-public class WeatherData {
+import java.io.Serializable;
+
+public class WeatherData implements Serializable {
     private float temperature;
     private float humidity;
     private float uvIndex;

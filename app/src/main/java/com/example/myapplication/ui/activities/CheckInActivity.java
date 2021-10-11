@@ -12,34 +12,39 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckInActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button button1, button2;
     private RecyclerView rv_test;
     private ArrayList<Sport> secondList = new ArrayList<>();
+    private Facility facility;
+    private List<Facility> facilityList;
+    private Sport ChosenSport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        facility= getFacility();
+        facilityList= getFacilityList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button1 = findViewById(R.id.check_in_sport_choice_button);
         button2 = findViewById(R.id.choose_another_facility_button);
         imageView = findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.swimming);
+        imageView.setImageResource(facility.getImage());
 
         // RecyclerView adapter
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInActivity.this, LinearLayoutManager.VERTICAL, false));
-        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInActivity.this, secondList);
+        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInActivity.this, facility.getSportsSupported());
         rv_test.setAdapter(firstAdapter);
 
 
@@ -47,18 +52,34 @@ public class CheckInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-                Intent intent1= new Intent(CheckInActivity.this, ExerciseActivity.class);
-                startActivity(intent1);
+                ChosenSport = firstAdapter.finalChoice;
+                Intent intent= new Intent(CheckInActivity.this, ExerciseActivity.class);
+                intent.putExtra("ChosenSport", ChosenSport);
+                intent.putExtra("ChosenFacility", facility);
+                startActivity(intent);
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(CheckInActivity.this, SelectFacilityCheckInActivity.class);
-                startActivity(intent2);
+                Intent intent = new Intent(CheckInActivity.this, SelectFacilityCheckInActivity.class);
+                intent.putExtra("FacilityByDistance2",(Serializable)facilityList);
+                startActivity(intent);
             }
         });
 
     }
+
+
+    private Facility getFacility(){
+        Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
+        return f;
+    }
+
+    private List<Facility> getFacilityList(){
+        List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
+        return f;
+    }
+
 }

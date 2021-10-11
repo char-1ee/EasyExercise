@@ -6,21 +6,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Sport;
 
 import androidx.core.content.ContextCompat;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ExerciseActivity extends AppCompatActivity {
+    Facility facility;
+    Sport sport;
     TextView timerText;
     Button stopStartButton;
     Button checkOutButton;
-
+    ImageView sportView;
     Timer timer;
     TimerTask timerTask;
     Double time = 0.0;
@@ -31,17 +36,28 @@ public class ExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
-
+        facility= getFacility();
+        sport= getSport();
+        sportView= (ImageView) findViewById(R.id.imageView3);
         timerText = (TextView) findViewById(R.id.timerText);
         stopStartButton = (Button) findViewById(R.id.start_stop_button);
         checkOutButton = (Button) findViewById(R.id.check_out_button);
-
+        sportView.setImageResource(sport.getImage());
         timer = new Timer();
         timerStarted = true;
         setButtonUI("STOP", R.color.purple_200);
-
         startTimer();
 
+    }
+
+    private Facility getFacility(){
+        Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
+        return f;
+    }
+
+    private Sport getSport(){
+        Sport s= (Sport) getIntent().getSerializableExtra("ChosenSport");
+        return s;
     }
 
     public void startStopTapped(View view) {

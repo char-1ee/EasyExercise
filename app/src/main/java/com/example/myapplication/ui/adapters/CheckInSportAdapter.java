@@ -15,14 +15,15 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapter.MyViewHolder> {
     public Sport finalChoice;
     private Context context;
-    private ArrayList<Sport> secondList;
+    private List<Sport> secondList;
     private int index = -1;
 
-    public CheckInSportAdapter(Context context, ArrayList<Sport> secondList) {
+    public CheckInSportAdapter(Context context, List<Sport> secondList) {
         this.context = context;
         this.secondList = secondList;
     }
@@ -35,14 +36,13 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tv_question_item.setText(secondList.get(position).getName());
         holder.iv_question_item.setImageResource(secondList.get(position).getImage());
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-//                    Toast.makeText(context, "Option " + secondList.get(position) + " selected", Toast.LENGTH_SHORT).show();
                     index = position;
                     notifyDataSetChanged();
                 }

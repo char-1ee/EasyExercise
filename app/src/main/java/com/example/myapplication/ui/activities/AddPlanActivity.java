@@ -48,7 +48,6 @@ public class AddPlanActivity extends AppCompatActivity {
                 Toast.makeText(AddPlanActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);
-
             }
         });
     }

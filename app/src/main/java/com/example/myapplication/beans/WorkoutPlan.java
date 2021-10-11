@@ -1,8 +1,9 @@
 package com.example.myapplication.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WorkoutPlan {
+public class WorkoutPlan implements Serializable {
     private Sport sport;
     private Location location;
     private long id;

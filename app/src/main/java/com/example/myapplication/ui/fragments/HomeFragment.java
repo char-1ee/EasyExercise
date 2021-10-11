@@ -12,11 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.activities.AddPlanActivity;
+import com.example.myapplication.beans.Coordinates;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.activities.CheckInActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
+    public Facility closestFacility;
+    public List<Facility> FacilityByDistance;
     View view;
     Button mMakePlanButton;
     Button mCheckInButton;
@@ -32,6 +40,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SelectSportActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -39,10 +48,41 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CheckInActivity.class);
+                intent.putExtra("ClosestFacility",testCheckinClosetFacility());
+                intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());
                 startActivity(intent);
             }
         });
 
         return view;
+    }
+
+    private Facility testCheckinClosetFacility(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
+        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        Facility f= new Facility( new Coordinates(1.290270, 103.851959), "northilla", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.tanjong, sports);
+        return f;
+    }
+
+    private List<Facility> testCheckinFacilitByDistance(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
+        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport c= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        Facility r= new Facility( new Coordinates(0, 0), "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.wave, sports);
+        List<Facility> f = new ArrayList<Facility>();
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        return f;
     }
 }

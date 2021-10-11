@@ -1,6 +1,8 @@
 package com.example.myapplication.beans;
 
-public abstract class Location {
+import java.io.Serializable;
+
+public abstract class Location implements Serializable {
     private Coordinates coordinates;
     private boolean isFacility;
 

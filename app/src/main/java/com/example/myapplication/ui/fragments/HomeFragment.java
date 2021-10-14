@@ -24,16 +24,16 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.json.weather.Weather;
-import com.example.myapplication.ui.activities.AddPlanActivity;
 import com.example.myapplication.ui.activities.CheckInActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
+import com.example.myapplication.utils.Box;
 import com.example.myapplication.utils.IOUtil;
 
 public class HomeFragment extends Fragment {
     View view;
     Button mMakePlanButton;
     Button mCheckInButton;
-    TextView temperature, pm25,uvIndex, humidity, forecast;
+    TextView temperature, pm25, uvIndex, humidity, forecast;
     String temperature_string, pm25_string, uvIndex_string, humidity_string, forecast_string;
     Coordinates temp;
 
@@ -65,17 +65,34 @@ public class HomeFragment extends Fragment {
         humidity = view.findViewById(R.id.Humidity_value);
         forecast = view.findViewById(R.id.Forecast);
 
-        Weather weather = new Weather(
-                IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
-                IOUtil.readFromURL(RAINFALL_JSON_URL),
-                IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
-                IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
-                IOUtil.readFromURL(WIND_SPEED_JSON_URL),
-                IOUtil.readFromURL(UV_INDEX_JSON_URL),
-                IOUtil.readFromURL(PM25_JSON_URL),
-                IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL));
+        final Box<Weather> boxWeather = new Box<>();
 
-        temp = new Coordinates(1,104,"test_location");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                IOUtil ioUtil = new IOUtil();
+                boxWeather.set(new Weather(
+                        ioUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                        ioUtil.readFromURL(RAINFALL_JSON_URL),
+                        ioUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                        ioUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                        ioUtil.readFromURL(WIND_SPEED_JSON_URL),
+                        ioUtil.readFromURL(UV_INDEX_JSON_URL),
+                        ioUtil.readFromURL(PM25_JSON_URL),
+                        ioUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            ;
+        }
+
+        Weather weather = boxWeather.get();
+
+        temp = new Coordinates(1, 104, "test_location");
 
         temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
         pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();

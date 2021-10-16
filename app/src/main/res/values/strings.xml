@@ -142,6 +142,6 @@
     <string name="email">Email</string>
     <string name="hint_password">Password</string>
     <string name="btn_forgot_password">Forgot your password?</string>
-    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="btn_link_to_login">Already registered? Login here</string>
     <string name="action_sign_in_short">Register</string>
 </resources>

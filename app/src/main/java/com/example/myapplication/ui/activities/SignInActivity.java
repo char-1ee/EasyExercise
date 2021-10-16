@@ -25,14 +25,14 @@ public class SignInActivity extends AppCompatActivity {
 
     private GoogleSignInClient mSignInClient;
     private FirebaseAuth mFirebaseAuth;
-    private SignInButton mSignInButton;
+    private SignInButton mGoogleSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        mSignInButton = findViewById(R.id.sign_in_button);
-        mSignInButton.setOnClickListener(view -> signIn());
+        mGoogleSignInButton = findViewById(R.id.google_sign_in_button);
+        mGoogleSignInButton.setOnClickListener(view -> signIn());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id_hardcode))

@@ -60,7 +60,7 @@ public class SelectSportActivity extends AppCompatActivity {
     private List<Sport> getListData() {
         mSportList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         }
         return mSportList;
     }

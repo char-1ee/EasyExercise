@@ -14,6 +14,9 @@ public class IOUtil {
     private static final String lineSeparator =
             System.getProperty("line.separator");
 
+    private IOUtil() {
+    }
+    
     /**
      * Reads contents of the file stored in the URL.
      *

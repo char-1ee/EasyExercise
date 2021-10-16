@@ -70,16 +70,15 @@ public class HomeFragment extends Fragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                IOUtil ioUtil = new IOUtil();
                 boxWeather.set(new Weather(
-                        ioUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
-                        ioUtil.readFromURL(RAINFALL_JSON_URL),
-                        ioUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
-                        ioUtil.readFromURL(WIND_DIRECTION_JSON_URL),
-                        ioUtil.readFromURL(WIND_SPEED_JSON_URL),
-                        ioUtil.readFromURL(UV_INDEX_JSON_URL),
-                        ioUtil.readFromURL(PM25_JSON_URL),
-                        ioUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
+                        IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                        IOUtil.readFromURL(RAINFALL_JSON_URL),
+                        IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                        IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                        IOUtil.readFromURL(WIND_SPEED_JSON_URL),
+                        IOUtil.readFromURL(UV_INDEX_JSON_URL),
+                        IOUtil.readFromURL(PM25_JSON_URL),
+                        IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
             }
         });
 

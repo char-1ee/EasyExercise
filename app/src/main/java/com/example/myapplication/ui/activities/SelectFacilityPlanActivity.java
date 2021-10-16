@@ -39,21 +39,21 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         mFacilityList = new ArrayList<Facility>();
         List<Sport> mSportList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         }
         for (int i = 1; i <= 25; i++) {
-            mFacilityList.add(new Facility(
-                    "North Hill",
-                    "https://www.ntu.edu.sg",
-                    "64 Nanyang Crescent",
-                    "636959",
-                    "NA",
-                    R.drawable.tanjong,
-                    new HashMap<String, String>(),
-                    new ArrayList<String>(),
-                    new ArrayList<String>(),
-                    1.3541,
-                    103.6882));
+//            mFacilityList.add(new Facility(
+//                    "North Hill",
+//                    "https://www.ntu.edu.sg",
+//                    "64 Nanyang Crescent",
+//                    "636959",
+//                    "NA",
+//                    R.drawable.tanjong,
+//                    new HashMap<String, String>(),
+//                    new ArrayList<String>(),
+//                    new ArrayList<String>(),
+//                    1.3541,
+//                    103.6882));
         }
         return mFacilityList;
     }

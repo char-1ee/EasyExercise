@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
-import com.example.myapplication.beans.LocationType;
+import com.example.myapplication.beans.Location.LocationType;
 import com.example.myapplication.beans.WorkoutRecord;
 
 import java.util.List;
@@ -43,7 +43,8 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         }
         holder.sportView.setText(item.getSport().getName());
         // holder.dateView.setText(item.getDate().toString());
-        holder.imageView.setImageResource(item.getSport().getImage());
+        // holder.imageView.setImageResource(item.getSport().getImage());
+        // TODO: image is no longer an attribute of a facility
         holder.planType.setText(item.getStatus().toString());
         // TODO: 2021/10/1 for public/join plans, need to show their happening time(need additional info in WorkoutPlan)
     }

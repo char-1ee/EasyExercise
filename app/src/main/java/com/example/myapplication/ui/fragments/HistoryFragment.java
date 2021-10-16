@@ -53,23 +53,23 @@ public class HistoryFragment extends Fragment {
     private List<WorkoutRecord> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, SportType.OUTDOOR);
-            List<Sport> sportList = new ArrayList<>();
-            sportList.add(sport);
-            Facility facility = new Facility(
-                    "North Hill",
-                    "https://www.ntu.edu.sg",
-                    "64 Nanyang Crescent",
-                    "636959",
-                    "NA",
-                    R.drawable.tanjong,
-                    new HashMap<String, String>(),
-                    new ArrayList<String>(),
-                    new ArrayList<String>(),
-                    1.3541,
-                    103.6882);
-            Date date = new Date(2021, 9, 19);
-            Time time = new Time(10, 35, 4);
+//            Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, SportType.OUTDOOR);
+//            List<Sport> sportList = new ArrayList<>();
+//            sportList.add(sport);
+//            Facility facility = new Facility(
+//                    "North Hill",
+//                    "https://www.ntu.edu.sg",
+//                    "64 Nanyang Crescent",
+//                    "636959",
+//                    "NA",
+//                    R.drawable.tanjong,
+//                    new HashMap<String, String>(),
+//                    new ArrayList<String>(),
+//                    new ArrayList<String>(),
+//                    1.3541,
+//                    103.6882);
+//            Date date = new Date(2021, 9, 19);
+//            Time time = new Time(10, 35, 4);
             //mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, time, date));
         }
         return mWorkoutHistory;

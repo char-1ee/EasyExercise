@@ -28,9 +28,9 @@ public class AddPlanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plan);
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button = findViewById(R.id.add_plan_button);
         imageView = findViewById(R.id.imageView);

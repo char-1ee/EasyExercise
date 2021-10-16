@@ -1,7 +1,7 @@
 package com.example.myapplication.utils.comparators;
 
-import com.example.myapplication.beans.Coordinates;
-import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.location.Coordinates;
+import com.example.myapplication.beans.location.Facility;
 
 import java.util.Comparator;
 

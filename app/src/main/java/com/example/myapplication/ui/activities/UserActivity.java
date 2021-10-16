@@ -34,11 +34,7 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         initView();
         initFirebaseAuth();
-        signOutButton.setOnClickListener(v -> signOut());
-        startButton.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
-        });
+        onClick();
         setProfile();
     }
 
@@ -64,6 +60,14 @@ public class UserActivity extends AppCompatActivity {
         profileNameText = findViewById(R.id.profile_name);
         profileImage = findViewById(R.id.profile_image);
         startButton = findViewById(R.id.button_start);
+    }
+
+    private void onClick() {
+        signOutButton.setOnClickListener(v -> signOut());
+        startButton.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        });
     }
 
     private void setProfile() {

@@ -2,19 +2,15 @@ package com.example.myapplication.ui.activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-// TODO CANNOT RESOLVE SYMBOL
 import com.example.myapplication.R;
-import com.example.myapplication.beans.Message;
-import com.example.myapplication.ui.adapters.MessageAdapter;
+import com.example.myapplication.beans.PublicPlan;
+import com.example.myapplication.ui.adapters.CommunityAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,33 +20,29 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatRoomActivity extends AppCompatActivity {
+public class CommunityActivity extends AppCompatActivity {
 
-    private List<Message> msgList = new ArrayList<>();
-    private EditText inputText;
-    private Button send;
+    private List<PublicPlan> publicPlanList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private MessageAdapter adapter;
+    private CommunityAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_room);
+        setContentView(R.layout.activity_community);
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference mDatabase = database.getReference().child("chatroom");
+        DatabaseReference mDatabase = database.getReference().child("community");
 
-        inputText = (EditText) findViewById(R.id.inputText);
-        send = (Button) findViewById(R.id.send);
-        recyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.community_plan_view);
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ChatRoomActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(CommunityActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new MessageAdapter(msgList);
+        adapter = new CommunityAdapter(publicPlanList);
         recyclerView.setAdapter(adapter);
 
 
@@ -58,14 +50,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("chatroom", "Value received!");
-                msgList.clear();
+                publicPlanList.clear();
                 for (DataSnapshot s: snapshot.getChildren()){
-                    Message receiveMessage = s.getValue(Message.class);
-                    msgList.add(receiveMessage);
+                    PublicPlan receivePlan = s.getValue(PublicPlan.class);
+                    publicPlanList.add(receivePlan);
                 }
-                adapter.notifyItemInserted(msgList.size() - 1);
-                recyclerView.scrollToPosition(msgList.size() - 1);
+                adapter.notifyItemInserted(publicPlanList.size() - 1);
+                recyclerView.scrollToPosition(publicPlanList.size() - 1);
             }
 
             @Override
@@ -74,7 +65,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
         });
 
-
+    /*
         send.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -91,6 +82,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
             }
         });
-
+    */
     }
+
+
 }

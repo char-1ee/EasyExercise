@@ -38,11 +38,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    public void messageAdapter(List<Message> messageList)
-    {
-        myMessageList = messageList;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {

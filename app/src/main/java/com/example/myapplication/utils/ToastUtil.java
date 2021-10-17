@@ -29,7 +29,7 @@ public class ToastUtil {
      * @param content {@link Toast} messages
      * @param size text size of {@link Toast} messages
      */
-    public static void ToastSize(Context context, String content, int size) {
+    public static void toastSize(Context context, String content, int size) {
         Toast mToast = makeText(context, content, Toast.LENGTH_LONG);
         mToast.setGravity(Gravity.BOTTOM, 20, 20);  // adjust Toast positions
         LinearLayout linearLayout = (LinearLayout) mToast.getView();

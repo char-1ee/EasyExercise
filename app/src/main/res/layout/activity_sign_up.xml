@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.LoginActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                 android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/black"
-                tools:ignore="InvalidImeActionId,SpeakableTextPresentCheck" />
+                tools:ignore="InvalidImeActionId" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,20 +66,30 @@
                 android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/black"
-                tools:ignore="InvalidImeActionId,SpeakableTextPresentCheck" />
+                tools:ignore="InvalidImeActionId" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/login_button_login"
+            android:id="@+id/sign_up_button"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
-            android:text="@string/login_button"
-            android:textColor="@android:color/black"
+            android:text="@string/action_sign_in_short"
             android:textAllCaps="false"
+            android:textColor="@android:color/black"
             android:textStyle="bold"
             app:backgroundTint="@color/yellow"
-            app:cornerRadius="3dp"/>
+            app:cornerRadius="3dp" />
+
+        <com.shobhitpuri.custombuttons.GoogleSignInButton
+            android:id="@+id/google_sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            app:isDarkTheme='false' />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,26 +108,24 @@
                 android:textColor="@color/grey_light" />
 
             <Button
-                android:id="@+id/register_button"
+                android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/transparent"
-                android:text="@string/btn_link_to_register"
+                android:text="@string/btn_link_to_login"
                 android:textAllCaps="false"
                 android:textColor="@color/grey_light"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar_sign_in"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar_login"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

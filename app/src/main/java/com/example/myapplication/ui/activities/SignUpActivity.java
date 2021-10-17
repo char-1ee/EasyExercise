@@ -24,8 +24,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
-    private static final String TAG = "SignInActivity";
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final String TAG = "SignUpActivity";
     private static final int RC_SIGN_IN = 1234;
 
     private EditText inputEmail, inputPassword;
@@ -38,7 +38,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_up);
         initView();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -71,7 +71,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.sign_in_button:
                 finish();
             case R.id.reset_password_button:
-//                startActivity(new Intent(SignInActivity.this, ResetPasswordActivity.class));      //TODO
+                startActivity(new Intent(SignUpActivity.this, ResetPasswordActivity.class));
             case R.id.sign_up_button:
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
@@ -94,17 +94,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 progressBar.setVisibility(View.VISIBLE);
                 // Create user
                 mFirebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignInActivity.this, task -> {
-                            Toast.makeText(SignInActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        .addOnCompleteListener(SignUpActivity.this, task -> {
+                            Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
                             if (!task.isSuccessful()) {
-                                Toast.makeText(SignInActivity.this, "Authentication failed." + task.getException(),
+                                Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                 finish();
                             }
                         });
@@ -136,10 +136,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mFirebaseAuth.signInWithCredential(credential)
                 .addOnSuccessListener(this, authResult -> {
-                    startActivity(new Intent(SignInActivity.this, UserActivity.class));
+                    startActivity(new Intent(SignUpActivity.this, UserActivity.class));
                     finish();
                 })
-                .addOnFailureListener(this, e -> Toast.makeText(SignInActivity.this, "Authentication failed.",
+                .addOnFailureListener(this, e -> Toast.makeText(SignUpActivity.this, "Authentication failed.",
                         Toast.LENGTH_SHORT).show());
     }
 

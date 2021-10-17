@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.utils.ToastUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -42,8 +41,8 @@ public class UserActivity extends AppCompatActivity {
         // Initialize Firebase Auth and check if the user is signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         if (mFirebaseAuth.getCurrentUser() == null) {
-            // Not signed in, launch the SignInActivity
-            startActivity(new Intent(this, SignInActivity.class));
+            // Not signed in, launch the SignUpActivity
+            startActivity(new Intent(this, SignUpActivity.class));
             finish();
             return;
         }
@@ -65,8 +64,8 @@ public class UserActivity extends AppCompatActivity {
     private void onClick() {
         signOutButton.setOnClickListener(v -> signOut());
         startButton.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(i);
         });
     }
 
@@ -78,7 +77,7 @@ public class UserActivity extends AppCompatActivity {
     private void signOut() {
         mFirebaseAuth.signOut();
         mSignInClient.signOut();
-        startActivity(new Intent(this, SignInActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 

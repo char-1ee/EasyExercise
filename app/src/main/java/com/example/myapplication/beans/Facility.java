@@ -63,7 +63,7 @@ public class Facility extends Location {
     @Override
     public String toString() {
         String stringSports = (sports.isEmpty()) ? "NA"
-                : sports.stream().map(x -> x.getName())
+                : sports.stream().map(Sport::getName)
                 .collect(Collectors.joining(", "));
         return String.format(
                 "Name: %s\nURL: %s\nAddress: %s\n"

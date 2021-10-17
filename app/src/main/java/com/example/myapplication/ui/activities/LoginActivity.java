@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -51,20 +52,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.register_button:
-                startActivity(new Intent(LoginActivity.this, SignInActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             case R.id.reset_password_button:
-//                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));   // TODO
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
             case R.id.login_button_login:
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastSize(getApplicationContext(), "Enter email address!", 15);
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    ToastUtil.toastSize(getApplicationContext(), "Enter password!", 15);
                     return;
                 }
 
@@ -81,8 +82,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (password.length() < 6) {
                             inputPassword.setError(getString(R.string.minimum_password));
                         } else {
-                            Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                            ToastUtil.toastSize(LoginActivity.this, getString(R.string.auth_failed), 15);
                         }
+
                     } else {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

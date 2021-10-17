@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * A utility class for time formatting and parsing
+ * Time utilities for time formatting and parsing.
+ *
+ * @author Li Xingjian
  */
 public class TimeUtil {
     public static String pattern1 = "yyyy-MM-dd HH:mm:ss:SSS";
@@ -20,10 +22,11 @@ public class TimeUtil {
     public static String pattern7 = "HH:mm:ss";
 
     /**
-     * SimpleDateFormat formatting
+     * SimpleDateFormat formatting.
      *
-     * @param time    time formatting in {@link Date} to be convert to {@link String}
+     * @param time    time formatting in {@link Date}
      * @param pattern targeted format
+     * @return time formatting in {@link String}
      */
     public static String timeToString(long time, String pattern) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
@@ -32,12 +35,14 @@ public class TimeUtil {
     }
 
     /**
-     * SimpleDateFormat parsing
+     * SimpleDateFormat parsing.
      *
-     * @param timeString time formatting in {@link String} to be parsed to {@link Date}
+     * @param timeString time formatting in {@link String}
      * @param pattern    targeted format
+     * @return time formatting in {@link Date}
+     * @throws ParseException when parsing error
      */
-    public static long stringToTime(String timeString, String pattern) {
+    public static long stringToTime(String timeString, String pattern) throws ParseException{
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
         try {
             Date mDate = sdf.parse(timeString);
@@ -50,7 +55,7 @@ public class TimeUtil {
     }
 
     /**
-     * Convert seconds into hours, minutes, seconds
+     * Convert seconds into hours, minutes, seconds.
      *
      * @param date targeted time
      * @return time formatting in hour, minute, second

@@ -54,7 +54,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         signInButton = findViewById(R.id.sign_in_button);
         signUpButton = findViewById(R.id.sign_up_button);
         inputEmail =  findViewById(R.id.email);
-        inputPassword = findViewById(R.id.password);
+        inputPassword = findViewById(R.id.password_login);
         progressBar = findViewById(R.id.progressBar_sign_in);
         resetPasswordButton = findViewById(R.id.reset_password_button);
         mGoogleSignInButton = findViewById(R.id.google_sign_in_button);

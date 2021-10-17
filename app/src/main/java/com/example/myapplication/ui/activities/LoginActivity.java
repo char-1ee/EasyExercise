@@ -2,9 +2,9 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -39,9 +36,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
         inputEmail = findViewById(R.id.email);
-        inputPassword = findViewById(R.id.password);
+        inputPassword = findViewById(R.id.password_login);
         progressBar = findViewById(R.id.progressBar_login);
-        loginButton = findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button_login);
         resetButton = findViewById(R.id.reset_password_button);
         registerButton = findViewById(R.id.register_button);
 
@@ -57,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, SignInActivity.class));
             case R.id.reset_password_button:
 //                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));   // TODO
-            case R.id.login_button:
+            case R.id.login_button_login:
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 

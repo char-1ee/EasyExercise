@@ -4,12 +4,12 @@ import android.util.Log;
 import android.widget.Button;
 
 /**
+ * Button click utilities.<p>
  * This utility class is to control {@link Button} click frequency to efficiently avoid multiple repeated clicks. <br/>
  * If a {@link android.widget.Button} is triggered multiple times in a short time, clickListener regards the clicks invalid.<br/>
  * <p>
  * An example to illustrate its usage:<br/>
  * <pre class="prettyprint">
- *
  * mButton.setOnItemClickListener(new OnItemClickListener() {
  *   public void onItemClick(AdapterView<?> arg0, View arg1, int arg2) {
  *     if (!ButtonClickUtils.isFastDoubleClick(R.id.button_mButton)) {
@@ -18,6 +18,8 @@ import android.widget.Button;
  *   }
  * });
  * </pre>
+ *
+ * @author Li Xingjian
  */
 public class ButtonClickUtil {
     private static long lastClickTime = 0;

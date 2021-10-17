@@ -42,7 +42,7 @@ public class TimeUtil {
      * @return time formatting in {@link Date}
      * @throws ParseException when parsing error
      */
-    public static long stringToTime(String timeString, String pattern) throws ParseException{
+    public static long stringToTime(String timeString, String pattern) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
         try {
             Date mDate = sdf.parse(timeString);

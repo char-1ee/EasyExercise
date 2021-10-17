@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 /**
  * Toast utilities.
- *
+ * <p>
  * A utility class for customizing {@link android.widget.Toast} on textSize, position, length etc.
  *
  * @author Li Xingjian
@@ -27,7 +27,7 @@ public class ToastUtil {
      *
      * @param context current activity context
      * @param content {@link Toast} messages
-     * @param size text size of {@link Toast} messages
+     * @param size    text size of {@link Toast} messages
      */
     public static void toastSize(Context context, String content, int size) {
         Toast mToast = makeText(context, content, Toast.LENGTH_LONG);
@@ -41,9 +41,9 @@ public class ToastUtil {
     /**
      * Show long toast.
      *
-     * @param context current activity context
+     * @param context  current activity context
      * @param sequence {@link Toast} messages in {@code CharSequence}
-     * @param size text size of {@link Toast} messages
+     * @param size     text size of {@link Toast} messages
      */
     public static void showLong(Context context, CharSequence sequence, int size) {
         if (mToast == null) {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.myapplication.R;
 
 import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -49,19 +50,15 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
 
             progressBar.setVisibility(View.VISIBLE);
-            auth.sendPasswordResetEmail(email)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                            }
+            auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                }
 
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
+                progressBar.setVisibility(View.GONE);
+            });
         });
     }
 

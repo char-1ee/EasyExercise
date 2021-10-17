@@ -48,15 +48,14 @@ public class ExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
-                checkInIntent.putExtra("timeDuration",getTimerText());
+                checkInIntent.putExtra("timeDuration", getTimerText());
                 startActivity(checkInIntent);
             }
         });
     }
 
 
-
-        public void startStopTapped(View view) {
+    public void startStopTapped(View view) {
         if (timerStarted == false) {
             timerStarted = true;
             setButtonUI("STOP", R.color.purple_200);

@@ -24,7 +24,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "SignUpActivity";
     private static final int RC_SIGN_IN = 1234;
 
@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void initView() {
         signInButton = findViewById(R.id.sign_in_button);
         signUpButton = findViewById(R.id.sign_up_button);
-        inputEmail =  findViewById(R.id.email);
+        inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password_login);
         progressBar = findViewById(R.id.progressBar_sign_in);
         resetPasswordButton = findViewById(R.id.reset_password_button);

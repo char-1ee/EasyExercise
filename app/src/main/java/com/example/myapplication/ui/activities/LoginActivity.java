@@ -16,7 +16,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.utils.ToastUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.register_button:
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             case R.id.reset_password_button:

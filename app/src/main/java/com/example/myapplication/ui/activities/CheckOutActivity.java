@@ -23,8 +23,8 @@ public class CheckOutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
-        shareButton=findViewById(R.id.shareButton);
-        profileView=findViewById(R.id.checkoutProfile);
+        shareButton = findViewById(R.id.shareButton);
+        profileView = findViewById(R.id.checkoutProfile);
         timeDuration = findViewById(R.id.time_duration);
         Bundle extras = getIntent().getExtras();
         timeDuration.setText(extras.getString("timeDuration"));

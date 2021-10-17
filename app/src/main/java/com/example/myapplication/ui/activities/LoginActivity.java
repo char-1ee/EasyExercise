@@ -41,9 +41,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressBar_login);
-        registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.login_button);
         resetButton = findViewById(R.id.reset_password_button);
+        registerButton = findViewById(R.id.register_button);
 
         registerButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);

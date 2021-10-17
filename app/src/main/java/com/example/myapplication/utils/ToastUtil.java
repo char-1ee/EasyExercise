@@ -17,6 +17,9 @@ import android.widget.Toast;
  */
 public class ToastUtil {
 
+    /**
+     * Initialized {@link android.widget.Toast} object.
+     */
     private static Toast mToast;
 
     /**

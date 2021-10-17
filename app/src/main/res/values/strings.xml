@@ -140,8 +140,10 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="email">Email</string>
-    <string name="hint_password">Password</string>
+    <string name="password">Password</string>
     <string name="btn_forgot_password">Forgot your password?</string>
     <string name="btn_link_to_login">Already registered? Login here</string>
     <string name="action_sign_in_short">Register</string>
+    <string name="login_button">Login</string>
+    <string name="btn_link_to_register">Have no account? Register here</string>
 </resources>

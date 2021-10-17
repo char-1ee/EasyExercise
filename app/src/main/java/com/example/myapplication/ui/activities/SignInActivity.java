@@ -58,14 +58,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         signUpButton = findViewById(R.id.sign_up_button);
         inputEmail =  findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
-        progressBar = findViewById(R.id.progressBar);
-        resetPasswordButton = findViewById(R.id.btn_reset_password);
+        progressBar = findViewById(R.id.progressBar_sign_in);
+        resetPasswordButton = findViewById(R.id.reset_password_button);
         mGoogleSignInButton = findViewById(R.id.google_sign_in_button);
 
         signInButton.setOnClickListener(this);
         signUpButton.setOnClickListener(this);
         resetPasswordButton.setOnClickListener(this);
-        mGoogleSignInButton.setOnClickListener(view -> signIn());
+        mGoogleSignInButton.setOnClickListener(this);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.sign_in_button:
                 finish();
-            case R.id.btn_reset_password:
+            case R.id.reset_password_button:
 //                startActivity(new Intent(SignInActivity.this, ResetPasswordActivity.class));      //TODO
             case R.id.sign_up_button:
                 String email = inputEmail.getText().toString().trim();
@@ -95,7 +95,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-                //create user
+                // Create user
                 mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignInActivity.this, task -> {
                             Toast.makeText(SignInActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
@@ -111,6 +111,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 finish();
                             }
                         });
+            case R.id.google_sign_in_button:
+                signIn();
 
         }
     }

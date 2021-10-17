@@ -19,11 +19,22 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     private List<PublicPlan> myPlanList;
 
-    public CommunityAdapter(List<PublicPlan> planList){
-        myPlanList = planList;
+    public interface OnRecyclerItemClickListener{
+         void onRecyclerItemClick(PublicPlan publicPlan);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    private OnRecyclerItemClickListener myListener;
+
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
+        myListener = listener;
+    }
+
+    public CommunityAdapter(List<PublicPlan> planList, OnRecyclerItemClickListener listener){
+        myPlanList = planList;
+        myListener = listener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView date;
         TextView facility;
         ImageView sportImage;
@@ -38,6 +49,15 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             sportImage = view.findViewById(R.id.planPic);
             limit = view.findViewById(R.id.planLimit);
             joinButton = view.findViewById(R.id.joinButton);
+
+        }
+
+        public void bind(PublicPlan publicPlan, OnRecyclerItemClickListener myListener) {
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v){
+                    myListener.onRecyclerItemClick(publicPlan);
+                }
+            });
         }
     }
 
@@ -54,7 +74,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.date.setText(publicPlan.getPlanDate().toString());
         holder.facility.setText(publicPlan.getFacility().getName());
         holder.limit.setText( publicPlan.getCurrentMember() + "/" +publicPlan.getPlanLimit());
+
+        holder.bind(myPlanList.get(position), myListener);
     }
+
 
     @Override
     public int getItemCount(){

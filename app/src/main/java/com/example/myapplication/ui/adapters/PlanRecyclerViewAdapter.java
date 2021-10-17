@@ -45,7 +45,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         // holder.dateView.setText(item.getDate().toString());
         // holder.imageView.setImageResource(item.getSport().getImage());
         // TODO: image is no longer an attribute of a facility
-        holder.planType.setText(item.getStatus().toString());
+        //holder.planType.setText(item.getStatus().toString());
         // TODO: 2021/10/1 for public/join plans, need to show their happening time(need additional info in WorkoutPlan)
     }
 

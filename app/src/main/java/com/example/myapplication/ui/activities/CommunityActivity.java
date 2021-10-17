@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -42,8 +43,12 @@ public class CommunityActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(CommunityActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new CommunityAdapter(publicPlanList);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new CommunityAdapter(publicPlanList, new CommunityAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onRecyclerItemClick(PublicPlan publicPlan) {
+                startActivity(new Intent(CommunityActivity.this, ChatRoomActivity.class));
+            }
+        }));
 
 
 
@@ -65,25 +70,5 @@ public class CommunityActivity extends AppCompatActivity {
             }
         });
 
-    /*
-        send.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                String content = inputText.getText().toString();
-                if(!"".equals(content)){
-                    try{
-                        Message handleMsg = new Message(content, "Charles");
-                        mDatabase.child(String.valueOf(msgList.size()+1)).setValue(handleMsg);
-                        inputText.setText("");
-                    } catch(Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    */
     }
-
-
 }

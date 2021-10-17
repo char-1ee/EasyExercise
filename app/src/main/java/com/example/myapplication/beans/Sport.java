@@ -25,14 +25,20 @@ public class Sport {
         }
     }
 
+    private final int id;
     private final String name;
     private final String alternativeName;
     private final SportType type;
 
-    public Sport(String name, String alternativeName, SportType type) {
+    public Sport(int id, String name, String alternativeName, SportType type) {
+        this.id = id;
         this.name = name;
         this.alternativeName = alternativeName;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

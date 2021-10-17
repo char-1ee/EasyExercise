@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Facility extends Location {
+    private final int id;
     private final String name;
     private final String url;
     private final String address;
@@ -12,9 +13,10 @@ public class Facility extends Location {
     private final String description;
     private final Set<Sport> sports;
 
-    public Facility(String name, String url, String address, String postalCode,
+    public Facility(int id, String name, String url, String address, String postalCode,
                     String description, double latitude, double longitude) {
         super(latitude, longitude, name, LocationType.FACILITY);
+        this.id = id;
         this.name = name;
         this.url = url;
         this.address = address;
@@ -23,10 +25,14 @@ public class Facility extends Location {
         this.sports = new HashSet<>();
     }
 
-    public Facility(String name, String url, String address, String postalCode,
+    public Facility(int id, String name, String url, String address, String postalCode,
                     String description, Coordinates coordinates) {
-        this(name, url, address, postalCode, description,
+        this(id, name, url, address, postalCode, description,
                 coordinates.getLatitude(), coordinates.getLongitude());
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override

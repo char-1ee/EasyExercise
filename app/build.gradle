@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdk 21
-        targetSdk 31
+        minSdk 24
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -33,6 +33,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -42,6 +45,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:17.6.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation files('lib/jsoup-1.14.3.jar')
     implementation 'androidx.room:room-common:2.3.0'
     implementation 'com.google.firebase:firebase-database:20.0.2'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'

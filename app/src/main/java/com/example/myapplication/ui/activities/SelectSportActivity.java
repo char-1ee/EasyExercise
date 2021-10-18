@@ -83,14 +83,13 @@ public class SelectSportActivity extends AppCompatActivity {
     }
 
     private List<Facility> testGiveFacility(){
-        List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        Sport c= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
-        Facility r= new Facility( new Coordinates(0, 0), "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.wave, sports);
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
         List<Facility> f = new ArrayList<Facility>();
         f.add(testFacility());
         f.add(r);
@@ -102,12 +101,11 @@ public class SelectSportActivity extends AppCompatActivity {
     }
 
     private Facility testFacility(){
-        List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        Facility f= new Facility( new Coordinates(1.290270, 103.851959), "northilla", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.tanjong, sports);
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility f= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        f.addSport(a);
+        f.addSport(b);
         return f;
     }
 }

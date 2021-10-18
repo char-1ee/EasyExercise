@@ -1,10 +1,15 @@
 package com.example.myapplication.databases;
 
-import static com.example.myapplication.databases.DatabaseContract.*;
-import static com.example.myapplication.databases.DatabaseContract.Facility.*;
-import static com.example.myapplication.databases.DatabaseContract.Sport.*;
-import static com.example.myapplication.databases.DatabaseContract.WorkoutHistory.*;
-import static com.example.myapplication.databases.DatabaseContract.WorkoutPlan.*;
+import static com.example.myapplication.databases.DatabaseContract.DATABASE_NAME;
+import static com.example.myapplication.databases.DatabaseContract.DATABASE_VERSION;
+import static com.example.myapplication.databases.DatabaseContract.Facility.CREATE_TABLE_FACILITY;
+import static com.example.myapplication.databases.DatabaseContract.Facility.DELETE_TABLE_FACILITIES;
+import static com.example.myapplication.databases.DatabaseContract.Sport.CREATE_TABLE_SPORT;
+import static com.example.myapplication.databases.DatabaseContract.Sport.DELETE_TABLE_SPORTS;
+import static com.example.myapplication.databases.DatabaseContract.WorkoutHistory.CREATE_TABLE_WORKOUT_HISTORY;
+import static com.example.myapplication.databases.DatabaseContract.WorkoutHistory.DELETE_TABLE_WORKOUT_HISTORY;
+import static com.example.myapplication.databases.DatabaseContract.WorkoutPlan.CREATE_TABLE_WORKOUT_PLAN;
+import static com.example.myapplication.databases.DatabaseContract.WorkoutPlan.DELETE_TABLE_WORKOUT_PLAN;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,8 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(DELETE_TABLE_FACILITY);
-        db.execSQL(DELETE_TABLE_SPORT);
+        db.execSQL(DELETE_TABLE_FACILITIES);
+        db.execSQL(DELETE_TABLE_SPORTS);
         db.execSQL(DELETE_TABLE_WORKOUT_HISTORY);
         db.execSQL(DELETE_TABLE_WORKOUT_PLAN);
         onCreate(db);

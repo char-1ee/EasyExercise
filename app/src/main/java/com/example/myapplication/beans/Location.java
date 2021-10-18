@@ -1,29 +1,23 @@
 package com.example.myapplication.beans;
 
+import com.example.myapplication.beans.Coordinates;
+
 import java.io.Serializable;
 
-public abstract class Location implements Serializable {
-    private Coordinates coordinates;
-    private boolean isFacility;
-
-    public Location(Coordinates coordinates, boolean isFacility) {
-        this.coordinates = coordinates;
-        this.isFacility = isFacility;
+public abstract class Location extends Coordinates implements Serializable {
+    public enum LocationType {
+        FACILITY, CUSTOMISED_LOCATION,
     }
 
-    public Coordinates getCoordinates() {
-        return coordinates;
+    private final LocationType type;
+
+    public Location(double latitude, double longitude, String name,
+                    LocationType type) {
+        super(latitude, longitude, name);
+        this.type = type;
     }
 
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public boolean isFacility() {
-        return isFacility;
-    }
-
-    public void setFacility(boolean facility) {
-        isFacility = facility;
+    public LocationType getType() {
+        return type;
     }
 }

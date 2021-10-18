@@ -60,6 +60,10 @@ public class Facility extends Location {
         return sports;
     }
 
+    public void addSport(Sport sport) {
+        sports.add(sport);
+    }
+    
     @Override
     public String toString() {
         String stringSports = (sports.isEmpty()) ? "NA"

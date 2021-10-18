@@ -14,8 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.activities.EditProfileActivity;
-import com.example.myapplication.ui.activities.UserActivity;
+import com.example.myapplication.ui.activities.authentication.UserActivity;
 
 public class MeFragment extends Fragment {
     View view;

@@ -1,12 +1,10 @@
-package com.example.myapplication.ui.activities;
+package com.example.myapplication.ui.activities.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import com.example.myapplication.R;
-
-import androidx.annotation.NonNull;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -15,14 +13,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private EditText inputEmail;
-    private Button btnReset, btnBack;
+    private Button resetButton, backButton;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
 
@@ -31,16 +27,16 @@ public class ResetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        inputEmail = (EditText) findViewById(R.id.email);
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
-        btnBack = (Button) findViewById(R.id.btn_back);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar_reset);
+        inputEmail = findViewById(R.id.reset_email);
+        resetButton = findViewById(R.id.reset_password_button);
+        backButton = findViewById(R.id.back_button);
+        progressBar = findViewById(R.id.progressBar_reset);
 
         auth = FirebaseAuth.getInstance();
 
-        btnBack.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> finish());
 
-        btnReset.setOnClickListener(v -> {
+        resetButton.setOnClickListener(v -> {
 
             String email = inputEmail.getText().toString().trim();
 

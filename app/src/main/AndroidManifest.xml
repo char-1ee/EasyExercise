@@ -13,13 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.ResetPasswordActivity"
+            android:name=".ui.activities.authentication.ResetPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name=".ui.activities.authentication.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -57,10 +58,10 @@
             android:name=".ui.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.SignUpActivity"
+            android:name=".ui.activities.authentication.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.UserActivity"
+            android:name=".ui.activities.authentication.UserActivity"
             android:exported="true" />
     </application>
 

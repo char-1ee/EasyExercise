@@ -17,7 +17,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static DatabaseHelper databaseHelper;
+//    private static DatabaseHelper databaseHelper;
 //    private DatabaseHelper databaseHelper;
 
     public DatabaseHelper(Context context) {

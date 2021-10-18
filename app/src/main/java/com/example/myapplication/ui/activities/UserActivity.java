@@ -64,8 +64,8 @@ public class UserActivity extends AppCompatActivity {
     private void onClick() {
         signOutButton.setOnClickListener(v -> signOut());
         startButton.setOnClickListener(v -> {
-//            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(i);
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
         });
     }
 

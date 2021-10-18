@@ -28,9 +28,18 @@ public class Sport {
     private final int id;
     private final String name;
     private final String alternativeName;
-    private final SportType type;
+//    private final SportType type;
+    private final String type;
 
-    public Sport(int id, String name, String alternativeName, SportType type) {
+    // TODO A change for database
+//    public Sport(int id, String name, String alternativeName, SportType type) {
+//        this.id = id;
+//        this.name = name;
+//        this.alternativeName = alternativeName;
+//        this.type = type;
+//    }
+
+    public Sport(int id, String name, String alternativeName, String type) {
         this.id = id;
         this.name = name;
         this.alternativeName = alternativeName;
@@ -49,7 +58,11 @@ public class Sport {
         return alternativeName;
     }
 
-    public SportType getType() {
+//    public SportType getType() {
+//        return type;
+//    }
+
+    public String getType() {
         return type;
     }
 }

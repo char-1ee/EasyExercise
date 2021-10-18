@@ -1,10 +1,10 @@
 package com.example.myapplication.databases;
 
 import static android.provider.BaseColumns._ID;
-import static com.example.myapplication.databases.DatabaseContract.Sport.KEY_ALTERNATIVE_NAME;
-import static com.example.myapplication.databases.DatabaseContract.Sport.KEY_NAME;
-import static com.example.myapplication.databases.DatabaseContract.Sport.KEY_SPORT_TYPE;
-import static com.example.myapplication.databases.DatabaseContract.Sport.TABLE_NAME_SPORTS;
+import static com.example.myapplication.databases.DatabaseContract.SportTable.KEY_ALTERNATIVE_NAME;
+import static com.example.myapplication.databases.DatabaseContract.SportTable.KEY_NAME;
+import static com.example.myapplication.databases.DatabaseContract.SportTable.KEY_SPORT_TYPE;
+import static com.example.myapplication.databases.DatabaseContract.SportTable.TABLE_NAME_SPORTS;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

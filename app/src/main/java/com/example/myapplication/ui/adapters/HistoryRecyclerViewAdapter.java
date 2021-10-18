@@ -38,7 +38,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.dateView.setText(item.getStartTime().toString());
 //        holder.imageView.setImageResource(item.getSport().getImage());
         //holder.planType.setText(String.valueOf(item.isPublic()));
-        //should pass in the status of WorkoutPlan instead of WorkoutHistoryItem isPublic(which has been deleted)?
+        //should pass in the status of WorkoutPlanTable instead of WorkoutHistoryItem isPublic(which has been deleted)?
     }
 
 

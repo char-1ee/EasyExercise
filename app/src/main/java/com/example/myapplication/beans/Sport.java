@@ -32,7 +32,7 @@ public class Sport {
     private final String type;
 
     // TODO A change for database
-//    public Sport(int id, String name, String alternativeName, SportType type) {
+//    public SportTable(int id, String name, String alternativeName, SportType type) {
 //        this.id = id;
 //        this.name = name;
 //        this.alternativeName = alternativeName;

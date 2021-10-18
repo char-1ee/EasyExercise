@@ -46,10 +46,10 @@ public class PlanFragment extends Fragment {
     private List<WorkoutRecord> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-//            Sport sport = new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR);
-//            List<Sport> mSportList = new ArrayList<>();
-//            mSportList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-//            Facility facility = new Facility(
+//            SportTable sport = new SportTable("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR);
+//            List<SportTable> mSportList = new ArrayList<>();
+//            mSportList.add(new SportTable("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//            FacilityTable facility = new FacilityTable(
 //                    "North Hill",
 //                    "https://www.ntu.edu.sg",
 //                    "64 Nanyang Crescent",

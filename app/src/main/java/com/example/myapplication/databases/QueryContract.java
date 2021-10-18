@@ -33,7 +33,7 @@ public class QueryContract {
     }
 
     public interface SportQuery {
-//        void readSport(String name, QueryResponse<Sport> response);
+//        void readSport(String name, QueryResponse<SportTable> response);
         void readAllSport(QueryResponse<List<Sport>> response);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.myapplication.databases;
 
-import android.widget.TableRow;
-
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
@@ -28,12 +26,11 @@ public class QueryContract {
     }
 
     public interface FacilityQuery {
-        void readFacility(String name, QueryResponse<Facility> response);
-        void readAllFacility(QueryResponse<Facility> response);
+//        void readFacility(String name, QueryResponse<Facility> response);
+        void readAllFacility(QueryResponse<List<Facility>> response);
     }
 
     public interface SportQuery {
-//        void readSport(String name, QueryResponse<SportTable> response);
-        void readAllSport(QueryResponse<List<Sport>> response);
+        List<Sport> readAllSport(QueryResponse<List<Sport>> response);
     }
 }

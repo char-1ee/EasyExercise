@@ -19,7 +19,7 @@ public class SportQueryImplementation implements QueryContract.SportQuery {
     private DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
 
     @Override
-    public void readAllSport(QueryResponse<List<Sport>> response) {
+    public List<Sport> readAllSport(QueryResponse<List<Sport>> response) {
         SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         List<Sport> sportList = new ArrayList<>();
@@ -45,6 +45,7 @@ public class SportQueryImplementation implements QueryContract.SportQuery {
             if (cursor != null)
                 cursor.close();
         }
+        return sportList;
     }
 
     private Sport getSportFromCursor(Cursor cursor) {

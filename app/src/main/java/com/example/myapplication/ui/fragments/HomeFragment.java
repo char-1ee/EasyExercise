@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
-                if( 0==1){
+                if( 1==1){
                     Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
                     intent.putExtra("ClosestFacility",testCheckinClosetFacility());
                     intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());
@@ -68,24 +68,24 @@ public class HomeFragment extends Fragment {
     }
 
     private Facility testCheckinClosetFacility(){
-        List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        Facility f= new Facility( new Coordinates(1.290270, 103.851959), "northilla", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.tanjong, sports);
-        return f;
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
+        return r;
     }
 
     private List<Facility> testCheckinFacilitByDistance(){
-        List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        Sport c= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
-        Facility r= new Facility( new Coordinates(0, 0), "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres", R.drawable.wave, sports);
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
         List<Facility> f = new ArrayList<Facility>();
         f.add(testCheckinClosetFacility());
         f.add(r);
@@ -98,9 +98,9 @@ public class HomeFragment extends Fragment {
 
     private List<Sport> testSelectSportRecommended(){
         List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        Sport c= new Sport("basketball", R.drawable.basketball, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         sports.add(a);
         sports.add(b);
         sports.add(c);
@@ -109,9 +109,9 @@ public class HomeFragment extends Fragment {
 
     private List<Sport> testSelectSportOther(){
         List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        Sport c= new Sport("basketball", R.drawable.basketball, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         sports.add(a);
         sports.add(b);
         sports.add(c);

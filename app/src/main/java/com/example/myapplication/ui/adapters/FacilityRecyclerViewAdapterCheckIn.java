@@ -37,7 +37,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        holder.mSelectFacilityImage.setImageResource(facility.getImage());
+        //holder.mSelectFacilityImage.setImageResource(facility.getImage());
         holder.mSelectFacilityDistance.setText("0.6 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

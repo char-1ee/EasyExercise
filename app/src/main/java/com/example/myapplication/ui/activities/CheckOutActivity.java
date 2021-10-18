@@ -37,7 +37,7 @@ public class CheckOutActivity extends AppCompatActivity {
         exitButton=findViewById(R.id.exitButton);
         profileView=findViewById(R.id.checkoutProfile);
         timeDuration = findViewById(R.id.time_duration);
-        sportView.setImageResource(sport.getImage());
+        //sportView.setImageResource(sport.getImage());
         timeDuration.setText(getTimeDuration());
 
 

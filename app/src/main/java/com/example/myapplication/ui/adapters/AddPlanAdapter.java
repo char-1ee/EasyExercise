@@ -16,6 +16,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHolder> {
@@ -28,7 +29,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
         this.facility= facility;
-        this.sportList= facility.getSportsSupported();
+        this.sportList= new ArrayList<>(facility.getSports());
     }
 
     public Sport getFinalChoice() {
@@ -45,7 +46,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.tv_question_item.setText(sportList.get(position).getName());
-        holder.iv_question_item.setImageResource(sportList.get(position).getImage());
+        //holder.iv_question_item.setImageResource(sportList.get(position).getImage());
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

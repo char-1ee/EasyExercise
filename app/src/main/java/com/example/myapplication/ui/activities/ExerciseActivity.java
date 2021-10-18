@@ -44,7 +44,7 @@ public class ExerciseActivity extends AppCompatActivity {
         sportView= (ImageView) findViewById(R.id.imageView3);
         timerText = (TextView) findViewById(R.id.timerText);
         checkOutButton = (Button) findViewById(R.id.check_out_button);
-        sportView.setImageResource(sport.getImage());
+        //sportView.setImageResource(sport.getImage());
         timer = new Timer();
         timerStarted = true;
         //setButtonUI("STOP", R.color.purple_200);

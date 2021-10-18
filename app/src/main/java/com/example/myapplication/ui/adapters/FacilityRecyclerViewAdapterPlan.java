@@ -42,7 +42,7 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        holder.mSelectFacilityImage.setImageResource(facility.getImage());
+        //holder.mSelectFacilityImage.setImageResource(facility.getImage());
         holder.mSelectFacilityDistance.setText("0.8 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

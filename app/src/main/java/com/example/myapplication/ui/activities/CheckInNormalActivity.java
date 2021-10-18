@@ -61,7 +61,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
 
         // RecyclerView adapter
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
-        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, facility.getSportsSupported());
+        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
         rv_test.setAdapter(firstAdapter);
 
 

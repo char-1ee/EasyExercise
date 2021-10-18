@@ -67,9 +67,9 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
 
     private List<Sport> testSelectSportAll(){
         List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport("swimming", R.drawable.swimming, com.example.myapplication.beans.SportType.INDOOR);
-        Sport b= new Sport("running", R.drawable.run, com.example.myapplication.beans.SportType.OUTDOOR);
-        Sport c= new Sport("basketball", R.drawable.basketball, com.example.myapplication.beans.SportType.OUTDOOR);
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         sports.add(a);
         sports.add(b);
         sports.add(c);

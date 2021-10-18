@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Coordinates;
+import com.example.myapplication.beans.CustomizedLocation;
+import com.example.myapplication.beans.Location;
 
 public class NoFacilityActivity extends AppCompatActivity {
-
     Button ProceedButton, CancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,8 @@ public class NoFacilityActivity extends AppCompatActivity {
         ProceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(NoFacilityActivity.this, SelectSportActivity.class);
+                Intent intent= new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
+                intent.putExtra("CustomizedLocation",testLocation());
                 startActivity(intent);
             }
         });
@@ -35,4 +38,10 @@ public class NoFacilityActivity extends AppCompatActivity {
             }
         });
     }
+
+    private CustomizedLocation testLocation(){
+        CustomizedLocation l= new CustomizedLocation(new Coordinates(10,10));
+        return l;
+    }
+
 }

@@ -23,13 +23,22 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Sport;
 import com.example.myapplication.json.weather.Weather;
-import com.example.myapplication.ui.activities.CheckInActivity;
+import com.example.myapplication.ui.activities.CheckInNormalActivity;
+import com.example.myapplication.ui.activities.NoFacilityActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
 import com.example.myapplication.utils.Box;
 import com.example.myapplication.utils.IOUtil;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
+    public Facility closestFacility;
+    public List<Facility> FacilityByDistance;
     View view;
     Button mMakePlanButton;
     Button mCheckInButton;
@@ -48,14 +57,26 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SelectSportActivity.class);
+                // TODO: 2021/10/11 give two sport lists, one is recommended, one is not
+                intent.putExtra("RecommendedSports",(Serializable) testSelectSportRecommended());
+                intent.putExtra("OtherSports",(Serializable) testSelectSportOther());
                 startActivity(intent);
             }
         });
         mCheckInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CheckInActivity.class);
-                startActivity(intent);
+                // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
+                if( 1==1){
+                    Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
+                    intent.putExtra("ClosestFacility",testCheckinClosetFacility());
+                    intent.putExtra("FacilityByDistance",(Serializable)testCheckinFacilitByDistance());
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent= new Intent(getActivity(), NoFacilityActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -104,7 +125,57 @@ public class HomeFragment extends Fragment {
         uvIndex.setText(uvIndex_string);
         humidity.setText(humidity_string);
         forecast.setText(forecast_string);
-
         return view;
+    }
+
+    private Facility testCheckinClosetFacility(){
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
+        return r;
+    }
+
+    private List<Facility> testCheckinFacilitByDistance(){
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
+        List<Facility> f = new ArrayList<Facility>();
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        return f;
+    }
+
+    private List<Sport> testSelectSportRecommended(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        return sports;
+    }
+
+    private List<Sport> testSelectSportOther(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        return sports;
     }
 }

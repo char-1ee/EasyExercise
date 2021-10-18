@@ -2,7 +2,9 @@ package com.example.myapplication.beans;
 
 import com.example.myapplication.beans.Coordinates;
 
-public abstract class Location extends Coordinates {
+import java.io.Serializable;
+
+public abstract class Location extends Coordinates implements Serializable {
     public enum LocationType {
         FACILITY, CUSTOMISED_LOCATION,
     }

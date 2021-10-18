@@ -10,14 +10,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.ui.activities.CheckInActivity;
+import com.example.myapplication.ui.activities.CheckInNormalActivity;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<FacilityRecyclerViewAdapterCheckIn.MyViewHolder> {
-
+    private Facility ChosenFacility;
     private List<Facility> mFacilityList;
     private Context mContext;
 
@@ -36,16 +37,20 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        holder.mSelectFacilityImage.setImageResource(R.drawable.tanjong);
+        //holder.mSelectFacilityImage.setImageResource(facility.getImage());
         holder.mSelectFacilityDistance.setText("0.6 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Class destinationActivity = CheckInActivity.class;
-                Intent startChildActivityIntent = new Intent(mContext, destinationActivity);
-                mContext.startActivity(startChildActivityIntent);
+                ChosenFacility = mFacilityList.get(position);
+                Intent intent = new Intent(mContext, CheckInNormalActivity.class);
+                intent.putExtra("ClosestFacility", ChosenFacility);
+                intent.putExtra("FacilityByDistance",(Serializable)mFacilityList);
+                mContext.startActivity(intent);
             }
         });
+
+
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.example.myapplication.beans;
 
-public class Sport {
+import java.io.Serializable;
+
+public class Sport implements Serializable {
     public enum SportType {
         INDOOR("Indoor"), OUTDOOR("Outdoor"), INDOOR_OUTDOOR("Indoor/Outdoor");
 
@@ -29,6 +31,7 @@ public class Sport {
     private final String name;
     private final String alternativeName;
     private final SportType type;
+    private boolean isSelected = false;
 
     public Sport(int id, String name, String alternativeName, SportType type) {
         this.id = id;
@@ -51,5 +54,13 @@ public class Sport {
 
     public SportType getType() {
         return type;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

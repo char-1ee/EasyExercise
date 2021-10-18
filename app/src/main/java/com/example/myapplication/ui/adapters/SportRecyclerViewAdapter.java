@@ -13,14 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecyclerViewAdapter.MyViewHolder> {
 
     private List<Sport> mSportList;
+    public List<Sport> chosenSportList;
 
     public SportRecyclerViewAdapter(List<Sport> sportList) {
+        chosenSportList= new ArrayList<>();
         mSportList = sportList;
+    }
+
+    public List<Sport> getChosenSportList() {
+        return chosenSportList;
     }
 
     @Override
@@ -33,14 +40,23 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Sport sport = mSportList.get(position);
         holder.textView.setText(sport.getName());
-//        holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
-//        holder.view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                sport.setSelected(!sport.isSelected());
-//                holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
-//            }
-//        });
+        //holder.imageView.setImageResource(sport.getImage());
+        holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sport.setSelected(!sport.isSelected());
+                holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+            }
+        });
+        if(sport.isSelected()){
+            chosenSportList.add(sport);
+        }
+        else if(!sport.isSelected()){
+            if(chosenSportList.contains(sport)){
+                chosenSportList.remove(sport);
+            }
+        }
     }
 
     @Override

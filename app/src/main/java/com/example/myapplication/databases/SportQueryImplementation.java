@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.SportType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class SportQueryImplementation implements QueryContract.SportQuery {
         String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ALTERNATIVE_NAME));
         String type = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SPORT_TYPE));
 
-        return new Sport(id, name, alternativeName, type);
+        return new Sport(id, name, alternativeName, Sport.SportType.fromString(type));
     }
 
 }

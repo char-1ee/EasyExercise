@@ -44,11 +44,13 @@ public class CommunityActivity extends AppCompatActivity {
 
         adapter = new CommunityAdapter(publicPlanList, publicPlan -> {
             //on click event
-            Toast.makeText(CommunityActivity.this, "123", Toast.LENGTH_LONG).show();
+            Toast.makeText(CommunityActivity.this, "click", Toast.LENGTH_LONG).show();
 
             //startActivity(new Intent(CommunityActivity.this, ChatRoomActivity.class));
         });
         recyclerView.setAdapter(adapter);
+
+        Toast.makeText(CommunityActivity.this, "open", Toast.LENGTH_LONG).show();
 
         mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

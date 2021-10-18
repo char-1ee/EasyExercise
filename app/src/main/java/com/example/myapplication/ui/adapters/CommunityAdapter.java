@@ -48,7 +48,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             facility = view.findViewById(R.id.planLocation);
             sportImage = view.findViewById(R.id.planPic);
             limit = view.findViewById(R.id.planLimit);
-            joinButton = view.findViewById(R.id.joinButton);
 
         }
 
@@ -71,8 +70,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PublicPlan publicPlan = myPlanList.get(position);
-        holder.date.setText(publicPlan.getPlanStart().toString());
-        holder.facility.setText(publicPlan.getFacilityID());
+        holder.date.setText(publicPlan.getPlanStart());
+        holder.facility.setText(String.valueOf(publicPlan.getFacility()));
         holder.limit.setText( publicPlan.getCurrentMember() + "/" +publicPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);

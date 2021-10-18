@@ -2,32 +2,35 @@ package com.example.myapplication.beans;
 
 import java.util.Date;
 
-public class PublicPlan{
+public class PublicPlan {
     private int planLimit;
     private int currentMember;
     private String planStart;
     private String planFinish;
     //private int[] memberList;
-    private int planID;
-    private int sport_id;
-    private int facility_id;
+    private String plan;
+    private int sport;
+    private int facility;
 
-    public PublicPlan(int planLimit, int currentMember, String planStart, String planFinish, int planID, int sport_id, int facility_id) {
+    public PublicPlan() {
+    }
+
+    public PublicPlan(int planLimit, int currentMember, String planStart, String planFinish, String planID, int sportID, int facilityID) {
         this.planLimit = planLimit;
         this.currentMember = currentMember;
         this.planStart = planStart;
         this.planFinish = planFinish;
-        this.planID = planID;
-        this.sport_id = sport_id;
-        this.facility_id = facility_id;
+        this.plan = planID;
+        this.sport = sportID;
+        this.facility = facilityID;
     }
 
-    public PublicPlan(int userID, int limit, Date start, Date finish, int sport, int facility) {
+    public PublicPlan(int userID, int limit, Date start, Date finish, int sportID, int facilityID) {
         planLimit = limit;
         planStart = start.toString();
         planFinish = finish.toString();
-        sport_id = sport;
-        facility_id = facility;
+        sport = sportID;
+        facility = facilityID;
         currentMember = 1;
         //memberList = new int[limit];
         //memberList[0] = userID;
@@ -37,31 +40,55 @@ public class PublicPlan{
         return planLimit;
     }
 
+    public void setPlanLimit(int planLimit) {
+        this.planLimit = planLimit;
+    }
+
     public int getCurrentMember() {
         return currentMember;
+    }
+
+    public void setCurrentMember(int currentMember) {
+        this.currentMember = currentMember;
     }
 
     public String getPlanStart() {
         return planStart;
     }
 
+    public void setPlanStart(String planStart) {
+        this.planStart = planStart;
+    }
+
     public String getPlanFinish() {
         return planFinish;
     }
 
-    //public int[] getMemberList() {
-    //    return memberList;
-    //}
-
-    public int getPlanID() {
-        return planID;
+    public void setPlanFinish(String planFinish) {
+        this.planFinish = planFinish;
     }
 
-    public int getSportID() {
-        return sport_id;
+    public String getPlan() {
+        return plan;
     }
 
-    public int getFacilityID() {
-        return facility_id;
+    public void setPlan(String plan) {
+        this.plan = plan;
+    }
+
+    public int getSport() {
+        return sport;
+    }
+
+    public void setSport(int sport) {
+        this.sport = sport;
+    }
+
+    public int getFacility() {
+        return facility;
+    }
+
+    public void setFacility(int facility) {
+        this.facility = facility;
     }
 }

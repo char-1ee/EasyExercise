@@ -13,6 +13,10 @@
             android:name=".ui.activities.CommunityActivity"
             android:exported="true" />
         <activity
+            android:name=".ui.activities.ChatRoomActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.activities.EditProfileActivity"
             android:exported="true" />
         <activity

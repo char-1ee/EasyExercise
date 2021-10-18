@@ -37,10 +37,15 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
+        String planID;
+
+        Bundle extras = getIntent().getExtras();
+        planID = extras.getString("plan");
+
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference mDatabase = database.getReference().child("chatroom");
+        DatabaseReference mDatabase = database.getReference().child("community").child(planID).child("chatroom");
 
         inputText = (EditText) findViewById(R.id.inputText);
         send = (Button) findViewById(R.id.send);
@@ -58,7 +63,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("chatroom", "Value received!");
+                Log.d("chatroom", "Value received!");
                 msgList.clear();
                 for (DataSnapshot s: snapshot.getChildren()){
                     Message receiveMessage = s.getValue(Message.class);
@@ -70,7 +75,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("chatroom", "Failed to read value.", error.toException());
+                Log.d("chatroom", "Failed to read value.", error.toException());
             }
         });
 

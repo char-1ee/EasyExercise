@@ -69,7 +69,9 @@ public class SelectSportActivity extends AppCompatActivity {
                 DatabaseReference mDatabase = database.getReference().child("community");
 
                 PublicPlan plan = new PublicPlan(10001, 8, new Date(), new Date(), 1, 1);
-                mDatabase.push().setValue(plan);
+                String id = mDatabase.push().getKey();
+                plan.setPlan(id);
+                mDatabase.child(id).setValue(plan);
             }
         });
     }

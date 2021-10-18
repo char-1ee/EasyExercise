@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,9 @@ public class HomeFragment extends Fragment {
     View view;
     Button mMakePlanButton;
     Button mCheckInButton;
+    TextView temperature, pm25, uvIndex, humidity, forecast;
+    String temperature_string, pm25_string, uvIndex_string, humidity_string, forecast_string;
+    Coordinates temp;
 
     @Nullable
     @Override

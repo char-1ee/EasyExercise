@@ -5,20 +5,32 @@ import java.util.Date;
 public class PublicPlan{
     private int planLimit;
     private int currentMember;
-    private Date planDate;
-    private int[] memberList;
+    private String planStart;
+    private String planFinish;
+    //private int[] memberList;
     private int planID;
-    private Sport sport;
-    private Facility facility;
+    private int sport_id;
+    private int facility_id;
 
-    public PublicPlan(int userID, int limit, Date date, Sport s, Facility f) {
+    public PublicPlan(int planLimit, int currentMember, String planStart, String planFinish, int planID, int sport_id, int facility_id) {
+        this.planLimit = planLimit;
+        this.currentMember = currentMember;
+        this.planStart = planStart;
+        this.planFinish = planFinish;
+        this.planID = planID;
+        this.sport_id = sport_id;
+        this.facility_id = facility_id;
+    }
+
+    public PublicPlan(int userID, int limit, Date start, Date finish, int sport, int facility) {
         planLimit = limit;
-        planDate = date;
-        sport = s;
-        facility = f;
+        planStart = start.toString();
+        planFinish = finish.toString();
+        sport_id = sport;
+        facility_id = facility;
         currentMember = 1;
-        memberList = new int[limit];
-        memberList[0] = userID;
+        //memberList = new int[limit];
+        //memberList[0] = userID;
     }
 
     public int getPlanLimit() {
@@ -29,23 +41,27 @@ public class PublicPlan{
         return currentMember;
     }
 
-    public Date getPlanDate() {
-        return planDate;
+    public String getPlanStart() {
+        return planStart;
     }
 
-    public int[] getMemberList() {
-        return memberList;
+    public String getPlanFinish() {
+        return planFinish;
     }
+
+    //public int[] getMemberList() {
+    //    return memberList;
+    //}
 
     public int getPlanID() {
         return planID;
     }
 
-    public Sport getSport() {
-        return sport;
+    public int getSportID() {
+        return sport_id;
     }
 
-    public Facility getFacility() {
-        return facility;
+    public int getFacilityID() {
+        return facility_id;
     }
 }

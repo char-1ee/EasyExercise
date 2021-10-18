@@ -71,8 +71,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PublicPlan publicPlan = myPlanList.get(position);
-        holder.date.setText(publicPlan.getPlanDate().toString());
-        holder.facility.setText(publicPlan.getFacility().getName());
+        holder.date.setText(publicPlan.getPlanStart().toString());
+        holder.facility.setText(publicPlan.getFacilityID());
         holder.limit.setText( publicPlan.getCurrentMember() + "/" +publicPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);

@@ -15,13 +15,26 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.myapplication.utils.MyApp;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-//    private static DatabaseHelper databaseHelper;
-//    private DatabaseHelper databaseHelper;
+    private static DatabaseHelper databaseHelper;
 
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    private DatabaseHelper() {
+        super(MyApp.context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static DatabaseHelper getInstance() {
+
+        if (databaseHelper == null) {
+            synchronized (DatabaseHelper.class){ //thread safe singleton
+                if (databaseHelper == null)
+                    databaseHelper = new DatabaseHelper();
+            }
+        }
+
+        return databaseHelper;
     }
 
     @Override

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SportQueryImplementation implements QueryContract.SportQuery{
 
-    private DatabaseHelper databaseHelper = new DatabaseHelper(Context.getApplicationContext());
+    private DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
 
     @Override
     public void readAllSport(QueryResponse<Sport> response) {

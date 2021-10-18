@@ -8,6 +8,7 @@ import com.example.myapplication.beans.WorkoutPlan;
 import com.example.myapplication.beans.WorkoutRecord;
 
 import java.util.Date;
+import java.util.List;
 
 public class QueryContract {
     public interface WorkoutPlanQuery {
@@ -33,6 +34,6 @@ public class QueryContract {
 
     public interface SportQuery {
 //        void readSport(String name, QueryResponse<Sport> response);
-        void readAllSport(QueryResponse<Sport> response);
+        void readAllSport(QueryResponse<List<Sport>> response);
     }
 }

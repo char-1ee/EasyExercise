@@ -14,12 +14,12 @@ import com.example.myapplication.beans.Sport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SportQueryImplementation implements QueryContract.SportQuery{
+public class SportQueryImplementation implements QueryContract.SportQuery {
 
     private DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
 
     @Override
-    public void readAllSport(QueryResponse<Sport> response) {
+    public void readAllSport(QueryResponse<List<Sport>> response) {
         SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         List<Sport> sportList = new ArrayList<>();
@@ -28,26 +28,26 @@ public class SportQueryImplementation implements QueryContract.SportQuery{
         try {
             cursor = sqLiteDatabase.query(TABLE_NAME_SPORTS, null, null, null, null, null, null);
 
-            if(cursor!=null && cursor.moveToFirst()){
+            if (cursor != null && cursor.moveToFirst()) {
                 do {
                     Sport sport = getSportFromCursor(cursor);
                     sportList.add(sport);
                 } while (cursor.moveToNext());
 
-                response.onSuccess((Sport) sportList);
+                response.onSuccess(sportList);
             } else
-                response.onFailure("There are no student in database");
+                response.onFailure("There are no sport in database");
 
-        } catch (Exception e){
+        } catch (Exception e) {
             response.onFailure(e.getMessage());
         } finally {
             sqLiteDatabase.close();
-            if(cursor!=null)
+            if (cursor != null)
                 cursor.close();
         }
     }
 
-    private Sport getSportFromCursor(Cursor cursor){
+    private Sport getSportFromCursor(Cursor cursor) {
         int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
         String name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
         String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ALTERNATIVE_NAME));

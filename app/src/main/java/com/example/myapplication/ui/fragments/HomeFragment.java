@@ -1,5 +1,14 @@
 package com.example.myapplication.ui.fragments;
 
+import static com.example.myapplication.json.weather.Weather.AIR_TEMPERATURE_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.PM25_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.RAINFALL_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.RELATIVE_HUMIDITY_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.UV_INDEX_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.WEATHER_FORECAST_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.WIND_DIRECTION_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.WIND_SPEED_JSON_URL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,9 +24,12 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.json.weather.Weather;
 import com.example.myapplication.ui.activities.CheckInNormalActivity;
 import com.example.myapplication.ui.activities.NoFacilityActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
+import com.example.myapplication.utils.Box;
+import com.example.myapplication.utils.IOUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,6 +75,54 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        temperature = view.findViewById(R.id.temperature);
+        pm25 = view.findViewById(R.id.pm25_value);
+        uvIndex = view.findViewById(R.id.UV_value);
+        humidity = view.findViewById(R.id.Humidity_value);
+        forecast = view.findViewById(R.id.Forecast);
+
+        final Box<Weather> boxWeather = new Box<>();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                IOUtil ioUtil = new IOUtil();
+                boxWeather.set(new Weather(
+                        ioUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                        ioUtil.readFromURL(RAINFALL_JSON_URL),
+                        ioUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                        ioUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                        ioUtil.readFromURL(WIND_SPEED_JSON_URL),
+                        ioUtil.readFromURL(UV_INDEX_JSON_URL),
+                        ioUtil.readFromURL(PM25_JSON_URL),
+                        ioUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            ;
+        }
+
+        Weather weather = boxWeather.get();
+
+        temp = new Coordinates(1, 104, "test_location");
+
+        temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
+        pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
+        uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
+        humidity_string = weather.getWeatherData(temp).getRelativeHumidity().getResult().toString();
+        forecast_string = weather.getWeatherData(temp).getForecast().getResult();
+
+        temperature.setText(temperature_string);
+        pm25.setText(pm25_string);
+        uvIndex.setText(uvIndex_string);
+        humidity.setText(humidity_string);
+        forecast.setText(forecast_string);
+
 
         return view;
     }

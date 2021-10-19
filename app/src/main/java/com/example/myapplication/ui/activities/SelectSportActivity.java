@@ -1,25 +1,26 @@
 package com.example.myapplication.ui.activities;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.SportType;
 import com.example.myapplication.ui.adapters.SportRecyclerViewAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SelectSportActivity extends AppCompatActivity {
@@ -68,6 +69,16 @@ public class SelectSportActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
                 intent.putExtra("FacilityQualified",(Serializable) FinalFacility);
                 startActivity(intent);
+
+                // TODO: Implement Firebase functionalities
+                // FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                // DatabaseReference mDatabase = database.getReference().child("community");
+
+                // PublicPlan plan = new PublicPlan(8, new Date(), new Date(), 1, 1);
+                // String id = mDatabase.push().getKey();
+                // plan.setPlan(id);
+                // mDatabase.child(id).setValue(plan);
+                // mDatabase.child(id).child("members").child("10001").setValue(10001);
             }
         });
     }

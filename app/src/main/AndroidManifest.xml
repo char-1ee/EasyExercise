@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication" >
+    package="com.example.myapplication">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -29,15 +29,25 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <activity
             android:name=".ui.activities.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" >
-
         </activity>
         <activity
             android:name=".ui.activities.CheckInCustomizedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.CommunityActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.ChatRoomActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.CheckOutActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.ChatRoomActivity"
@@ -68,7 +78,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -7,7 +7,8 @@ package com.example.myapplication.utils;
  * @author Zhong Ruoyu
  */
 public class StringUtil {
-    private StringUtil() {}
+    private StringUtil() {
+    }
 
     /**
      * Removes all empty lines in the source string.

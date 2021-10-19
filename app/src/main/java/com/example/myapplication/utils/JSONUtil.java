@@ -11,7 +11,8 @@ import org.json.JSONObject;
  * @author Zhong Ruoyu
  */
 public class JSONUtil {
-    private JSONUtil() {}
+    private JSONUtil() {
+    }
 
     /**
      * Converts a JSON string to a JSON array.
@@ -46,10 +47,10 @@ public class JSONUtil {
      * {@code conditionKey} with value {@code conditionValue}, then the string
      * value in that object corresponding to key {@code targetKey} is returned.
      *
-     * @param jsonArray the JSON array to examine
-     * @param conditionKey the condition key
+     * @param jsonArray      the JSON array to examine
+     * @param conditionKey   the condition key
      * @param conditionValue the condition value
-     * @param targetKey the key to the target to look for
+     * @param targetKey      the key to the target to look for
      * @return the result, if it exists; {@code null} otherwise
      */
     public static String findMatchString(JSONArray jsonArray,
@@ -72,10 +73,10 @@ public class JSONUtil {
      * {@code conditionKey} with value {@code conditionValue}, then the double
      * value in that object corresponding to key {@code targetKey} is returned.
      *
-     * @param jsonArray the JSON array to examine
-     * @param conditionKey the condition key
+     * @param jsonArray      the JSON array to examine
+     * @param conditionKey   the condition key
      * @param conditionValue the condition value
-     * @param targetKey the key to the target to look for
+     * @param targetKey      the key to the target to look for
      * @return the result, if it exists; {@code null} otherwise
      */
     public static Double findMatchDouble(JSONArray jsonArray,

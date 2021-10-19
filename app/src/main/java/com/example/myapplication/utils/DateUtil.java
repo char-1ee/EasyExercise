@@ -20,7 +20,7 @@ public class DateUtil {
     /**
      * Gets a date from the string, with the given pattern.
      *
-     * @param source the input string containing the date
+     * @param source  the input string containing the date
      * @param pattern the pattern of the input
      * @return
      */
@@ -35,7 +35,7 @@ public class DateUtil {
     /**
      * Converts a date to a string according to the given pattern.ƒ
      *
-     * @param source the date to be converted
+     * @param source  the date to be converted
      * @param pattern tha pattern of the output date
      * @return
      */

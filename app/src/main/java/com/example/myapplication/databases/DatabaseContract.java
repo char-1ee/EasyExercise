@@ -16,18 +16,13 @@ public final class DatabaseContract {
 
     // List of all SQL create table statement
     public static final String[] SQL_CREATE_TABLE_LIST = {
-            Sport.CREATE_TABLE_SPORT,
-            Facility.CREATE_TABLE_FACILITY,
-            WorkoutPlan.CREATE_TABLE_WORKOUT_PLAN,
-            WorkoutHistory.CREATE_TABLE_WORKOUT_HISTORY
+            SportTable.CREATE_TABLE_SPORT,
+            FacilityTable.CREATE_TABLE_FACILITY,
+            WorkoutPlanTable.CREATE_TABLE_WORKOUT_PLAN,
+            WorkoutHistoryTable.CREATE_TABLE_WORKOUT_HISTORY
     };
 
-    // List of resource ids for each data file that should be loaded into database
-    public static final int[] RAW_IDS = {
-            // TODO import date file in R.raw
-    };
-
-    public static abstract class Sport implements BaseColumns {
+    public static abstract class SportTable implements BaseColumns {
         public static final String TABLE_NAME_SPORTS = " sports ";
         public static final String KEY_NAME = " name ";
         public static final String KEY_ALTERNATIVE_NAME = " alternative_name ";
@@ -50,7 +45,7 @@ public final class DatabaseContract {
         public static final String DELETE_TABLE_SPORTS = " DROP TABLE IF EXISTS " + TABLE_NAME_SPORTS;
     }
 
-    public static abstract class Facility implements BaseColumns {
+    public static abstract class FacilityTable implements BaseColumns {
         public static final String TABLE_NAME_FACILITIES = " facilities ";
         public static final String KEY_NAME = " name ";
         public static final String KEY_URL = " url ";
@@ -81,8 +76,8 @@ public final class DatabaseContract {
         public static final String DELETE_TABLE_FACILITIES = "DROP TABLE IF EXISTS " + TABLE_NAME_FACILITIES;
     }
 
-    public static abstract class WorkoutPlan implements BaseColumns {
-        public static final String TABLE_NAME_WORKOUT_PLAN = "WorkoutPlan";
+    public static abstract class WorkoutPlanTable implements BaseColumns {
+        public static final String TABLE_NAME_WORKOUT_PLAN = "WorkoutPlanTable";
         public static final String KEY_SPORT_ID = "sportId";
         public static final String KEY_FACILITY_ID = "facilityId";
 
@@ -91,14 +86,14 @@ public final class DatabaseContract {
                 _ID + "INTEGER PRIMARY KEY" +
                 KEY_SPORT_ID + TEXT_TYPE + COMMA_SEP +
                 KEY_FACILITY_ID + TEXT_TYPE + COMMA_SEP +
-                "FOREIGN KEY (" + KEY_SPORT_ID + ") REFERENCES " + Sport.TABLE_NAME_SPORTS + "(id)" +
-                "FOREIGN KEY (" + KEY_FACILITY_ID + ") REFERENCES " + Facility.TABLE_NAME_FACILITIES + "(id)" + ")";
+                "FOREIGN KEY (" + KEY_SPORT_ID + ") REFERENCES " + SportTable.TABLE_NAME_SPORTS + "(id)" +
+                "FOREIGN KEY (" + KEY_FACILITY_ID + ") REFERENCES " + FacilityTable.TABLE_NAME_FACILITIES + "(id)" + ")";
 
         public static final String DELETE_TABLE_WORKOUT_PLAN = "DROP TABLE IF EXISTS " + TABLE_NAME_WORKOUT_PLAN;
     }
 
-    public static abstract class WorkoutHistory implements BaseColumns {
-        public static final String TABLE_NAME_WORKOUT_HISTORY = "WorkoutHistory";
+    public static abstract class WorkoutHistoryTable implements BaseColumns {
+        public static final String TABLE_NAME_WORKOUT_HISTORY = "WorkoutHistoryTable";
         public static final String KEY_SPORT_ID = "sportId";
         public static final String KEY_FACILITY_ID = "facilityId";
         public static final String KEY_START_TIME = "startTime";
@@ -111,8 +106,8 @@ public final class DatabaseContract {
                 KEY_FACILITY_ID + TEXT_TYPE + COMMA_SEP +
                 KEY_START_TIME + TEXT_TYPE + COMMA_SEP +
                 KEY_END_TIME + TEXT_TYPE + COMMA_SEP +
-                "FOREIGN KEY (" + KEY_SPORT_ID + ") REFERENCES " + Sport.TABLE_NAME_SPORTS + "(id)" +
-                "FOREIGN KEY (" + KEY_FACILITY_ID + ") REFERENCES " + Facility.TABLE_NAME_FACILITIES + "(id)" + ")";
+                "FOREIGN KEY (" + KEY_SPORT_ID + ") REFERENCES " + SportTable.TABLE_NAME_SPORTS + "(id)" +
+                "FOREIGN KEY (" + KEY_FACILITY_ID + ") REFERENCES " + FacilityTable.TABLE_NAME_FACILITIES + "(id)" + ")";
 
         public static final String DELETE_TABLE_WORKOUT_HISTORY = "DROP TABLE IF EXISTS " + TABLE_NAME_WORKOUT_HISTORY;
     }

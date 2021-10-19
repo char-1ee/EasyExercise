@@ -28,9 +28,9 @@ public class CheckInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-//        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-//        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
-//        secondList.add(new Sport("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//        secondList.add(new SportTable("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//        secondList.add(new SportTable("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
+//        secondList.add(new SportTable("Swimming", R.drawable.swimming, SportType.INDOOR_OUTDOOR));
         rv_test = findViewById(R.id.check_in_sport_recycler_view);
         button1 = findViewById(R.id.check_in_sport_choice_button);
         button2 = findViewById(R.id.choose_another_facility_button);
@@ -47,7 +47,7 @@ public class CheckInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(CheckInActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-                Intent intent1= new Intent(CheckInActivity.this, ExerciseActivity.class);
+                Intent intent1 = new Intent(CheckInActivity.this, ExerciseActivity.class);
                 startActivity(intent1);
             }
         });

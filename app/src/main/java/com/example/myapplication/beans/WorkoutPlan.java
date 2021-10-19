@@ -4,13 +4,12 @@ public class WorkoutPlan {
     private Sport sport;
     private Location location;
     private long id;
-    private WorkoutPlanStatus status;
+//    private WorkoutPlanStatus status;
 
-    public WorkoutPlan(Sport sport, Location location, long id, WorkoutPlanStatus status) {
+    public WorkoutPlan(Sport sport, Location location, long id) {
         this.sport = sport;
         this.location = location;
         this.id = id;
-        this.status = status;
     }
 
     public Sport getSport() {
@@ -25,9 +24,9 @@ public class WorkoutPlan {
         return id;
     }
 
-    public WorkoutPlanStatus getStatus() {
-        return status;
-    }
+//    public WorkoutPlanStatus getStatus() {
+//        return status;
+//    }
 
     public void setSport(Sport sport) {
         this.sport = sport;
@@ -41,7 +40,7 @@ public class WorkoutPlan {
         this.id = id;
     }
 
-    public void setStatus(WorkoutPlanStatus status) {
-        this.status = status;
-    }
+//    public void setStatus(WorkoutPlanStatus status) {
+//        this.status = status;
+//    }
 }

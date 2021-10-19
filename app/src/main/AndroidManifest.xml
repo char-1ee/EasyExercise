@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".utils.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,19 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.CommunityActivity"
+            android:name=".ui.activities.authentication.ResetPasswordActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.activities.authentication.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activities.EditProfileActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.CheckOutActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ui.activities.DBDemo"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ui.activities.NoFacilityActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.NoFacilityActivity"
@@ -35,7 +41,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.SelectSportActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.activities.SelectFacilityCheckInActivity"
             android:exported="true" />
@@ -50,34 +56,13 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
-            android:name=".ui.activities.SignInActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".ui.activities.authentication.SignUpActivity"
+            android:exported="true" />
         <activity
-            android:name=".ui.activities.UserActivity"
-            android:exported="true">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-
-        </activity>
+            android:name=".ui.activities.authentication.UserActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

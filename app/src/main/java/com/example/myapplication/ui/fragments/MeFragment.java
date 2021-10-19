@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.activities.EditProfileActivity;
+import com.example.myapplication.ui.activities.authentication.UserActivity;
 
 public class MeFragment extends Fragment {
     View view;
@@ -26,12 +26,9 @@ public class MeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_me, container, false);
         mEditButton = view.findViewById(R.id.edit_profile_button);
-        mEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
-            }
+        mEditButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), UserActivity.class);
+            startActivity(intent);
         });
         return view;
     }

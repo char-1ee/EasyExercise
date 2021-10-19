@@ -53,10 +53,10 @@ public class HistoryFragment extends Fragment {
     private List<WorkoutRecord> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-//            Sport sport = new Sport("Running", R.drawable.ic_baseline_directions_run_24, SportType.OUTDOOR);
-//            List<Sport> sportList = new ArrayList<>();
+//            SportTable sport = new SportTable("Running", R.drawable.ic_baseline_directions_run_24, SportType.OUTDOOR);
+//            List<SportTable> sportList = new ArrayList<>();
 //            sportList.add(sport);
-//            Facility facility = new Facility(
+//            FacilityTable facility = new FacilityTable(
 //                    "North Hill",
 //                    "https://www.ntu.edu.sg",
 //                    "64 Nanyang Crescent",

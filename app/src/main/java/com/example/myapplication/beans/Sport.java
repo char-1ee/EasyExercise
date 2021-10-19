@@ -1,5 +1,7 @@
 package com.example.myapplication.beans;
 
+import androidx.annotation.NonNull;
+
 public class Sport {
     public enum SportType {
         INDOOR("Indoor"), OUTDOOR("Outdoor"), INDOOR_OUTDOOR("Indoor/Outdoor");
@@ -19,20 +21,35 @@ public class Sport {
             return null;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return name;
         }
+
+        public static SportType fromString(String type) {
+            for (SportType s : SportType.values()) {
+                if (s.name.equalsIgnoreCase(type)) return s;
+            }
+            return null;
+        }
     }
 
+    private final int id;
     private final String name;
     private final String alternativeName;
     private final SportType type;
 
-    public Sport(String name, String alternativeName, SportType type) {
+    // TODO A change for database
+    public Sport(int id, String name, String alternativeName, SportType type) {
+        this.id = id;
         this.name = name;
         this.alternativeName = alternativeName;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

@@ -54,13 +54,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("chatroom", "Value received!");
                 msgList.clear();
-                for (DataSnapshot s: snapshot.getChildren()){
+                for (DataSnapshot s : snapshot.getChildren()) {
                     Message receiveMessage = s.getValue(Message.class);
                     msgList.add(receiveMessage);
                 }
@@ -75,17 +74,17 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
 
 
-        send.setOnClickListener(new View.OnClickListener(){
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 String content = inputText.getText().toString();
-                if(!"".equals(content)){
-                    try{
+                if (!"".equals(content)) {
+                    try {
                         Message handleMsg = new Message(content, "Charles");
-                        mDatabase.child(String.valueOf(msgList.size()+1)).setValue(handleMsg);
+                        mDatabase.child(String.valueOf(msgList.size() + 1)).setValue(handleMsg);
                         inputText.setText("");
-                    } catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

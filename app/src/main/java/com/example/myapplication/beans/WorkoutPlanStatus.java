@@ -1,6 +1,8 @@
 package com.example.myapplication.beans;
 
-public enum WorkoutPlanStatus {
+import java.io.Serializable;
+
+public enum WorkoutPlanStatus implements Serializable {
     PRIVATE,
     PUBLIC,
     JOINED

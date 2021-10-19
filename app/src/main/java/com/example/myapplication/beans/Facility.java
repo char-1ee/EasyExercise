@@ -1,10 +1,11 @@
 package com.example.myapplication.beans;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Facility extends Location {
+public class Facility extends Location implements Serializable {
     private final int id;
     private final String name;
     private final String url;
@@ -60,6 +61,10 @@ public class Facility extends Location {
         return sports;
     }
 
+    public void addSport(Sport sport) {
+        sports.add(sport);
+    }
+    
     @Override
     public String toString() {
         String stringSports = (sports.isEmpty()) ? "NA"

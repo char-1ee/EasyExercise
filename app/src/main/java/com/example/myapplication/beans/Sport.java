@@ -1,8 +1,8 @@
 package com.example.myapplication.beans;
 
-import androidx.annotation.NonNull;
+import java.io.Serializable;
 
-public class Sport {
+public class Sport implements Serializable {
     public enum SportType {
         INDOOR("Indoor"), OUTDOOR("Outdoor"), INDOOR_OUTDOOR("Indoor/Outdoor");
 
@@ -21,17 +21,9 @@ public class Sport {
             return null;
         }
 
-        @NonNull
         @Override
         public String toString() {
             return name;
-        }
-
-        public static SportType fromString(String type) {
-            for (SportType s : SportType.values()) {
-                if (s.name.equalsIgnoreCase(type)) return s;
-            }
-            return null;
         }
     }
 
@@ -39,8 +31,8 @@ public class Sport {
     private final String name;
     private final String alternativeName;
     private final SportType type;
+    private boolean isSelected = false;
 
-    // TODO A change for database
     public Sport(int id, String name, String alternativeName, SportType type) {
         this.id = id;
         this.name = name;
@@ -62,5 +54,13 @@ public class Sport {
 
     public SportType getType() {
         return type;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

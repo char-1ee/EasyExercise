@@ -1,8 +1,9 @@
 package com.example.myapplication.beans;
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class Coordinates {
+public class Coordinates implements Serializable {
     private static final double R = 6371; // radius of the earth in km
 
     private final double latitude;

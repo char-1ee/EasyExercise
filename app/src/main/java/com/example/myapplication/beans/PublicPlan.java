@@ -7,7 +7,6 @@ public class PublicPlan {
     private int currentMember;
     private String planStart;
     private String planFinish;
-    //private int[] memberList;
     private String plan;
     private int sport;
     private int facility;
@@ -25,15 +24,13 @@ public class PublicPlan {
         this.facility = facilityID;
     }
 
-    public PublicPlan(int userID, int limit, Date start, Date finish, int sportID, int facilityID) {
+    public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID) {
         planLimit = limit;
         planStart = start.toString();
         planFinish = finish.toString();
         sport = sportID;
         facility = facilityID;
         currentMember = 1;
-        //memberList = new int[limit];
-        //memberList[0] = userID;
     }
 
     public int getPlanLimit() {

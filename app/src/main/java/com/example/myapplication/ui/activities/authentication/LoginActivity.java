@@ -2,6 +2,7 @@ package com.example.myapplication.ui.activities.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -92,17 +93,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
-                /*
                 if (TextUtils.isEmpty(email)) {
-                    ToastUtil.toastSize(getApplicationContext(), "Enter email address!", 15);
+                    Toast.makeText(LoginActivity.this, "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    ToastUtil.toastSize(getApplicationContext(), "Enter password!", 15);
+                    Toast.makeText(LoginActivity.this, "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                */
                 progressBar.setVisibility(View.VISIBLE);
 
                 //authenticate user
@@ -117,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (password.length() < 6) {
                             inputPassword.setError(getString(R.string.minimum_password));
                         } else {
-                            //ToastUtil.toastSize(LoginActivity.this, getString(R.string.auth_failed), 15);
+                            Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);

@@ -100,7 +100,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:visibility="visible"
-            app:isDarkTheme='true' />
+            app:isDarkTheme='true'
+            tools:ignore="MissingClass" />
 
         <Button
             android:id="@+id/to_reset_password_button"

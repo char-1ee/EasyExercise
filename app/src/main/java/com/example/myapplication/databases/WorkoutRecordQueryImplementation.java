@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteException;
 
 import com.example.myapplication.beans.WorkoutPlan;
 import com.example.myapplication.beans.WorkoutRecord;
-
+/*
 public class WorkoutRecordQueryImplementation {
 
     private DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
@@ -147,3 +147,4 @@ public class WorkoutRecordQueryImplementation {
         return new Student(id, name, regNum, phone, email);
     }
 }
+*/

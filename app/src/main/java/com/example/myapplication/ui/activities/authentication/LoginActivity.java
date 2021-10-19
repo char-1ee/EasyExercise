@@ -2,9 +2,6 @@ package com.example.myapplication.ui.activities.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,19 +10,20 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
 import com.example.myapplication.ui.activities.MainActivity;
-import com.example.myapplication.utils.ToastUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar progressBar;
     private Button toRegisterButton, loginButton, resetButton;
     private GoogleSignInClient googleSignInClient;
-    private SignInButton googleSignInButton;
+    private GoogleSignInButton googleSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +93,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
-
                 if (TextUtils.isEmpty(email)) {
-                    ToastUtil.toastSize(getApplicationContext(), "Enter email address!", 15);
+                    Toast.makeText(LoginActivity.this, "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    ToastUtil.toastSize(getApplicationContext(), "Enter password!", 15);
+                    Toast.makeText(LoginActivity.this, "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 progressBar.setVisibility(View.VISIBLE);
 
                 //authenticate user
@@ -120,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (password.length() < 6) {
                             inputPassword.setError(getString(R.string.minimum_password));
                         } else {
-                            ToastUtil.toastSize(LoginActivity.this, getString(R.string.auth_failed), 15);
+                            Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);

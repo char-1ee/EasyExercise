@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location.LocationType;
+import com.example.myapplication.beans.WorkoutPlan;
 import com.example.myapplication.beans.WorkoutRecord;
 
 import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
-    private List<WorkoutRecord> mPlanList;
+    private List<WorkoutPlan> mPlanList;
     private int lastSelectedPosition = -1;
 
-    public PlanRecyclerViewAdapter(List<WorkoutRecord> planList) {
+    public PlanRecyclerViewAdapter(List<WorkoutPlan> planList) {
         mPlanList = planList;
     }
 
@@ -33,7 +34,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutRecord item = mPlanList.get(position);
+        final WorkoutPlan item = mPlanList.get(position);
         // holder.facilityView.setText(item.getFacility().getName());
         if (item.getLocation().getType() == LocationType.FACILITY) {
             Facility f = (Facility) item.getLocation();

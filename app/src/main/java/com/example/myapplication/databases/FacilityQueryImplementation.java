@@ -5,6 +5,7 @@ import static com.example.myapplication.databases.DatabaseContract.FacilityTable
 import static com.example.myapplication.databases.DatabaseContract.FacilityTable.KEY_DESCRIPTION;
 import static com.example.myapplication.databases.DatabaseContract.FacilityTable.KEY_NAME;
 import static com.example.myapplication.databases.DatabaseContract.FacilityTable.KEY_POSTAL_CODE;
+import static com.example.myapplication.databases.DatabaseContract.FacilityTable.KEY_SPORTS;
 import static com.example.myapplication.databases.DatabaseContract.FacilityTable.KEY_URL;
 import static com.example.myapplication.databases.DatabaseContract.FacilityTable.TABLE_NAME_FACILITIES;
 
@@ -56,8 +57,8 @@ public class FacilityQueryImplementation implements QueryContract.FacilityQuery 
 //        String address = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ADDRESS));
 //        String postalCode = cursor.getString(cursor.getColumnIndexOrThrow(KEY_POSTAL_CODE));
 //        String description = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DESCRIPTION));
-//        String
-//
-//        return new Facility(id, name, url, address, postalCode, description, );
+//        String sports = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SPORTS));
+
+//        return new Facility(id, name, url, address, postalCode, description, sports );
 //    }
 }

@@ -3,6 +3,7 @@ package com.example.myapplication.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
 import static androidx.databinding.DataBindingUtil.setContentView;
 
 import android.content.Intent;

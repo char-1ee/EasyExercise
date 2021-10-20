@@ -16,7 +16,7 @@ public class IOUtil {
 
     private IOUtil() {
     }
-    
+
     /**
      * Reads contents of the file stored in the URL.
      *

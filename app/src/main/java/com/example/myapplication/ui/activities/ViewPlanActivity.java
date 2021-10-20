@@ -67,23 +67,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         return p;
     }
 
-    private WorkoutPlan getListData() {
-        Sport s = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Location location = testCheckinClosetFacility();
-        WorkoutPlan w = new WorkoutPlan(s, location, 0, com.example.myapplication.beans.WorkoutPlanStatus.PRIVATE);
-        return w;
-    }
-
-    private Facility testCheckinClosetFacility() {
-        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(1.3, 103.6));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        return r;
-    }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {

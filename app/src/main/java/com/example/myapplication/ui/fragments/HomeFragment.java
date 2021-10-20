@@ -64,7 +64,6 @@ public class HomeFragment extends Fragment {
     public Facility closestFacility;
     public List<Facility> FacilityByDistance;
     private TextView AddressText;
-    private Button LocationButton;
     View view;
     Button mMakePlanButton;
     Button mCheckInButton;
@@ -80,7 +79,6 @@ public class HomeFragment extends Fragment {
         mMakePlanButton = view.findViewById(R.id.home_plan_button);
         mCheckInButton = view.findViewById(R.id.home_checkin_button);
         AddressText = view.findViewById(R.id.addressText);
-        LocationButton = view.findViewById(R.id.locationButton);
         mMakePlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,17 +106,12 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
+
         temperature = view.findViewById(R.id.temperature);
         pm25 = view.findViewById(R.id.pm25_value);
         uvIndex = view.findViewById(R.id.UV_value);
         humidity = view.findViewById(R.id.Humidity_value);
         forecast = view.findViewById(R.id.Forecast);
-        getCurrentLocation();
-
 
         final Box<Weather> boxWeather = new Box<>();
 
@@ -143,23 +136,9 @@ public class HomeFragment extends Fragment {
         } catch (InterruptedException e) {
             ;
         }
-
         Weather weather = boxWeather.get();
-        temp = new Coordinates(1.30165306, 103.65497298, "test_location");
-        getCurrentLocation();
-        LocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getCurrentLocation();
-                if (latitude != 0) {
-                    AddressText.setText(String.valueOf(latitude) + String.valueOf(longitude));
-                }
-            }
-        });
-        if (latitude != 0) {
-            AddressText.setText(String.valueOf(latitude) + String.valueOf(longitude));
-        }
-        temp = new Coordinates(latitude, longitude, "test_location");
+        temp= getLocation();
+        AddressText.setText(String.valueOf(temp.getLatitude()) + String.valueOf(temp.getLongitude()));
         temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
         pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
         uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
@@ -172,66 +151,6 @@ public class HomeFragment extends Fragment {
         humidity.setText(humidity_string);
         forecast.setText(forecast_string);
         return view;
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 1) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                if (isGPSEnabled()) {
-                    getCurrentLocation();
-                } else {
-                    turnOnGPS();
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2) {
-            if (resultCode == Activity.RESULT_OK) {
-                getCurrentLocation();
-            }
-        }
-    }
-
-    private void getCurrentLocation() {
-        final double[] a = {25};
-        final double[] b = {0};
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                if (isGPSEnabled()) {
-                    LocationServices.getFusedLocationProviderClient(getContext())
-                            .requestLocationUpdates(locationRequest, new LocationCallback() {
-                                @Override
-                                public void onLocationResult(@NonNull LocationResult locationResult) {
-                                    super.onLocationResult(locationResult);
-
-                                    LocationServices.getFusedLocationProviderClient(getActivity())
-                                            .removeLocationUpdates(this);
-
-                                    if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                        int index = locationResult.getLocations().size() - 1;
-                                        latitude = locationResult.getLocations().get(index).getLatitude();
-                                        longitude = locationResult.getLocations().get(index).getLongitude();
-                                    }
-                                }
-                            }, Looper.getMainLooper());
-
-                } else {
-                    turnOnGPS();
-                }
-            } else {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-        }
     }
 
 
@@ -286,55 +205,10 @@ public class HomeFragment extends Fragment {
         return sports;
     }
 
-    private void turnOnGPS() {
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        builder.setAlwaysShow(true);
-
-        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(getContext())
-                .checkLocationSettings(builder.build());
-
-        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-
-                try {
-                    LocationSettingsResponse response = task.getResult(ApiException.class);
-                    Toast.makeText(getContext(), "GPS is already tured on", Toast.LENGTH_SHORT).show();
-
-                } catch (ApiException e) {
-
-                    switch (e.getStatusCode()) {
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-
-                            try {
-                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
-                                resolvableApiException.startResolutionForResult(getActivity(), 2);
-                            } catch (IntentSender.SendIntentException ex) {
-                                ex.printStackTrace();
-                            }
-                            break;
-
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            //Device does not have location
-                            break;
-                    }
-                }
-            }
-        });
-    }
-
-    private boolean isGPSEnabled() {
-        LocationManager locationManager = null;
-        boolean isEnabled = false;
-
-        if (locationManager == null) {
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        }
-
-        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        return isEnabled;
-
+    private Coordinates getLocation(){
+        latitude= (double) getActivity().getIntent().getSerializableExtra("Latitude");
+        longitude= (double) getActivity().getIntent().getSerializableExtra("Longitude");
+        return new Coordinates(latitude, longitude, "nono");
     }
 
 }

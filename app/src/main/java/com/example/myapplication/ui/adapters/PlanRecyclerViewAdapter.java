@@ -47,8 +47,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
             holder.locationView.setText("Customized Location");
         }
         holder.sportView.setText(item.getSport().getName());
-        // TODO: image is no longer an attribute of a facility
-        // TODO: 2021/10/1 for public/join plans, need to show their happening time(need additional info in WorkoutPlan)
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

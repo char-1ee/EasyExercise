@@ -1,10 +1,10 @@
 package com.example.myapplication.ui.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
@@ -19,9 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -39,8 +37,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_plan);
-        //plan= getChosenPlan();
-        plan = getListData();
+        plan = getChosenPlan();
         facilityView = findViewById(R.id.facility_view);
         sportView = findViewById(R.id.sport_view);
         postalView = findViewById(R.id.postal_view);

@@ -51,7 +51,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
                 ChosenSport = firstAdapter.finalChoice;
                 Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
                 intent.putExtra("ChosenSport", ChosenSport);
-                intent.putExtra("ChosenFacility", customizedLocation);
+                intent.putExtra("ChosenLocation", customizedLocation);
                 startActivity(intent);
             }
         });

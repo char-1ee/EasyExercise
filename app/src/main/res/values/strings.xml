@@ -14,6 +14,7 @@
     <string name="home_main_message_text">Message</string>
     <string name="home_main_title_text">Title</string>
     <string name="home_main_image_description">Home image</string>
+    <string name="publish_plan_text">Publish plan</string>
 
     <string name="confirm_selection_text">Confirm selection</string>
 

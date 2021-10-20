@@ -1,12 +1,21 @@
 package com.example.myapplication.beans;
 
-public class WorkoutPlan {
+import java.io.Serializable;
+
+public class WorkoutPlan implements Serializable {
     private Sport sport;
     private Location location;
     private long id;
 //    private WorkoutPlanStatus status;
 
     public WorkoutPlan(Sport sport, Location location, long id) {
+        this.sport = sport;
+        this.location = location;
+        this.id = id;
+        this.status = WorkoutPlanStatus.PRIVATE;
+    }
+
+    public WorkoutPlan(Sport sport, Location location, long id, WorkoutPlanStatus status) {
         this.sport = sport;
         this.location = location;
         this.id = id;

@@ -14,12 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.SportType;
 import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.ui.adapters.HistoryRecyclerViewAdapter;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,22 +50,26 @@ public class HistoryFragment extends Fragment {
 
     private List<WorkoutRecord> getListData() {
         mWorkoutHistory = new ArrayList<>();
-//        for (int i = 1; i <= 10; i++) {
-//            Sport sport = new Sport("Running", R.drawable.run, SportType.OUTDOOR);
-//            List<Sport> sportList = new ArrayList<>();
-//            sportList.add(sport);
-//            Facility facility = new Facility(
-//                    new Coordinates(0, 0),
-//                    "North Hill",
-//                    "https://www.ntu.edu.sg",
-//                    "84073568",
-//                    "64 Nanyang Cres, Singapore 636959",
-//                    R.drawable.tanjong,
-//                    sportList);
-//            Date date = new Date(2021, 9, 19);
-//            Time time = new Time(10, 35, 4);
-//            //mWorkoutHistory.add(new WorkoutHistoryItem(sport, facility, time, date));
-//        }
+        for (int i = 1; i <= 10; i++) {
+            Sport s = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+            Location location = testCheckinClosetFacility();
+            Date date = new Date();
+            // TODO: Update workout record
+            WorkoutRecord w = new WorkoutRecord(s, location, 0, date, date);
+            mWorkoutHistory.add(w);
+        }
         return mWorkoutHistory;
+    }
+
+
+    private Facility testCheckinClosetFacility() {
+        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
+        return r;
     }
 }

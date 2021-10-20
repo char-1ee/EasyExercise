@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Message;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.ui.adapters.MessageAdapter;
+import com.example.myapplication.ui.fragments.CommunityFragment;
+import com.example.myapplication.ui.fragments.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +28,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+// TODO: Implement Firebase functionalities
+// FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+// DatabaseReference mDatabase = database.getReference().child("community");
+
+// PublicPlan plan = new PublicPlan(8, new Date(), new Date(), 1, 1);
+// String id = mDatabase.push().getKey();
+// plan.setPlan(id);
+// mDatabase.child(id).setValue(plan);
+// mDatabase.child(id).child("members").child("10001").setValue(10001);
+
 
 public class ChatRoomActivity extends AppCompatActivity {
 
@@ -33,6 +49,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private EditText inputText;
     private Button send;
     private Button join;
+    private Button quit;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
     private PublicPlan currentPlan;
@@ -56,6 +73,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         send = (Button) findViewById(R.id.send);
         recyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
         join = (Button) findViewById(R.id.joinPublicPlanButton);
+        quit = (Button) findViewById(R.id.quitPublicPlanButton);
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatRoomActivity.this);
@@ -104,9 +122,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 String content = inputText.getText().toString();
                 if(!"".equals(content)){
                     try{
+
                         Message handleMsg = new Message(content, "Charles");
                         mDatabase.child(String.valueOf(msgList.size()+1)).setValue(handleMsg);
                         inputText.setText("");
+
                     } catch(Exception e){
                         e.printStackTrace();
                     }
@@ -117,34 +137,79 @@ public class ChatRoomActivity extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(currentPlan.getPlanLimit() > currentPlan.getCurrentMember()){
-                    planReference.child("members").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) {
-                                Log.e("firebase", "Error getting data", task.getException());
-                            }
-                            else {
-                                int userID = 10002;
-                                boolean find = false;
-                                for (DataSnapshot s: task.getResult().getChildren()){
-                                    if(userID == s.getValue(Integer.class)){
-                                        Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan.", Toast.LENGTH_SHORT).show();
-                                        find = true;
-                                        break;
-                                    }
-                                }
-                                if(!find){
-                                    planReference.child("members").child(Integer.toString(userID)).setValue(userID);
-                                    currentPlan.setCurrentMember(currentPlan.getCurrentMember()+1);
-                                    planReference.child("currentMember").setValue(currentPlan.getCurrentMember());
-                                }
-                            }
+                planReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
                         }
-                    });
+                        else {
+                            currentPlan = task.getResult().getValue(PublicPlan.class);
+                        }
+                    }
+                });
+
+                if(currentPlan.getPlanLimit() > currentPlan.getMembers().size()){
+                    int userID = 10003;
+                    int i;
+                    for (i = 0; i < currentPlan.getMembers().size(); i++){
+                        if(userID == currentPlan.getMembers().get(i)){
+                            Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
+                    if(i == currentPlan.getMembers().size()){
+                        currentPlan.addMembers(userID);
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("members", currentPlan.getMembers());
+                        planReference.updateChildren(updates);
+                        Toast.makeText(ChatRoomActivity.this, "Join successful", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    Toast.makeText(ChatRoomActivity.this, "This plan is full.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatRoomActivity.this, "This plan is full", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                planReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        }
+                        else {
+                            currentPlan = task.getResult().getValue(PublicPlan.class);
+                        }
+                    }
+                });
+
+                int userID = 10003;
+                int i;
+                boolean find = false;
+                for (i = 0; i < currentPlan.getMembers().size(); i++){
+                    if(userID == currentPlan.getMembers().get(i)){
+                        find = true;
+                        currentPlan.removeMembers(i);
+                        if(currentPlan.getMembers().size() == 0){
+                            startActivity(new Intent(ChatRoomActivity.this, UselessActivity.class));
+                            planReference.removeValue();
+                            Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("members", currentPlan.getMembers());
+                            planReference.updateChildren(updates);
+                            Toast.makeText(ChatRoomActivity.this, "Quit Successful", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
+                }
+                if(!find){
+                    Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
                 }
             }
         });

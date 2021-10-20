@@ -1,36 +1,40 @@
 package com.example.myapplication.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PublicPlan {
     private int planLimit;
-    private int currentMember;
-    private String planStart;
-    private String planFinish;
+    private long planStart;
+    private long planFinish;
     private String plan;
     private int sport;
     private int facility;
+    private List<Integer> members;
 
     public PublicPlan() {
     }
 
-    public PublicPlan(int planLimit, int currentMember, String planStart, String planFinish, String planID, int sportID, int facilityID) {
+    public PublicPlan(int planLimit, long planStart, long planFinish, String plan, int sport, int facility, List<Integer> members) {
         this.planLimit = planLimit;
-        this.currentMember = currentMember;
         this.planStart = planStart;
         this.planFinish = planFinish;
-        this.plan = planID;
-        this.sport = sportID;
-        this.facility = facilityID;
+        this.plan = plan;
+        this.sport = sport;
+        this.facility = facility;
+        this.members = members;
     }
 
     public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID) {
         planLimit = limit;
-        planStart = start.toString();
-        planFinish = finish.toString();
+        planStart = start.getTime();
+        planFinish = finish.getTime();
         sport = sportID;
         facility = facilityID;
-        currentMember = 1;
+        members = new ArrayList<Integer>();
+        members.add(10001);
+        members.add(10002);
     }
 
     public int getPlanLimit() {
@@ -41,27 +45,19 @@ public class PublicPlan {
         this.planLimit = planLimit;
     }
 
-    public int getCurrentMember() {
-        return currentMember;
-    }
-
-    public void setCurrentMember(int currentMember) {
-        this.currentMember = currentMember;
-    }
-
-    public String getPlanStart() {
+    public long getPlanStart() {
         return planStart;
     }
 
-    public void setPlanStart(String planStart) {
+    public void setPlanStart(long planStart) {
         this.planStart = planStart;
     }
 
-    public String getPlanFinish() {
+    public long getPlanFinish() {
         return planFinish;
     }
 
-    public void setPlanFinish(String planFinish) {
+    public void setPlanFinish(long planFinish) {
         this.planFinish = planFinish;
     }
 
@@ -87,5 +83,21 @@ public class PublicPlan {
 
     public void setFacility(int facility) {
         this.facility = facility;
+    }
+
+    public List<Integer> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Integer> members) {
+        this.members = members;
+    }
+
+    public void addMembers(int id) {
+        this.members.add(id);
+    }
+
+    public void removeMembers(int i) {
+        this.members.remove(i);
     }
 }

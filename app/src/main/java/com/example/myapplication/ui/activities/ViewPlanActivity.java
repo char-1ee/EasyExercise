@@ -1,9 +1,10 @@
 package com.example.myapplication.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
@@ -11,13 +12,18 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class ViewPlanActivity extends AppCompatActivity {
+public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private GoogleMap mMap;
     private Sport sport;
     private TextView postalView;
     private TextView facilityView;
@@ -31,8 +37,7 @@ public class ViewPlanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_plan);
-        //plan= getChosenPlan();
-        plan = getListData();
+        plan = getChosenPlan();
         facilityView = findViewById(R.id.facility_view);
         sportView = findViewById(R.id.sport_view);
         postalView = findViewById(R.id.postal_view);
@@ -50,9 +55,11 @@ public class ViewPlanActivity extends AppCompatActivity {
             postalView.setText("");
 
         }
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapview);
+        mapFragment.getMapAsync(this);
 
         sportView.setText(sport.getName());
-        //dateView.setText();
     }
 
     private WorkoutPlan getChosenPlan() {
@@ -60,21 +67,16 @@ public class ViewPlanActivity extends AppCompatActivity {
         return p;
     }
 
-    private WorkoutPlan getListData() {
-        Sport s = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Location location = testCheckinClosetFacility();
-        WorkoutPlan w = new WorkoutPlan(s, location, 0, com.example.myapplication.beans.WorkoutPlanStatus.PRIVATE);
-        return w;
-    }
 
-    private Facility testCheckinClosetFacility() {
-        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        return r;
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        Coordinates c = location.getCoordinates();
+        // Add a marker in Sydney and move the camera
+        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
+        mMap.addMarker(new MarkerOptions()
+                .position(cur)
+                .title(location.getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
     }
 }

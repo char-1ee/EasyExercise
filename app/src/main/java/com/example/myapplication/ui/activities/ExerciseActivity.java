@@ -10,6 +10,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.sportsImage.SportsImage;
 
 import androidx.core.content.ContextCompat;
 
@@ -32,6 +33,7 @@ public class ExerciseActivity extends AppCompatActivity {
     Timer timer;
     TimerTask timerTask;
     Double time = 0.0;
+    SportsImage sm;
 
     boolean timerStarted = false;
 
@@ -40,15 +42,15 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         Date startDate = new Date();
+        sm= new SportsImage();
         location = getLocation();
         sport = getSport();
         sportView= (ImageView) findViewById(R.id.imageView3);
         timerText = (TextView) findViewById(R.id.timerText);
         checkOutButton = (Button) findViewById(R.id.check_out_button);
-        //sportView.setImageResource(sport.getImage());
+        sportView.setImageResource(sm.SportsToImage(sport));
         timer = new Timer();
         timerStarted = true;
-        //setButtonUI("STOP", R.color.purple_200);
         startTimer();
 
         checkOutButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +62,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 checkInIntent.putExtra("StartDate", startDate);
                 checkInIntent.putExtra("timeDuration", getTimerText());
                 startActivity(checkInIntent);
+                finish();
             }
         });
     }
@@ -77,11 +80,9 @@ public class ExerciseActivity extends AppCompatActivity {
     public void startStopTapped(View view) {
         if (timerStarted == false) {
             timerStarted = true;
-            //setButtonUI("STOP", R.color.purple_200);
             startTimer();
         } else {
             timerStarted = false;
-            //setButtonUI("START", R.color.purple_700);
             timerTask.cancel();
         }
     }

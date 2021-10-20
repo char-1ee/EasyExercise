@@ -17,14 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.ViewPlanActivity"
-            android:exported="true">
+            android:name=".ui.activities.UselessActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.ViewPlanActivity"
+            android:exported="true"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -40,7 +44,7 @@
         <activity
             android:name=".ui.activities.MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".ui.activities.CheckInCustomizedActivity"
             android:exported="true" />
@@ -49,14 +53,13 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.ChatRoomActivity"
-            android:exported="true" />
+            android:exported="true"></activity>
         <activity
             android:name=".ui.activities.EditProfileActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.CheckOutActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.activities.NoFacilityActivity"
             android:exported="true" />
@@ -81,11 +84,18 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true">
-
         </activity>
         <activity
             android:name=".ui.activities.SignInActivity"
-            android:exported="true" />
+            android:exported="true">
+
+<!--             <intent-filter> -->
+<!--             <action android:name="android.intent.action.MAIN" /> -->
+
+
+<!--             <category android:name="android.intent.category.LAUNCHER" /> -->
+<!--             </intent-filter> -->
+        </activity>
         <activity
             android:name=".ui.activities.UserActivity"
             android:exported="true" />

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.sportsImage.SportsImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,13 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     private List<Sport> sportList;
     private int index = -1;
     private Facility facility;
+    private SportsImage sm;
 
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
-        this.facility= facility;
-        this.sportList= new ArrayList<>(facility.getSports());
+        this.facility = facility;
+        this.sportList = new ArrayList<>(facility.getSports());
+        this.sm = new SportsImage();
     }
 
     public Sport getFinalChoice() {
@@ -45,8 +48,9 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        holder.tv_question_item.setText(sportList.get(position).getName());
-        //holder.iv_question_item.setImageResource(sportList.get(position).getImage());
+        Sport item = sportList.get(position);
+        holder.tv_question_item.setText(item.getName());
+        holder.iv_question_item.setImageResource(sm.SportsToImage(item));
         holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

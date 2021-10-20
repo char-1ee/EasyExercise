@@ -13,25 +13,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.beans.Facility;
-import com.example.myapplication.beans.Location.LocationType;
 import com.example.myapplication.beans.WorkoutPlan;
-import com.example.myapplication.beans.WorkoutRecord;
-import com.example.myapplication.ui.activities.CheckInNormalActivity;
+import com.example.myapplication.sportsImage.SportsImage;
 import com.example.myapplication.ui.activities.ViewPlanActivity;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
     private List<WorkoutPlan> mPlanList;
     private int lastSelectedPosition = -1;
     private WorkoutPlan chosenPlan;
-    private Context context;
+    private Context mContext;
+    private SportsImage sm;
 
     public PlanRecyclerViewAdapter(Context context, List<WorkoutPlan> planList) {
         mPlanList = planList;
-        context = context;
+        mContext = context;
+        sm = new SportsImage();
     }
 
     @Override
@@ -42,26 +40,17 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutPlan item = mPlanList.get(position);
-        if (item.getLocation().getType() == LocationType.FACILITY) {
-            Facility f = (Facility) item.getLocation();
-            holder.locationView.setText(f.getName());
-        } else {
-            holder.locationView.setText("Customized Location");
-        }
+        WorkoutPlan item = mPlanList.get(position);
+        holder.dateView.setText("");
         holder.sportView.setText(item.getSport().getName());
-        // holder.dateView.setText(item.getDate().toString());
-        // holder.imageView.setImageResource(item.getSport().getImage());
-        // TODO: image is no longer an attribute of a facility
-        //holder.planType.setText(item.getStatus().toString());
-        // TODO: 2021/10/1 for public/join plans, need to show their happening time(need additional info in WorkoutPlan)
+        holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chosenPlan = item;
-                Intent intent = new Intent(context, ViewPlanActivity.class);
+                Intent intent = new Intent(mContext, ViewPlanActivity.class);
                 intent.putExtra("ChosenPlan", chosenPlan);
-                context.startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
 

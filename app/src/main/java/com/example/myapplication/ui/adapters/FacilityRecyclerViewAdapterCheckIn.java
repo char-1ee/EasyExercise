@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,9 +11,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.ui.activities.CheckInNormalActivity;
-import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.sportsImage.SportsImage;
+import com.example.myapplication.ui.activities.CheckInNormalActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,10 +23,12 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     private Facility ChosenFacility;
     private List<Facility> mFacilityList;
     private Context mContext;
+    private SportsImage sm;
 
     public FacilityRecyclerViewAdapterCheckIn(Context context, List<Facility> facilityList) {
         mFacilityList = facilityList;
         mContext = context;
+        this.sm = new SportsImage();
     }
 
     @Override
@@ -37,8 +41,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        //holder.mSelectFacilityImage.setImageResource(facility.getImage());
-        holder.mSelectFacilityDistance.setText("0.6 km");
+        //holder.mSelectFacilityDistance.setText("0.6 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +50,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
                 intent.putExtra("ClosestFacility", ChosenFacility);
                 intent.putExtra("FacilityByDistance",(Serializable)mFacilityList);
                 mContext.startActivity(intent);
+                ((Activity)mContext).finish();
             }
         });
 

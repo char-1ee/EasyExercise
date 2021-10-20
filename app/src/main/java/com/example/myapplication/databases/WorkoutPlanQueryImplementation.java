@@ -15,7 +15,7 @@ import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
 import com.example.myapplication.beans.WorkoutRecord;
-/*
+
 public class WorkoutPlanQueryImplementation {
 
 }private DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
@@ -144,4 +144,3 @@ public class WorkoutPlanQueryImplementation {
         return new WorkoutPlan(sport, location);
     }
 }
-*/

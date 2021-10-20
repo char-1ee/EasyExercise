@@ -2,7 +2,7 @@ package com.example.myapplication.beans;
 
 import java.util.Date;
 
-public class PublicPlan{
+public class PublicPlan {
     private int planLimit;
     private int currentMember;
     private Date planDate;

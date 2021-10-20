@@ -1,6 +1,8 @@
 package com.example.myapplication.beans;
 
-public class WorkoutPlan {
+import java.io.Serializable;
+
+public class WorkoutPlan implements Serializable {
     private Sport sport;
     private Location location;
     private long id;

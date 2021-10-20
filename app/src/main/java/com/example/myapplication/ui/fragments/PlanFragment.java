@@ -33,7 +33,7 @@ public class PlanFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mAdapter = new PlanRecyclerViewAdapter(getListData());
+        mAdapter = new PlanRecyclerViewAdapter(getActivity(), getListData());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

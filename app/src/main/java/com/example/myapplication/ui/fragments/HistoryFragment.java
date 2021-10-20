@@ -55,8 +55,8 @@ public class HistoryFragment extends Fragment {
             Location location = testCheckinClosetFacility();
             Date date = new Date();
             // TODO: Update workout record
-            // WorkoutRecord w = new WorkoutRecord(s, location, 0, com.example.myapplication.beans.WorkoutPlanStatus.PRIVATE, date, date);
-            // mWorkoutHistory.add(w);
+            WorkoutRecord w = new WorkoutRecord(s, location, 0, date, date);
+            mWorkoutHistory.add(w);
         }
         return mWorkoutHistory;
     }

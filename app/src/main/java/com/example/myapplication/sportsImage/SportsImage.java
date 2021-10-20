@@ -8,7 +8,7 @@ public class SportsImage {
         int image;
         String name = sport.getName();
         String[] sportsName = new String[12];
-        sportsName[0] = "General outdoor activities";
+        sportsName[0] = "Freeplay";
         sportsName[1] = "Futsal";
         sportsName[2] = "Football";
         sportsName[3] = "Running";
@@ -19,10 +19,10 @@ public class SportsImage {
         sportsName[8] = "Hockey";
         sportsName[9] = "Netball";
         sportsName[10] = "Basketball";
-        sportsName[11] = "General indoor activities";
+        sportsName[11] = "Gym";
 
         if (name.equals(sportsName[0])) {
-            image = R.drawable.sports;
+            image = R.drawable.outdoor;
         } else if (name.equals(sportsName[1])) {
             image = R.drawable.futsal;
         } else if (name.equals(sportsName[2])) {

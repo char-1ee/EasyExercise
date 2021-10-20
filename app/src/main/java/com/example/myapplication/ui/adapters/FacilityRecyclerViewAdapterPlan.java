@@ -10,11 +10,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.ui.activities.AddPlanActivity;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<FacilityRecyclerViewAdapterPlan.MyViewHolder> {
@@ -42,8 +41,7 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        //holder.mSelectFacilityImage.setImageResource(facility.getImage());
-        holder.mSelectFacilityDistance.setText("0.8 km");
+//        holder.mSelectFacilityDistance.setText("0.8 km");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

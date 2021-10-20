@@ -13,9 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.beans.Facility;
-import com.example.myapplication.beans.Location.LocationType;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.sportsImage.SportsImage;
 import com.example.myapplication.ui.activities.ViewPlanActivity;
 
 import java.util.List;
@@ -25,10 +24,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     private int lastSelectedPosition = -1;
     private WorkoutPlan chosenPlan;
     private Context mContext;
+    private SportsImage sm;
 
     public PlanRecyclerViewAdapter(Context context, List<WorkoutPlan> planList) {
         mPlanList = planList;
         mContext = context;
+        sm = new SportsImage();
     }
 
     @Override
@@ -40,14 +41,9 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         WorkoutPlan item = mPlanList.get(position);
-        if (item.getLocation().getType() == LocationType.FACILITY) {
-            Facility f = (Facility) item.getLocation();
-            holder.locationView.setText(f.getName());
-        } else {
-            holder.locationView.setText("Customized Location");
-        }
+        holder.dateView.setText("");
         holder.sportView.setText(item.getSport().getName());
-
+        holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

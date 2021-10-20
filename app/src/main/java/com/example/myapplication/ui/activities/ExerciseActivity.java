@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 
 import androidx.core.content.ContextCompat;
@@ -23,7 +24,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ExerciseActivity extends AppCompatActivity {
-    Facility facility;
+    Location location;
     Sport sport;
     TextView timerText;
     Button checkOutButton;
@@ -39,8 +40,8 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         Date startDate = new Date();
-        facility= getFacility();
-        sport= getSport();
+        location = getLocation();
+        sport = getSport();
         sportView= (ImageView) findViewById(R.id.imageView3);
         timerText = (TextView) findViewById(R.id.timerText);
         checkOutButton = (Button) findViewById(R.id.check_out_button);
@@ -54,22 +55,22 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
-                checkInIntent.putExtra("FacilityExercise", facility);
+                checkInIntent.putExtra("LocationExercise", location);
                 checkInIntent.putExtra("SportExercise", sport);
                 checkInIntent.putExtra("StartDate", startDate);
-                checkInIntent.putExtra("timeDuration",getTimerText());
+                checkInIntent.putExtra("timeDuration", getTimerText());
                 startActivity(checkInIntent);
             }
         });
     }
 
-    private Facility getFacility(){
-        Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
-        return f;
+    private Location getLocation() {
+        Location l = (Location) getIntent().getSerializableExtra("ChosenLocation");
+        return l;
     }
 
-    private Sport getSport(){
-        Sport s= (Sport) getIntent().getSerializableExtra("ChosenSport");
+    private Sport getSport() {
+        Sport s = (Sport) getIntent().getSerializableExtra("ChosenSport");
         return s;
     }
 
@@ -85,10 +86,6 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
-//    private void setButtonUI(String start, int color) {
-//        stopStartButton.setText(start);
-//        stopStartButton.setTextColor(ContextCompat.getColor(this, color));
-//    }
 
     private void startTimer() {
         timerTask = new TimerTask() {

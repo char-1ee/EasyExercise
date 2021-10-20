@@ -74,6 +74,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
                 intent.putExtra("ChosenSport", ChosenSport);
                 intent.putExtra("ChosenLocation", facility);
                 startActivity(intent);
+                finish();
             }
         });
 

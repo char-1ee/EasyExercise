@@ -53,6 +53,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
                 intent.putExtra("ChosenSport", ChosenSport);
                 intent.putExtra("ChosenLocation", customizedLocation);
                 startActivity(intent);
+                finish();
             }
         });
 

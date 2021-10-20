@@ -67,7 +67,7 @@ public class SelectSportActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
                 intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
                 startActivity(intent);
-
+                finish();
                 // TODO: Implement Firebase functionalities
                 // FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
                 // DatabaseReference mDatabase = database.getReference().child("community");

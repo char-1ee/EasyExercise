@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -49,6 +50,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
                 intent.putExtra("ClosestFacility", ChosenFacility);
                 intent.putExtra("FacilityByDistance",(Serializable)mFacilityList);
                 mContext.startActivity(intent);
+                ((Activity)mContext).finish();
             }
         });
 

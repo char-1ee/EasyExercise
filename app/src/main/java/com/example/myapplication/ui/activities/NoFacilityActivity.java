@@ -27,6 +27,7 @@ public class NoFacilityActivity extends AppCompatActivity {
                 Intent intent= new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
                 intent.putExtra("CustomizedLocation",testLocation());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -35,6 +36,7 @@ public class NoFacilityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent= new Intent(NoFacilityActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

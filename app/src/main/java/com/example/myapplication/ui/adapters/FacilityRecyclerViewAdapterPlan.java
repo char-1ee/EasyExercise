@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -49,6 +50,7 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
                 Intent intent= new Intent(mContext, AddPlanActivity.class);
                 intent.putExtra("ChosenFacility", chosenFacility);
                 mContext.startActivity(intent);
+                ((Activity)mContext).finish();
             }
         });
     }

@@ -38,7 +38,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_plan);
         plan = getChosenPlan();
-        facilityView = findViewById(R.id.facility_view);
+        facilityView = findViewById(R.id.location_view);
         sportView = findViewById(R.id.sport_view);
         postalView = findViewById(R.id.postal_view);
         addressView = findViewById(R.id.address_view);

@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.beans.Coordinates;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -21,11 +20,8 @@ import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -41,6 +37,9 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     private List<Facility> facilityList;
     private Sport ChosenSport;
     private GoogleMap mMap;
+    private TextView facilityView;
+    private TextView addressView;
+    private TextView postalView;
 
 
     @Override
@@ -52,6 +51,14 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         rv_test = findViewById(R.id.check_in_sport_recycler);
         button1 = findViewById(R.id.check_in_sport_button);
         button2 = findViewById(R.id.choose_another_facility_button);
+        facilityView= findViewById(R.id.location_view);
+        addressView= findViewById(R.id.address_view);
+        postalView= findViewById(R.id.postal_view);
+
+        facilityView.setText(facility.getName());
+        addressView.setText(facility.getAddress());
+        postalView.setText(facility.getPostalCode());
+
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

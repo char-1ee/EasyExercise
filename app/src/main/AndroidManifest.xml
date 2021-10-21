@@ -17,9 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <service
-            android:name=".ui.MyIntentService"
-            android:exported="false"></service>
 
         <activity
             android:name=".ui.activities.ViewPlanActivity"
@@ -37,45 +34,53 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.activities.MapsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_maps" />
-        <activity
             android:name=".ui.activities.CheckInCustomizedActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Check In"></activity>
         <activity
             android:name=".ui.activities.ChatRoomActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Check In"/>
         <activity
             android:name=".ui.activities.EditProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Edit Profile"/>
         <activity
             android:name=".ui.activities.CheckOutActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Check Out"/>
         <activity
             android:name=".ui.activities.NoFacilityActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="No Facility"/>
         <activity
             android:name=".ui.activities.ExerciseActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Exercise"/>
         <activity
             android:name=".ui.activities.SelectSportActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Select Sport"/>
         <activity
             android:name=".ui.activities.SelectFacilityCheckInActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Select Facility"/>
         <activity
             android:name=".ui.activities.SelectFacilityPlanActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Select Facility"/>
         <activity
             android:name=".ui.activities.CheckInNormalActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Check In"/>
         <activity
             android:name=".ui.activities.AddPlanActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Add Plan"/>
         <activity
             android:name=".ui.activities.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,7 +89,8 @@
         </activity>
         <activity
             android:name=".ui.activities.SignInActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Sign In">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -95,7 +101,8 @@
         </activity>
         <activity
             android:name=".ui.activities.UserActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="User"/>
     </application>
 
 </manifest>

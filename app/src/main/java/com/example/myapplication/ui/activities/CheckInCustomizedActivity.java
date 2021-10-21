@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -25,7 +26,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     private RecyclerView rv_test;
     private CustomizedLocation customizedLocation;
     private Sport ChosenSport;
-
+    private TextView locationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,14 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
         button1 = findViewById(R.id.check_in_sport_button);
         imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(R.drawable.panorama);
+        locationView= findViewById(R.id.location_view);
 
         // RecyclerView adapter
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInCustomizedActivity.this, LinearLayoutManager.VERTICAL, false));
         CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
         // TODO: 2021/10/11 pass all sports to custom location
         rv_test.setAdapter(firstAdapter);
-
+        locationView.setText("Customized Location");
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

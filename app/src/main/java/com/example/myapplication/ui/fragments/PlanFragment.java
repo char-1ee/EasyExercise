@@ -32,12 +32,8 @@ public class PlanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData());
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+        initAdapter();
         return view;
     }
 
@@ -61,5 +57,18 @@ public class PlanFragment extends Fragment {
         r.addSport(b);
         r.addSport(c);
         return r;
+    }
+
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
+    private void initAdapter(){
+        mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

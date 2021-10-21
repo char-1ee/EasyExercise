@@ -33,12 +33,8 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_history, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mAdapter = new HistoryRecyclerViewAdapter(getListData());
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+        initAdapter();
         return view;
     }
 
@@ -77,5 +73,18 @@ public class HistoryFragment extends Fragment {
         r.addSport(b);
         r.addSport(c);
         return r;
+    }
+
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
+    private void initAdapter(){
+        mAdapter = new HistoryRecyclerViewAdapter(getListData());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

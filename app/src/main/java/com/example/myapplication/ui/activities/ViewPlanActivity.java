@@ -19,8 +19,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Date;
-
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -31,11 +29,37 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private TextView addressView;
     private WorkoutPlan plan;
     private Location location;
-    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
+        initMap();
+    }
+
+    private WorkoutPlan getChosenPlan() {
+        return (WorkoutPlan) getIntent().getSerializableExtra("ChosenPlan");
+    }
+
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        Coordinates c = location.getCoordinates();
+        // Add a marker in Sydney and move the camera
+        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
+        mMap.addMarker(new MarkerOptions()
+                .position(cur)
+                .title(location.getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+    }
+
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
+    private void initView(){
         setContentView(R.layout.activity_view_plan);
         plan = getChosenPlan();
         facilityView = findViewById(R.id.location_view);
@@ -50,33 +74,17 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             addressView.setText(f.getAddress());
             postalView.setText(f.getPostalCode());
         } else {
-            facilityView.setText("Customized Location");
+            facilityView.setText(getString(R.string.customized_location));
             addressView.setText("");
             postalView.setText("");
-
         }
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapview);
-        mapFragment.getMapAsync(this);
-
         sportView.setText(sport.getName());
     }
 
-    private WorkoutPlan getChosenPlan() {
-        WorkoutPlan p = (WorkoutPlan) getIntent().getSerializableExtra("ChosenPlan");
-        return p;
-    }
-
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
-        Coordinates c = location.getCoordinates();
-        // Add a marker in Sydney and move the camera
-        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
-        mMap.addMarker(new MarkerOptions()
-                .position(cur)
-                .title(location.getName()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+    private void initMap(){
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapview);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
     }
 }

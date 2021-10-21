@@ -15,7 +15,7 @@
     <string name="home_main_title_text">Title</string>
     <string name="home_main_image_description">Home image</string>
     <string name="publish_plan_text">Publish plan</string>
-
+    <string name="customized_location">Customized Location</string>
     <string name="confirm_selection_text">Confirm selection</string>
 
     <string name="make_plan_text">Plan</string>

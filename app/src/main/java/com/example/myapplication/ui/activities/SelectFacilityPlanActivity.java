@@ -24,6 +24,8 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
+        initAdapter();
     }
 
     private List<Facility> getFacilityQualified(){

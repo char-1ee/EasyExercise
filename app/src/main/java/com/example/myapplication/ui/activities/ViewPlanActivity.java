@@ -31,35 +31,12 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private TextView addressView;
     private WorkoutPlan plan;
     private Location location;
-    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_plan);
-        plan = getChosenPlan();
-        facilityView = findViewById(R.id.location_view);
-        sportView = findViewById(R.id.sport_view);
-        postalView = findViewById(R.id.postal_view);
-        addressView = findViewById(R.id.address_view);
-        location = plan.getLocation();
-        sport = plan.getSport();
-        if (location.getType() == Location.LocationType.FACILITY) {
-            Facility f = (Facility) location;
-            facilityView.setText(f.getName());
-            addressView.setText(f.getAddress());
-            postalView.setText(f.getPostalCode());
-        } else {
-            facilityView.setText("Customized Location");
-            addressView.setText("");
-            postalView.setText("");
-
-        }
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapview);
-        mapFragment.getMapAsync(this);
-
-        sportView.setText(sport.getName());
+        initView();
+        initMap();
     }
 
     private WorkoutPlan getChosenPlan() {
@@ -78,5 +55,33 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .position(cur)
                 .title(location.getName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+    }
+
+    private void initView(){
+        setContentView(R.layout.activity_view_plan);
+        plan = getChosenPlan();
+        facilityView = findViewById(R.id.location_view);
+        sportView = findViewById(R.id.sport_view);
+        postalView = findViewById(R.id.postal_view);
+        addressView = findViewById(R.id.address_view);
+        location = plan.getLocation();
+        sport = plan.getSport();
+        if (location.getType() == Location.LocationType.FACILITY) {
+            Facility f = (Facility) location;
+            facilityView.setText(f.getName());
+            addressView.setText(f.getAddress());
+            postalView.setText(f.getPostalCode());
+        } else {
+            facilityView.setText("Customized Location");
+            addressView.setText("");
+            postalView.setText("");
+        }
+        sportView.setText(sport.getName());
+    }
+
+    private void initMap(){
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapview);
+        mapFragment.getMapAsync(this);
     }
 }

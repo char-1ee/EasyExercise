@@ -303,7 +303,7 @@ public class HomeFragment extends Fragment {
         try {
             thread.join();
         } catch (InterruptedException e) {
-            ;
+            e.printStackTrace();
         }
         Weather weather = boxWeather.get();
         Coordinates temp= new Coordinates(latitude, longitude, "no");

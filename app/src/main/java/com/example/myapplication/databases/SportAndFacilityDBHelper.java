@@ -21,7 +21,14 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 
-public class DBManager {
+/**
+ * Helper class for {@link Sport} and {@link Facility} databases.
+ *
+ * @author Li Xingjian
+ * @author Zhong Ruoyu
+ * @see <a href="/data/data.db">data.db</a>
+ */
+public class SportAndFacilityDBHelper {
     private final int BUFFER_SIZE = 400000;
     public static final String DB_NAME = "data.db";
     public static final String PACKAGE_NAME = "com.example.myapplication";
@@ -32,14 +39,28 @@ public class DBManager {
     private SQLiteDatabase database;
     private Context context;
 
-    public DBManager(Context context) {
+    /**
+     * Constructor for class {@code SportAndFacilityDBHelper}.
+     * @param context current activity {@link Context}
+     */
+    public SportAndFacilityDBHelper(Context context) {
         this.context = context;
     }
 
+    /**
+     * Assign {@code database} by call {@code openDatabase(String)}.
+     *
+     * @see SportAndFacilityDBHelper#openDatabase(String)
+     */
     public void openDatabase() {
         this.database = this.openDatabase(DB_PATH + "/" + DB_NAME);
     }
 
+    /**
+     * Open SQLite database in {@code DB_PATH}
+     * @param dbFile database file path in {@link String}
+     * @reutrn the SQLiteDatabase in path, {@code null} if not exists
+     */
     private SQLiteDatabase openDatabase(String dbFile) {
         try {
             if (!(new File(dbFile).exists())){
@@ -64,6 +85,11 @@ public class DBManager {
         return null;
     }
 
+    /**
+     * Get all data of sport in a list.
+     *
+     * @return list of {@link Sport}, {@code null} if {@code cursor} pointer null
+     */
     public List<Sport> getSports() {
         Cursor cursor = database.rawQuery("SELECT * FROM sports", null);
         if (cursor != null) {
@@ -84,6 +110,10 @@ public class DBManager {
         }
     }
 
+    /**
+     * Get all data of facility in a list.
+     * @return list of {@link Facility}, {@code null} if {@code cursor} pointer null
+     */
     public List<Facility> getFacilities() {
         Cursor cursor = database.rawQuery("SELECT * FROM facilities", null);
         if (cursor != null) {
@@ -110,16 +140,10 @@ public class DBManager {
         }
     }
 
+    /**
+     * Close current SQLite database.
+     */
     public void closeDatabase() {
         this.database.close();
     }
 }
-
-
-/*
-    public DBManager db = new DBManager(this);
-    db.openDatabase();
-    //
-    db.closeDatabase();
-
- */

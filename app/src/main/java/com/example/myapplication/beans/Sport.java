@@ -1,5 +1,7 @@
 package com.example.myapplication.beans;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Sport implements Serializable {
@@ -21,6 +23,7 @@ public class Sport implements Serializable {
             return null;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return name;

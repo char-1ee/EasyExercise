@@ -53,35 +53,13 @@ public class CheckOutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_out);
-        sm= new SportsImage();
-        endDate= new Date();
-        sport = getSport();
-        location = getLocation();
-        startDate = getStartDate();
-        diff = new Date(endDate.getTime() - startDate.getTime());
-        sportView=findViewById(R.id.checkoutPic);
-        exitButton=findViewById(R.id.exitButton);
-        profileView=findViewById(R.id.checkoutProfile);
-        timeDuration = findViewById(R.id.time_duration);
-        sportView.setImageResource(sm.SportsToImage(sport));
-        timeDuration.setText(getTimeDuration());
-
-
+        initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
-                // TODO: 2021/10/11 add exercise record with facility, sport, endtime and starttime
-                startActivity(intent);
-                finish();
-            }
-        });
+        initButton();
     }
 
 
@@ -103,6 +81,34 @@ public class CheckOutActivity extends AppCompatActivity {
     private Date getStartDate(){
         Date d= (Date) getIntent().getSerializableExtra("StartDate");
         return d;
+    }
+
+    private void initView(){
+        setContentView(R.layout.activity_check_out);
+        sm= new SportsImage();
+        endDate= new Date();
+        sport = getSport();
+        location = getLocation();
+        startDate = getStartDate();
+        diff = new Date(endDate.getTime() - startDate.getTime());
+        sportView=findViewById(R.id.checkoutPic);
+        exitButton=findViewById(R.id.exitButton);
+        profileView=findViewById(R.id.checkoutProfile);
+        timeDuration = findViewById(R.id.time_duration);
+        sportView.setImageResource(sm.SportsToImage(sport));
+        timeDuration.setText(getTimeDuration());
+    }
+
+    private void initButton(){
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+                // TODO: 2021/10/11 add exercise record with facility, sport, endtime and starttime
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 }

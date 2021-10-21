@@ -11,12 +11,14 @@
     android:orientation="vertical"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Public Plan"
+        android:textColor="@color/black"
         android:textSize="30dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

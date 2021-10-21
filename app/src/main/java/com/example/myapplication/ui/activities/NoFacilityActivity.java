@@ -13,14 +13,21 @@ import com.example.myapplication.beans.CustomizedLocation;
 import com.example.myapplication.beans.Location;
 
 public class NoFacilityActivity extends AppCompatActivity {
-    Button ProceedButton, CancelButton;
+    private Button ProceedButton, CancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_no_facility);
-        ProceedButton= findViewById(R.id.proceed_button);
-        CancelButton= findViewById(R.id.cancel_button);
+        initView();
+        initButton();
 
+    }
+
+    private CustomizedLocation testLocation(){
+        CustomizedLocation l= new CustomizedLocation(new Coordinates(10,10));
+        return l;
+    }
+
+    private void initButton(){
         ProceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,9 +48,10 @@ public class NoFacilityActivity extends AppCompatActivity {
         });
     }
 
-    private CustomizedLocation testLocation(){
-        CustomizedLocation l= new CustomizedLocation(new Coordinates(10,10));
-        return l;
+    private void initView(){
+        setContentView(R.layout.activity_no_facility);
+        ProceedButton= findViewById(R.id.proceed_button);
+        CancelButton= findViewById(R.id.cancel_button);
     }
 
 }

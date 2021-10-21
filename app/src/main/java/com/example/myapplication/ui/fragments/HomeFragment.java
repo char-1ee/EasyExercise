@@ -137,7 +137,8 @@ public class HomeFragment extends Fragment {
             ;
         }
         Weather weather = boxWeather.get();
-        temp= getLocation();
+//        temp= getLocation();
+        Coordinates temp= new Coordinates(latitude, longitude, "nono");
         AddressText.setText(String.valueOf(temp.getLatitude()) + String.valueOf(temp.getLongitude()));
         temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
         pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
@@ -205,10 +206,10 @@ public class HomeFragment extends Fragment {
         return sports;
     }
 
-    private Coordinates getLocation(){
-        latitude= (double) getActivity().getIntent().getSerializableExtra("Latitude");
-        longitude= (double) getActivity().getIntent().getSerializableExtra("Longitude");
-        return new Coordinates(latitude, longitude, "nono");
-    }
+//    private Coordinates getLocation(){
+//        latitude= (double) getActivity().getIntent().getSerializableExtra("Latitude");
+//        longitude= (double) getActivity().getIntent().getSerializableExtra("Longitude");
+//        return new Coordinates(latitude, longitude, "nono");
+//    }
 
 }

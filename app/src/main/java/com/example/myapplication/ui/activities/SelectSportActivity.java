@@ -68,15 +68,6 @@ public class SelectSportActivity extends AppCompatActivity {
                 intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
                 startActivity(intent);
                 finish();
-                // TODO: Implement Firebase functionalities
-                // FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                // DatabaseReference mDatabase = database.getReference().child("community");
-
-                // PublicPlan plan = new PublicPlan(8, new Date(), new Date(), 1, 1);
-                // String id = mDatabase.push().getKey();
-                // plan.setPlan(id);
-                // mDatabase.child(id).setValue(plan);
-                // mDatabase.child(id).child("members").child("10001").setValue(10001);
             }
         });
     }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.PublicPlan;
 
+import java.util.Date;
 import java.util.List;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
@@ -70,9 +71,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PublicPlan publicPlan = myPlanList.get(position);
-        holder.date.setText(publicPlan.getPlanStart());
+        holder.date.setText(new Date(publicPlan.getPlanStart()).toString());
         holder.facility.setText(String.valueOf(publicPlan.getFacility()));
-        holder.limit.setText( publicPlan.getCurrentMember() + "/" +publicPlan.getPlanLimit());
+        holder.limit.setText( publicPlan.getMembers().size() + "/" +publicPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);
     }

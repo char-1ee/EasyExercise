@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -34,11 +35,14 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.json.weather.Weather;
+import com.example.myapplication.ui.activities.AddPlanActivity;
 import com.example.myapplication.ui.activities.CheckInNormalActivity;
 import com.example.myapplication.ui.activities.NoFacilityActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
+import com.example.myapplication.ui.adapters.AddPlanAdapter;
 import com.example.myapplication.utils.Box;
 import com.example.myapplication.utils.IOUtil;
 import com.google.android.gms.common.api.ApiException;
@@ -52,14 +56,20 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
     double latitude;
     double longitude;
+    private LocationRequest locationRequest;
+    private AddPlanAdapter firstAdapter;
     Coordinates c;
     public Facility closestFacility;
     public List<Facility> FacilityByDistance;
@@ -70,7 +80,6 @@ public class HomeFragment extends Fragment {
     TextView temperature, pm25, uvIndex, humidity, forecast;
     String temperature_string, pm25_string, uvIndex_string, humidity_string, forecast_string;
     Coordinates temp;
-    private LocationRequest locationRequest;
 
     @Nullable
     @Override
@@ -79,6 +88,10 @@ public class HomeFragment extends Fragment {
         mMakePlanButton = view.findViewById(R.id.home_plan_button);
         mCheckInButton = view.findViewById(R.id.home_checkin_button);
         AddressText = view.findViewById(R.id.addressText);
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
         mMakePlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,43 +126,7 @@ public class HomeFragment extends Fragment {
         humidity = view.findViewById(R.id.Humidity_value);
         forecast = view.findViewById(R.id.Forecast);
 
-        final Box<Weather> boxWeather = new Box<>();
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                boxWeather.set(new Weather(
-                        IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
-                        IOUtil.readFromURL(RAINFALL_JSON_URL),
-                        IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
-                        IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
-                        IOUtil.readFromURL(WIND_SPEED_JSON_URL),
-                        IOUtil.readFromURL(UV_INDEX_JSON_URL),
-                        IOUtil.readFromURL(PM25_JSON_URL),
-                        IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
-            }
-        });
-
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            ;
-        }
-        Weather weather = boxWeather.get();
-        temp= getLocation();
-        AddressText.setText(String.valueOf(temp.getLatitude()) + String.valueOf(temp.getLongitude()));
-        temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
-        pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
-        uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
-        humidity_string = weather.getWeatherData(temp).getRelativeHumidity().getResult().toString();
-        forecast_string = weather.getWeatherData(temp).getForecast().getResult();
-
-        temperature.setText(temperature_string);
-        pm25.setText(pm25_string);
-        uvIndex.setText(uvIndex_string);
-        humidity.setText(humidity_string);
-        forecast.setText(forecast_string);
+        getCurrentLocation();
         return view;
     }
 
@@ -205,10 +182,137 @@ public class HomeFragment extends Fragment {
         return sports;
     }
 
-    private Coordinates getLocation(){
-        latitude= (double) getActivity().getIntent().getSerializableExtra("Latitude");
-        longitude= (double) getActivity().getIntent().getSerializableExtra("Longitude");
-        return new Coordinates(latitude, longitude, "nono");
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                getCurrentLocation();
+            }
+        }
     }
 
+    private void getCurrentLocation() {
+        final double[] a = {25};
+        final double[] b = {0};
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (isGPSEnabled()) {
+                    LocationServices.getFusedLocationProviderClient(getActivity())
+                            .requestLocationUpdates(locationRequest, new LocationCallback() {
+                                @Override
+                                public void onLocationResult(@NonNull LocationResult locationResult) {
+                                    super.onLocationResult(locationResult);
+
+                                    LocationServices.getFusedLocationProviderClient(getActivity())
+                                            .removeLocationUpdates(this);
+
+                                    if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                        int index = locationResult.getLocations().size() - 1;
+                                        latitude = locationResult.getLocations().get(index).getLatitude();
+                                        longitude = locationResult.getLocations().get(index).getLongitude();
+                                        AddressText.setText(String.valueOf(longitude));
+                                        final Box<Weather> boxWeather = new Box<>();
+                                        Thread thread = new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                boxWeather.set(new Weather(
+                                                        IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                                                        IOUtil.readFromURL(RAINFALL_JSON_URL),
+                                                        IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                                                        IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                                                        IOUtil.readFromURL(WIND_SPEED_JSON_URL),
+                                                        IOUtil.readFromURL(UV_INDEX_JSON_URL),
+                                                        IOUtil.readFromURL(PM25_JSON_URL),
+                                                        IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
+                                            }
+                                        });
+                                        thread.start();
+                                        try {
+                                            thread.join();
+                                        } catch (InterruptedException e) {
+                                            ;
+                                        }
+                                        Weather weather = boxWeather.get();
+                                        Coordinates temp= new Coordinates(latitude, longitude, "no");
+                                        temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
+                                        pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
+                                        uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
+                                        humidity_string = weather.getWeatherData(temp).getRelativeHumidity().getResult().toString();
+                                        forecast_string = weather.getWeatherData(temp).getForecast().getResult();
+
+                                        temperature.setText(temperature_string);
+                                        pm25.setText(pm25_string);
+                                        uvIndex.setText(uvIndex_string);
+                                        humidity.setText(humidity_string);
+                                        forecast.setText(forecast_string);
+                                        return;
+                                    }
+                                }
+                            }, Looper.getMainLooper());
+
+                } else {
+                    turnOnGPS();
+                }
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
+    }
+
+    private void turnOnGPS() {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(getActivity())
+                .checkLocationSettings(builder.build());
+
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    Toast.makeText(getContext(), "GPS is already tured on", Toast.LENGTH_SHORT).show();
+
+                } catch (ApiException e) {
+
+                    switch (e.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+
+                            try {
+                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                                resolvableApiException.startResolutionForResult(getActivity(), 2);
+                            } catch (IntentSender.SendIntentException ex) {
+                                ex.printStackTrace();
+                            }
+                            break;
+
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            //Device does not have location
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean isGPSEnabled() {
+        LocationManager locationManager = null;
+        boolean isEnabled = false;
+
+        if (locationManager == null) {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        }
+
+        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return isEnabled;
+
+    }
+
+
 }
+
+
+

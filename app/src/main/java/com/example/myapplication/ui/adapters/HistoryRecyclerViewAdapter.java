@@ -21,7 +21,6 @@ import java.util.List;
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
     private List<WorkoutRecord> mWorkOutHistoryList;
-    private int lastSelectedPosition = -1;
     private SportsImage sm;
 
     public HistoryRecyclerViewAdapter(List<WorkoutRecord> workOutHistoryList) {

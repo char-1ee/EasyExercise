@@ -12,18 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.sportsImage.SportsImage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecyclerViewAdapter.MyViewHolder> {
-
     private List<Sport> mSportList;
     public List<Sport> chosenSportList;
+    private SportsImage sm;
 
     public SportRecyclerViewAdapter(List<Sport> sportList) {
         chosenSportList= new ArrayList<>();
         mSportList = sportList;
+        sm= new SportsImage();
     }
 
     public List<Sport> getChosenSportList() {
@@ -40,7 +42,7 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Sport sport = mSportList.get(position);
         holder.textView.setText(sport.getName());
-        //holder.imageView.setImageResource(sport.getImage());
+        holder.imageView.setImageResource(sm.SportsToImage(sport));
         holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

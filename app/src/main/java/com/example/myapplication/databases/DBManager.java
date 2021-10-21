@@ -6,6 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -14,6 +18,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 
 public class DBManager {
@@ -27,7 +32,7 @@ public class DBManager {
     private SQLiteDatabase database;
     private Context context;
 
-    DBManager(Context context) {
+    public DBManager(Context context) {
         this.context = context;
     }
 
@@ -59,14 +64,13 @@ public class DBManager {
         return null;
     }
 
-    public ArrayList<Sport> getIndoorSport() {
-        Cursor cursor = database.rawQuery("SELECT name FROM sports WHERE type = 'INDOOR'", null);
+    public List<Sport> getSports() {
+        Cursor cursor = database.rawQuery("SELECT * FROM sports", null);
         if (cursor != null) {
-            int NUM = cursor.getCount();
-            ArrayList<Sport> sportList = new ArrayList<Sport>(NUM + 1);
-            if (cursor.moveToNext()) {
+            List<Sport> sportList = new ArrayList<Sport>();
+            if (cursor.getCount()>0) {
                 do {
-                    String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
                     String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                     String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow("alternative_name"));
                     String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
@@ -80,6 +84,31 @@ public class DBManager {
         }
     }
 
+    public List<Facility> getFacilities() {
+        Cursor cursor = database.rawQuery("SELECT * FROM facilities", null);
+        if (cursor != null) {
+            List<Sport> sportList = getSports();
+            List<Facility> facilityList = new ArrayList<Facility>();
+            if (cursor.getCount() > 0) {
+                do {
+                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                    String url = cursor.getString(cursor.getColumnIndexOrThrow("url"));
+                    String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                    String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("postal_code"));
+                    String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";","\n");
+                    double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
+                    double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
+                    List<Integer> sportIDs = Stream.of(cursor.getString(cursor.getColumnIndexOrThrow("sports")).split(",")).map(Integer::parseInt).collect(Collectors.toList());
+                    Facility facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
+                    sportList.stream().filter(sport->sportIDs.contains(sport.getId())).forEach(facility::addSport);
+                } while (cursor.moveToNext());
+            }
+            return facilityList;
+        }else{
+            return null;
+        }
+    }
 
     public void closeDatabase() {
         this.database.close();

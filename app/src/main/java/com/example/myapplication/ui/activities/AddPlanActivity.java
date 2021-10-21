@@ -136,6 +136,7 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 getCurrentLocation();

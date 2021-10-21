@@ -195,7 +195,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         find = true;
                         currentPlan.removeMembers(i);
                         if(currentPlan.getMembers().size() == 0){
-                            startActivity(new Intent(ChatRoomActivity.this, UselessActivity.class));
+                            startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
                             planReference.removeValue();
                             Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
                         }

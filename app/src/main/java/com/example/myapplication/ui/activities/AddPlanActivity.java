@@ -46,6 +46,12 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
         return f;
     }
 
+    /**
+     * Set google map and add marker for the designated location
+     *
+     * @param googleMap the main class of the Google Maps SDK for Android
+     * @author Ruan Donglin
+     */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
@@ -70,6 +76,11 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
         postalView.setText(facility.getPostalCode());
     }
 
+    /**
+     * Initialize map fragment for displaying google map.
+     *
+     * @author Ruan Donglin
+     */
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);

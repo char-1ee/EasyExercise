@@ -64,6 +64,12 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         return f;
     }
 
+    /**
+     * Set google map and add marker for the designated location
+     *
+     * @param googleMap the main class of the Google Maps SDK for Android
+     * @author Ruan Donglin
+     */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
@@ -98,6 +104,11 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         rv_test.setAdapter(firstAdapter);
     }
 
+    /**
+     * Initialize map fragment for displaying google map.
+     *
+     * @author Ruan Donglin
+     */
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);

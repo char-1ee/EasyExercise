@@ -36,7 +36,6 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
         customizedLocation= getCustomizedLocation();
         super.onCreate(savedInstanceState);
         initView();
-        initMap();
         initAdapter();
         initButton();
 
@@ -73,12 +72,6 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
         firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
         // TODO: 2021/10/11 pass all sports to custom location
         rv_test.setAdapter(firstAdapter);
-    }
-
-    private void initMap(){
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.mapview);
-//        mapFragment.getMapAsync(this);
     }
 
     private void initButton(){

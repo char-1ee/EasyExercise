@@ -28,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
     }
-
+    /**
+     * Set bottom navigation view with corresponding fragments.
+     *
+     * @author Ruan Donglin
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new OnNavigationItemSelectedListener() {
                 @Override

@@ -41,6 +41,11 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     }
 
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
     private void initAdapter(){
         mAdapter= new FacilityRecyclerViewAdapterCheckIn(SelectFacilityCheckInActivity.this, facilityList);
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityCheckInActivity.this);

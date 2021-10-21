@@ -41,6 +41,11 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified);
     }
 
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
     private void initAdapter(){
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
         mRecyclerView.setHasFixedSize(true);

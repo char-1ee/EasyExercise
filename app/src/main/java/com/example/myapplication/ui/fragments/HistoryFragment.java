@@ -75,6 +75,11 @@ public class HistoryFragment extends Fragment {
         return r;
     }
 
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
     private void initAdapter(){
         mAdapter = new HistoryRecyclerViewAdapter(getListData());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

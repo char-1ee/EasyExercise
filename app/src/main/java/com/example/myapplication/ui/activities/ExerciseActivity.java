@@ -55,6 +55,11 @@ public class ExerciseActivity extends AppCompatActivity {
         return s;
     }
 
+    /**
+     * Start timer and change the text for timer accordingly.
+     *
+     * @author Ruan Donglin
+     */
     private void startTimer() {
         timerTask = new TimerTask() {
             @Override

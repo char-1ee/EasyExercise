@@ -57,6 +57,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
     }
 
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
     private void initView(){
         setContentView(R.layout.activity_view_plan);
         plan = getChosenPlan();

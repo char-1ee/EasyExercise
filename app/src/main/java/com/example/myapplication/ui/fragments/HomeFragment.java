@@ -79,7 +79,6 @@ public class HomeFragment extends Fragment {
     Button mCheckInButton;
     TextView temperature, pm25, uvIndex, humidity, forecast;
     String temperature_string, pm25_string, uvIndex_string, humidity_string, forecast_string;
-    Coordinates temp;
 
     @Nullable
     @Override
@@ -153,6 +152,11 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * Get user's current location as latitude and longitude
+     *
+     * @author Ruan Donglin
+     */
     private void getCurrentLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -184,6 +188,11 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * Turn on device's GPS if GPS is not enabled.
+     *
+     * @author Ruan Donglin
+     */
     private void turnOnGPS() {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
@@ -215,6 +224,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * Check if the device's GPS is enabled.
+     *
+     * @return the boolean value, true indicates GPS is enabled, false vice versa
+     * @author Ruan Donglin
+     */
     private boolean isGPSEnabled() {
         LocationManager locationManager = null;
         boolean isEnabled = false;
@@ -255,7 +270,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
-                if( 1==1){
+                if( facilityAround()== true){
                     Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
                     intent.putExtra("ClosestFacility", testCheckinClosetFacility());
                     intent.putExtra("FacilityByDistance", (Serializable) testCheckinFacilitByDistance());
@@ -302,6 +317,10 @@ public class HomeFragment extends Fragment {
         uvIndex.setText(uvIndex_string);
         humidity.setText(humidity_string);
         forecast.setText(forecast_string);
+    }
+
+    private boolean facilityAround(){
+        return true;
     }
 
 }

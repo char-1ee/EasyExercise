@@ -86,6 +86,11 @@ public class SelectSportActivity extends AppCompatActivity {
         mAdapter = new SportRecyclerViewAdapter(RecommendedSport);
     }
 
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
     private void initAdapter(){
         LinearLayoutManager manager = new GridLayoutManager(SelectSportActivity.this, 2);
         mRecyclerView.setHasFixedSize(true);

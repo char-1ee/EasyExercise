@@ -59,6 +59,11 @@ public class PlanFragment extends Fragment {
         return r;
     }
 
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
     private void initAdapter(){
         mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

@@ -6,7 +6,7 @@ public class WorkoutPlan implements Serializable {
     private Sport sport;
     private Location location;
     private long id;
-//    private WorkoutPlanStatus status;
+    private WorkoutPlanStatus status;
 
     public WorkoutPlan(Sport sport, Location location, long id) {
         this.sport = sport;
@@ -33,9 +33,9 @@ public class WorkoutPlan implements Serializable {
         return id;
     }
 
-//    public WorkoutPlanStatus getStatus() {
-//        return status;
-//    }
+    public WorkoutPlanStatus getStatus() {
+        return status;
+    }
 
     public void setSport(Sport sport) {
         this.sport = sport;
@@ -49,7 +49,7 @@ public class WorkoutPlan implements Serializable {
         this.id = id;
     }
 
-//    public void setStatus(WorkoutPlanStatus status) {
-//        this.status = status;
-//    }
+    public void setStatus(WorkoutPlanStatus status) {
+        this.status = status;
+    }
 }

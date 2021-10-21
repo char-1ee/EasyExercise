@@ -43,7 +43,7 @@
             android:id="@+id/old_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true" />
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/yellow"
-            android:text="@string/btn_send"
+            android:text="na"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/yellow"
-            android:text="@string/btn_remove"
+            android:text="na"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/change_email"
+            android:text="na"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/change_password"
+            android:text="na"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/send_password_reset_email"
+            android:text="na"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -169,7 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/remove_user"
+            android:text="na"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/yellow"
-            android:text="@string/btn_sign_out"
+            android:text="na"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 

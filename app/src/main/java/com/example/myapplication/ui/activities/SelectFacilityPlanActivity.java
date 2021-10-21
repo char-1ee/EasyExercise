@@ -24,20 +24,33 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_facility);
-
-        FacilityQualified= getFacilityQualified();
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified);
-        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+        initView();
+        initAdapter();
     }
 
     private List<Facility> getFacilityQualified(){
         List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityQualified");
         return f;
+    }
+
+    private void initView(){
+        setContentView(R.layout.activity_select_facility);
+
+        FacilityQualified= getFacilityQualified();
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified);
+    }
+
+    /**
+     * Initialize adapter for recyclerview.
+     *
+     * @author Ruan Donglin
+     */
+    private void initAdapter(){
+        LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 }

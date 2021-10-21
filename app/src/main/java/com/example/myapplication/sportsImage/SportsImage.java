@@ -4,6 +4,13 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 
 public class SportsImage {
+
+    /**
+     * String matcher for getting image of sport according to its name.
+     *
+     * @param sport the sport class defined under beans
+     * @author Ruan Donglin
+     */
     public int SportsToImage(Sport sport) {
         int image;
         String name = sport.getName();

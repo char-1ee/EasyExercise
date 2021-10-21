@@ -21,7 +21,6 @@ import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
     private List<WorkoutPlan> mPlanList;
-    private int lastSelectedPosition = -1;
     private WorkoutPlan chosenPlan;
     private Context mContext;
     private SportsImage sm;

@@ -25,46 +25,24 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ExerciseActivity extends AppCompatActivity {
-    Location location;
-    Sport sport;
-    TextView timerText;
-    Button checkOutButton;
-    ImageView sportView;
-    Timer timer;
-    TimerTask timerTask;
-    Double time = 0.0;
-    SportsImage sm;
-
-    boolean timerStarted = false;
+    private Date startDate;
+    private Location location;
+    private Sport sport;
+    private TextView timerText;
+    private Button checkOutButton;
+    private ImageView sportView;
+    private Timer timer;
+    private TimerTask timerTask;
+    private Double time = 0.0;
+    private SportsImage sm;
+    private boolean timerStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
-        Date startDate = new Date();
-        sm= new SportsImage();
-        location = getLocation();
-        sport = getSport();
-        sportView= (ImageView) findViewById(R.id.imageView3);
-        timerText = (TextView) findViewById(R.id.timerText);
-        checkOutButton = (Button) findViewById(R.id.check_out_button);
-        sportView.setImageResource(sm.SportsToImage(sport));
-        timer = new Timer();
-        timerStarted = true;
+        initView();
+        initButton();
         startTimer();
-
-        checkOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
-                checkInIntent.putExtra("LocationExercise", location);
-                checkInIntent.putExtra("SportExercise", sport);
-                checkInIntent.putExtra("StartDate", startDate);
-                checkInIntent.putExtra("timeDuration", getTimerText());
-                startActivity(checkInIntent);
-                finish();
-            }
-        });
     }
 
     private Location getLocation() {
@@ -77,17 +55,11 @@ public class ExerciseActivity extends AppCompatActivity {
         return s;
     }
 
-    public void startStopTapped(View view) {
-        if (timerStarted == false) {
-            timerStarted = true;
-            startTimer();
-        } else {
-            timerStarted = false;
-            timerTask.cancel();
-        }
-    }
-
-
+    /**
+     * Start timer and change the text for timer accordingly.
+     *
+     * @author Ruan Donglin
+     */
     private void startTimer() {
         timerTask = new TimerTask() {
             @Override
@@ -105,7 +77,6 @@ public class ExerciseActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
-
     private String getTimerText() {
         int rounded = (int) Math.round(time);
         int seconds = ((rounded % 86400) % 3600) % 60;
@@ -118,5 +89,34 @@ public class ExerciseActivity extends AppCompatActivity {
         return String.format("%02d", hours) + " : " +
                 String.format("%02d", minutes) + " : " +
                 String.format("%02d", seconds);
+    }
+
+    private void initView(){
+        setContentView(R.layout.activity_exercise);
+        startDate = new Date();
+        sm= new SportsImage();
+        location = getLocation();
+        sport = getSport();
+        sportView= (ImageView) findViewById(R.id.imageView3);
+        timerText = (TextView) findViewById(R.id.timerText);
+        checkOutButton = (Button) findViewById(R.id.check_out_button);
+        sportView.setImageResource(sm.SportsToImage(sport));
+        timer = new Timer();
+        timerStarted = true;
+    }
+
+    private void initButton(){
+        checkOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
+                checkInIntent.putExtra("LocationExercise", location);
+                checkInIntent.putExtra("SportExercise", sport);
+                checkInIntent.putExtra("StartDate", startDate);
+                checkInIntent.putExtra("timeDuration", getTimerText());
+                startActivity(checkInIntent);
+                finish();
+            }
+        });
     }
 }

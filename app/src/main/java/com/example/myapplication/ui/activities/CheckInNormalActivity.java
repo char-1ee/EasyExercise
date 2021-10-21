@@ -40,38 +40,82 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     private TextView facilityView;
     private TextView addressView;
     private TextView postalView;
-
+    private CheckInSportAdapter firstAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+        initMap();
+        initAdapter();
+        initButton();
+    }
+
+
+    private Facility getFacility(){
+        Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
+        return f;
+    }
+
+    private List<Facility> getFacilityList(){
+        List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
+        // TODO: 2021/10/11 match facility with plan in database 
+        
+        return f;
+    }
+
+    /**
+     * Set google map and add marker for the designated location
+     *
+     * @param googleMap the main class of the Google Maps SDK for Android
+     * @author Ruan Donglin
+     */
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        Coordinates c= facility.getCoordinates();
+        // Add a marker in Sydney and move the camera
+        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
+        mMap.addMarker(new MarkerOptions()
+                .position(cur)
+                .title(facility.getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+    }
+
+
+    private void initView(){
+        setContentView(R.layout.activity_check_in_normal);
         facility= getFacility();
         facilityList= getFacilityList();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_in_normal);
         rv_test = findViewById(R.id.check_in_sport_recycler);
         button1 = findViewById(R.id.check_in_sport_button);
         button2 = findViewById(R.id.choose_another_facility_button);
         facilityView= findViewById(R.id.location_view);
         addressView= findViewById(R.id.address_view);
         postalView= findViewById(R.id.postal_view);
-
         facilityView.setText(facility.getName());
         addressView.setText(facility.getAddress());
         postalView.setText(facility.getPostalCode());
+    }
 
+    private void initAdapter(){
+        rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
+        firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
+        rv_test.setAdapter(firstAdapter);
+    }
 
-
+    /**
+     * Initialize map fragment for displaying google map.
+     *
+     * @author Ruan Donglin
+     */
+    private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);
         mapFragment.getMapAsync(this);
+    }
 
-
-        // RecyclerView adapter
-        rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
-        CheckInSportAdapter firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
-        rv_test.setAdapter(firstAdapter);
-
-
+    private void initButton(){
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,34 +137,5 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
                 startActivity(intent);
             }
         });
-
-    }
-
-
-
-
-    private Facility getFacility(){
-        Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
-        return f;
-    }
-
-    private List<Facility> getFacilityList(){
-        List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
-        // TODO: 2021/10/11 match facility with plan in database 
-        
-        return f;
-    }
-
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
-        Coordinates c= facility.getCoordinates();
-        // Add a marker in Sydney and move the camera
-        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
-        mMap.addMarker(new MarkerOptions()
-                .position(cur)
-                .title(facility.getName()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
     }
 }

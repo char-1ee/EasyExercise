@@ -79,53 +79,13 @@ public class HomeFragment extends Fragment {
     Button mCheckInButton;
     TextView temperature, pm25, uvIndex, humidity, forecast;
     String temperature_string, pm25_string, uvIndex_string, humidity_string, forecast_string;
-    Coordinates temp;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        mMakePlanButton = view.findViewById(R.id.home_plan_button);
-        mCheckInButton = view.findViewById(R.id.home_checkin_button);
-        AddressText = view.findViewById(R.id.addressText);
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
-        mMakePlanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SelectSportActivity.class);
-                // TODO: 2021/10/11 give two sport lists, one is recommended, one is not
-                intent.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
-                intent.putExtra("OtherSports", (Serializable) testSelectSportOther());
-                startActivity(intent);
-            }
-        });
-
-
-        mCheckInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
-                if( 1==1){
-                    Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
-                    intent.putExtra("ClosestFacility", testCheckinClosetFacility());
-                    intent.putExtra("FacilityByDistance", (Serializable) testCheckinFacilitByDistance());
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), NoFacilityActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        temperature = view.findViewById(R.id.temperature);
-        pm25 = view.findViewById(R.id.pm25_value);
-        uvIndex = view.findViewById(R.id.UV_value);
-        humidity = view.findViewById(R.id.Humidity_value);
-        forecast = view.findViewById(R.id.Forecast);
-
+        initVIew();
+        initButton();
         getCurrentLocation();
         return view;
     }
@@ -192,9 +152,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * Get user's current location as latitude and longitude
+     *
+     * @author Ruan Donglin
+     */
     private void getCurrentLocation() {
-        final double[] a = {25};
-        final double[] b = {0};
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 if (isGPSEnabled()) {
@@ -212,45 +175,10 @@ public class HomeFragment extends Fragment {
                                         latitude = locationResult.getLocations().get(index).getLatitude();
                                         longitude = locationResult.getLocations().get(index).getLongitude();
                                         AddressText.setText(String.valueOf(longitude));
-                                        final Box<Weather> boxWeather = new Box<>();
-                                        Thread thread = new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                boxWeather.set(new Weather(
-                                                        IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
-                                                        IOUtil.readFromURL(RAINFALL_JSON_URL),
-                                                        IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
-                                                        IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
-                                                        IOUtil.readFromURL(WIND_SPEED_JSON_URL),
-                                                        IOUtil.readFromURL(UV_INDEX_JSON_URL),
-                                                        IOUtil.readFromURL(PM25_JSON_URL),
-                                                        IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
-                                            }
-                                        });
-                                        thread.start();
-                                        try {
-                                            thread.join();
-                                        } catch (InterruptedException e) {
-                                            ;
-                                        }
-                                        Weather weather = boxWeather.get();
-                                        Coordinates temp= new Coordinates(latitude, longitude, "no");
-                                        temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
-                                        pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
-                                        uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
-                                        humidity_string = weather.getWeatherData(temp).getRelativeHumidity().getResult().toString();
-                                        forecast_string = weather.getWeatherData(temp).getForecast().getResult();
-
-                                        temperature.setText(temperature_string);
-                                        pm25.setText(pm25_string);
-                                        uvIndex.setText(uvIndex_string);
-                                        humidity.setText(humidity_string);
-                                        forecast.setText(forecast_string);
-                                        return;
+                                        setWeather();
                                     }
                                 }
                             }, Looper.getMainLooper());
-
                 } else {
                     turnOnGPS();
                 }
@@ -260,27 +188,26 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * Turn on device's GPS if GPS is not enabled.
+     *
+     * @author Ruan Donglin
+     */
     private void turnOnGPS() {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
         builder.setAlwaysShow(true);
-
         Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(getActivity())
                 .checkLocationSettings(builder.build());
-
         result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
             @Override
             public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-
                 try {
                     LocationSettingsResponse response = task.getResult(ApiException.class);
                     Toast.makeText(getContext(), "GPS is already tured on", Toast.LENGTH_SHORT).show();
-
                 } catch (ApiException e) {
-
                     switch (e.getStatusCode()) {
                         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-
                             try {
                                 ResolvableApiException resolvableApiException = (ResolvableApiException) e;
                                 resolvableApiException.startResolutionForResult(getActivity(), 2);
@@ -288,7 +215,6 @@ public class HomeFragment extends Fragment {
                                 ex.printStackTrace();
                             }
                             break;
-
                         case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                             //Device does not have location
                             break;
@@ -298,19 +224,104 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * Check if the device's GPS is enabled.
+     *
+     * @return the boolean value, true indicates GPS is enabled, false vice versa
+     * @author Ruan Donglin
+     */
     private boolean isGPSEnabled() {
         LocationManager locationManager = null;
         boolean isEnabled = false;
-
         if (locationManager == null) {
             locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         }
-
         isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         return isEnabled;
-
     }
 
+    private void initVIew(){
+        mMakePlanButton = view.findViewById(R.id.home_plan_button);
+        mCheckInButton = view.findViewById(R.id.home_checkin_button);
+        AddressText = view.findViewById(R.id.addressText);
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
+        temperature = view.findViewById(R.id.temperature);
+        pm25 = view.findViewById(R.id.pm25_value);
+        uvIndex = view.findViewById(R.id.UV_value);
+        humidity = view.findViewById(R.id.Humidity_value);
+        forecast = view.findViewById(R.id.Forecast);
+    }
+
+    private void initButton(){
+        mMakePlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SelectSportActivity.class);
+                // TODO: 2021/10/11 give two sport lists, one is recommended, one is not
+                intent.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
+                intent.putExtra("OtherSports", (Serializable) testSelectSportOther());
+                startActivity(intent);
+            }
+        });
+        mCheckInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
+                if( facilityAround()== true){
+                    Intent intent = new Intent(getActivity(), CheckInNormalActivity.class);
+                    intent.putExtra("ClosestFacility", testCheckinClosetFacility());
+                    intent.putExtra("FacilityByDistance", (Serializable) testCheckinFacilitByDistance());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), NoFacilityActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void setWeather(){
+        final Box<Weather> boxWeather = new Box<>();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boxWeather.set(new Weather(
+                        IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                        IOUtil.readFromURL(RAINFALL_JSON_URL),
+                        IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                        IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                        IOUtil.readFromURL(WIND_SPEED_JSON_URL),
+                        IOUtil.readFromURL(UV_INDEX_JSON_URL),
+                        IOUtil.readFromURL(PM25_JSON_URL),
+                        IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            ;
+        }
+        Weather weather = boxWeather.get();
+        Coordinates temp= new Coordinates(latitude, longitude, "no");
+        temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
+        pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
+        uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
+        humidity_string = weather.getWeatherData(temp).getRelativeHumidity().getResult().toString();
+        forecast_string = weather.getWeatherData(temp).getForecast().getResult();
+        temperature.setText(temperature_string);
+        pm25.setText(pm25_string);
+        uvIndex.setText(uvIndex_string);
+        humidity.setText(humidity_string);
+        forecast.setText(forecast_string);
+    }
+
+    private boolean facilityAround(){
+        return true;
+    }
 
 }
 

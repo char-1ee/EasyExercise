@@ -52,21 +52,14 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
                 Intent intent = new Intent(mContext, ViewPlanActivity.class);
                 intent.putExtra("ChosenPlan", chosenPlan);
                 mContext.startActivity(intent);
-            }
-        holder.view.setOnClickListener(view -> {
-            chosenPlan = item;
-            Intent intent = new Intent(mContext, ViewPlanActivity.class);
-            intent.putExtra("ChosenPlan", chosenPlan);
-            mContext.startActivity(intent);
-        });
-
+            } });
     }
-
 
     @Override
     public int getItemCount() {
         return mPlanList == null ? 0 : mPlanList.size();
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final View view;

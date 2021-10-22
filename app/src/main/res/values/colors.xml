@@ -10,5 +10,22 @@
     <color name="primary_blue">#b2dfdb</color>
     <color name="primary_blue_light">#e5ffff</color>
     <color name="primary_blue_dark">#82ada9</color>
+    <color name="teal">#0097a7</color>
+    <color name="yellow">#FFD53D</color>
+    <color name='transparent'>#00000000</color>
+    <color name='grey_light'>#656565</color>
+
+    <color name='sporty_g1_red'>#F95E50</color>
+    <color name='sporty_g1_green'>#4BC2A0</color>
+    <color name='sporty_g1_yellow'>#FEEF70</color>
+    <color name='sporty_g1_blue'>#5C92D1</color>
+
+    <color name='sporty_g2_yellow'>#FEDE24</color>
+    <color name='sporty_g2_red'>#FD6326</color>
+    <color name='sporty_g2_grey'>#C7CCCF</color>
+    <color name='sporty_g2_black'>#191919</color>
+    <color name="blue">#FF336699</color>
+    <color name="light_blue">#FF99CCCC</color>
+    <color name="grey_white">#FFDDDDDD</color>
 
 </resources>

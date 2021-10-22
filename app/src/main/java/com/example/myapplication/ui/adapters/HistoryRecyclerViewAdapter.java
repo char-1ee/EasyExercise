@@ -46,6 +46,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.sportView.setText(item.getSport().getName());
         holder.dateView.setText(item.getStartTime().toString());
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        holder.imageView.setClipToOutline(true);
         holder.planType.setText(String.valueOf(item.getStatus().toString()));
     }
 

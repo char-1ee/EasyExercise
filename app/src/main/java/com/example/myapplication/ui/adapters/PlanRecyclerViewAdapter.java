@@ -43,6 +43,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         holder.dateView.setText("");
         holder.sportView.setText(item.getSport().getName());
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        holder.imageView.setClipToOutline(true);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

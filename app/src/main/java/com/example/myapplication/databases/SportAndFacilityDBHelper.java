@@ -112,6 +112,7 @@ public class SportAndFacilityDBHelper {
 
     /**
      * Get all data of facility in a list.
+     *
      * @return list of {@link Facility}, {@code null} if {@code cursor} pointer null
      */
     public List<Facility> getFacilities() {

@@ -4,15 +4,14 @@ import android.provider.BaseColumns;
 
 public final class DatabaseContract {
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "data.db";
+    public static final String DATABASE_NAME = "database.db";
     private static final String INTEGER_TYPE = " INTEGER ";
     private static final String PRIMARY_KEY = " PRIMARY KEY ";
     private static final String TEXT_TYPE = " TEXT ";
     private static final String COMMA_SEP = " , ";
 
     // Not allowed to be instantiated
-    private DatabaseContract() {
-    }
+    private DatabaseContract() {}
 
     // List of all SQL create table statement
     public static final String[] SQL_CREATE_TABLE_LIST = {
@@ -81,6 +80,15 @@ public final class DatabaseContract {
         public static final String KEY_SPORT_ID = "sportId";
         public static final String KEY_FACILITY_ID = "facilityId";
 
+        /*
+            CREATE TABLE workoutPlanTable (
+            _id INTEGER PRIMARY KEY,
+            sportId TEXT,
+            facilityId TEXT,
+            FOREIGN KEY (sportId) REFERENCES sports (id)
+            FOREIGN KEY (facilityId) REFERENCES facilities (id)
+            )
+         */
         public static final String CREATE_TABLE_WORKOUT_PLAN = "CREATE TABLE " +
                 TABLE_NAME_WORKOUT_PLAN + "(" +
                 _ID + "INTEGER PRIMARY KEY" +
@@ -99,6 +107,17 @@ public final class DatabaseContract {
         public static final String KEY_START_TIME = "startTime";
         public static final String KEY_END_TIME = "endTime";
 
+        /*
+           CREATE TABLE workoutHistoryTable (
+            _id INTEGER PRIMARY KEY,
+            sportId TEXT,
+            facilityId TEXT,
+            startTime TEXT,
+            endTime TEXT,
+            FOREIGN KEY (sportId) REFERENCES sports (id)
+            FOREIGN KEY (facilityId) REFERENCES facilities (id)
+            )
+         */
         public static final String CREATE_TABLE_WORKOUT_HISTORY = "CREATE TABLE " +
                 TABLE_NAME_WORKOUT_HISTORY + "(" +
                 _ID + "INTEGER PRIMARY KEY" +

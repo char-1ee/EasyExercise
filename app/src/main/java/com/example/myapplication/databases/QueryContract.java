@@ -24,13 +24,4 @@ public class QueryContract {
         void updateWorkoutRecord(Date startTime, Date endTime, QueryResponse<Boolean> response);
         void deleteWorkoutRecord(int _id, QueryResponse<Boolean> response);
     }
-
-    public interface FacilityQuery {
-//        void readFacility(String name, QueryResponse<Facility> response);
-        void readAllFacility(QueryResponse<List<Facility>> response);
-    }
-
-    public interface SportQuery {
-        List<Sport> readAllSport(QueryResponse<List<Sport>> response);
-    }
 }

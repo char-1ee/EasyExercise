@@ -124,10 +124,10 @@ public class SelectSportActivity extends AppCompatActivity {
             finalChoice.addAll(ChosenSport1);
             finalChoice.addAll(ChosenSport2);
             FacilityRecommendation facilityRecommendation= new FacilityRecommendation();
-            //FinalFacility= facilityRecommendation.recommend(SelectSportActivity.this, finalChoice, coordinate);
+            FinalFacility= facilityRecommendation.recommend(SelectSportActivity.this, finalChoice, coordinate);
             // TODO: 2021/10/11 Search qualified facilities basing on sports chosen
             // TODO: 2021/10/11 the list of sports: ChosenSports1
-            FinalFacility = testGiveFacility();
+            //FinalFacility = testGiveFacility();
             textView.setText(String.valueOf(ChosenSport1.size()+ ChosenSport2.size()));
 
 //            Intent intent = new Intent(context, SelectFacilityPlanActivity.class);

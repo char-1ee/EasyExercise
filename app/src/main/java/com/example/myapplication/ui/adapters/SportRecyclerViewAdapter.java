@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.adapters;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,6 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
         sm= new SportsImage();
     }
 
-    public List<Sport> getChosenSportList() {
-        return chosenSportList;
-    }
 
     @NonNull
     @Override
@@ -49,13 +47,16 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
         holder.view.setOnClickListener(view -> {
             sport.setSelected(!sport.isSelected());
             holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+            if(sport.isSelected()){
+                Log.wtf("choosesport","add");
+                chosenSportList.add(sport);
+            }
+            else {
+                boolean e= chosenSportList.remove(sport);
+                Log.wtf("choosesport",String.valueOf(e));
+            }
         });
-        if(sport.isSelected()){
-            chosenSportList.add(sport);
-        }
-        else if(!sport.isSelected()){
-            chosenSportList.remove(sport);
-        }
+
     }
 
     @Override

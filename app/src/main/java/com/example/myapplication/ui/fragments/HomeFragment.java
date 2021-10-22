@@ -58,6 +58,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     double latitude;
     double longitude;
+    Coordinates c;
     private LocationRequest locationRequest;
 //    private AddPlanAdapter firstAdapter;
 //    public Facility closestFacility;
@@ -73,12 +74,30 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        if (savedInstanceState != null) {
+            latitude= savedInstanceState.getDouble("a");
+            longitude= savedInstanceState.getDouble("b");
+        } else {
+            latitude= 100;
+            longitude= 100;
+        }
         initVIew();
-        initButton();
+        setWeather(latitude, longitude);
         getCurrentLocation();
+        initButton();
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //setWeather();
+    }
 
     private Facility testCheckinClosetFacility() {
         Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
@@ -150,10 +169,10 @@ public class HomeFragment extends Fragment {
 
                                 if (locationResult != null && locationResult.getLocations().size() > 0) {
                                     int index = locationResult.getLocations().size() - 1;
-                                    latitude = locationResult.getLocations().get(index).getLatitude();
-                                    longitude = locationResult.getLocations().get(index).getLongitude();
-                                    AddressText.setText(String.valueOf(longitude));
-                                    setWeather();
+                                    double a = locationResult.getLocations().get(index).getLatitude();
+                                    double b = locationResult.getLocations().get(index).getLongitude();
+                                    AddressText.setText(String.valueOf(b));
+                                    setWeather(a, b);
                                 }
                             }
                         }, Looper.getMainLooper());
@@ -233,8 +252,10 @@ public class HomeFragment extends Fragment {
             // TODO: 2021/10/11 give two sport lists, one is recommended, one is not
             intent.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
             intent.putExtra("OtherSports", (Serializable) testSelectSportOther());
+            intent.putExtra("Coordinate", (Serializable) c);
             startActivity(intent);
         });
+
         mCheckInButton.setOnClickListener(v -> {
             // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
             Intent intent;
@@ -249,7 +270,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setWeather(){
+    private void setWeather(double a, double b){
+        AddressText.setText(String.valueOf(a));
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
                 IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -266,7 +288,7 @@ public class HomeFragment extends Fragment {
         } catch (InterruptedException ignored) {
         }
         Weather weather = boxWeather.get();
-        Coordinates temp= new Coordinates(latitude, longitude, "no");
+        Coordinates temp= new Coordinates(a, b, "no");
         temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
         pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
         uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
@@ -277,6 +299,9 @@ public class HomeFragment extends Fragment {
         uvIndex.setText(uvIndex_string);
         humidity.setText(humidity_string);
         forecast.setText(forecast_string);
+        latitude= a;
+        longitude= b;
+        c= temp;
     }
 
     private boolean facilityAround(){

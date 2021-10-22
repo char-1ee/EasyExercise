@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.recommendation.FacilityRecommendation;
 import com.example.myapplication.ui.adapters.SportRecyclerViewAdapter;
 
 import java.io.Serializable;
@@ -21,6 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectSportActivity extends AppCompatActivity {
+    private List<Sport> finalChoice;
+    TextView textView;
+    private Coordinates coordinate;
+    private double latitude;
+    private double longitude;
     private List<Sport> ChosenSport1;
     private List<Sport> ChosenSport2;
     private List<Facility> FinalFacility;
@@ -37,6 +44,11 @@ public class SelectSportActivity extends AppCompatActivity {
         initAdapter();
         initButton();
     }
+
+    private Coordinates getCoordinate(){
+        return (Coordinates) getIntent().getSerializableExtra("Coordinate");
+    }
+
 
     private List<Sport> getRecommendedSport() {
         return (List<Sport>) getIntent().getSerializableExtra("RecommendedSports");
@@ -74,20 +86,22 @@ public class SelectSportActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        finalChoice= new ArrayList<>();
         setContentView(R.layout.activity_select_sport);
         RecommendedSport = getRecommendedSport();
         OtherSport = getOtherSport();
+        coordinate= getCoordinate();
+        textView= findViewById(R.id.textView);
         mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = findViewById(R.id.recycler_view);
-        mAdapter = new SportRecyclerViewAdapter(RecommendedSport);
     }
 
     /**
      * Initialize adapter for recyclerview.
      *
-     * @author Ruan Donglin
      */
     private void initAdapter(){
+        mAdapter = new SportRecyclerViewAdapter(RecommendedSport);
         LinearLayoutManager manager = new GridLayoutManager(SelectSportActivity.this, 2);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
@@ -104,16 +118,22 @@ public class SelectSportActivity extends AppCompatActivity {
     private void initButton(){
         mSportChoicesConfirmButton.setOnClickListener(view -> {
             Context context = SelectSportActivity.this;
-            ChosenSport1 = mAdapter.getChosenSportList();
-            ChosenSport2 = mAdapter2.getChosenSportList();
-            ChosenSport1.addAll(ChosenSport2);
+            ChosenSport1 = mAdapter.chosenSportList;
+            ChosenSport2 = mAdapter2.chosenSportList;
+            finalChoice.clear();
+            finalChoice.addAll(ChosenSport1);
+            finalChoice.addAll(ChosenSport2);
+            FacilityRecommendation facilityRecommendation= new FacilityRecommendation();
+            FinalFacility= facilityRecommendation.recommend(SelectSportActivity.this, finalChoice, coordinate);
             // TODO: 2021/10/11 Search qualified facilities basing on sports chosen
             // TODO: 2021/10/11 the list of sports: ChosenSports1
-            FinalFacility = testGiveFacility();
-            Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
-            intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
-            startActivity(intent);
-            finish();
+            //FinalFacility = testGiveFacility();
+            textView.setText(String.valueOf(ChosenSport1.size()+ ChosenSport2.size()));
+
+//            Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
+//            intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
+//            startActivity(intent);
+//            finish();
         });
     }
 }

@@ -30,16 +30,32 @@ public class Sport implements Serializable {
         }
     }
 
-    private final int id;
-    private final String name;
-    private final String alternativeName;
-    private final SportType type;
+    private int id;
+    private String name;
+    private String alternativeName;
+    private SportType type;
     private boolean isSelected = false;
+
+    public Sport(){}
 
     public Sport(int id, String name, String alternativeName, SportType type) {
         this.id = id;
         this.name = name;
         this.alternativeName = alternativeName;
+        this.type = type;
+    }
+
+    public void setId(int id) {this.id = id; }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAlternativeName(String alternativeName) {
+        this.alternativeName = alternativeName;
+    }
+
+    public void setType(SportType type) {
         this.type = type;
     }
 

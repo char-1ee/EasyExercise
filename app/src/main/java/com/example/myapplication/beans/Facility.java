@@ -6,13 +6,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Facility extends Location implements Serializable {
-    private final int id;
-    private final String name;
-    private final String url;
-    private final String address;
-    private final String postalCode;
-    private final String description;
-    private final Set<Sport> sports;
+    private int id;
+    private String name;
+    private String url;
+    private String address;
+    private String postalCode;
+    private String description;
+    private Set<Sport> sports;
+
+    public Facility() {
+        super();
+    }
 
     public Facility(int id, String name, String url, String address, String postalCode,
                     String description, double latitude, double longitude) {
@@ -30,6 +34,34 @@ public class Facility extends Location implements Serializable {
                     String description, Coordinates coordinates) {
         this(id, name, url, address, postalCode, description,
                 coordinates.getLatitude(), coordinates.getLongitude());
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSports(Set<Sport> sports) {
+        this.sports = sports;
     }
 
     public int getId() {

@@ -9,15 +9,21 @@ public abstract class Location extends Coordinates implements Serializable {
         FACILITY, CUSTOMISED_LOCATION,
     }
 
-    private final LocationType type;
+    private LocationType type;
+
+    public Location(){
+        super();
+    }
 
     public Location(double latitude, double longitude, String name,
                     LocationType type) {
         super(latitude, longitude, name);
         this.type = type;
     }
-
-    public LocationType getType() {
+    public void setLocationType(LocationType type) {
+        this.type = type;
+    }
+    public LocationType getLocationType() {
         return type;
     }
 }

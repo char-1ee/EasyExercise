@@ -42,7 +42,7 @@ public class PlanFragment extends Fragment {
         for (int i = 1; i <= 10; i++) {
             Sport s = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
             Location location = testCheckinClosetFacility();
-            WorkoutPlan w = new WorkoutPlan(s, location, 0, com.example.myapplication.beans.WorkoutPlanStatus.PRIVATE);
+            WorkoutPlan w = new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
             mWorkoutPlan.add(w);
         }
         return mWorkoutPlan;

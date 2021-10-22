@@ -110,6 +110,42 @@ public class SportAndFacilityDBHelper {
         }
     }
 
+    public Sport getSportById(int sportId) {
+        Cursor cursor = database.rawQuery("SELECT * FROM sports WHERE _id = sportId", null);
+        if (cursor != null) {
+            Sport sport = new Sport();
+            if (cursor.getCount() > 0) {
+                sport.setId(cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
+                sport.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                sport.setAlternativeName(cursor.getString(cursor.getColumnIndexOrThrow("alternative_name")));
+                sport.setType(Sport.SportType.getType(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
+            }
+            return sport;
+        } else {
+            return null;
+        }
+    }
+
+    public Facility getFacilityById(int facilityId) {
+        Cursor cursor = database.rawQuery("SELECT * FROM facilities WHERE _id = facilityId", null);
+        if (cursor != null) {
+            Facility facility = new Facility();
+            if (cursor.getCount() > 0) {
+                facility.setId(cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
+                facility.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                facility.setUrl(cursor.getString(cursor.getColumnIndexOrThrow("url")));
+                facility.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+                facility.setPostalCode(cursor.getString(cursor.getColumnIndexOrThrow("postal_code")));
+                facility.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";","\n"));
+                facility.setLatitude(cursor.getDouble(cursor.getColumnIndexOrThrow("latitude")));
+                facility.setLongitude(cursor.getDouble(cursor.getColumnIndexOrThrow("longitude")));
+            }
+            return facility;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Get all data of facility in a list.
      *
@@ -148,3 +184,9 @@ public class SportAndFacilityDBHelper {
         this.database.close();
     }
 }
+/*
+    DBHelper db = new DBHelper(this);
+    db.openDatabase();
+    //
+    db.closeDatabase();
+ */

@@ -3,8 +3,10 @@ package com.example.myapplication.databases;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class DatabaseManager {
-    private Integer mOpenCounter = 0;
+    private AtomicInteger mOpenCounter = new AtomicInteger();
 
     private static DatabaseManager instance;
     private static SQLiteOpenHelper mDatabaseHelper;
@@ -27,8 +29,7 @@ public class DatabaseManager {
     }
 
     public synchronized SQLiteDatabase openDatabase() {
-        mOpenCounter+=1;
-        if(mOpenCounter == 1) {
+        if(mOpenCounter.incrementAndGet() == 1) {
             // Opening new database
             mDatabase = mDatabaseHelper.getWritableDatabase();
         }
@@ -36,8 +37,7 @@ public class DatabaseManager {
     }
 
     public synchronized void closeDatabase() {
-        mOpenCounter-=1;
-        if(mOpenCounter == 0) {
+        if(mOpenCounter.decrementAndGet() == 0) {
             // Closing database
             mDatabase.close();
         }

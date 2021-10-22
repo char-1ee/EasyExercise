@@ -34,11 +34,10 @@ public class WorkoutRecordQueryImp {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
 
-        //TODO: Non-static method 'getSport()' cannot be referenced from a static context?
-        values.put(KEY_SPORT_ID, WorkoutRecord.getSport().getId());
-        values.put(KEY_FACILITY_ID, WorkoutRecord.getFacility().getId());
-        values.put(KEY_STATUS, WorkoutRecord.getStatus().toString());
-        values.put(KEY_START_TIME, WorkoutRecord.getStartTime().toString());
+        values.put(KEY_SPORT_ID, workoutRecord.getSport().getId());
+        values.put(KEY_FACILITY_ID, workoutRecord.getFacility().getId());
+        values.put(KEY_STATUS, workoutRecord.getStatus().toString());
+        values.put(KEY_START_TIME, workoutRecord.getStartTime().toString());
 
         db.insert(TABLE_NAME_WORKOUT_HISTORY, null, values);
         DatabaseManager.getInstance().closeDatabase();

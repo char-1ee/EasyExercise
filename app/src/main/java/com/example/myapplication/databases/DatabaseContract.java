@@ -11,7 +11,7 @@ import android.provider.BaseColumns;
  */
 public final class DatabaseContract {
     public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "data.db";
+    public static final String DATABASE_NAME = "database.db";  // TODO: differentiate with "data.db"
     private static final String INTEGER_TYPE = " INTEGER ";
     private static final String DOUBLE_TYPE = " DOUBLE ";
     private static final String PRIMARY_KEY = " PRIMARY KEY ";

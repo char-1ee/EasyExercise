@@ -33,7 +33,7 @@ public class FacilityRecommendation {
     }
 
     public static List<Facility> getFacilitiesNearby(Context context, Coordinates coordinates, double distance, int limit) {
-        DBManager manager = new DBManager(context);
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
         manager.openDatabase();
         List<Facility> results = manager.getFacilities().stream()
                 .filter(facility ->

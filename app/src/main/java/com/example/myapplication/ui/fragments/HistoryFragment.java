@@ -81,7 +81,7 @@ public class HistoryFragment extends Fragment {
      * @author Ruan Donglin
      */
     private void initAdapter(){
-        mAdapter = new HistoryRecyclerViewAdapter(getListData());
+        mAdapter = new HistoryRecyclerViewAdapter(getListData(), getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

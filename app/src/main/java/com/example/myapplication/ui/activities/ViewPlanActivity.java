@@ -103,7 +103,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_view_plan);
         plan = getChosenPlan();
         facilityView = findViewById(R.id.location_view);
-        sportView = findViewById(R.id.sport_view);
+        sportView = findViewById(R.id.facility_view);
         postalView = findViewById(R.id.postal_view);
         addressView = findViewById(R.id.address_view);
         checkInButton= findViewById(R.id.check_in_button);
@@ -160,7 +160,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2021/10/24 delete this plan 
+                // TODO: 2021/10/24 delete this plan
             }
         });
     }

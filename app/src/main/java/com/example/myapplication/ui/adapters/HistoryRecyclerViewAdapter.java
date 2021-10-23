@@ -1,10 +1,16 @@
 package com.example.myapplication.ui.adapters;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,15 +26,19 @@ import com.example.myapplication.sportsImage.SportsImage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
+    private Context mContext;
+    private Dialog mDialog;
     private final List<WorkoutRecord> mWorkOutHistoryList;
     private final SportsImage sm;
 
-    public HistoryRecyclerViewAdapter(List<WorkoutRecord> workOutHistoryList) {
+    public HistoryRecyclerViewAdapter(List<WorkoutRecord> workOutHistoryList, Context context) {
         mWorkOutHistoryList = workOutHistoryList;
         sm = new SportsImage();
+        mContext = context;
     }
 
     @NonNull
@@ -52,6 +62,34 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
         holder.planType.setText(item.getStatus().toString());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(mContext);
+                TextView sportView, facilityView, durationView, startTimeView, endTimeView;
+                dialog.setContentView(R.layout.dialog_history);
+                sportView = dialog.findViewById(R.id.sport_view);
+                facilityView = dialog.findViewById(R.id.facility_view);
+                durationView = dialog.findViewById(R.id.duration_view);
+                startTimeView = dialog.findViewById(R.id.start_time_view);
+                endTimeView = dialog.findViewById(R.id.end_time_view);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                sportView.setText(item.getSport().getName());
+                if (item.getLocation().getType() == Location.LocationType.FACILITY) {
+                    Facility f = (Facility) item.getLocation();
+                    facilityView.setText(f.getName());
+                } else {
+                    facilityView.setText(R.string.customized_location);
+                }
+                long diff = item.getStartTime().getTime() - item.getEndTime().getTime();
+                long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                durationView.setText(String.valueOf(minutes) + "min" + String.valueOf(seconds) + "sec");
+                startTimeView.setText(getTime(item.getStartTime()));
+                endTimeView.setText(getTime(item.getEndTime()));
+                dialog.show();
+            }
+        });
     }
 
 
@@ -66,7 +104,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         private final TextView dateView;
         private final ImageView imageView;
         private final CardView cardView;
-        private final TextView planType;
+        private TextView planType;
 
 
         private MyViewHolder(View itemView) {
@@ -85,4 +123,6 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
+
+
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@color/teal_700"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/sport_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="hahah"
+            android:textAlignment="center"
+            android:textSize="24dp"></TextView>
+
+        <TextView
+            android:id="@+id/facility_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="nono"
+            android:textAlignment="center"
+            android:textSize="24dp"></TextView>
+
+        <TextView
+            android:id="@+id/duration_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="nono"
+            android:textAlignment="center"
+            android:textSize="24dp"></TextView>
+
+        <TextView
+            android:id="@+id/start_time_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="nono"
+            android:textAlignment="center"
+            android:textSize="24dp"></TextView>
+
+        <TextView
+            android:id="@+id/end_time_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="nono"
+            android:textAlignment="center"
+            android:textSize="24dp"></TextView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/plan_sport_image"
+        android:background="@drawable/plan_circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/badminton"></ImageView>
+
+
+</RelativeLayout>

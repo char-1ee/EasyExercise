@@ -73,7 +73,7 @@
                 android:text="Nanyang Cre 64"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/sport_view"
+                app:layout_constraintBottom_toTopOf="@+id/facility_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +130,7 @@
                 android:background="@color/black" />
 
             <TextView
-                android:id="@+id/sport_view"
+                android:id="@+id/facility_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

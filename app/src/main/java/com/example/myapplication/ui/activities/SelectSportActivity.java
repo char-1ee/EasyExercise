@@ -43,7 +43,7 @@ public class SelectSportActivity extends AppCompatActivity {
         initButton();
     }
 
-    private Coordinates getCoordinate(){
+    private Coordinates getCoordinate() {
         return (Coordinates) getIntent().getSerializableExtra("Coordinate");
     }
 
@@ -83,22 +83,21 @@ public class SelectSportActivity extends AppCompatActivity {
         return f;
     }
 
-    private void initView(){
-        finalChoice= new ArrayList<>();
+    private void initView() {
+        finalChoice = new ArrayList<>();
         setContentView(R.layout.activity_select_sport);
         RecommendedSport = getRecommendedSport();
         OtherSport = getOtherSport();
-        coordinate= getCoordinate();
-        textView= findViewById(R.id.textView);
+        coordinate = getCoordinate();
+        textView = findViewById(R.id.textView);
         mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = findViewById(R.id.recycler_view);
     }
 
     /**
      * Initialize adapter for recyclerview.
-     *
      */
-    private void initAdapter(){
+    private void initAdapter() {
         mAdapter = new SportRecyclerViewAdapter(RecommendedSport);
         LinearLayoutManager manager = new GridLayoutManager(SelectSportActivity.this, 2);
         mRecyclerView.setHasFixedSize(true);
@@ -113,7 +112,7 @@ public class SelectSportActivity extends AppCompatActivity {
         mRecyclerView2.setAdapter(mAdapter2);
     }
 
-    private void initButton(){
+    private void initButton() {
         mSportChoicesConfirmButton.setOnClickListener(view -> {
             Context context = SelectSportActivity.this;
             ChosenSport1 = mAdapter.chosenSportList;
@@ -121,12 +120,12 @@ public class SelectSportActivity extends AppCompatActivity {
             finalChoice.clear();
             finalChoice.addAll(ChosenSport1);
             finalChoice.addAll(ChosenSport2);
-            FacilityRecommendation facilityRecommendation= new FacilityRecommendation();
-            FinalFacility= facilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, coordinate);
+            FacilityRecommendation facilityRecommendation = new FacilityRecommendation();
+            FinalFacility = facilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, coordinate, 10);
             // TODO: 2021/10/11 Search qualified facilities basing on sports chosen
             // TODO: 2021/10/11 the list of sports: ChosenSports1
             //FinalFacility = testGiveFacility();
-            textView.setText(String.valueOf(ChosenSport1.size()+ ChosenSport2.size()));
+            textView.setText(String.valueOf(ChosenSport1.size() + ChosenSport2.size()));
 
 //            Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
 //            intent.putExtra("FacilityQualified", (Serializable) FinalFacility);

@@ -13,14 +13,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FacilityRecommendation {
-    public static List<Facility> getFacilitiesBySports(Context context, Collection<Sport> sports, Coordinates coordinates) {
+    public static List<Facility> getFacilitiesBySports(Context context, Collection<Sport> sports, Coordinates coordinates, int limit) {
         DBManager manager = new DBManager(context);
         manager.openDatabase();
-        return manager.getFacilities().stream().filter(facility -> facility.getSports().stream().anyMatch(sport -> sports.stream().anyMatch(x -> x.getId() == sport.getId()))).sorted(Comparator.comparingDouble(x -> x.getDistance(coordinates))).collect(Collectors.toList());
+        return manager.getFacilities().stream()
+                .filter(facility ->
+                        facility.getSports().stream()
+                                .anyMatch(sport ->
+                                        sports.stream()
+                                                .anyMatch(x -> x.getId() == sport.getId())
+                                )
+                ).sorted(Comparator.comparingDouble(x -> x.getDistance(coordinates)))
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
-    public List<Facility> getFacilitiesNearby(List<Facility> facilityList, Coordinates coordinates, Double distance) {
-        return facilityList.stream().filter(facility -> coordinates.getDistance(facility.getCoordinates()) <= distance).sorted(Comparator.comparingDouble(x -> x.getDistance(coordinates))).collect(Collectors.toList());
+    public List<Facility> getFacilitiesNearby(List<Facility> facilityList, Coordinates coordinates, double distance, int limit) {
+        return facilityList.stream()
+                .filter(facility ->
+                        coordinates.getDistance(facility.getCoordinates()) <= distance)
+                .sorted(Comparator.comparingDouble(x -> x.getDistance(coordinates)))
+                .limit(limit)
+                .collect(Collectors.toList());
     }
-
 }

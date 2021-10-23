@@ -1,16 +1,5 @@
 package com.example.myapplication.databases;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +9,15 @@ import android.util.Log;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DBManager {
     private final int BUFFER_SIZE = 400000;
@@ -42,18 +40,18 @@ public class DBManager {
 
     private SQLiteDatabase openDatabase(String dbFile) {
         try {
-            if (!(new File(dbFile).exists())){
-                InputStream is = this.context.getResources().openRawResource(R.raw.data);
-                FileOutputStream fos = new FileOutputStream(dbFile);
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int count = 0;
-                while ((count = is.read(buffer)) > 0) {
-                    fos.write(buffer, 0, count);
-                }
-                fos.close();
-                is.close();
+//            if (!(new File(dbFile).exists())) {
+            InputStream is = this.context.getResources().openRawResource(R.raw.data);
+            FileOutputStream fos = new FileOutputStream(dbFile);
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int count = 0;
+            while ((count = is.read(buffer)) > 0) {
+                fos.write(buffer, 0, count);
             }
-            return SQLiteDatabase.openOrCreateDatabase(dbFile,null);
+            fos.close();
+            is.close();
+//            }
+            return SQLiteDatabase.openOrCreateDatabase(dbFile, null);
         } catch (FileNotFoundException e) {
             Log.e("Database", "File not found");
             e.printStackTrace();
@@ -68,16 +66,14 @@ public class DBManager {
         Cursor cursor = database.rawQuery("SELECT * FROM sports", null);
         if (cursor != null) {
             List<Sport> sportList = new ArrayList<Sport>();
-            if (cursor.getCount()>0) {
-                do {
-                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                    String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow("alternative_name"));
-                    String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
-                    Sport sport = new Sport(id, name, alternativeName, Sport.SportType.getType(type));
-                    sportList.add(sport);
-                } while (cursor.moveToNext());
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow("alternative_name"));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                sportList.add(new Sport(id, name, alternativeName, Sport.SportType.getType(type)));
             }
+            cursor.close();
             return sportList;
         } else {
             return null;
@@ -89,23 +85,23 @@ public class DBManager {
         if (cursor != null) {
             List<Sport> sportList = getSports();
             List<Facility> facilityList = new ArrayList<Facility>();
-            if (cursor.getCount() > 0) {
-                do {
-                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                    String url = cursor.getString(cursor.getColumnIndexOrThrow("url"));
-                    String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
-                    String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("postal_code"));
-                    String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";","\n");
-                    double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
-                    double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
-                    List<Integer> sportIDs = Stream.of(cursor.getString(cursor.getColumnIndexOrThrow("sports")).split(",")).map(Integer::parseInt).collect(Collectors.toList());
-                    Facility facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
-                    sportList.stream().filter(sport->sportIDs.contains(sport.getId())).forEach(facility::addSport);
-                } while (cursor.moveToNext());
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String url = cursor.getString(cursor.getColumnIndexOrThrow("url"));
+                String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("postal_code"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";", "\n");
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
+                List<Integer> sportIDs = Stream.of(cursor.getString(cursor.getColumnIndexOrThrow("sports")).split(",")).map(Integer::parseInt).collect(Collectors.toList());
+                Facility facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
+                sportList.stream().filter(sport -> sportIDs.contains(sport.getId())).forEach(facility::addSport);
+                facilityList.add(facility);
             }
+            cursor.close();
             return facilityList;
-        }else{
+        } else {
             return null;
         }
     }
@@ -117,7 +113,7 @@ public class DBManager {
 
 
 /*
-    public DBManager db = new DBManager(this);
+    DBManager db = new DBManager(this);
     db.openDatabase();
     //
     db.closeDatabase();

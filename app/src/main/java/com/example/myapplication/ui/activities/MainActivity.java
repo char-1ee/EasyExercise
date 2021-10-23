@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     double latitude;
     double longitude;
-    FacilityRecommendation facilityRecommendation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
-        facilityRecommendation= new FacilityRecommendation();
 
         getCurrentLocation();
         Handler handler = new Handler();
@@ -257,17 +255,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Intent getCheckInList(){
-        facilityRecommendation.getFacilitiesNearby(testCheckinFacilitByDistance(), new Coordinates(latitude, longitude, ""), 10, 20 );
         intentToCheckIn= new Intent(MainActivity.this, CheckInNormalActivity.class);
-        if(true){
+        List<Facility> facilityList= getCheckinFacilitByDistance();
+        if(facilityList.size()> 0){
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-            intentToCheckIn.putExtra("ClosestFacility", testCheckinClosetFacility());
-            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) testCheckinFacilitByDistance());
-            intentToCheckIn.putExtra("latitude1", latitude);
-            intentToCheckIn.putExtra("longitude1", longitude);
+            intentToCheckIn.putExtra("ClosestFacility", (Serializable) getCheckinFacilitByDistance().get(0));
+            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckinFacilitByDistance());
         } else {
             intentToCheckIn = new Intent(MainActivity.this, NoFacilityActivity.class);
         }
+        intentToCheckIn.putExtra("latitude1", latitude);
+        intentToCheckIn.putExtra("longitude1", longitude);
         return intentToCheckIn;
+    }
+
+    private List<Facility> getCheckinFacilitByDistance(){
+        return FacilityRecommendation.getFacilitiesNearby(MainActivity.this, new Coordinates(latitude, longitude, ""), 5, 20 );
     }
 }

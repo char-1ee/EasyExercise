@@ -11,6 +11,8 @@ import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.CustomizedLocation;
 
 public class NoFacilityActivity extends AppCompatActivity {
+    double latitude= 0;
+    double longitude= 0;
     private Button ProceedButton, CancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +22,10 @@ public class NoFacilityActivity extends AppCompatActivity {
 
     }
 
-    private CustomizedLocation testLocation(){
-        return new CustomizedLocation(new Coordinates(10,10));
-    }
-
     private void initButton(){
         ProceedButton.setOnClickListener(v -> {
             Intent intent= new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
-            intent.putExtra("CustomizedLocation",testLocation());
+            intent.putExtra("CustomizedLocation", new CustomizedLocation(new Coordinates(latitude, longitude, "Customized Location")));
             startActivity(intent);
             finish();
         });
@@ -43,6 +41,17 @@ public class NoFacilityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_no_facility);
         ProceedButton= findViewById(R.id.proceed_button);
         CancelButton= findViewById(R.id.cancel_button);
+        latitude= getLatitude();
+        longitude= getLongitude();
     }
+
+    public double getLatitude() {
+        return (double) getIntent().getSerializableExtra("latitude1");
+    }
+
+    public double getLongitude() {
+        return (double) getIntent().getSerializableExtra("longitude1");
+    }
+
 
 }

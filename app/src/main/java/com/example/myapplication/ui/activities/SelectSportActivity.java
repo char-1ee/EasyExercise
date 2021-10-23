@@ -100,8 +100,7 @@ public class SelectSportActivity extends AppCompatActivity {
             finalChoice.clear();
             finalChoice.addAll(ChosenSport1);
             finalChoice.addAll(ChosenSport2);
-            FacilityRecommendation facilityRecommendation= new FacilityRecommendation();
-            FinalFacility= facilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
+            FinalFacility= FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
             textView.setText(String.valueOf(longitude));
             Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
             intent.putExtra("FacilityQualified", (Serializable) FinalFacility);

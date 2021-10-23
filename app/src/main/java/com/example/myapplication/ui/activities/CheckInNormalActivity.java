@@ -118,13 +118,17 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
 
     private void initButton(){
         button1.setOnClickListener(view -> {
-            Toast.makeText(CheckInNormalActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-            ChosenSport = firstAdapter.finalChoice;
-            Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
-            intent.putExtra("ChosenSport", ChosenSport);
-            intent.putExtra("ChosenLocation", facility);
-            startActivity(intent);
-            finish();
+            if(ChosenSport== null){
+                Toast.makeText(CheckInNormalActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
+                intent.putExtra("ChosenSport", ChosenSport);
+                intent.putExtra("ChosenLocation", facility);
+                startActivity(intent);
+                finish();
+            }
+
         });
 
         button2.setOnClickListener(view -> {
@@ -133,6 +137,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
             intent.putExtra("latitude", latitude);
             intent.putExtra("longitude", longitude);
             startActivity(intent);
+            finish();
         });
     }
 

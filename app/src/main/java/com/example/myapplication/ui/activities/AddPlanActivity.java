@@ -100,9 +100,15 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
 
     private void initButton(){
         button.setOnClickListener(view -> {
-            Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if(finalSport== null){
+                Toast.makeText(AddPlanActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         });
     }
 

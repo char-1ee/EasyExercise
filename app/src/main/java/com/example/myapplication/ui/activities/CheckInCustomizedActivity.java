@@ -73,13 +73,16 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
 
     private void initButton(){
         button1.setOnClickListener(view -> {
-            Toast.makeText(CheckInCustomizedActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-            ChosenSport = firstAdapter.finalChoice;
-            Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
-            intent.putExtra("ChosenSport", ChosenSport);
-            intent.putExtra("ChosenLocation", customizedLocation);
-            startActivity(intent);
-            finish();
+            if(ChosenSport== null){
+                Toast.makeText(CheckInCustomizedActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
+                intent.putExtra("ChosenSport", ChosenSport);
+                intent.putExtra("ChosenLocation", customizedLocation);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 

@@ -25,7 +25,7 @@
                 android:id="@+id/mapview"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="300dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +37,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/check_in_sport_recycler"
         android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
@@ -54,14 +55,15 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="40dp"
-        app:cardBackgroundColor="@color/browser_actions_bg_grey"
+        app:cardBackgroundColor="@color/primary_blue"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -69,10 +71,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="20dp"
                 android:text="North Hill Gym"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="5dp"
-                android:background="@color/black" />
+                android:background="@color/primary_blue_dark" />
 
             <TextView
                 android:id="@+id/address_view"
@@ -103,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:text="636959"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -114,13 +116,14 @@
 
 
         </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/choose_another_facility_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         android:text="@string/select_another_facility_text"
         android:textAlignment="center"

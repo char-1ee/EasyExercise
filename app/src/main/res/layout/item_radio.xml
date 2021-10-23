@@ -5,36 +5,39 @@
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    tools:layout_editor_absoluteY="342dp">
+    android:layout_margin="2dp">
     <!--单选-->
+
+
 
     <RadioButton
         android:id="@+id/check_in_sport_radio_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/check_in_sport_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="2dp"
+        app:srcCompat="@drawable/swimming"
+        android:background="@drawable/radio_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/check_in_sport_radio_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/check_in_sport_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="10dp"
         android:text="Option"
+        android:layout_marginTop="2dp"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

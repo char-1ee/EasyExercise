@@ -17,6 +17,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.databases.WorkoutPlanQueryImp;
 import com.example.myapplication.ui.adapters.AddPlanAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +37,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
     private TextView addressView;
     private TextView postalView;
     private Sport finalSport;
+    private WorkoutPlan workoutPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +107,13 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(AddPlanActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
             }
             else{
+                workoutPlan= new WorkoutPlan(finalSport, facility, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
+                WorkoutPlanQueryImp workoutPlanQueryImp= new WorkoutPlanQueryImp(workoutPlan);
+                workoutPlanQueryImp.insert(workoutPlan);
                 Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-
         });
     }
 

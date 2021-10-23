@@ -20,8 +20,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Helper class for {@link Sport} and {@link Facility} databases.
- *
+ * Helper class for {@link Sport} and {@link Facility} databases.<p>
+ * Sample usage is like:
+ * <pre>
+ *     SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(this);
+ *     dbHelper.openDatabase();
+ *     // Your code here
+ *     dbHelper.closeDatabase();
+ * </pre>
  * @author Li Xingjian
  * @author Ma Xinyi
  * @author Zhong Ruoyu
@@ -105,15 +111,22 @@ public class SportAndFacilityDBHelper {
         }
     }
 
+    /**
+     * Get sport data by {@code sportId}
+     *
+     * @param sportId targeted sport Id
+     * @return {@link Sport} instance, otherwise {@code null} if no matches
+     */
     public Sport getSportById(int sportId) {
         Cursor cursor = database.rawQuery("SELECT * FROM sports WHERE _id = sportId", null);
         if (cursor != null) {
-            Sport sport = new Sport();
+            Sport sport = null;
             if (cursor.getCount() > 0) {
-                sport.setId(cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
-                sport.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
-                sport.setAlternativeName(cursor.getString(cursor.getColumnIndexOrThrow("alternative_name")));
-                sport.setType(Sport.SportType.getType(cursor.getString(cursor.getColumnIndexOrThrow("type"))));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow("alternative_name"));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                sport = new Sport(id, name, alternativeName, Sport.SportType.getType(type));
             }
             return sport;
         } else {
@@ -121,19 +134,26 @@ public class SportAndFacilityDBHelper {
         }
     }
 
+    /**
+     * Get sport data by {@code sportId}
+     *
+     * @param facilityId targeted facility Id
+     * @return {@link Facility} instance, otherwise {@code null} if no matches
+     */
     public Facility getFacilityById(int facilityId) {
         Cursor cursor = database.rawQuery("SELECT * FROM facilities WHERE _id = facilityId", null);
         if (cursor != null) {
-            Facility facility = new Facility();
+            Facility facility = null;
             if (cursor.getCount() > 0) {
-                facility.setId(cursor.getInt(cursor.getColumnIndexOrThrow("_id")));
-                facility.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
-                facility.setUrl(cursor.getString(cursor.getColumnIndexOrThrow("url")));
-                facility.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
-                facility.setPostalCode(cursor.getString(cursor.getColumnIndexOrThrow("postal_code")));
-                facility.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";","\n"));
-                facility.setLatitude(cursor.getDouble(cursor.getColumnIndexOrThrow("latitude")));
-                facility.setLongitude(cursor.getDouble(cursor.getColumnIndexOrThrow("longitude")));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String url = cursor.getString(cursor.getColumnIndexOrThrow("url"));
+                String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("postal_code"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";", "\n");
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
+                facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
             }
             return facility;
         } else {
@@ -178,9 +198,3 @@ public class SportAndFacilityDBHelper {
         this.database.close();
     }
 }
-/*
-    SFDBHelper db = new DBHelper(this);
-    db.openDatabase();
-    //
-    db.closeDatabase();
- */

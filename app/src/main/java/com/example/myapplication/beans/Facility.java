@@ -14,9 +14,9 @@ public class Facility extends Location implements Serializable {
     private String description;
     private Set<Sport> sports;
 
-    public Facility() {
-        super();
-    }
+//    public Facility() {
+//        super();
+//    }
 
     public Facility(int id, String name, String url, String address, String postalCode,
                     String description, double latitude, double longitude) {

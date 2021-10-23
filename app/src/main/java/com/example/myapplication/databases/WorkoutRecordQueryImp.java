@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.utils.DateUtil;
@@ -26,8 +27,8 @@ public class WorkoutRecordQueryImp {
 
     private WorkoutRecord workoutRecord;
 
-    public WorkoutRecordQueryImp() {
-        this.workoutRecord = new WorkoutRecord();
+    public WorkoutRecordQueryImp(WorkoutRecord record) {
+        this.workoutRecord = record;
     }
 
     public void insert(WorkoutRecord workoutRecord) {
@@ -35,7 +36,11 @@ public class WorkoutRecordQueryImp {
         ContentValues values = new ContentValues();
 
         values.put(KEY_SPORT_ID, workoutRecord.getSport().getId());
-        values.put(KEY_FACILITY_ID, workoutRecord.getFacility().getId());
+        int facilityId = -1;
+        if (workoutRecord.getLocation().getLocationType() == Location.LocationType.FACILITY ){
+            facilityId = ((Facility) workoutRecord.getLocation()).getId();    // TODO: high probability only -1 can be passed
+        }
+        values.put(KEY_FACILITY_ID, facilityId);
         values.put(KEY_STATUS, workoutRecord.getStatus().toString());
         values.put(KEY_START_TIME, workoutRecord.getStartTime().toString());
 
@@ -62,9 +67,11 @@ public class WorkoutRecordQueryImp {
                     String startTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_START_TIME));
                     String endTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_END_TIME));
 
-                    Sport sport = new Sport();  // TODO
-                    Facility facility = new Facility();
-                    cursorMatchById(context, sport, facility, sportId, facilityId);
+                    SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
+                    dbHelper.openDatabase();
+                    Sport sport = dbHelper.getSportById(sportId);
+                    Facility facility = dbHelper.getFacilityById(facilityId);
+                    dbHelper.closeDatabase();
 
                     Date startTime = DateUtil.getDateFromString(startTimeText, TimeUtil.pattern2);
                     Date endTime = DateUtil.getDateFromString(endTimeText, TimeUtil.pattern2);
@@ -80,13 +87,5 @@ public class WorkoutRecordQueryImp {
             DatabaseManager.getInstance().closeDatabase();
             return null;
         }
-    }
-
-    public void cursorMatchById(Context context, Sport sport, Facility facility, int sportId, int facilityId) {
-        SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
-        dbHelper.openDatabase();
-        sport = dbHelper.getSportById(sportId);
-        facility = dbHelper.getFacilityById(facilityId);
-        dbHelper.closeDatabase();
     }
 }

@@ -36,7 +36,7 @@ public class Sport implements Serializable {
     private SportType type;
     private boolean isSelected = false;
 
-    public Sport(){}
+//    public Sport(){}
 
     public Sport(int id, String name, String alternativeName, SportType type) {
         this.id = id;

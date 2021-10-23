@@ -35,24 +35,24 @@ public class WorkoutPlan implements Serializable {
     private Sport sport;
     private Location location;
     private long id;
-    private Facility facility;
+//    private Facility facility;
     private WorkoutPlanStatus status;
 
-    public WorkoutPlan(){}
-
-    public WorkoutPlan(Sport sport, Facility facility, long id) {
-        this.sport = sport;
-        this.facility = facility;
-        this.id = id;
-        this.status = WorkoutPlanStatus.PRIVATE;
-    }
-
-    public WorkoutPlan(Sport sport, Facility facility, long id, String status) {
-        this.sport = sport;
-        this.facility = facility;
-        this.id = id;
-        this.status = getType(status);
-    }
+//    public WorkoutPlan(){}
+//
+//    public WorkoutPlan(Sport sport, Facility facility, long id) {
+//        this.sport = sport;
+//        this.facility = facility;
+//        this.id = id;
+//        this.status = WorkoutPlanStatus.PRIVATE;
+//    }
+//
+//    public WorkoutPlan(Sport sport, Facility facility, long id, String status) {
+//        this.sport = sport;
+//        this.facility = facility;
+//        this.id = id;
+//        this.status = getType(status);
+//    }
 
     public WorkoutPlan(Sport sport, Location location, long id) {
         this.sport = sport;
@@ -72,8 +72,8 @@ public class WorkoutPlan implements Serializable {
         return sport;
     }
 
-    public Facility getFacility() {
-        return facility;
+    public Location getLocation() {
+        return location;
     }
 
     public long getId() {
@@ -88,8 +88,8 @@ public class WorkoutPlan implements Serializable {
         this.sport = sport;
     }
 
-    public void setLocation(Facility facility) {
-        this.facility = facility;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public void setId(long id) {

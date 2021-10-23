@@ -16,7 +16,7 @@ public class Coordinates implements Serializable {
         this.name = name;
     }
 
-    public Coordinates() {}
+//    public Coordinates() {}
 
     public Coordinates(double latitude, double longitude) {
         this(latitude, longitude, "");

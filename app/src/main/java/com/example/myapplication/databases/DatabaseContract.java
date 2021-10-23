@@ -42,12 +42,14 @@ public final class DatabaseContract {
                 KEY_SPORT_TYPE + TEXT_TYPE + " CHECK ( " + KEY_SPORT_TYPE +
                 " IN ( 'Indoor', 'Outdoor', 'Indoor/Outdoor' ) " +
                 " ) ";
-        // CREATE TABLE sports (
-        // _id INTEGER PRIMARY KEY,
-        // name TEXT,
-        // alternative_name TEXT,
-        // type TEXT CHECK ( type IN ( 'Indoor', 'Outdoor', 'Indoor/Outdoor' )
-        // )
+         /*
+            CREATE TABLE sports (
+             _id INTEGER PRIMARY KEY,
+             name TEXT,
+             alternative_name TEXT,
+             type TEXT CHECK ( type IN ( 'Indoor', 'Outdoor', 'Indoor/Outdoor' )
+            )
+        */
 
         public static final String DELETE_TABLE_SPORTS = " DROP TABLE IF EXISTS " + TABLE_NAME_SPORTS;
     }
@@ -74,17 +76,19 @@ public final class DatabaseContract {
                 KEY_LONGITUDE + DOUBLE_TYPE + COMMA_SEP +
                 KEY_SPORTS + TEXT_TYPE +
                 " ) ";
-        // CREATE TABLE facilities (
-        // _id INTEGER PRIMARY KEY,
-        // name TEXT,
-        // url TEXT,
-        // address TEXT,
-        // postal_code TEXT,
-        // description TEXT,
-        // latitude DOUBLE,
-        // longitude DOUBLE,
-        // sports TEXT
-        // );
+         /*
+            CREATE TABLE facilities (
+             _id INTEGER PRIMARY KEY,
+             name TEXT,
+             url TEXT,
+             address TEXT,
+             postal_code TEXT,
+             description TEXT,
+             latitude DOUBLE,
+             longitude DOUBLE,
+             sports TEXT
+            );
+         */
 
         public static final String DELETE_TABLE_FACILITIES = "DROP TABLE IF EXISTS " + TABLE_NAME_FACILITIES;
     }
@@ -96,13 +100,13 @@ public final class DatabaseContract {
         public static final String KEY_STATUS = "workoutPlanStatus";
 
         /*
-            CREATE TABLE workoutPlanTable (
+           CREATE TABLE workoutPlanTable (
             _id INTEGER PRIMARY KEY,
             sportId INTEGER,
             facilityId INTEGER,
             FOREIGN KEY (sportId) REFERENCES sports (id)
             FOREIGN KEY (facilityId) REFERENCES facilities (id)
-            )
+           )
          */
         public static final String CREATE_TABLE_WORKOUT_PLAN = "CREATE TABLE " +
                 TABLE_NAME_WORKOUT_PLAN + "(" +
@@ -133,7 +137,7 @@ public final class DatabaseContract {
             endTime TEXT,
             FOREIGN KEY (sportId) REFERENCES sports (id)
             FOREIGN KEY (facilityId) REFERENCES facilities (id)
-            )
+           )
          */
         public static final String CREATE_TABLE_WORKOUT_HISTORY = "CREATE TABLE " +
                 TABLE_NAME_WORKOUT_HISTORY + "(" +

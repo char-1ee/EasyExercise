@@ -11,10 +11,6 @@ public abstract class Location extends Coordinates implements Serializable {
 
     private LocationType type;
 
-    public Location(){
-        super();
-    }
-
     public Location(double latitude, double longitude, String name,
                     LocationType type) {
         super(latitude, longitude, name);

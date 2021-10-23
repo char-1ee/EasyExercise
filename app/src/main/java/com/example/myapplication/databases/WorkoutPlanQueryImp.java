@@ -1,5 +1,6 @@
 package com.example.myapplication.databases;
 
+import static com.example.myapplication.beans.WorkoutPlan.WorkoutPlanStatus.getType;
 import static com.example.myapplication.databases.DatabaseContract.WorkoutPlanTable.KEY_FACILITY_ID;
 import static com.example.myapplication.databases.DatabaseContract.WorkoutPlanTable.KEY_SPORT_ID;
 import static com.example.myapplication.databases.DatabaseContract.WorkoutPlanTable.KEY_STATUS;
@@ -24,15 +25,19 @@ public class WorkoutPlanQueryImp {
 
     private WorkoutPlan workoutPlan;
 
-    public WorkoutPlanQueryImp() {
-        this.workoutPlan = new WorkoutPlan();
+    public WorkoutPlanQueryImp(WorkoutPlan plan) {
+        this.workoutPlan = plan;
     }
 
     public void insert(WorkoutPlan workoutPlan) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_SPORT_ID, workoutPlan.getSport().getId());
-        values.put(KEY_FACILITY_ID, workoutPlan.getFacility().getId());
+        int facilityId = -1;
+        if (workoutPlan.getLocation().getLocationType() == Location.LocationType.FACILITY ){
+            facilityId = ((Facility) workoutPlan.getLocation()).getId();    // TODO: high probability only -1 can be passed
+        }
+        values.put(KEY_FACILITY_ID, facilityId);
         values.put(KEY_STATUS, workoutPlan.getStatus().toString());
 
         db.insert(TABLE_NAME_WORKOUT_PLAN, null, values);
@@ -57,11 +62,13 @@ public class WorkoutPlanQueryImp {
                     int facilityId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_FACILITY_ID));
                     String status = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STATUS));
 
-                    Sport sport = new Sport();
-                    Facility facility = new Facility();
-                    cursorMatchById(context, sport, facility, sportId, facilityId);
+                    SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
+                    dbHelper.openDatabase();
+                    Sport sport = dbHelper.getSportById(sportId);
+                    Facility facility = dbHelper.getFacilityById(facilityId);
+                    dbHelper.closeDatabase();
 
-                    WorkoutPlan plan = new WorkoutPlan(sport, facility, id, status);
+                    WorkoutPlan plan = new WorkoutPlan(sport, facility, id, getType(status));
                     planList.add(plan);
                 } while (cursor.moveToNext());
             }
@@ -74,11 +81,4 @@ public class WorkoutPlanQueryImp {
         }
     }
 
-    public void cursorMatchById(Context context, Sport sport, Facility facility, int sportId, int facilityId) {
-        SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
-        dbHelper.openDatabase();
-        sport = dbHelper.getSportById(sportId);
-        facility = dbHelper.getFacilityById(facilityId);
-        dbHelper.closeDatabase();
-    }
 }

@@ -7,12 +7,12 @@ public class WorkoutRecord extends WorkoutPlan implements Serializable {
     private Date startTime;
     private Date endTime;
 
-    public WorkoutRecord(){
-        super();
-    }
+//    public WorkoutRecord(){
+//        super();
+//    }
 
-    public WorkoutRecord(Sport sport, Facility facility, long id, Date startTime, Date endTime) {
-        super(sport, facility, id);
+    public WorkoutRecord(Sport sport, Location location, long id, Date startTime, Date endTime) {
+        super(sport, location, id);
         this.startTime = startTime;
         this.endTime = endTime;
     }

@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.databases.DBManager;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CheckInCustomizedActivity extends AppCompatActivity {
+    private DBManager db;
     private ImageView imageView;
     private Button button1;
     private RecyclerView rv_test;
@@ -43,13 +45,9 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     }
 
     private List<Sport> testSelectSportAll(){
-        List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
+        db.closeDatabase();
+        List<Sport> sports= db.getSports();
+        db.closeDatabase();
         return sports;
     }
 
@@ -61,12 +59,13 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
         imageView.setImageResource(R.drawable.panorama);
         locationView= findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
+        db= new DBManager(this);
     }
 
     private void initAdapter(){
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInCustomizedActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
-        // TODO: 2021/10/11 pass all sports to custom location
+
         rv_test.setAdapter(firstAdapter);
     }
 

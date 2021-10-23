@@ -56,8 +56,6 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     }
 
     private List<Facility> getFacilityList(){
-        // TODO: 2021/10/11 match facility with plan in database
-        
         return (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
     }
 

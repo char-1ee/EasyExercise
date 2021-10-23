@@ -109,7 +109,6 @@ public class HomeFragment extends Fragment {
         });
 
         mCheckInButton.setOnClickListener(v -> {
-            // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
             startActivity(intentToCheckIn);
         });
     }

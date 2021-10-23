@@ -74,6 +74,7 @@ public class DBManager {
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 sportList.add(new Sport(id, name, alternativeName, Sport.SportType.getType(type)));
             }
+            cursor.close();
             return sportList;
         } else {
             return null;
@@ -99,6 +100,7 @@ public class DBManager {
                 sportList.stream().filter(sport -> sportIDs.contains(sport.getId())).forEach(facility::addSport);
                 facilityList.add(facility);
             }
+            cursor.close();
             return facilityList;
         } else {
             return null;
@@ -112,7 +114,7 @@ public class DBManager {
 
 
 /*
-    public DBManager db = new DBManager(this);
+    DBManager db = new DBManager(this);
     db.openDatabase();
     //
     db.closeDatabase();

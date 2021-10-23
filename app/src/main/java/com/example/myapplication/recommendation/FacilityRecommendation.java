@@ -16,7 +16,7 @@ public class FacilityRecommendation {
     public static List<Facility> getFacilitiesBySports(Context context, Collection<Sport> sports, Coordinates coordinates, int limit) {
         DBManager manager = new DBManager(context);
         manager.openDatabase();
-        return manager.getFacilities().stream()
+        List<Facility> results = manager.getFacilities().stream()
                 .filter(facility ->
                         facility.getSports().stream()
                                 .anyMatch(sport ->
@@ -26,6 +26,8 @@ public class FacilityRecommendation {
                 ).sorted(Comparator.comparingDouble(x -> x.getDistance(coordinates)))
                 .limit(limit)
                 .collect(Collectors.toList());
+        manager.closeDatabase();
+        return results;
     }
 
     public List<Facility> getFacilitiesNearby(List<Facility> facilityList, Coordinates coordinates, double distance, int limit) {

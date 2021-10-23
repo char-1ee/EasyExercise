@@ -24,10 +24,9 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     public Sport finalChoice;
     private final Context context;
     private final List<Sport> sportList;
-    private int index = -1;
+    private int lastCheckedPos = -1;
     private final Facility facility;
     private final SportsImage sm;
-    private int old_index= -1;
 
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
@@ -52,20 +51,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         Sport item = sportList.get(position);
         holder.tv_question_item.setText(item.getName());
         holder.iv_question_item.setImageResource(sm.SportsToImage(item));
-        holder.rb_question_item.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                old_index= index;
-                index= position;
-                notifyDataSetChanged();
-                notifyItemChanged(position);
-                finalChoice= sportList.get(index);
-                holder.rb_question_item.setChecked(true);
-            }
-        });
-        if (old_index == position) {
-            holder.rb_question_item.setChecked(holder.rb_question_item.isChecked());
-            notifyItemChanged(position);
-        }
+        holder.rb_question_item.setChecked(position == lastCheckedPos);
     }
 
     @Override
@@ -73,7 +59,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         return sportList.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton rb_question_item;
         TextView tv_question_item;
         ImageView iv_question_item;
@@ -83,6 +69,16 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
             rb_question_item = itemView.findViewById(R.id.check_in_sport_radio_button);
             tv_question_item = itemView.findViewById(R.id.check_in_sport_name);
             iv_question_item = itemView.findViewById(R.id.check_in_sport_image);
+
+            rb_question_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int copyOfLastCheckedPos = lastCheckedPos;
+                    lastCheckedPos = getAdapterPosition();
+                    notifyItemChanged(copyOfLastCheckedPos);
+                    notifyItemChanged(lastCheckedPos);
+                }
+            });
         }
     }
 }

@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar progressBar;
     private Button toRegisterButton, loginButton, resetButton;
     private GoogleSignInClient googleSignInClient;
-    private SignInButton googleSignInButton;
+    private GoogleSignInButton googleSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

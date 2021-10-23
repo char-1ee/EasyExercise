@@ -38,6 +38,8 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     private TextView addressView;
     private TextView postalView;
     private CheckInSportAdapter firstAdapter;
+    double latitude= 0;
+    double longitude= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         setContentView(R.layout.activity_check_in_normal);
         facility= getFacility();
         facilityList= getFacilityList();
+        latitude= getLatitude();
+        longitude= getLongitude();
         rv_test = findViewById(R.id.check_in_sport_recycler);
         button1 = findViewById(R.id.check_in_sport_button);
         button2 = findViewById(R.id.choose_another_facility_button);
@@ -125,7 +129,18 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         button2.setOnClickListener(view -> {
             Intent intent = new Intent(CheckInNormalActivity.this, SelectFacilityCheckInActivity.class);
             intent.putExtra("FacilityByDistance2",(Serializable)facilityList);
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("longitude", longitude);
             startActivity(intent);
         });
     }
+
+    public double getLatitude() {
+        return (double) getIntent().getSerializableExtra("latitude1");
+    }
+
+    public double getLongitude() {
+        return (double) getIntent().getSerializableExtra("longitude1");
+    }
+
 }

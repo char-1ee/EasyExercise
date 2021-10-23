@@ -31,7 +31,6 @@ public class SelectSportActivity extends AppCompatActivity {
     double longitude= 0;
     private List<Sport> finalChoice;
     TextView textView;
-    private Coordinates coordinate;
     private List<Sport> ChosenSport1;
     private List<Sport> ChosenSport2;
     private List<Facility> FinalFacility;

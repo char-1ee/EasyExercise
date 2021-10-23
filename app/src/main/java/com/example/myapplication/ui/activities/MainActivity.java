@@ -18,7 +18,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Coordinates;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.recommendation.FacilityRecommendation;
 import com.example.myapplication.ui.fragments.CommunityFragment;
 import com.example.myapplication.ui.fragments.HistoryFragment;
 import com.example.myapplication.ui.fragments.HomeFragment;
@@ -41,10 +44,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    Intent intentToCheckIn;
     Intent intentToPlan;
     private LocationRequest locationRequest;
     double latitude;
     double longitude;
+    FacilityRecommendation facilityRecommendation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
+        facilityRecommendation= new FacilityRecommendation();
 
         getCurrentLocation();
         Handler handler = new Handler();
@@ -219,5 +225,49 @@ public class MainActivity extends AppCompatActivity {
 
     public Intent getIntentToPlan(){
         return intentToPlan;
+    }
+
+    private Facility testCheckinClosetFacility() {
+        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
+        return r;
+    }
+
+    private List<Facility> testCheckinFacilitByDistance(){
+        Sport a= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
+        r.addSport(a);
+        r.addSport(b);
+        r.addSport(c);
+        List<Facility> f = new ArrayList<>();
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        f.add(testCheckinClosetFacility());
+        f.add(r);
+        return f;
+    }
+
+    public Intent getCheckInList(){
+        facilityRecommendation.getFacilitiesNearby(testCheckinFacilitByDistance(), new Coordinates(latitude, longitude, ""), 10, 20 );
+        intentToCheckIn= new Intent(MainActivity.this, CheckInNormalActivity.class);
+        if(true){
+            intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
+            intentToCheckIn.putExtra("ClosestFacility", testCheckinClosetFacility());
+            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) testCheckinFacilitByDistance());
+            intentToCheckIn.putExtra("latitude1", latitude);
+            intentToCheckIn.putExtra("longitude1", longitude);
+        } else {
+            intentToCheckIn = new Intent(MainActivity.this, NoFacilityActivity.class);
+        }
+        return intentToCheckIn;
     }
 }

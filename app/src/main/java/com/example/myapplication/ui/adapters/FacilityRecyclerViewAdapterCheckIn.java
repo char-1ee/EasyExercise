@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.ui.activities.CheckInNormalActivity;
 
@@ -22,10 +23,12 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     private Facility ChosenFacility;
     private final List<Facility> mFacilityList;
     private final Context mContext;
+    private final Coordinates mCurrentCoordinates;
 
-    public FacilityRecyclerViewAdapterCheckIn(Context context, List<Facility> facilityList) {
+    public FacilityRecyclerViewAdapterCheckIn(Context context, List<Facility> facilityList, Coordinates currentCoordinates) {
         mFacilityList = facilityList;
         mContext = context;
+        mCurrentCoordinates= currentCoordinates;
     }
 
     @NonNull
@@ -39,12 +42,14 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        //holder.mSelectFacilityDistance.setText("0.6 km");
+        holder.mSelectFacilityDistance.setText(String.valueOf( Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates)*100.0)/100.0+ "km"));
         holder.view.setOnClickListener(view -> {
             ChosenFacility = mFacilityList.get(position);
             Intent intent = new Intent(mContext, CheckInNormalActivity.class);
             intent.putExtra("ClosestFacility", ChosenFacility);
             intent.putExtra("FacilityByDistance",(Serializable)mFacilityList);
+            intent.putExtra("latitude1", mCurrentCoordinates.getLatitude());
+            intent.putExtra("longitude1", mCurrentCoordinates.getLongitude());
             mContext.startActivity(intent);
             ((Activity)mContext).finish();
         });

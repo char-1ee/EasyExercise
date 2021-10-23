@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    Intent intentToCheckIn;
     Intent intentToPlan;
     Handler handler;
     Runnable runnable;
@@ -66,7 +67,6 @@ public class HomeFragment extends Fragment {
     double latitude;
     double longitude;
     Coordinates c;
-    private LocationRequest locationRequest;
 //    private AddPlanAdapter firstAdapter;
 //    public Facility closestFacility;
 //    public List<Facility> FacilityByDistance;
@@ -87,66 +87,10 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-
-    private Facility testCheckinClosetFacility() {
-        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        return r;
-    }
-
-    private List<Facility> testCheckinFacilitByDistance(){
-        Sport a= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        List<Facility> f = new ArrayList<>();
-        f.add(testCheckinClosetFacility());
-        f.add(r);
-        f.add(testCheckinClosetFacility());
-        f.add(r);
-        f.add(testCheckinClosetFacility());
-        f.add(r);
-        return f;
-    }
-
-    private List<Sport> testSelectSportRecommended(){
-        List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
-        return sports;
-    }
-
-    private List<Sport> testSelectSportOther() {
-        List<Sport> sports = new ArrayList<>();
-        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
-        return sports;
-    }
-
     private void initVIew(){
         mMakePlanButton = view.findViewById(R.id.home_plan_button);
         mCheckInButton = view.findViewById(R.id.home_checkin_button);
         AddressText = view.findViewById(R.id.addressText);
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
         temperature = view.findViewById(R.id.temperature);
         pm25 = view.findViewById(R.id.pm25_value);
         uvIndex = view.findViewById(R.id.UV_value);
@@ -166,15 +110,7 @@ public class HomeFragment extends Fragment {
 
         mCheckInButton.setOnClickListener(v -> {
             // TODO: 2021/10/11 give the closestfacility(one) and a list of facilities sorted by distance
-            Intent intent;
-            if(facilityAround()){
-                intent = new Intent(getActivity(), CheckInNormalActivity.class);
-                intent.putExtra("ClosestFacility", testCheckinClosetFacility());
-                intent.putExtra("FacilityByDistance", (Serializable) testCheckinFacilitByDistance());
-            } else {
-                intent = new Intent(getActivity(), NoFacilityActivity.class);
-            }
-            startActivity(intent);
+            startActivity(intentToCheckIn);
         });
     }
 
@@ -207,9 +143,6 @@ public class HomeFragment extends Fragment {
         forecast.setText(forecast_string);
     }
 
-    private boolean facilityAround(){
-        return true;
-    }
 
     private void initHandler(){
         handler = new Handler();
@@ -223,6 +156,7 @@ public class HomeFragment extends Fragment {
                     AddressText.setText(String.valueOf(latitude));
                     c= new Coordinates(latitude, longitude, "new");
                     intentToPlan= activity.getIntentToPlan();
+                    intentToCheckIn= activity.getCheckInList();
                     setWeather(c);
                     initButton();
                 }

@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
-import com.example.myapplication.beans.Sport;
-import com.example.myapplication.databases.DBManager;
+import com.example.myapplication.beans.Sport;;
+import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
-    private DBManager db;
+    private SportAndFacilityDBHelper dbHelper;
     private ImageView imageView;
     private Button button1;
     private RecyclerView rv_test;
@@ -47,9 +47,9 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
     }
 
     private List<Sport> testSelectSportAll(){
-        db.openDatabase();
-        List<Sport> sports= db.getSports();
-        db.closeDatabase();
+        dbHelper.openDatabase();
+        List<Sport> sports= dbHelper.getSports();
+        dbHelper.closeDatabase();
         return sports;
     }
 
@@ -61,7 +61,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
         imageView.setImageResource(R.drawable.panorama);
         locationView= findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
-        db= new DBManager(this);
+        dbHelper= new SportAndFacilityDBHelper(this);
     }
 
     private void initAdapter(){

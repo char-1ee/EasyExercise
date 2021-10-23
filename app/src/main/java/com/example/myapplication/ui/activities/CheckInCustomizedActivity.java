@@ -45,7 +45,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     }
 
     private List<Sport> testSelectSportAll(){
-        db.closeDatabase();
+        db.openDatabase();
         List<Sport> sports= db.getSports();
         db.closeDatabase();
         return sports;
@@ -65,8 +65,15 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     private void initAdapter(){
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInCustomizedActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
-
         rv_test.setAdapter(firstAdapter);
+        rv_test.post(new Runnable()
+        {
+            @Override
+            public void run() {
+                firstAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     private void initButton(){

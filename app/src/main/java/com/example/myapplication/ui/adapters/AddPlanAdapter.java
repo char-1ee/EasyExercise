@@ -27,6 +27,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     private int index = -1;
     private final Facility facility;
     private final SportsImage sm;
+    private int old_index= -1;
 
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
@@ -53,16 +54,17 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         holder.iv_question_item.setImageResource(sm.SportsToImage(item));
         holder.rb_question_item.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-//                    Toast.makeText(context, "Option " + secondList.get(position) + " selected", Toast.LENGTH_SHORT).show();
-                index = position;
+                old_index= index;
+                index= position;
                 notifyDataSetChanged();
+                notifyItemChanged(position);
+                finalChoice= sportList.get(index);
+                holder.rb_question_item.setChecked(true);
             }
         });
-        if (index == position) {
-            holder.rb_question_item.setChecked(true);
-            finalChoice = sportList.get(index);
-        } else {
-            holder.rb_question_item.setChecked(false);
+        if (old_index == position) {
+            holder.rb_question_item.setChecked(holder.rb_question_item.isChecked());
+            notifyItemChanged(position);
         }
     }
 

@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     public Intent getCheckInList(){
         intentToCheckIn= new Intent(MainActivity.this, CheckInNormalActivity.class);
         List<Facility> facilityList= getCheckinFacilitByDistance();
-        if(facilityList.size()> 0){
+        if(facilityList.size()< 0){
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
             intentToCheckIn.putExtra("ClosestFacility", (Serializable) getCheckinFacilitByDistance().get(0));
             intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckinFacilitByDistance());

@@ -18,7 +18,7 @@ import java.util.Date;
 public class CheckOutActivity extends AppCompatActivity {
     private ImageView profileView, sportView;
     private Button exitButton;
-    private TextView timeDuration;
+    private TextView timeDuration, placeView, sportNameView;
     private Sport sport;
     private Location location;
     private Date startDate, endDate, diff;
@@ -62,12 +62,16 @@ public class CheckOutActivity extends AppCompatActivity {
         location = getLocation();
         startDate = getStartDate();
         diff = new Date(endDate.getTime() - startDate.getTime());
+        sportNameView= findViewById(R.id.checkoutSport);
+        placeView= findViewById(R.id.checkoutPlace);
         sportView=findViewById(R.id.checkoutPic);
         exitButton=findViewById(R.id.exitButton);
         profileView=findViewById(R.id.checkoutProfile);
         timeDuration = findViewById(R.id.time_duration);
         sportView.setImageResource(sm.SportsToImage(sport));
+        placeView.setText(location.getName());
         timeDuration.setText(getTimeDuration());
+        sportNameView.setText(sport.getName());
     }
 
     private void initButton(){

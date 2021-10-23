@@ -37,7 +37,7 @@ public class WorkoutRecordQueryImp {
 
         values.put(KEY_SPORT_ID, workoutRecord.getSport().getId());
         int facilityId = -1;
-        if (workoutRecord.getLocation().getLocationType() == Location.LocationType.FACILITY ){
+        if (workoutRecord.getLocation().getType() == Location.LocationType.FACILITY) {
             facilityId = ((Facility) workoutRecord.getLocation()).getId();    // TODO: high probability only -1 can be passed
         }
         values.put(KEY_FACILITY_ID, facilityId);

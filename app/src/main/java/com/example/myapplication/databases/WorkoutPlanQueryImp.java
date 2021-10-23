@@ -16,8 +16,6 @@ import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
 
-import com.example.myapplication.databases.DatabaseContract.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class WorkoutPlanQueryImp {
         ContentValues values = new ContentValues();
         values.put(KEY_SPORT_ID, workoutPlan.getSport().getId());
         int facilityId = -1;
-        if (workoutPlan.getLocation().getLocationType() == Location.LocationType.FACILITY ){
+        if (workoutPlan.getLocation().getType() == Location.LocationType.FACILITY) {
             facilityId = ((Facility) workoutPlan.getLocation()).getId();    // TODO: high probability only -1 can be passed
         }
         values.put(KEY_FACILITY_ID, facilityId);

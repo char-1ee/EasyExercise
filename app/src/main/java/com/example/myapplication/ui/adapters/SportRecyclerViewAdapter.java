@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -43,10 +44,11 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
         final Sport sport = mSportList.get(position);
         holder.textView.setText(sport.getName());
         holder.imageView.setImageResource(sm.SportsToImage(sport));
+        holder.imageView.setClipToOutline(true);
         holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
         holder.view.setOnClickListener(view -> {
             sport.setSelected(!sport.isSelected());
-            holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+            holder.cardView.setBackgroundColor(sport.isSelected() ? Color.parseColor("#b2dfdb"): Color.WHITE);
             if(sport.isSelected()){
                 chosenSportList.add(sport);
             }

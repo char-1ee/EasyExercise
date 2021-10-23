@@ -20,6 +20,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
+import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +71,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         initPicker();
         initButton();
         //sportView.setText(getTime(startDate));
+
     }
 
     private WorkoutPlan getChosenPlan() {
@@ -135,6 +139,20 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             cardView.setVisibility(View.VISIBLE);
             initHandler();
             handler.post(runnable);
+
+            WorkoutPlan localPlan = getChosenPlan();
+            Location location = plan.getLocation();
+            int facility_id;
+            if (location.getType() == Location.LocationType.FACILITY) {
+                facility_id = ((Facility) location).getId();
+            }
+            else{
+                facility_id = -1;
+            }
+            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id);
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference mDatabase = database.getReference().child("community");
+            mDatabase.setValue(publicPlan);
         });
     }
 
@@ -219,5 +237,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
+
 
 }

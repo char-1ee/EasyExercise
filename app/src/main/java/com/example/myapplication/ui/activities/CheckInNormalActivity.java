@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.beans.Coordinates;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +29,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemClickListener{
     private Button button1, button2;
     private RecyclerView rv_test;
     private Facility facility;
@@ -99,6 +101,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
         rv_test.setAdapter(firstAdapter);
+        firstAdapter.setOnItemClickListener(this);
     }
 
     /**
@@ -141,4 +144,9 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         return (double) getIntent().getSerializableExtra("longitude1");
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        ChosenSport= firstAdapter.finalChoice;
+        Toast.makeText(CheckInNormalActivity.this,String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
+    }
 }

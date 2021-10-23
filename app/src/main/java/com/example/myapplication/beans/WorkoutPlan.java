@@ -1,7 +1,5 @@
 package com.example.myapplication.beans;
 
-import static com.example.myapplication.beans.WorkoutPlan.WorkoutPlanStatus.getType;
-
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
@@ -35,24 +33,7 @@ public class WorkoutPlan implements Serializable {
     private Sport sport;
     private Location location;
     private long id;
-//    private Facility facility;
     private WorkoutPlanStatus status;
-
-//    public WorkoutPlan(){}
-//
-//    public WorkoutPlan(Sport sport, Facility facility, long id) {
-//        this.sport = sport;
-//        this.facility = facility;
-//        this.id = id;
-//        this.status = WorkoutPlanStatus.PRIVATE;
-//    }
-//
-//    public WorkoutPlan(Sport sport, Facility facility, long id, String status) {
-//        this.sport = sport;
-//        this.facility = facility;
-//        this.id = id;
-//        this.status = getType(status);
-//    }
 
     public WorkoutPlan(Sport sport, Location location, long id) {
         this.sport = sport;

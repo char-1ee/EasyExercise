@@ -6,17 +6,15 @@ import java.util.Locale;
 public class Coordinates implements Serializable {
     private static final double R = 6371; // radius of the earth in km
 
-    private double latitude;
-    private double longitude;
-    private String name;
+    private final double latitude;
+    private final double longitude;
+    private final String name;
 
     public Coordinates(double latitude, double longitude, String name) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
     }
-
-//    public Coordinates() {}
 
     public Coordinates(double latitude, double longitude) {
         this(latitude, longitude, "");
@@ -61,18 +59,6 @@ public class Coordinates implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

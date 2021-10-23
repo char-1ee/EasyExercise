@@ -3,8 +3,10 @@ package com.example.myapplication.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,11 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectSportActivity extends AppCompatActivity {
+    Handler handler;
+    Runnable runnable;
+    double latitude= 0;
+    double longitude= 0;
     private List<Sport> finalChoice;
     TextView textView;
     private Coordinates coordinate;
-    private double latitude;
-    private double longitude;
     private List<Sport> ChosenSport1;
     private List<Sport> ChosenSport2;
     private List<Facility> FinalFacility;
@@ -45,10 +49,6 @@ public class SelectSportActivity extends AppCompatActivity {
         initButton();
     }
 
-    private Coordinates getCoordinate(){
-        return (Coordinates) getIntent().getSerializableExtra("Coordinate");
-    }
-
 
     private List<Sport> getRecommendedSport() {
         return (List<Sport>) getIntent().getSerializableExtra("RecommendedSports");
@@ -58,42 +58,19 @@ public class SelectSportActivity extends AppCompatActivity {
         return (List<Sport>) getIntent().getSerializableExtra("OtherSports");
     }
 
-    private List<Facility> testGiveFacility() {
-        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        List<Facility> f = new ArrayList<>();
-        f.add(testFacility());
-        f.add(r);
-        f.add(testFacility());
-        f.add(r);
-        f.add(testFacility());
-        f.add(r);
-        return f;
-    }
-
-    private Facility testFacility() {
-        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility f = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
-        f.addSport(a);
-        f.addSport(b);
-        return f;
-    }
-
     private void initView(){
         finalChoice= new ArrayList<>();
         setContentView(R.layout.activity_select_sport);
-        RecommendedSport = getRecommendedSport();
-        OtherSport = getOtherSport();
-        coordinate= getCoordinate();
-        textView= findViewById(R.id.textView);
         mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = findViewById(R.id.recycler_view);
+        textView= findViewById(R.id.textView);
+        RecommendedSport = getRecommendedSport();
+        OtherSport = getOtherSport();
+        latitude= getLatitude();
+        longitude= getLongitude();
+        initHandler();
+        handler.post(runnable);
+        textView.setText(String.valueOf(latitude));
     }
 
     /**
@@ -115,6 +92,7 @@ public class SelectSportActivity extends AppCompatActivity {
         mRecyclerView2.setAdapter(mAdapter2);
     }
 
+
     private void initButton(){
         mSportChoicesConfirmButton.setOnClickListener(view -> {
             Context context = SelectSportActivity.this;
@@ -124,15 +102,39 @@ public class SelectSportActivity extends AppCompatActivity {
             finalChoice.addAll(ChosenSport1);
             finalChoice.addAll(ChosenSport2);
             FacilityRecommendation facilityRecommendation= new FacilityRecommendation();
-            FinalFacility= facilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, coordinate, 20);
-            // TODO: 2021/10/11 Search qualified facilities basing on sports chosen
-            // TODO: 2021/10/11 the list of sports: ChosenSports1
-
+            FinalFacility= facilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
+            textView.setText(String.valueOf(longitude));
             Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
             intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
-            intent.putExtra("Coordinate", (Serializable) coordinate);
+            intent.putExtra("longitude", (Serializable) longitude);
+            intent.putExtra("latitude", (Serializable) latitude);
             startActivity(intent);
             finish();
         });
     }
+
+    private void initHandler(){
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                if (latitude== 0) {
+                    Toast.makeText(SelectSportActivity.this, "not yet", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(this, 1000);
+                }
+                else{
+                    //textView.setText(String.valueOf(latitude));
+                }
+            }
+        };
+    }
+
+    public double getLatitude() {
+        return (double) getIntent().getSerializableExtra("latitude1");
+    }
+
+    public double getLongitude() {
+        return (double) getIntent().getSerializableExtra("longitude1");
+    }
+
+
 }

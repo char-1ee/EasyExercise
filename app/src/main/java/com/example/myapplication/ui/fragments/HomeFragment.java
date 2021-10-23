@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    Intent intentToPlan;
     Handler handler;
     Runnable runnable;
     MainActivity activity;
@@ -80,18 +81,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-//        if (savedInstanceState != null) {
-//            latitude= savedInstanceState.getDouble("a");
-//            longitude= savedInstanceState.getDouble("b");
-//        } else {
-//            latitude= 0;
-//            longitude= 0;
-//        }
         latitude= 0;
         longitude= 0;
         initVIew();
-        setWeather(latitude, longitude);
-        initButton();
         return view;
     }
 
@@ -161,6 +153,7 @@ public class HomeFragment extends Fragment {
         humidity = view.findViewById(R.id.Humidity_value);
         forecast = view.findViewById(R.id.Forecast);
         activity= (MainActivity) getActivity();
+        longitude= activity.getLongitude();
         latitude= activity.getLatitude();
         initHandler();
         handler.post(runnable);
@@ -168,12 +161,7 @@ public class HomeFragment extends Fragment {
 
     private void initButton(){
         mMakePlanButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), SelectSportActivity.class);
-            // TODO: 2021/10/11 give two sport lists, one is recommended, one is not
-            intent.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
-            intent.putExtra("OtherSports", (Serializable) testSelectSportOther());
-            intent.putExtra("Coordinate", (Serializable) c);
-            startActivity(intent);
+            startActivity(intentToPlan);
         });
 
         mCheckInButton.setOnClickListener(v -> {
@@ -190,8 +178,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setWeather(double a, double b){
-//        AddressText.setText(String.valueOf(a));
+    private void setWeather(Coordinates temp){
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
                 IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -208,7 +195,6 @@ public class HomeFragment extends Fragment {
         } catch (InterruptedException ignored) {
         }
         Weather weather = boxWeather.get();
-        Coordinates temp= new Coordinates(a, b, "no");
         temperature_string = weather.getWeatherData(temp).getTemperature().getResult().toString();
         pm25_string = weather.getWeatherData(temp).getPM25().getResult().toString();
         uvIndex_string = weather.getWeatherData(temp).getUVIndex().toString();
@@ -219,9 +205,6 @@ public class HomeFragment extends Fragment {
         uvIndex.setText(uvIndex_string);
         humidity.setText(humidity_string);
         forecast.setText(forecast_string);
-        latitude= a;
-        longitude= b;
-        c= temp;
     }
 
     private boolean facilityAround(){
@@ -234,10 +217,14 @@ public class HomeFragment extends Fragment {
             public void run() {
                 if (latitude== 0) {
                     latitude= activity.getLatitude();
-                    handler.postDelayed(this, 3000);
+                    handler.postDelayed(this, 2000);
                 }
                 else{
                     AddressText.setText(String.valueOf(latitude));
+                    c= new Coordinates(latitude, longitude, "new");
+                    intentToPlan= activity.getIntentToPlan();
+                    setWeather(c);
+                    initButton();
                 }
             }
         };

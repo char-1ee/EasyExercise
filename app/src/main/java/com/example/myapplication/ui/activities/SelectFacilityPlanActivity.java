@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.activities;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,13 +12,17 @@ import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterPlan;
 
+import java.awt.font.TextAttribute;
 import java.util.List;
 
 public class SelectFacilityPlanActivity extends AppCompatActivity {
+    private TextView textView;
     private List<Facility> FacilityQualified;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private Coordinates coordinate;
+    double latitude= 0;
+    double longitude= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +31,7 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         initAdapter();
     }
 
-    private Coordinates getCoordinate(){
-        return (Coordinates) getIntent().getSerializableExtra("Coordinate");
-    }
+
 
     private List<Facility> getFacilityQualified(){
         return (List<Facility>) getIntent().getSerializableExtra("FacilityQualified");
@@ -36,10 +39,14 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
 
     private void initView(){
         setContentView(R.layout.activity_select_facility);
-        coordinate= getCoordinate();
+        latitude= getLatitude();
+        longitude= getLongitude();
         FacilityQualified= getFacilityQualified();
         mRecyclerView = findViewById(R.id.recycler_view);
-        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified, coordinate);
+        textView= findViewById(R.id.textView6);
+        textView.setText(String.valueOf(latitude));
+
+        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified, new Coordinates(latitude, longitude, ""));
     }
 
     /**
@@ -52,6 +59,14 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public double getLatitude() {
+        return (double) getIntent().getSerializableExtra("latitude");
+    }
+
+    public double getLongitude() {
+        return (double) getIntent().getSerializableExtra("longitude");
     }
 
 }

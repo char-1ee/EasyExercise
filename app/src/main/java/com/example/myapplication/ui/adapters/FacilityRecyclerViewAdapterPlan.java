@@ -48,7 +48,7 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
 
-        holder.mSelectFacilityDistance.setText(String.valueOf(facility.getCoordinates().getDistance(mCurrentCoordinates))+ "km");
+        holder.mSelectFacilityDistance.setText(String.valueOf( Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates)*100.0)/100.0+ "km"));
         holder.view.setOnClickListener(view -> {
             chosenFacility= facility;
             Intent intent= new Intent(mContext, AddPlanActivity.class);

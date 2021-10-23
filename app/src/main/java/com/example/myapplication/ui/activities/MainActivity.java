@@ -3,6 +3,7 @@ package com.example.myapplication.ui.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -17,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.fragments.CommunityFragment;
 import com.example.myapplication.ui.fragments.HistoryFragment;
 import com.example.myapplication.ui.fragments.HomeFragment;
@@ -34,7 +36,12 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    Intent intentToPlan;
     private LocationRequest locationRequest;
     double latitude;
     double longitude;
@@ -58,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
-
+                    intentToPlan= new Intent(MainActivity.this, SelectSportActivity.class);
+                    intentToPlan.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
+                    intentToPlan.putExtra("OtherSports", (Serializable) testSelectSportOther());
+                    //Toast.makeText(MainActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
+                    intentToPlan.putExtra("latitude1", latitude);
+                    intentToPlan.putExtra("longitude1", longitude);
                 }
             }
         };
@@ -181,5 +193,31 @@ public class MainActivity extends AppCompatActivity {
     }
     public double getLongitude(){
         return longitude;
+    }
+
+    private List<Sport> testSelectSportRecommended(){
+        List<Sport> sports= new ArrayList<>();
+        Sport a= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        return sports;
+    }
+
+    private List<Sport> testSelectSportOther() {
+        List<Sport> sports = new ArrayList<>();
+        Sport a = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        sports.add(a);
+        sports.add(b);
+        sports.add(c);
+        return sports;
+    }
+
+    public Intent getIntentToPlan(){
+        return intentToPlan;
     }
 }

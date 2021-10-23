@@ -1,5 +1,7 @@
 package com.example.myapplication.beans;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Sport implements Serializable {
@@ -21,6 +23,7 @@ public class Sport implements Serializable {
             return null;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return name;
@@ -31,7 +34,7 @@ public class Sport implements Serializable {
     private final String name;
     private final String alternativeName;
     private final SportType type;
-    private boolean isSelected = false;
+    private boolean isSelected = false;  // TODO: Remove field
 
     public Sport(int id, String name, String alternativeName, SportType type) {
         this.id = id;

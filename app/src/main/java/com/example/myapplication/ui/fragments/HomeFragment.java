@@ -17,6 +17,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,10 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.json.weather.Weather;
 import com.example.myapplication.ui.activities.CheckInNormalActivity;
+import com.example.myapplication.ui.activities.MainActivity;
 import com.example.myapplication.ui.activities.NoFacilityActivity;
 import com.example.myapplication.ui.activities.SelectSportActivity;
+import com.example.myapplication.ui.activities.ViewPlanActivity;
 import com.example.myapplication.utils.Box;
 import com.example.myapplication.utils.IOUtil;
 import com.google.android.gms.common.api.ApiException;
@@ -56,6 +59,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    Handler handler;
+    Runnable runnable;
+    MainActivity activity;
     double latitude;
     double longitude;
     Coordinates c;
@@ -74,35 +80,26 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        if (savedInstanceState != null) {
-            latitude= savedInstanceState.getDouble("a");
-            longitude= savedInstanceState.getDouble("b");
-        } else {
-            latitude= 100;
-            longitude= 100;
-        }
+//        if (savedInstanceState != null) {
+//            latitude= savedInstanceState.getDouble("a");
+//            longitude= savedInstanceState.getDouble("b");
+//        } else {
+//            latitude= 0;
+//            longitude= 0;
+//        }
+        latitude= 0;
+        longitude= 0;
         initVIew();
         setWeather(latitude, longitude);
-        getCurrentLocation();
         initButton();
         return view;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //setWeather();
-    }
 
     private Facility testCheckinClosetFacility() {
-        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
         r.addSport(a);
         r.addSport(b);
@@ -111,9 +108,9 @@ public class HomeFragment extends Fragment {
     }
 
     private List<Facility> testCheckinFacilitByDistance(){
-        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport a= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
         r.addSport(a);
         r.addSport(b);
@@ -130,9 +127,9 @@ public class HomeFragment extends Fragment {
 
     private List<Sport> testSelectSportRecommended(){
         List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport a= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         sports.add(a);
         sports.add(b);
         sports.add(c);
@@ -141,94 +138,13 @@ public class HomeFragment extends Fragment {
 
     private List<Sport> testSelectSportOther() {
         List<Sport> sports = new ArrayList<>();
-        Sport a = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         sports.add(a);
         sports.add(b);
         sports.add(c);
         return sports;
-    }
-
-    /**
-     * Get user's current location as latitude and longitude
-     *
-     * @author Ruan Donglin
-     */
-    private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (isGPSEnabled()) {
-                LocationServices.getFusedLocationProviderClient(requireActivity())
-                        .requestLocationUpdates(locationRequest, new LocationCallback() {
-                            @Override
-                            public void onLocationResult(@NonNull LocationResult locationResult) {
-                                super.onLocationResult(locationResult);
-
-                                LocationServices.getFusedLocationProviderClient(requireActivity())
-                                        .removeLocationUpdates(this);
-
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                    int index = locationResult.getLocations().size() - 1;
-                                    double a = locationResult.getLocations().get(index).getLatitude();
-                                    double b = locationResult.getLocations().get(index).getLongitude();
-                                    AddressText.setText(String.valueOf(b));
-                                    setWeather(a, b);
-                                }
-                            }
-                        }, Looper.getMainLooper());
-            } else {
-                turnOnGPS();
-            }
-        } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-    }
-
-    /**
-     * Turn on device's GPS if GPS is not enabled.
-     *
-     * @author Ruan Donglin
-     */
-    private void turnOnGPS() {
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        builder.setAlwaysShow(true);
-        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(requireActivity())
-                .checkLocationSettings(builder.build());
-        result.addOnCompleteListener(task -> {
-            try {
-                LocationSettingsResponse response = task.getResult(ApiException.class);
-                Toast.makeText(getContext(), "GPS is already tured on", Toast.LENGTH_SHORT).show();
-            } catch (ApiException e) {
-                switch (e.getStatusCode()) {
-                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        try {
-                            ResolvableApiException resolvableApiException = (ResolvableApiException) e;
-                            resolvableApiException.startResolutionForResult(requireActivity(), 2);
-                        } catch (IntentSender.SendIntentException ex) {
-                            ex.printStackTrace();
-                        }
-                        break;
-                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        //Device does not have location
-                        break;
-                }
-            }
-        });
-    }
-
-    /**
-     * Check if the device's GPS is enabled.
-     *
-     * @return the boolean value, true indicates GPS is enabled, false vice versa
-     * @author Ruan Donglin
-     */
-    private boolean isGPSEnabled() {
-        LocationManager locationManager = null;
-        boolean isEnabled;
-        locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
-        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        return isEnabled;
     }
 
     private void initVIew(){
@@ -244,6 +160,10 @@ public class HomeFragment extends Fragment {
         uvIndex = view.findViewById(R.id.UV_value);
         humidity = view.findViewById(R.id.Humidity_value);
         forecast = view.findViewById(R.id.Forecast);
+        activity= (MainActivity) getActivity();
+        latitude= activity.getLatitude();
+        initHandler();
+        handler.post(runnable);
     }
 
     private void initButton(){
@@ -271,7 +191,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setWeather(double a, double b){
-        AddressText.setText(String.valueOf(a));
+//        AddressText.setText(String.valueOf(a));
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
                 IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -307,6 +227,23 @@ public class HomeFragment extends Fragment {
     private boolean facilityAround(){
         return true;
     }
+
+    private void initHandler(){
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                if (latitude== 0) {
+                    latitude= activity.getLatitude();
+                    handler.postDelayed(this, 3000);
+                }
+                else{
+                    AddressText.setText(String.valueOf(latitude));
+                }
+            }
+        };
+    }
+
+
 
 }
 

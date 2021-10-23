@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import com.example.myapplication.beans.Sport;
 import com.example.myapplication.recommendation.FacilityRecommendation;
 import com.example.myapplication.ui.adapters.SportRecyclerViewAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,10 +122,10 @@ public class SelectSportActivity extends AppCompatActivity {
             finalChoice.addAll(ChosenSport1);
             finalChoice.addAll(ChosenSport2);
             FacilityRecommendation facilityRecommendation= new FacilityRecommendation();
-            //FinalFacility= facilityRecommendation.recommend(SelectSportActivity.this, finalChoice, coordinate);
+            FinalFacility= facilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, coordinate);
             // TODO: 2021/10/11 Search qualified facilities basing on sports chosen
             // TODO: 2021/10/11 the list of sports: ChosenSports1
-            FinalFacility = testGiveFacility();
+            //FinalFacility = testGiveFacility();
             textView.setText(String.valueOf(ChosenSport1.size()+ ChosenSport2.size()));
 
 //            Intent intent = new Intent(context, SelectFacilityPlanActivity.class);

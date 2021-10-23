@@ -1,7 +1,5 @@
 package com.example.myapplication.beans;
 
-import com.example.myapplication.beans.Coordinates;
-
 import java.io.Serializable;
 
 public abstract class Location extends Coordinates implements Serializable {

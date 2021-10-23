@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.sportsImage.SportsImage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
@@ -45,7 +48,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             holder.locationView.setText(R.string.customized_location);
         }
         holder.sportView.setText(item.getSport().getName());
-        holder.dateView.setText(item.getStartTime().toString());
+        holder.dateView.setText(getTime(item.getStartTime()));
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
         holder.planType.setText(item.getStatus().toString());
@@ -75,5 +78,11 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             imageView = itemView.findViewById(R.id.plan_sport_image);
             cardView = itemView.findViewById(R.id.history_card);
         }
+    }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        Log.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 }

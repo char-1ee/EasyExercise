@@ -48,12 +48,10 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
             sport.setSelected(!sport.isSelected());
             holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
             if(sport.isSelected()){
-                Log.wtf("choosesport","add");
                 chosenSportList.add(sport);
             }
             else {
                 boolean e= chosenSportList.remove(sport);
-                Log.wtf("choosesport",String.valueOf(e));
             }
         });
 

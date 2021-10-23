@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.ui.activities.AddPlanActivity;
 
@@ -23,10 +24,12 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
     private Facility chosenFacility;
     private final List<Facility> mFacilityList;
     private final Context mContext;
+    private final Coordinates mCurrentCoordinates;
 
-    public FacilityRecyclerViewAdapterPlan(Context context, List<Facility> facilityList) {
+    public FacilityRecyclerViewAdapterPlan(Context context, List<Facility> facilityList, Coordinates currentCoordinates) {
         mFacilityList = facilityList;
         mContext = context;
+        mCurrentCoordinates= currentCoordinates;
     }
 
     public Facility getChosenFacility() {
@@ -44,7 +47,8 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-//        holder.mSelectFacilityDistance.setText("0.8 km");
+
+        holder.mSelectFacilityDistance.setText(String.valueOf(facility.getCoordinates().getDistance(mCurrentCoordinates))+ "km");
         holder.view.setOnClickListener(view -> {
             chosenFacility= facility;
             Intent intent= new Intent(mContext, AddPlanActivity.class);

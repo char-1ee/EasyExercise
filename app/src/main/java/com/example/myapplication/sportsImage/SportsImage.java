@@ -15,7 +15,7 @@ public class SportsImage {
         int image;
         String name = sport.getName();
         String[] sportsName = new String[12];
-        sportsName[0] = "Freeplay";
+        sportsName[0] = "Free play";
         sportsName[1] = "Futsal";
         sportsName[2] = "Football";
         sportsName[3] = "Running";

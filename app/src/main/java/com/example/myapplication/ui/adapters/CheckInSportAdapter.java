@@ -1,9 +1,11 @@
 package com.example.myapplication.ui.adapters;
 
 import android.content.Context;
+import android.graphics.fonts.Font;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -22,11 +24,15 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
     private final Context context;
     private final List<Sport> secondList;
     private int index = -1;
+    private int old_index= -1;
     private final SportsImage sm;
 
     public CheckInSportAdapter(Context context, List<Sport> secondList) {
         this.context = context;
         this.secondList = secondList;
+        for(Sport s: secondList){
+            s.setSelected(false);
+        }
         this.sm = new SportsImage();
     }
 
@@ -44,15 +50,17 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
         holder.iv_question_item.setImageResource(sm.SportsToImage(item));
         holder.rb_question_item.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                index = position;
+                old_index= index;
+                index= position;
                 notifyDataSetChanged();
+                notifyItemChanged(position);
+                finalChoice= secondList.get(index);
+                holder.rb_question_item.setChecked(true);
             }
         });
-        if (index == position) {
-            holder.rb_question_item.setChecked(true);
-            finalChoice = secondList.get(index);
-        } else {
-            holder.rb_question_item.setChecked(false);
+        if (old_index == position) {
+            holder.rb_question_item.setChecked(holder.rb_question_item.isChecked());
+            notifyItemChanged(position);
         }
     }
 

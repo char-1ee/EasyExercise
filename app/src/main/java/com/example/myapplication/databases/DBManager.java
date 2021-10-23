@@ -10,7 +10,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,17 +40,17 @@ public class DBManager {
 
     private SQLiteDatabase openDatabase(String dbFile) {
         try {
-            if (!(new File(dbFile).exists())) {
-                InputStream is = this.context.getResources().openRawResource(R.raw.data);
-                FileOutputStream fos = new FileOutputStream(dbFile);
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int count = 0;
-                while ((count = is.read(buffer)) > 0) {
-                    fos.write(buffer, 0, count);
-                }
-                fos.close();
-                is.close();
+//            if (!(new File(dbFile).exists())) {
+            InputStream is = this.context.getResources().openRawResource(R.raw.data);
+            FileOutputStream fos = new FileOutputStream(dbFile);
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int count = 0;
+            while ((count = is.read(buffer)) > 0) {
+                fos.write(buffer, 0, count);
             }
+            fos.close();
+            is.close();
+//            }
             return SQLiteDatabase.openOrCreateDatabase(dbFile, null);
         } catch (FileNotFoundException e) {
             Log.e("Database", "File not found");

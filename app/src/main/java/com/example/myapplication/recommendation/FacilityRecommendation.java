@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FacilityRecommendation {
+    private FacilityRecommendation() {}
+
     public static List<Facility> getFacilitiesBySports(Context context, Collection<Sport> sports, Coordinates coordinates, int limit) {
         DBManager manager = new DBManager(context);
         manager.openDatabase();
@@ -30,12 +32,16 @@ public class FacilityRecommendation {
         return results;
     }
 
-    public List<Facility> getFacilitiesNearby(List<Facility> facilityList, Coordinates coordinates, double distance, int limit) {
-        return facilityList.stream()
+    public static List<Facility> getFacilitiesNearby(Context context, Coordinates coordinates, double distance, int limit) {
+        DBManager manager = new DBManager(context);
+        manager.openDatabase();
+        List<Facility> results = manager.getFacilities().stream()
                 .filter(facility ->
                         coordinates.getDistance(facility.getCoordinates()) <= distance)
                 .sorted(Comparator.comparingDouble(x -> x.getDistance(coordinates)))
                 .limit(limit)
                 .collect(Collectors.toList());
+        manager.closeDatabase();
+        return results;
     }
 }

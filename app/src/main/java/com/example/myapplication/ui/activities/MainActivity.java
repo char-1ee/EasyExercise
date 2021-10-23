@@ -1,5 +1,14 @@
 package com.example.myapplication.ui.activities;
 
+import static com.example.myapplication.json.weather.Weather.AIR_TEMPERATURE_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.PM25_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.RAINFALL_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.RELATIVE_HUMIDITY_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.UV_INDEX_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.WEATHER_FORECAST_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.WIND_DIRECTION_JSON_URL;
+import static com.example.myapplication.json.weather.Weather.WIND_SPEED_JSON_URL;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,12 +31,17 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.databases.DBManager;
+import com.example.myapplication.json.weather.Weather;
 import com.example.myapplication.recommendation.FacilityRecommendation;
+import com.example.myapplication.recommendation.SportsRecommendation;
 import com.example.myapplication.ui.fragments.CommunityFragment;
 import com.example.myapplication.ui.fragments.HistoryFragment;
 import com.example.myapplication.ui.fragments.HomeFragment;
 import com.example.myapplication.ui.fragments.MeFragment;
 import com.example.myapplication.ui.fragments.PlanFragment;
+import com.example.myapplication.utils.Box;
+import com.example.myapplication.utils.IOUtil;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;
@@ -43,6 +57,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     Intent intentToCheckIn;
@@ -50,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     double latitude;
     double longitude;
+    List<Sport> allSports= new ArrayList<>();
+    Coordinates c;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
-
+        setAllSports();
         getCurrentLocation();
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -199,25 +217,54 @@ public class MainActivity extends AppCompatActivity {
         return longitude;
     }
 
+    private void setAllSports(){
+        DBManager db = new DBManager(this);
+        db.openDatabase();
+        allSports=db.getSports();
+        db.closeDatabase();
+    }
     private List<Sport> testSelectSportRecommended(){
         List<Sport> sports= new ArrayList<>();
-        Sport a= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
+        //Sport a= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        //Sport b= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        //Sport c= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        //sports.add(a);
+        //sports.add(b);
+        //sports.add(c);
+        final Box<Weather> boxWeather = new Box<>();
+        Thread thread = new Thread(() -> boxWeather.set(new Weather(
+                IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                IOUtil.readFromURL(RAINFALL_JSON_URL),
+                IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                IOUtil.readFromURL(WIND_SPEED_JSON_URL),
+                IOUtil.readFromURL(UV_INDEX_JSON_URL),
+                IOUtil.readFromURL(PM25_JSON_URL),
+                IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL))));
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException ignored) {
+        }
+        Weather weather = boxWeather.get();
+        c = new Coordinates(latitude,longitude,"current");
+        SportsRecommendation sportsRecommendation = new SportsRecommendation(allSports);
+        Set<Sport> recommendedSports = sportsRecommendation.getRecommendation(weather.getWeatherData(c));
+        sports.clear();
+        sports.addAll(recommendedSports);
         return sports;
     }
 
     private List<Sport> testSelectSportOther() {
         List<Sport> sports = new ArrayList<>();
-        Sport a = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        sports.add(a);
-        sports.add(b);
-        sports.add(c);
+        //Sport a = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        //Sport b = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        //Sport c = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        //sports.add(a);
+        //sports.add(b);
+        //sports.add(c);
+        sports = allSports;
+        sports.removeAll(testSelectSportRecommended());
         return sports;
     }
 

@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
     double latitude;
     double longitude;
     Coordinates c;
-//    private AddPlanAdapter firstAdapter;
+    //    private AddPlanAdapter firstAdapter;
 //    public Facility closestFacility;
 //    public List<Facility> FacilityByDistance;
     private TextView AddressText;
@@ -166,6 +166,3 @@ public class HomeFragment extends Fragment {
 
 
 }
-
-
-

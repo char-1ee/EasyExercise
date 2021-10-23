@@ -80,7 +80,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         }
     }
 
-    private String getTime(Date date) {//可根据需要自行截取数据显示
+    private String getTime(Date date) {
         Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);

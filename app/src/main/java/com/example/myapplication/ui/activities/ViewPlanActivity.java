@@ -1,7 +1,5 @@
 package com.example.myapplication.ui.activities;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,11 +10,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.myapplication.R;
@@ -37,13 +34,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     Integer finalLimit= 0;
+    SupportMapFragment mapFragment;
     TimePickerView pvTime2;
     TimePickerView pvTime;
     OptionsPickerView pvOptions;
+    private TextView startTime;
+    private TextView endTime;
     private Handler handler;
     private Runnable runnable;
     private Date startDate;
@@ -54,9 +53,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private TextView facilityView;
     private TextView sportView;
     private TextView addressView;
+    private TextView limitView;
     private WorkoutPlan plan;
     private Location location;
     private Button addPlanButton;
+    private CardView cardView;
     Integer[] limit= {2,3,4,5,6,7,8,9,10};
 
     @Override
@@ -66,7 +67,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         initMap();
         initPicker();
         initButton();
-
         //sportView.setText(getTime(startDate));
     }
 
@@ -100,6 +100,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         postalView = findViewById(R.id.postal_view);
         addressView = findViewById(R.id.address_view);
         addPlanButton= findViewById(R.id.add_plan_button);
+        cardView= findViewById(R.id.cardView3);
+        startTime= findViewById(R.id.start_time);
+        limitView= findViewById(R.id.limit);
+        endTime= findViewById(R.id.end_time);
         location = plan.getLocation();
         sport = plan.getSport();
         if (location.getType() == Location.LocationType.FACILITY) {
@@ -116,7 +120,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void initMap(){
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
@@ -127,6 +131,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             pvOptions.show();
             pvTime2.show();
             pvTime.show();
+            mapFragment. getView().setVisibility(View.GONE);
+            cardView.setVisibility(View.VISIBLE);
             initHandler();
             handler.post(runnable);
         });
@@ -143,7 +149,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .isCyclic(true)
                 .setLabel("y","m","d","h","min","sec")
                 .isCenterLabel(false)
-                .isDialog(true)
+                .isDialog(false)
                 .build();
 
         pvTime2 = new TimePickerBuilder(this, (date2, v) -> endDate= date2)
@@ -156,7 +162,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .isCyclic(true)
                 .setLabel("y","m","d","h","min","sec")
                 .isCenterLabel(false)
-                .isDialog(true)
+                .isDialog(false)
                 .build();
         List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
         pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> {
@@ -173,7 +179,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .setCyclic(true, false, false)
                 .setSelectOptions(1, 1, 1)
                 .setOutSideCancelable(false)
-                .isDialog(true)
+                .isDialog(false)
                 .isRestoreItem(true)
                 .build();
         pvOptions.setPicker(options1Items);
@@ -184,16 +190,34 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                if (startDate== null || endDate== null || finalLimit== 0) {
-                    Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
+                if(startDate== null){
+                    handler.postDelayed(this, 2000);
+                }
+                else if(startDate!= null && endDate== null){
+                    startTime.setText(getTime(startDate));
+                    handler.postDelayed(this, 2000);
+                    //Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
+                }
+                else if(startDate!= null && endDate!= null && finalLimit== 0){
+                    startTime.setText(getTime(startDate));
+                    endTime.setText(getTime(endDate));
+                //Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 3000);
                 }
-                else{ Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
-                    TextView textView= findViewById(R.id.textView4);
-                    textView.setText(finalLimit.toString());
+                else{
+                    Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+                    startTime.setText(getTime(startDate));
+                    endTime.setText(getTime(endDate));
+                    limitView.setText(String.valueOf(finalLimit));
+                    //Toast.makeText(ViewPlanActivity.this, finalLimit.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         };
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 
 }

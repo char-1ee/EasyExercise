@@ -225,12 +225,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private List<Sport> testSelectSportRecommended(){
         List<Sport> sports= new ArrayList<>();
-        //Sport a= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        //Sport b= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        //Sport c= new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        //sports.add(a);
-        //sports.add(b);
-        //sports.add(c);
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
                 IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -257,12 +251,6 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Sport> testSelectSportOther() {
         List<Sport> sports = new ArrayList<>();
-        //Sport a = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        //Sport b = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        //Sport c = new Sport(8, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        //sports.add(a);
-        //sports.add(b);
-        //sports.add(c);
         sports = allSports;
         sports.removeAll(testSelectSportRecommended());
         return sports;
@@ -272,34 +260,6 @@ public class MainActivity extends AppCompatActivity {
         return intentToPlan;
     }
 
-    private Facility testCheckinClosetFacility() {
-        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        return r;
-    }
-
-    private List<Facility> testCheckinFacilitByDistance(){
-        Sport a= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c= new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r= new Facility( 0, "wave", "http://www.ringoeater.com/", "84073568","64 Nanyang Cres","nonononono",new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        List<Facility> f = new ArrayList<>();
-        f.add(testCheckinClosetFacility());
-        f.add(r);
-        f.add(testCheckinClosetFacility());
-        f.add(r);
-        f.add(testCheckinClosetFacility());
-        f.add(r);
-        return f;
-    }
 
     public Intent getCheckInList(){
         intentToCheckIn= new Intent(MainActivity.this, CheckInNormalActivity.class);

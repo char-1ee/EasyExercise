@@ -12,20 +12,38 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.myapplication.utils.App;
 
+/**
+ * Database helper class for {@code WorkoutPlan} and {@code WorkoutRecord}.
+ *
+ * @author Li Xingjian
+ */
 public class PlanAndRecordDBHelper extends SQLiteOpenHelper {
 
     private static PlanAndRecordDBHelper databaseHelper;
 
+    /**
+     * Accessible constructor.
+     */
     public PlanAndRecordDBHelper() {
         super(App.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Create database.
+     * @param db {@link SQLiteDatabase} instance
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_WORKOUT_PLAN);
         db.execSQL(CREATE_TABLE_WORKOUT_HISTORY);
     }
 
+    /**
+     * Upgrade database.
+     * @param db {@link SQLiteDatabase} instance
+     * @param oldVersion database old version to be deleted
+     * @param newVersion database new version to be created
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DELETE_TABLE_WORKOUT_HISTORY);
@@ -33,6 +51,10 @@ public class PlanAndRecordDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Open database.
+     * @param db {@link SQLiteDatabase} instance
+     */
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
@@ -41,9 +63,15 @@ public class PlanAndRecordDBHelper extends SQLiteOpenHelper {
         db.execSQL("PRAGMA foreign_keys=ON;");
     }
 
+    /**
+     * Downgrade database.
+     * @param db {@link SQLiteDatabase} instance
+     * @param oldVersion database old version to be reduced to
+     * @param newVersion database new version to be reduced from
+     */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db,oldVersion, newVersion);
+        onUpgrade(db, newVersion, oldVersion);
     }
 
 }

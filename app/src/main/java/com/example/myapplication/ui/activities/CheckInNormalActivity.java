@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.beans.Coordinates;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +29,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemClickListener{
     private Button button1, button2;
     private RecyclerView rv_test;
     private Facility facility;
@@ -99,6 +101,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
         rv_test.setAdapter(firstAdapter);
+        firstAdapter.setOnItemClickListener(this);
     }
 
     /**
@@ -115,13 +118,17 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
 
     private void initButton(){
         button1.setOnClickListener(view -> {
-            Toast.makeText(CheckInNormalActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-            ChosenSport = firstAdapter.finalChoice;
-            Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
-            intent.putExtra("ChosenSport", ChosenSport);
-            intent.putExtra("ChosenLocation", facility);
-            startActivity(intent);
-            finish();
+            if(ChosenSport== null){
+                Toast.makeText(CheckInNormalActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
+                intent.putExtra("ChosenSport", ChosenSport);
+                intent.putExtra("ChosenLocation", facility);
+                startActivity(intent);
+                finish();
+            }
+
         });
 
         button2.setOnClickListener(view -> {
@@ -130,6 +137,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
             intent.putExtra("latitude", latitude);
             intent.putExtra("longitude", longitude);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -141,4 +149,9 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         return (double) getIntent().getSerializableExtra("longitude1");
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        ChosenSport= firstAdapter.finalChoice;
+        Toast.makeText(CheckInNormalActivity.this,String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
+    }
 }

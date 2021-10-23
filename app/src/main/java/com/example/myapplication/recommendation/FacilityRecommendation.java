@@ -19,4 +19,5 @@ public class FacilityRecommendation {
         facilities.sort((x, y) -> Double.compare(x.getDistance(coordinates), y.getDistance(coordinates)));
         return facilities;
     }
+
 }

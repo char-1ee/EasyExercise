@@ -5,11 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -22,11 +22,11 @@ import java.util.List;
 
 public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHolder> {
     public Sport finalChoice;
-    private Context context;
-    private List<Sport> sportList;
+    private final Context context;
+    private final List<Sport> sportList;
     private int index = -1;
-    private Facility facility;
-    private SportsImage sm;
+    private final Facility facility;
+    private final SportsImage sm;
 
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
@@ -39,11 +39,11 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         return finalChoice;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.item_radio, null);
-        MyViewHolder myViewHolder = new MyViewHolder(inflate);
-        return myViewHolder;
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_radio, parent, false);
+        return new MyViewHolder(inflate);
     }
 
     @Override
@@ -51,14 +51,11 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         Sport item = sportList.get(position);
         holder.tv_question_item.setText(item.getName());
         holder.iv_question_item.setImageResource(sm.SportsToImage(item));
-        holder.rb_question_item.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+        holder.rb_question_item.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
 //                    Toast.makeText(context, "Option " + secondList.get(position) + " selected", Toast.LENGTH_SHORT).show();
-                    index = position;
-                    notifyDataSetChanged();
-                }
+                index = position;
+                notifyDataSetChanged();
             }
         });
         if (index == position) {
@@ -74,7 +71,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         return sportList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton rb_question_item;
         TextView tv_question_item;
         ImageView iv_question_item;

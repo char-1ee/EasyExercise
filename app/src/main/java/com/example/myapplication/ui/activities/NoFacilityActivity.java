@@ -1,16 +1,14 @@
 package com.example.myapplication.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.CustomizedLocation;
-import com.example.myapplication.beans.Location;
 
 public class NoFacilityActivity extends AppCompatActivity {
     private Button ProceedButton, CancelButton;
@@ -23,28 +21,21 @@ public class NoFacilityActivity extends AppCompatActivity {
     }
 
     private CustomizedLocation testLocation(){
-        CustomizedLocation l= new CustomizedLocation(new Coordinates(10,10));
-        return l;
+        return new CustomizedLocation(new Coordinates(10,10));
     }
 
     private void initButton(){
-        ProceedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
-                intent.putExtra("CustomizedLocation",testLocation());
-                startActivity(intent);
-                finish();
-            }
+        ProceedButton.setOnClickListener(v -> {
+            Intent intent= new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
+            intent.putExtra("CustomizedLocation",testLocation());
+            startActivity(intent);
+            finish();
         });
 
-        CancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(NoFacilityActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        CancelButton.setOnClickListener(v -> {
+            Intent intent= new Intent(NoFacilityActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

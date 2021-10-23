@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.beans.Coordinates;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback{
-    private ImageView imageView;
     private Button button1, button2;
     private RecyclerView rv_test;
     private Facility facility;
@@ -53,15 +50,13 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
 
 
     private Facility getFacility(){
-        Facility f= (Facility) getIntent().getSerializableExtra("ClosestFacility");
-        return f;
+        return (Facility) getIntent().getSerializableExtra("ClosestFacility");
     }
 
     private List<Facility> getFacilityList(){
-        List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
-        // TODO: 2021/10/11 match facility with plan in database 
+        // TODO: 2021/10/11 match facility with plan in database
         
-        return f;
+        return (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance");
     }
 
     /**
@@ -112,30 +107,25 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 
     private void initButton(){
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(CheckInNormalActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-                ChosenSport = firstAdapter.finalChoice;
-                Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
-                intent.putExtra("ChosenSport", ChosenSport);
-                intent.putExtra("ChosenLocation", facility);
-                startActivity(intent);
-                finish();
-            }
+        button1.setOnClickListener(view -> {
+            Toast.makeText(CheckInNormalActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
+            ChosenSport = firstAdapter.finalChoice;
+            Intent intent= new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
+            intent.putExtra("ChosenSport", ChosenSport);
+            intent.putExtra("ChosenLocation", facility);
+            startActivity(intent);
+            finish();
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CheckInNormalActivity.this, SelectFacilityCheckInActivity.class);
-                intent.putExtra("FacilityByDistance2",(Serializable)facilityList);
-                startActivity(intent);
-            }
+        button2.setOnClickListener(view -> {
+            Intent intent = new Intent(CheckInNormalActivity.this, SelectFacilityCheckInActivity.class);
+            intent.putExtra("FacilityByDistance2",(Serializable)facilityList);
+            startActivity(intent);
         });
     }
 }

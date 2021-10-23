@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
 
-    private List<PublicPlan> myPlanList;
+    private final List<PublicPlan> myPlanList;
 
     public interface OnRecyclerItemClickListener{
          void onRecyclerItemClick(PublicPlan publicPlan);
@@ -35,7 +35,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         myListener = listener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView date;
         TextView facility;
         ImageView sportImage;
@@ -53,14 +53,11 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         }
 
         public void bind(PublicPlan publicPlan, OnRecyclerItemClickListener myListener) {
-            itemView.setOnClickListener(new View.OnClickListener(){
-                @Override public void onClick(View v){
-                    myListener.onRecyclerItemClick(publicPlan);
-                }
-            });
+            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(publicPlan));
         }
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {

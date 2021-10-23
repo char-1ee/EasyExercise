@@ -1,25 +1,19 @@
 
 package com.example.myapplication.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.myapplication.R;
-import com.example.myapplication.beans.Facility;
-import com.example.myapplication.beans.Location;
-import com.example.myapplication.beans.Sport;
-import com.example.myapplication.sportsImage.SportsImage;
-
-import androidx.core.content.ContextCompat;
-
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.Serializable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.R;
+import com.example.myapplication.beans.Location;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.sportsImage.SportsImage;
+
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,13 +40,11 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     private Location getLocation() {
-        Location l = (Location) getIntent().getSerializableExtra("ChosenLocation");
-        return l;
+        return (Location) getIntent().getSerializableExtra("ChosenLocation");
     }
 
     private Sport getSport() {
-        Sport s = (Sport) getIntent().getSerializableExtra("ChosenSport");
-        return s;
+        return (Sport) getIntent().getSerializableExtra("ChosenSport");
     }
 
     /**
@@ -64,12 +56,9 @@ public class ExerciseActivity extends AppCompatActivity {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        time++;
-                        timerText.setText(getTimerText());
-                    }
+                runOnUiThread(() -> {
+                    time++;
+                    timerText.setText(getTimerText());
                 });
             }
 
@@ -97,26 +86,23 @@ public class ExerciseActivity extends AppCompatActivity {
         sm= new SportsImage();
         location = getLocation();
         sport = getSport();
-        sportView= (ImageView) findViewById(R.id.imageView3);
-        timerText = (TextView) findViewById(R.id.timerText);
-        checkOutButton = (Button) findViewById(R.id.check_out_button);
+        sportView= findViewById(R.id.imageView3);
+        timerText = findViewById(R.id.timerText);
+        checkOutButton = findViewById(R.id.check_out_button);
         sportView.setImageResource(sm.SportsToImage(sport));
         timer = new Timer();
         timerStarted = true;
     }
 
     private void initButton(){
-        checkOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
-                checkInIntent.putExtra("LocationExercise", location);
-                checkInIntent.putExtra("SportExercise", sport);
-                checkInIntent.putExtra("StartDate", startDate);
-                checkInIntent.putExtra("timeDuration", getTimerText());
-                startActivity(checkInIntent);
-                finish();
-            }
+        checkOutButton.setOnClickListener(view -> {
+            Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
+            checkInIntent.putExtra("LocationExercise", location);
+            checkInIntent.putExtra("SportExercise", sport);
+            checkInIntent.putExtra("StartDate", startDate);
+            checkInIntent.putExtra("timeDuration", getTimerText());
+            startActivity(checkInIntent);
+            finish();
         });
     }
 }

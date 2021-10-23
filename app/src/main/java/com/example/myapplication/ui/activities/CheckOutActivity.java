@@ -1,42 +1,17 @@
 package com.example.myapplication.ui.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.sportsImage.SportsImage;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.Date;
 
@@ -64,23 +39,19 @@ public class CheckOutActivity extends AppCompatActivity {
 
 
     private Location getLocation() {
-        Location f = (Location) getIntent().getSerializableExtra("LocationExercise");
-        return f;
+        return (Location) getIntent().getSerializableExtra("LocationExercise");
     }
 
     private Sport getSport() {
-        Sport s = (Sport) getIntent().getSerializableExtra("SportExercise");
-        return s;
+        return (Sport) getIntent().getSerializableExtra("SportExercise");
     }
 
     private String getTimeDuration() {
-        String s = (String) getIntent().getSerializableExtra("timeDuration");
-        return s;
+        return (String) getIntent().getSerializableExtra("timeDuration");
     }
 
     private Date getStartDate(){
-        Date d= (Date) getIntent().getSerializableExtra("StartDate");
-        return d;
+        return (Date) getIntent().getSerializableExtra("StartDate");
     }
 
     private void initView(){
@@ -100,14 +71,11 @@ public class CheckOutActivity extends AppCompatActivity {
     }
 
     private void initButton(){
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
-                // TODO: 2021/10/11 add exercise record with facility, sport, endtime and starttime
-                startActivity(intent);
-                finish();
-            }
+        exitButton.setOnClickListener(view -> {
+            Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+            // TODO: 2021/10/11 add exercise record with facility, sport, endtime and starttime
+            startActivity(intent);
+            finish();
         });
     }
 

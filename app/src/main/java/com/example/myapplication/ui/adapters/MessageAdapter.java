@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    private List<Message> myMessageList;
+    private final List<Message> myMessageList;
 
     public MessageAdapter(List<Message> messageList){
         myMessageList = messageList;
@@ -38,6 +38,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {

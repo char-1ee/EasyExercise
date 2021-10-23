@@ -33,7 +33,7 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_history, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
         initAdapter();
         return view;
     }

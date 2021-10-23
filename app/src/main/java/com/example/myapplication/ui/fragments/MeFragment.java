@@ -1,8 +1,5 @@
 package com.example.myapplication.ui.fragments;
 
-import static androidx.databinding.DataBindingUtil.setContentView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

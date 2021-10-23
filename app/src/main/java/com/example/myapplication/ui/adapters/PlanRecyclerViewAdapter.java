@@ -20,10 +20,10 @@ import com.example.myapplication.ui.activities.ViewPlanActivity;
 import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
-    private List<WorkoutPlan> mPlanList;
+    private final List<WorkoutPlan> mPlanList;
     private WorkoutPlan chosenPlan;
-    private Context mContext;
-    private SportsImage sm;
+    private final Context mContext;
+    private final SportsImage sm;
 
     public PlanRecyclerViewAdapter(Context context, List<WorkoutPlan> planList) {
         mPlanList = planList;
@@ -31,6 +31,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         sm = new SportsImage();
     }
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item_row, parent, false);
@@ -43,6 +44,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         holder.dateView.setText("");
         holder.sportView.setText(item.getSport().getName());
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        holder.imageView.setClipToOutline(true);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,35 +52,33 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
                 Intent intent = new Intent(mContext, ViewPlanActivity.class);
                 intent.putExtra("ChosenPlan", chosenPlan);
                 mContext.startActivity(intent);
-            }
-        });
-
+            } });
     }
-
 
     @Override
     public int getItemCount() {
         return mPlanList == null ? 0 : mPlanList.size();
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private View view;
-        private TextView sportView;
-        private TextView locationView;
-        private TextView dateView;
-        private ImageView imageView;
-        private CardView cardView;
-        private TextView planType;
+        private final View view;
+        private final TextView sportView;
+        private final TextView locationView;
+        private final TextView dateView;
+        private final ImageView imageView;
+        private final CardView cardView;
+        private final TextView planType;
 
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            planType = (TextView) itemView.findViewById(R.id.plan_type);
-            sportView = (TextView) itemView.findViewById(R.id.plan_sport_name);
-            locationView = (TextView) itemView.findViewById(R.id.plan_location_name);
-            dateView = (TextView) itemView.findViewById(R.id.plan_date);
-            imageView = (ImageView) itemView.findViewById(R.id.plan_sport_image);
-            cardView = (CardView) itemView.findViewById(R.id.history_card);
+            planType = itemView.findViewById(R.id.plan_type);
+            sportView = itemView.findViewById(R.id.plan_sport_name);
+            locationView = itemView.findViewById(R.id.plan_location_name);
+            dateView = itemView.findViewById(R.id.plan_date);
+            imageView = itemView.findViewById(R.id.plan_sport_image);
+            cardView = itemView.findViewById(R.id.history_card);
         }
     }
 }

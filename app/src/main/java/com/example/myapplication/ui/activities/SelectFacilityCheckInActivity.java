@@ -1,26 +1,24 @@
 package com.example.myapplication.ui.activities;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
-import com.example.myapplication.beans.Coordinates;
-import com.example.myapplication.beans.SportType;
-import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterCheckIn;
-import com.example.myapplication.beans.Facility;
 import com.example.myapplication.R;
-import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.Facility;
+import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterCheckIn;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SelectFacilityCheckInActivity extends AppCompatActivity {
-    private List<Facility> mFacilityList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private List<Facility> facilityList;
+
+    public SelectFacilityCheckInActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +29,13 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
 
 
     private List<Facility> getFacilityList(){
-        List<Facility> f= (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance2");
-        return f;
+        return (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance2");
     }
 
     private void initView(){
         setContentView(R.layout.activity_select_facility2);
         facilityList= getFacilityList();
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
     }
 
     /**

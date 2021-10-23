@@ -17,18 +17,17 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.ui.activities.ChatRoomActivity;
 import com.example.myapplication.ui.adapters.CommunityAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CommunityFragment extends Fragment {
     View view;
-    private List<PublicPlan> publicPlanList = new ArrayList<>();
+    private final List<PublicPlan> publicPlanList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CommunityAdapter adapter;
 
@@ -41,9 +40,9 @@ public class CommunityFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("community");
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.community_plan_view);
+        recyclerView = view.findViewById(R.id.community_plan_view);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext().getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new CommunityAdapter(publicPlanList, publicPlan -> {
@@ -55,22 +54,17 @@ public class CommunityFragment extends Fragment {
         });
         recyclerView.setAdapter(adapter);
 
-        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    for (DataSnapshot s: task.getResult().getChildren()){
-                        PublicPlan receivePlan = s.getValue(PublicPlan.class);
-                        if(receivePlan == null){
-                            Log.e("firebase", "Data = null", task.getException());
-                        }
-                        else{
-                            publicPlanList.add(receivePlan);
-                            adapter.notifyItemInserted(publicPlanList.size() - 1);
-                        }
+        mDatabase.get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                for (DataSnapshot s : task.getResult().getChildren()) {
+                    PublicPlan receivePlan = s.getValue(PublicPlan.class);
+                    if (receivePlan == null) {
+                        Log.e("firebase", "Data = null", task.getException());
+                    } else {
+                        publicPlanList.add(receivePlan);
+                        adapter.notifyItemInserted(publicPlanList.size() - 1);
                     }
                 }
             }

@@ -19,8 +19,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Date;
-
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -40,8 +38,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private WorkoutPlan getChosenPlan() {
-        WorkoutPlan p = (WorkoutPlan) getIntent().getSerializableExtra("ChosenPlan");
-        return p;
+        return (WorkoutPlan) getIntent().getSerializableExtra("ChosenPlan");
     }
 
 
@@ -77,7 +74,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             addressView.setText(f.getAddress());
             postalView.setText(f.getPostalCode());
         } else {
-            facilityView.setText("Customized Location");
+            facilityView.setText(getString(R.string.customized_location));
             addressView.setText("");
             postalView.setText("");
         }
@@ -87,6 +84,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 }

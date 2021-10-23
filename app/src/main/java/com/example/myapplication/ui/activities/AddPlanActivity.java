@@ -1,15 +1,14 @@
 package com.example.myapplication.ui.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
@@ -42,8 +41,7 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private Facility getFacility(){
-        Facility f= (Facility) getIntent().getSerializableExtra("ChosenFacility");
-        return f;
+        return (Facility) getIntent().getSerializableExtra("ChosenFacility");
     }
 
     /**
@@ -84,6 +82,7 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 
@@ -94,13 +93,10 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void initButton(){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        button.setOnClickListener(view -> {
+            Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

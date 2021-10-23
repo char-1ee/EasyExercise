@@ -1,24 +1,21 @@
 package com.example.myapplication.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
-import com.google.android.gms.maps.SupportMapFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +39,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     }
 
     private CustomizedLocation getCustomizedLocation(){
-        CustomizedLocation c= (CustomizedLocation) getIntent().getSerializableExtra("CustomizedLocation");
-        return c;
+        return (CustomizedLocation) getIntent().getSerializableExtra("CustomizedLocation");
     }
 
     private List<Sport> testSelectSportAll(){
@@ -64,7 +60,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(R.drawable.panorama);
         locationView= findViewById(R.id.location_view);
-        locationView.setText("Customized Location");
+        locationView.setText(getString(R.string.customized_location));
     }
 
     private void initAdapter(){
@@ -75,17 +71,14 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     }
 
     private void initButton(){
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(CheckInCustomizedActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-                ChosenSport = firstAdapter.finalChoice;
-                Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
-                intent.putExtra("ChosenSport", ChosenSport);
-                intent.putExtra("ChosenLocation", customizedLocation);
-                startActivity(intent);
-                finish();
-            }
+        button1.setOnClickListener(view -> {
+            Toast.makeText(CheckInCustomizedActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
+            ChosenSport = firstAdapter.finalChoice;
+            Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
+            intent.putExtra("ChosenSport", ChosenSport);
+            intent.putExtra("ChosenLocation", customizedLocation);
+            startActivity(intent);
+            finish();
         });
     }
 }

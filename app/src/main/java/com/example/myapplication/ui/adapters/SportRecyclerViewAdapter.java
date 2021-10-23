@@ -1,12 +1,14 @@
 package com.example.myapplication.ui.adapters;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecyclerViewAdapter.MyViewHolder> {
-    private List<Sport> mSportList;
+    private final List<Sport> mSportList;
     public List<Sport> chosenSportList;
-    private SportsImage sm;
+    private final SportsImage sm;
 
     public SportRecyclerViewAdapter(List<Sport> sportList) {
         chosenSportList= new ArrayList<>();
@@ -28,10 +30,8 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
         sm= new SportsImage();
     }
 
-    public List<Sport> getChosenSportList() {
-        return chosenSportList;
-    }
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sport_item_row, parent, false);
@@ -44,21 +44,19 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
         holder.textView.setText(sport.getName());
         holder.imageView.setImageResource(sm.SportsToImage(sport));
         holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sport.setSelected(!sport.isSelected());
-                holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+        holder.view.setOnClickListener(view -> {
+            sport.setSelected(!sport.isSelected());
+            holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+            if(sport.isSelected()){
+                Log.wtf("choosesport","add");
+                chosenSportList.add(sport);
+            }
+            else {
+                boolean e= chosenSportList.remove(sport);
+                Log.wtf("choosesport",String.valueOf(e));
             }
         });
-        if(sport.isSelected()){
-            chosenSportList.add(sport);
-        }
-        else if(!sport.isSelected()){
-            if(chosenSportList.contains(sport)){
-                chosenSportList.remove(sport);
-            }
-        }
+
     }
 
     @Override
@@ -66,18 +64,18 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
         return mSportList == null ? 0 : mSportList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private View view;
-        private TextView textView;
-        private ImageView imageView;
-        private CardView cardView;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        private final View view;
+        private final TextView textView;
+        private final ImageView imageView;
+        private final CardView cardView;
 
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            cardView = (CardView) itemView.findViewById(R.id.sportView);
-            textView = (TextView) itemView.findViewById(R.id.sport_title);
-            imageView = (ImageView) itemView.findViewById(R.id.sport_image);
+            cardView = itemView.findViewById(R.id.sportView);
+            textView = itemView.findViewById(R.id.sport_title);
+            imageView = itemView.findViewById(R.id.sport_image);
         }
     }
 }

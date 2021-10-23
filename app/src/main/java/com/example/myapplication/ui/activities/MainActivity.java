@@ -82,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             public void run() {
                 if (latitude== 0) {
-                    Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 3000);
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
                     intentToPlan= new Intent(MainActivity.this, SelectSportActivity.class);
                     intentToPlan.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
                     intentToPlan.putExtra("OtherSports", (Serializable) testSelectSportOther());

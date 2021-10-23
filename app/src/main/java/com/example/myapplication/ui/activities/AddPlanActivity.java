@@ -2,8 +2,11 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
+import com.example.myapplication.beans.Sport;
 import com.example.myapplication.ui.adapters.AddPlanAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class AddPlanActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,OnMapReadyCallback  {
     private Button button;
     private RecyclerView rv_test;
     private Facility facility;
@@ -30,6 +34,7 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView facilityView;
     private TextView addressView;
     private TextView postalView;
+    private Sport finalSport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,7 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
         rv_test.setLayoutManager(new LinearLayoutManager(AddPlanActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new AddPlanAdapter(AddPlanActivity.this, facility);
         rv_test.setAdapter(firstAdapter);
+        firstAdapter.setOnItemClickListener(this);
     }
 
     private void initButton(){
@@ -100,4 +106,9 @@ public class AddPlanActivity extends AppCompatActivity implements OnMapReadyCall
         });
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        finalSport= firstAdapter.finalChoice;
+        Toast.makeText(AddPlanActivity.this,String.valueOf(finalSport.getName()), Toast.LENGTH_SHORT).show();
+    }
 }

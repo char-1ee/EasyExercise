@@ -2,10 +2,18 @@ package com.example.myapplication.databases;
 
 import android.provider.BaseColumns;
 
+/**
+ * Contract for the application's local database.
+ *
+ * @author Li Xingjian
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public final class DatabaseContract {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "data.db";
     private static final String INTEGER_TYPE = " INTEGER ";
+    private static final String DOUBLE_TYPE = " DOUBLE ";
     private static final String PRIMARY_KEY = " PRIMARY KEY ";
     private static final String TEXT_TYPE = " TEXT ";
     private static final String COMMA_SEP = " , ";
@@ -52,6 +60,8 @@ public final class DatabaseContract {
         public static final String KEY_ADDRESS = " address ";
         public static final String KEY_POSTAL_CODE = " postal_code ";
         public static final String KEY_DESCRIPTION = " description ";
+        public static final String KEY_LATITUDE = " latitude ";
+        public static final String KEY_LONGITUDE = " longitude ";
         public static final String KEY_SPORTS = " sportId ";
 
         public static final String CREATE_TABLE_FACILITY = " CREATE TABLE " + TABLE_NAME_FACILITIES + " ( " +
@@ -61,6 +71,8 @@ public final class DatabaseContract {
                 KEY_ADDRESS + TEXT_TYPE + COMMA_SEP +
                 KEY_POSTAL_CODE + TEXT_TYPE + COMMA_SEP +
                 KEY_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                KEY_LATITUDE + DOUBLE_TYPE + COMMA_SEP +
+                KEY_LONGITUDE + DOUBLE_TYPE + COMMA_SEP +
                 KEY_SPORTS + TEXT_TYPE +
                 " ) ";
         // CREATE TABLE facilities (
@@ -70,6 +82,8 @@ public final class DatabaseContract {
         // address TEXT,
         // postal_code TEXT,
         // description TEXT,
+        // latitude DOUBLE,
+        // longitude DOUBLE,
         // sports TEXT
         // );
 

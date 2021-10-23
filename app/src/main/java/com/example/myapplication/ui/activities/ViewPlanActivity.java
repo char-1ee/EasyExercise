@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.room.Database;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -132,27 +133,35 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void initButton(){
         addPlanButton.setOnClickListener(view -> {
-            pvOptions.show();
-            pvTime2.show();
-            pvTime.show();
-            mapFragment. getView().setVisibility(View.GONE);
-            cardView.setVisibility(View.VISIBLE);
-            initHandler();
-            handler.post(runnable);
-
-            WorkoutPlan localPlan = getChosenPlan();
-            Location location = plan.getLocation();
-            int facility_id;
-            if (location.getType() == Location.LocationType.FACILITY) {
-                facility_id = ((Facility) location).getId();
+            if(startDate == null || endDate == null){
+                addPlanButton.setText("Publish Plan");
+                pvOptions.show();
+                pvTime2.show();
+                pvTime.show();
+                mapFragment. getView().setVisibility(View.GONE);
+                cardView.setVisibility(View.VISIBLE);
+                initHandler();
+                handler.post(runnable);
             }
             else{
-                facility_id = -1;
+                addPlanButton.setText("Confirm");
+                WorkoutPlan localPlan = getChosenPlan();
+                Location location = plan.getLocation();
+                int facility_id;
+                if (location.getType() == Location.LocationType.FACILITY) {
+                    facility_id = ((Facility) location).getId();
+                }
+                else{
+                    facility_id = -1;
+                }
+                PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id);
+                publicPlan.addMembers(10001);
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                DatabaseReference mDatabase = database.getReference().child("community");
+                String postId = mDatabase.push().getKey();
+                mDatabase.child(postId).setValue(publicPlan);
+                Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
             }
-            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id);
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-            DatabaseReference mDatabase = database.getReference().child("community");
-            mDatabase.setValue(publicPlan);
         });
     }
 
@@ -223,12 +232,17 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                     handler.postDelayed(this, 3000);
                 }
                 else{
-                    Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
                     startTime.setText(getTime(startDate));
                     endTime.setText(getTime(endDate));
                     limitView.setText(String.valueOf(finalLimit));
                     //Toast.makeText(ViewPlanActivity.this, finalLimit.toString(), Toast.LENGTH_SHORT).show();
                 }
+// TODO: 同步问题
+//                if(startDate.getTime() >= endDate.getTime()){
+//                    Toast.makeText(ViewPlanActivity.this, "End time should be later than start time", Toast.LENGTH_SHORT).show();
+//                    startTime = null;
+//                    endDate = null;
+//                }
             }
         };
     }

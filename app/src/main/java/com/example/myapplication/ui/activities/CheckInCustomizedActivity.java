@@ -2,6 +2,8 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
-import com.example.myapplication.beans.Sport;
-import com.example.myapplication.databases.DBManager;
+import com.example.myapplication.beans.Sport;;
+import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInCustomizedActivity extends AppCompatActivity {
-    private DBManager db;
+public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+    private SportAndFacilityDBHelper dbHelper;
     private ImageView imageView;
     private Button button1;
     private RecyclerView rv_test;
@@ -45,9 +47,9 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
     }
 
     private List<Sport> testSelectSportAll(){
-        db.openDatabase();
-        List<Sport> sports= db.getSports();
-        db.closeDatabase();
+        dbHelper.openDatabase();
+        List<Sport> sports= dbHelper.getSports();
+        dbHelper.closeDatabase();
         return sports;
     }
 
@@ -59,32 +61,34 @@ public class CheckInCustomizedActivity extends AppCompatActivity {
         imageView.setImageResource(R.drawable.panorama);
         locationView= findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
-        db= new DBManager(this);
+        dbHelper= new SportAndFacilityDBHelper(this);
     }
 
     private void initAdapter(){
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInCustomizedActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
         rv_test.setAdapter(firstAdapter);
-        rv_test.post(new Runnable()
-        {
-            @Override
-            public void run() {
-                firstAdapter.notifyDataSetChanged();
-            }
-        });
-
+        firstAdapter.setOnItemClickListener(this);
     }
 
     private void initButton(){
         button1.setOnClickListener(view -> {
-            Toast.makeText(CheckInCustomizedActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-            ChosenSport = firstAdapter.finalChoice;
-            Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
-            intent.putExtra("ChosenSport", ChosenSport);
-            intent.putExtra("ChosenLocation", customizedLocation);
-            startActivity(intent);
-            finish();
+            if(ChosenSport== null){
+                Toast.makeText(CheckInCustomizedActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
+                intent.putExtra("ChosenSport", ChosenSport);
+                intent.putExtra("ChosenLocation", customizedLocation);
+                startActivity(intent);
+                finish();
+            }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        ChosenSport= firstAdapter.finalChoice;
+        Toast.makeText(CheckInCustomizedActivity.this,String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
     }
 }

@@ -19,7 +19,7 @@
             android:id="@+id/checkoutSport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp"
             android:text="@string/sample_user_check_out_sport"
@@ -34,10 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/checkoutSport"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:text="@string/sample_user_check_out_place"
             android:textColor="@color/black"
-            android:textSize="30sp"
+            android:textSize="25sp"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageView

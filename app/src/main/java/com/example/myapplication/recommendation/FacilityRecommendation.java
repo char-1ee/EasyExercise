@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.databases.DBManager;
+import com.example.myapplication.databases.SportAndFacilityDBHelper;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -16,7 +16,7 @@ public class FacilityRecommendation {
     private FacilityRecommendation() {}
 
     public static List<Facility> getFacilitiesBySports(Context context, Collection<Sport> sports, Coordinates coordinates, int limit) {
-        DBManager manager = new DBManager(context);
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
         manager.openDatabase();
         List<Facility> results = manager.getFacilities().stream()
                 .filter(facility ->
@@ -33,7 +33,7 @@ public class FacilityRecommendation {
     }
 
     public static List<Facility> getFacilitiesNearby(Context context, Coordinates coordinates, double distance, int limit) {
-        DBManager manager = new DBManager(context);
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
         manager.openDatabase();
         List<Facility> results = manager.getFacilities().stream()
                 .filter(facility ->

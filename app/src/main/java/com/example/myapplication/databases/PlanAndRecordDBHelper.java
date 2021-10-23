@@ -12,11 +12,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.myapplication.utils.App;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class PlanAndRecordDBHelper extends SQLiteOpenHelper {
 
-    private static DatabaseHelper databaseHelper;
+    private static PlanAndRecordDBHelper databaseHelper;
 
-    public DatabaseHelper() {
+    public PlanAndRecordDBHelper() {
         super(App.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 

@@ -9,7 +9,7 @@ import android.widget.Button;
  * If a {@link android.widget.Button} is triggered multiple times in a short time, clickListener regards the clicks invalid.<br/>
  * <p>
  * An example to illustrate its usage:<br/>
- * <pre class="prettyprint">
+ * <pre>
  * mButton.setOnItemClickListener(new OnItemClickListener() {
  *   public void onItemClick(AdapterView<?> arg0, View arg1, int arg2) {
  *     if (!ButtonClickUtils.isFastDoubleClick(R.id.button_mButton)) {
@@ -43,11 +43,11 @@ public class ButtonClickUtil {
     }
 
     /**
-     * Judge time interval of two click events. If less than DIFF, it is thought invalid.
+     * Judge time interval of two click events. If less than {@code DIFF}, it is thought invalid.
      *
      * @param buttonId {@link com.example.myapplication.R.id} corresponds to {@link Button} object
-     * @param diff     predefined time interval DIFF
-     * @return false or true
+     * @param diff     predefined time interval {@code DIFF}
+     * @return false if time interval less than {@code DIFF}, otherwise true
      */
     private static boolean isFastDoubleClick(int buttonId, long diff) {
         long time = System.currentTimeMillis();

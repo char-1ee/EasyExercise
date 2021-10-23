@@ -5,13 +5,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * A class to ensure thread-safe database connections.<p>
+ * Sample usage is like:
+ *<pre>
+ *     SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+ *     database.insert(...);
+ *     DatabaseManager.getInstance().closeDatabase();
+ *</pre>
+ * @author Li Xingjian
+ */
 public class DatabaseManager {
+
+    /**
+     * A counter indicates how many times database is opened. If it equals to one, it means we need to create new database, if not, database is already created.
+     */
     private AtomicInteger mOpenCounter = new AtomicInteger();
 
     private static DatabaseManager instance;
     private static SQLiteOpenHelper mDatabaseHelper;
     private SQLiteDatabase mDatabase;
 
+    /**
+     * Initialize SQLite database helper.
+     * @param helper {@link SQLiteOpenHelper} object
+     */
     public static synchronized void initializeInstance(SQLiteOpenHelper helper) {
         if (instance == null) {
             instance = new DatabaseManager();
@@ -19,6 +37,10 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Get database object in Singleton pattern.
+     * @return database instance if only one instance exists
+     */
     public static synchronized DatabaseManager getInstance() {
         if (instance == null) {
             throw new IllegalStateException(DatabaseManager.class.getSimpleName() +
@@ -28,6 +50,10 @@ public class DatabaseManager {
         return instance;
     }
 
+    /**
+     * Open the SQLite database.
+     * @return {@link SQLiteDatabase} object
+     */
     public synchronized SQLiteDatabase openDatabase() {
         if(mOpenCounter.incrementAndGet() == 1) {
             // Opening new database
@@ -36,6 +62,9 @@ public class DatabaseManager {
         return mDatabase;
     }
 
+    /**
+     * Close the SQLite database.
+     */
     public synchronized void closeDatabase() {
         if(mOpenCounter.decrementAndGet() == 0) {
             // Closing database

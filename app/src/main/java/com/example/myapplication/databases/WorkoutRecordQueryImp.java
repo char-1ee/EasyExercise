@@ -62,7 +62,7 @@ public class WorkoutRecordQueryImp {
                     String startTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_START_TIME));
                     String endTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_END_TIME));
 
-                    Sport sport = new Sport();
+                    Sport sport = new Sport();  // TODO
                     Facility facility = new Facility();
                     cursorMatchById(context, sport, facility, sportId, facilityId);
 

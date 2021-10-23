@@ -3,7 +3,7 @@ package com.example.myapplication.utils;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.myapplication.databases.DatabaseHelper;
+import com.example.myapplication.databases.PlanAndRecordDBHelper;
 import com.example.myapplication.databases.DatabaseManager;
 
 /**
@@ -14,17 +14,17 @@ import com.example.myapplication.databases.DatabaseManager;
  * and only has 1 instance in entire application life cycle.
  *
  * @author Li Xingjian
- * @see com.example.myapplication.databases.DatabaseHelper
+ * @see PlanAndRecordDBHelper
  */
 public class App extends Application {
     private static Context context = null;
-    private static DatabaseHelper dbHelper;
+    private static PlanAndRecordDBHelper dbHelper;
 
     @Override
     public void onCreate() {
          super.onCreate();
          context = this.getApplicationContext();
-         dbHelper = new DatabaseHelper();
+         dbHelper = new PlanAndRecordDBHelper();
          DatabaseManager.initializeInstance(dbHelper);
      }
 

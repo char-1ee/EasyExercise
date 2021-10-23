@@ -185,7 +185,7 @@ public class SportAndFacilityDBHelper {
     }
 }
 /*
-    DBHelper db = new DBHelper(this);
+    SFDBHelper db = new DBHelper(this);
     db.openDatabase();
     //
     db.closeDatabase();

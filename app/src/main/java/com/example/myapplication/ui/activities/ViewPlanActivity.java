@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,8 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
@@ -29,12 +33,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
+    Integer finalLimit= 0;
     TimePickerView pvTime2;
     TimePickerView pvTime;
+    OptionsPickerView pvOptions;
+    private Handler handler;
+    private Runnable runnable;
     private Date startDate;
     private Date endDate;
     private GoogleMap mMap;
@@ -46,7 +57,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private WorkoutPlan plan;
     private Location location;
     private Button addPlanButton;
-    private Button button;
+    Integer[] limit= {2,3,4,5,6,7,8,9,10};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,67 +123,82 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void initButton(){
-        addPlanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pvTime2.show();
-                pvTime.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        TextView textView= findViewById(R.id.textView4);
-                        textView.setText(getTime(endDate));
-                    }
-                }, 5000);
-            }
+        addPlanButton.setOnClickListener(view -> {
+            pvOptions.show();
+            pvTime2.show();
+            pvTime.show();
+            initHandler();
+            handler.post(runnable);
         });
     }
 
     private void initPicker(){
-        pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date1, View v) {
-                //Toast.makeText(ViewPlanActivity.this, getTime(date1), Toast.LENGTH_SHORT).show();
-                startDate= date1;
-            }
-        })
-                .setType(new boolean[]{false, true, true, true, true, false})// 默认全部显示
+        pvTime = new TimePickerBuilder(this, (date1, v) -> startDate= date1)
+                .setType(new boolean[]{false, true, true, true, true, false})
                 .setCancelText("Cancel")
                 .setSubmitText("Confirm")
-                .setTitleSize(20)//标题文字大小
-                .setTitleText("Select Starting Time")//标题文字
-                .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
-                .isCyclic(true)//是否循环滚动
-                .setLabel("y","m","d","h","min","sec")//默认设置为年月日时分秒
-                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                .isDialog(true)//是否显示为对话框样式
+                .setTitleSize(20)
+                .setTitleText("Starting Time")
+                .setOutSideCancelable(false)
+                .isCyclic(true)
+                .setLabel("y","m","d","h","min","sec")
+                .isCenterLabel(false)
+                .isDialog(true)
                 .build();
 
-        pvTime2 = new TimePickerBuilder(this, new OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date2,View v) {
-                endDate= date2;
-                //Toast.makeText(ViewPlanActivity.this, getTime(date2), Toast.LENGTH_SHORT).show();
-            }
-        })
-                .setType(new boolean[]{false, true, true, true, true, false})// 默认全部显示
+        pvTime2 = new TimePickerBuilder(this, (date2, v) -> endDate= date2)
+                .setType(new boolean[]{false, true, true, true, true, false})
                 .setCancelText("Cancel")
                 .setSubmitText("Confirm")
-                .setTitleSize(20)//标题文字大小
-                .setTitleText("Select Ending Time")//标题文字
-                .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
-                .isCyclic(true)//是否循环滚动
-                .setLabel("y","m","d","h","min","sec")//默认设置为年月日时分秒
-                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                .isDialog(true)//是否显示为对话框样式
+                .setTitleSize(20)
+                .setTitleText("Ending Time")
+                .setOutSideCancelable(false)
+                .isCyclic(true)
+                .setLabel("y","m","d","h","min","sec")
+                .isCenterLabel(false)
+                .isDialog(true)
                 .build();
-
+        List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
+        pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> {
+            //返回的分别是三个级别的选中位置
+            finalLimit= options1Items.get(options1);
+        })
+                .setSubmitText("Confirm")
+                .setCancelText("Cancel")
+                .setTitleText("Person Number")
+                .setSubCalSize(18)
+                .setTitleSize(20)
+                .setContentTextSize(18)
+                .isCenterLabel(false)
+                .setCyclic(true, false, false)
+                .setSelectOptions(1, 1, 1)
+                .setOutSideCancelable(false)
+                .isDialog(true)
+                .isRestoreItem(true)
+                .build();
+        pvOptions.setPicker(options1Items);
     }
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
         Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
+    }
+
+    private void initHandler(){
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                if (startDate== null || endDate== null || finalLimit== 0) {
+                    Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(this, 3000);
+                }
+                else{ Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+                    TextView textView= findViewById(R.id.textView4);
+                    textView.setText(finalLimit.toString());
+                }
+            }
+        };
     }
 
 }

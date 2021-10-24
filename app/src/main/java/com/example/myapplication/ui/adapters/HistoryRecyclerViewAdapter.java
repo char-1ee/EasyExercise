@@ -69,7 +69,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
                 TextView sportView, facilityView, durationView, startTimeView, endTimeView;
                 dialog.setContentView(R.layout.dialog_history);
                 sportView = dialog.findViewById(R.id.sport_view);
-                facilityView = dialog.findViewById(R.id.facility_view);
+                facilityView = dialog.findViewById(R.id.location_view);
                 durationView = dialog.findViewById(R.id.duration_view);
                 startTimeView = dialog.findViewById(R.id.start_time_view);
                 endTimeView = dialog.findViewById(R.id.end_time_view);

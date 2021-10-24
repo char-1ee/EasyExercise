@@ -3,14 +3,12 @@ package com.example.myapplication.ui.adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +20,6 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.sportsImage.SportsImage;
-import com.example.myapplication.utils.MenuItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,12 +66,12 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
                 TextView sportView, facilityView, durationView, startTimeView, endTimeView;
                 ImageView imageView;
                 dialog.setContentView(R.layout.dialog_history);
-                sportView = dialog.findViewById(R.id.sport_view);
+                sportView = dialog.findViewById(R.id.planLimitView);
                 imageView = dialog.findViewById(R.id.history_sport_image);
                 facilityView = dialog.findViewById(R.id.location_view);
                 durationView = dialog.findViewById(R.id.duration_view);
-                startTimeView = dialog.findViewById(R.id.start_time_view);
-                endTimeView = dialog.findViewById(R.id.end_time_view);
+                startTimeView = dialog.findViewById(R.id.end_time_view);
+                endTimeView = dialog.findViewById(R.id.start_time_view);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 sportView.setText(item.getSport().getName());
                 if (item.getLocation().getType() == Location.LocationType.FACILITY) {

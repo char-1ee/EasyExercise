@@ -28,6 +28,7 @@ import java.util.stream.Stream;
  *     // Your code here
  *     dbHelper.closeDatabase();
  * </pre>
+ *
  * @author Li Xingjian
  * @author Ma Xinyi
  * @author Zhong Ruoyu
@@ -42,10 +43,11 @@ public class SportAndFacilityDBHelper {
             + PACKAGE_NAME;
 
     private SQLiteDatabase database;
-    private Context context;
+    private final Context context;
 
     /**
      * Constructor for class {@code SportAndFacilityDBHelper}.
+     *
      * @param context current activity {@link Context}
      */
     public SportAndFacilityDBHelper(Context context) {
@@ -63,6 +65,7 @@ public class SportAndFacilityDBHelper {
 
     /**
      * Open SQLite database in {@code DB_PATH}
+     *
      * @param dbFile database file path in {@link String}
      * @reutrn the SQLiteDatabase in path, {@code null} if not exists
      */
@@ -105,6 +108,7 @@ public class SportAndFacilityDBHelper {
                 Sport sport = new Sport(id, name, alternativeName, Sport.SportType.getType(type));
                 sportList.add(sport);
             }
+            cursor.close();
             return sportList;
         } else {
             return null;
@@ -118,7 +122,7 @@ public class SportAndFacilityDBHelper {
      * @return {@link Sport} instance, otherwise {@code null} if no matches
      */
     public Sport getSportById(int sportId) {
-        Cursor cursor = database.rawQuery("SELECT * FROM sports WHERE _id = sportId", null);
+        Cursor cursor = database.rawQuery(String.format("SELECT * FROM sports WHERE _id = %d", sportId), null);
         if (cursor != null) {
             Sport sport = null;
             if (cursor.getCount() > 0) {
@@ -128,6 +132,7 @@ public class SportAndFacilityDBHelper {
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 sport = new Sport(id, name, alternativeName, Sport.SportType.getType(type));
             }
+            cursor.close();
             return sport;
         } else {
             return null;
@@ -141,7 +146,7 @@ public class SportAndFacilityDBHelper {
      * @return {@link Facility} instance, otherwise {@code null} if no matches
      */
     public Facility getFacilityById(int facilityId) {
-        Cursor cursor = database.rawQuery("SELECT * FROM facilities WHERE _id = facilityId", null);
+        Cursor cursor = database.rawQuery(String.format("SELECT * FROM facilities WHERE _id = %d", facilityId), null);
         if (cursor != null) {
             Facility facility = null;
             if (cursor.getCount() > 0) {
@@ -155,6 +160,7 @@ public class SportAndFacilityDBHelper {
                 double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
                 facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
             }
+            cursor.close();
             return facility;
         } else {
             return null;
@@ -185,6 +191,7 @@ public class SportAndFacilityDBHelper {
                 sportList.stream().filter(sport -> sportIDs.contains(sport.getId())).forEach(facility::addSport);
                 facilityList.add(facility);
             }
+            cursor.close();
             return facilityList;
         } else {
             return null;

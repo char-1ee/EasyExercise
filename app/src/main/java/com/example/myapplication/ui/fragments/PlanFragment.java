@@ -35,7 +35,7 @@ public class PlanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan, container, false);
-        workoutPlanQueryImp= new WorkoutPlanQueryImp(getListData());
+        workoutPlanQueryImp = new WorkoutPlanQueryImp();
         mRecyclerView = view.findViewById(R.id.recycler_view);
         initAdapter();
         return view;

@@ -23,8 +23,7 @@ public class WorkoutPlanQueryImp {
 
     private WorkoutPlan workoutPlan;
 
-    public WorkoutPlanQueryImp(WorkoutPlan plan) {
-        this.workoutPlan = plan;
+    public WorkoutPlanQueryImp() {
     }
 
     public void insert(WorkoutPlan workoutPlan) {

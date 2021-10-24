@@ -108,7 +108,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
             }
             else{
                 workoutPlan= new WorkoutPlan(finalSport, facility, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
-                WorkoutPlanQueryImp workoutPlanQueryImp= new WorkoutPlanQueryImp(workoutPlan);
+                WorkoutPlanQueryImp workoutPlanQueryImp = new WorkoutPlanQueryImp();
                 workoutPlanQueryImp.insert(workoutPlan);
                 Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);

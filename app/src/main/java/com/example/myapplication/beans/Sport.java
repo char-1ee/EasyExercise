@@ -59,11 +59,4 @@ public class Sport implements Serializable {
         return type;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
 }

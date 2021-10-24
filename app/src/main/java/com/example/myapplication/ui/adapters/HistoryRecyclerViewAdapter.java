@@ -22,6 +22,7 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.sportsImage.SportsImage;
+import com.example.myapplication.utils.MenuItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
-    private Dialog mDialog;
     private final List<WorkoutRecord> mWorkOutHistoryList;
     private final SportsImage sm;
 

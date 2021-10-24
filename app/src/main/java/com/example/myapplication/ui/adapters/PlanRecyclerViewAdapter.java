@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -52,6 +53,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
                 Intent intent = new Intent(mContext, ViewPlanActivity.class);
                 intent.putExtra("ChosenPlan", chosenPlan);
                 mContext.startActivity(intent);
+                ((Activity)mContext).finish();
             } });
     }
 

@@ -54,6 +54,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         Sport item = sportList.get(position);
         holder.tv_question_item.setText(item.getName());
         holder.iv_question_item.setImageResource(sm.SportsToImage(item));
+        holder.iv_question_item.setClipToOutline(true);
         holder.rb_question_item.setChecked(position == index);
     }
 

@@ -15,14 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
-import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.Sport;;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    private SportAndFacilityDBHelper db;
+public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+    private SportAndFacilityDBHelper dbHelper;
     private ImageView imageView;
     private Button button1;
     private RecyclerView rv_test;
@@ -33,7 +34,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        customizedLocation = getCustomizedLocation();
+        customizedLocation= getCustomizedLocation();
         super.onCreate(savedInstanceState);
         initView();
         initAdapter();
@@ -41,44 +42,47 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
 
     }
 
-    private CustomizedLocation getCustomizedLocation() {
+    private CustomizedLocation getCustomizedLocation(){
         return (CustomizedLocation) getIntent().getSerializableExtra("CustomizedLocation");
     }
 
-    private List<Sport> testSelectSportAll() {
-        db.openDatabase();
-        List<Sport> sports = db.getSports();
-        db.closeDatabase();
+    private List<Sport> testSelectSportAll(){
+        dbHelper.openDatabase();
+        List<Sport> sports= dbHelper.getSports();
+        dbHelper.closeDatabase();
         return sports;
     }
 
-    private void initView() {
+    private void initView(){
         setContentView(R.layout.activity_check_in_customized);
         rv_test = findViewById(R.id.check_in_sport_recycler);
         button1 = findViewById(R.id.check_in_sport_button);
         imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(R.drawable.panorama);
-        locationView = findViewById(R.id.location_view);
+        locationView= findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
-        db = new SportAndFacilityDBHelper(this);
+        dbHelper= new SportAndFacilityDBHelper(this);
     }
 
-    private void initAdapter() {
+    private void initAdapter(){
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInCustomizedActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
         rv_test.setAdapter(firstAdapter);
         firstAdapter.setOnItemClickListener(this);
     }
 
-    private void initButton() {
+    private void initButton(){
         button1.setOnClickListener(view -> {
-            Toast.makeText(CheckInCustomizedActivity.this, "Option " + firstAdapter.finalChoice.getName() + " selected", Toast.LENGTH_SHORT).show();
-            ChosenSport = firstAdapter.finalChoice;
-            Intent intent = new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
-            intent.putExtra("ChosenSport", ChosenSport);
-            intent.putExtra("ChosenLocation", customizedLocation);
-            startActivity(intent);
-            finish();
+            if(ChosenSport== null){
+                Toast.makeText(CheckInCustomizedActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
+                intent.putExtra("ChosenSport", ChosenSport);
+                intent.putExtra("ChosenLocation", customizedLocation);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 

@@ -47,7 +47,7 @@ public class HistoryFragment extends Fragment {
     private List<WorkoutRecord> getListData() {
         mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            Sport s = new Sport(0, "Freeplay", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+            Sport s = new Sport(0, "Free play", "swimming", Sport.SportType.INDOOR_OUTDOOR);
             Location location = testCheckinClosetFacility();
             Date date = new Date();
             // TODO: Update workout record
@@ -81,7 +81,7 @@ public class HistoryFragment extends Fragment {
      * @author Ruan Donglin
      */
     private void initAdapter(){
-        mAdapter = new HistoryRecyclerViewAdapter(getListData());
+        mAdapter = new HistoryRecyclerViewAdapter(getListData(), getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

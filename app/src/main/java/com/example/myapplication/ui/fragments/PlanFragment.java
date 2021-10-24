@@ -18,6 +18,7 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.databases.WorkoutPlanQueryImp;
 import com.example.myapplication.ui.adapters.PlanRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -28,25 +29,23 @@ public class PlanFragment extends Fragment {
     private List<WorkoutPlan> mWorkoutPlan;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private WorkoutPlanQueryImp workoutPlanQueryImp;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan, container, false);
+        workoutPlanQueryImp = new WorkoutPlanQueryImp();
         mRecyclerView = view.findViewById(R.id.recycler_view);
         initAdapter();
         return view;
     }
 
-    private List<WorkoutPlan> getListData() {
-        mWorkoutPlan = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            Sport s = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-            Location location = testCheckinClosetFacility();
-            WorkoutPlan w = new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
-            mWorkoutPlan.add(w);
-        }
-        return mWorkoutPlan;
+    private WorkoutPlan getListData() {
+        Sport s = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
+        Location location = testCheckinClosetFacility();
+        WorkoutPlan w = new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
+        return w;
     }
 
     private Facility testCheckinClosetFacility() {
@@ -60,13 +59,22 @@ public class PlanFragment extends Fragment {
         return r;
     }
 
+    private List<WorkoutPlan> getListData2(WorkoutPlan w){
+        List<WorkoutPlan> plan= new ArrayList<>();
+        for(int i= 0; i< 5; i++){
+            plan.add(w);
+        }
+        return plan;
+    }
+
     /**
      * Initialize adapter for recyclerview.
      *
      * @author Ruan Donglin
      */
     private void initAdapter(){
-        mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData());
+        mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
+        //mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

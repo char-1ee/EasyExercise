@@ -53,7 +53,6 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
                 Intent intent = new Intent(mContext, ViewPlanActivity.class);
                 intent.putExtra("ChosenPlan", chosenPlan);
                 mContext.startActivity(intent);
-                ((Activity)mContext).finish();
             } });
     }
 

@@ -14,11 +14,17 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.ui.adapters.FacilityRecyclerViewAdapterPlan;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.awt.font.TextAttribute;
 import java.util.List;
 
-public class SelectFacilityPlanActivity extends AppCompatActivity {
+public class SelectFacilityPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     private TextView textView;
     private List<Facility> FacilityQualified;
     private RecyclerView mRecyclerView;
@@ -26,6 +32,8 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
     private Coordinates coordinate;
     double latitude= 0;
     double longitude= 0;
+    private GoogleMap mMap;
+    private Facility facility;
     private ActionBar actionBar;
 
     @Override
@@ -33,6 +41,7 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initView();
         initAdapter();
+        initMap();
     }
 
 
@@ -54,10 +63,15 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
         mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified, new Coordinates(latitude, longitude, ""));
     }
 
+    private void initMap(){
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapview);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
+    }
     /**
      * Initialize adapter for recyclerview.
      *
-     * @author Ruan Donglin
      */
     private void initAdapter(){
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
@@ -78,5 +92,18 @@ public class SelectFacilityPlanActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         this.finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        for(Facility curFacility: FacilityQualified){
+            LatLng cur = new LatLng(curFacility.getLatitude(), curFacility.getLongitude());
+            mMap.addMarker(new MarkerOptions()
+                    .position(cur)
+                    .title(curFacility.getName()));
+        }
+        LatLng cur = new LatLng(FacilityQualified.get(0).getLatitude(), FacilityQualified.get(0).getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 13f));
     }
 }

@@ -26,15 +26,14 @@ public class PublicPlan {
         this.members = members;
     }
 
-    public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID) {
+    public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID, int userID) {
         planLimit = limit;
         planStart = start.getTime();
         planFinish = finish.getTime();
         sport = sportID;
         facility = facilityID;
         members = new ArrayList<Integer>();
-        members.add(10001);
-        members.add(10002);
+        members.add(userID);
     }
 
     public int getPlanLimit() {

@@ -33,9 +33,6 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
     public CheckInSportAdapter(Context context, List<Sport> secondList) {
         this.context = context;
         this.secondList = secondList;
-        for(Sport s: secondList){
-            s.setSelected(false);
-        }
         this.sm = new SportsImage();
     }
 

@@ -125,7 +125,7 @@ public class SportAndFacilityDBHelper {
         Cursor cursor = database.rawQuery(String.format("SELECT * FROM sports WHERE _id = %d", sportId), null);
         if (cursor != null) {
             Sport sport = null;
-            if (cursor.getCount() > 0) {
+            if (cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 String alternativeName = cursor.getString(cursor.getColumnIndexOrThrow("alternative_name"));
@@ -134,34 +134,6 @@ public class SportAndFacilityDBHelper {
             }
             cursor.close();
             return sport;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Get sport data by {@code sportId}
-     *
-     * @param facilityId targeted facility Id
-     * @return {@link Facility} instance, otherwise {@code null} if no matches
-     */
-    public Facility getFacilityById(int facilityId) {
-        Cursor cursor = database.rawQuery(String.format("SELECT * FROM facilities WHERE _id = %d", facilityId), null);
-        if (cursor != null) {
-            Facility facility = null;
-            if (cursor.getCount() > 0) {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                String url = cursor.getString(cursor.getColumnIndexOrThrow("url"));
-                String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
-                String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("postal_code"));
-                String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";", "\n");
-                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
-                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
-                facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
-            }
-            cursor.close();
-            return facility;
         } else {
             return null;
         }
@@ -186,13 +158,43 @@ public class SportAndFacilityDBHelper {
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";", "\n");
                 double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
                 double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
-                List<Integer> sportIDs = Stream.of(cursor.getString(cursor.getColumnIndexOrThrow("sports")).split(",")).map(Integer::parseInt).collect(Collectors.toList());
+                List<Integer> sportIDs = Stream.of(
+                        cursor.getString(cursor.getColumnIndexOrThrow("sports")).split(",")
+                ).map(Integer::parseInt).collect(Collectors.toList());
                 Facility facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
                 sportList.stream().filter(sport -> sportIDs.contains(sport.getId())).forEach(facility::addSport);
                 facilityList.add(facility);
             }
             cursor.close();
             return facilityList;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get sport data by {@code sportId}
+     *
+     * @param facilityId targeted facility Id
+     * @return {@link Facility} instance, otherwise {@code null} if no matches
+     */
+    public Facility getFacilityById(int facilityId) {
+        Cursor cursor = database.rawQuery(String.format("SELECT * FROM facilities WHERE _id = %d", facilityId), null);
+        if (cursor != null) {
+            Facility facility = null;
+            if (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String url = cursor.getString(cursor.getColumnIndexOrThrow("url"));
+                String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("postal_code"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description")).replace(";", "\n");
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
+                facility = new Facility(id, name, url, address, postalCode, description, latitude, longitude);
+            }
+            cursor.close();
+            return facility;
         } else {
             return null;
         }

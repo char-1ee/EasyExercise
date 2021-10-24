@@ -34,7 +34,6 @@ public class Sport implements Serializable {
     private final String name;
     private final String alternativeName;
     private final SportType type;
-    private boolean isSelected = false;  // TODO: Remove field
 
     public Sport(int id, String name, String alternativeName, SportType type) {
         this.id = id;
@@ -58,5 +57,4 @@ public class Sport implements Serializable {
     public SportType getType() {
         return type;
     }
-
 }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.sportsImage.SportsImage;
+import com.example.myapplication.utils.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,17 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
     private final List<Sport> mSportList;
     public List<Sport> chosenSportList;
     private final SportsImage sm;
+    private List<MenuItem<Sport>> sportMenuItem;
 
     public SportRecyclerViewAdapter(List<Sport> sportList) {
-        chosenSportList= new ArrayList<>();
+        chosenSportList = new ArrayList<>();
         mSportList = sportList;
-        sm= new SportsImage();
+        sportMenuItem = new ArrayList<>();
+        for (Sport s : mSportList) {
+            MenuItem<Sport> item = new MenuItem<>(s);
+            sportMenuItem.add(item);
+        }
+        sm = new SportsImage();
     }
 
 
@@ -41,19 +48,20 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final Sport sport = mSportList.get(position);
+        final MenuItem<Sport> item = sportMenuItem.get(position);
+        //final Sport sport = mSportList.get(position);
+        Sport sport = item.get();
         holder.textView.setText(sport.getName());
         holder.imageView.setImageResource(sm.SportsToImage(sport));
         holder.imageView.setClipToOutline(true);
-        holder.cardView.setBackgroundColor(sport.isSelected() ? Color.CYAN : Color.WHITE);
+        holder.cardView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
         holder.view.setOnClickListener(view -> {
-            sport.setSelected(!sport.isSelected());
-            holder.cardView.setBackgroundColor(sport.isSelected() ? Color.parseColor("#b2dfdb"): Color.WHITE);
-            if(sport.isSelected()){
+            item.setSelected(!item.isSelected());
+            holder.cardView.setBackgroundColor(item.isSelected() ? Color.parseColor("#b2dfdb") : Color.WHITE);
+            if (item.isSelected()) {
                 chosenSportList.add(sport);
-            }
-            else {
-                boolean e= chosenSportList.remove(sport);
+            } else {
+                boolean e = chosenSportList.remove(sport);
             }
         });
 

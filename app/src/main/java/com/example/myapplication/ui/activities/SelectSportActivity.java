@@ -68,6 +68,7 @@ public class SelectSportActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         textView= findViewById(R.id.textView);
         RecommendedSport = getRecommendedSport();
+
         OtherSport = getOtherSport();
         latitude= getLatitude();
         longitude= getLongitude();

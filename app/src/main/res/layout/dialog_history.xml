@@ -145,7 +145,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/plan_sport_image"
+        android:id="@+id/history_sport_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"

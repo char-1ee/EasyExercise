@@ -53,23 +53,20 @@ public class WorkoutPlanQueryImp {
         Cursor cursor = db.rawQuery("SELECT * FROM TABLE_NAME_WORKOUT_PLAN", null);
         if (cursor != null) {
             List<WorkoutPlan> planList = new ArrayList<>();
-            if (cursor.getCount()>0) {
-                do {
-                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-                    int sportId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SPORT_ID));
-                    int facilityId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_FACILITY_ID));
-                    String status = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STATUS));
+            SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
+            dbHelper.openDatabase();
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                int sportId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SPORT_ID));
+                int facilityId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_FACILITY_ID));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STATUS));
 
-                    SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
-                    dbHelper.openDatabase();
-                    Sport sport = dbHelper.getSportById(sportId);
-                    Facility facility = dbHelper.getFacilityById(facilityId);
-                    dbHelper.closeDatabase();
+                Sport sport = dbHelper.getSportById(sportId);
+                Facility facility = dbHelper.getFacilityById(facilityId);
 
-                    WorkoutPlan plan = new WorkoutPlan(sport, facility, id, getType(status));
-                    planList.add(plan);
-                } while (cursor.moveToNext());
+                planList.add(new WorkoutPlan(sport, facility, id, getType(status)));
             }
+            dbHelper.closeDatabase();
             cursor.close();
             DatabaseManager.getInstance().closeDatabase();
             return planList;
@@ -78,5 +75,4 @@ public class WorkoutPlanQueryImp {
             return null;
         }
     }
-
 }

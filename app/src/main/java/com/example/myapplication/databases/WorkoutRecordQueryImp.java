@@ -59,27 +59,24 @@ public class WorkoutRecordQueryImp {
         Cursor cursor = db.rawQuery("SELECT * FROM TABLE_NAME_WORKOUT_HISTORY", null);
         if (cursor != null) {
             List<WorkoutRecord> recordList = new ArrayList<>();
-            if (cursor.getCount()>0) {
-                do {
-                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-                    int sportId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SPORT_ID));
-                    int facilityId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_FACILITY_ID));
-                    String startTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_START_TIME));
-                    String endTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_END_TIME));
+            SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
+            dbHelper.openDatabase();
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                int sportId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SPORT_ID));
+                int facilityId = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_FACILITY_ID));
+                String startTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_START_TIME));
+                String endTimeText = cursor.getString(cursor.getColumnIndexOrThrow(KEY_END_TIME));
 
-                    SportAndFacilityDBHelper dbHelper = new SportAndFacilityDBHelper(context);
-                    dbHelper.openDatabase();
-                    Sport sport = dbHelper.getSportById(sportId);
-                    Facility facility = dbHelper.getFacilityById(facilityId);
-                    dbHelper.closeDatabase();
+                Sport sport = dbHelper.getSportById(sportId);
+                Facility facility = dbHelper.getFacilityById(facilityId);
 
-                    Date startTime = DateUtil.getDateFromString(startTimeText, TimeUtil.pattern2);
-                    Date endTime = DateUtil.getDateFromString(endTimeText, TimeUtil.pattern2);
+                Date startTime = DateUtil.getDateFromString(startTimeText, TimeUtil.pattern2);
+                Date endTime = DateUtil.getDateFromString(endTimeText, TimeUtil.pattern2);
 
-                    WorkoutRecord record = new WorkoutRecord(sport, facility, id, startTime, endTime);
-                    recordList.add(record);
-                } while (cursor.moveToNext());
+                recordList.add(new WorkoutRecord(sport, facility, id, startTime, endTime));
             }
+            dbHelper.closeDatabase();
             cursor.close();
             DatabaseManager.getInstance().closeDatabase();
             return recordList;

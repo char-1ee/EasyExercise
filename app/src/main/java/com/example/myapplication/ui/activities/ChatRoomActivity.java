@@ -3,11 +3,13 @@ package com.example.myapplication.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatRoomActivity extends AppCompatActivity {
-
+    private ActionBar actionBar;
     private final List<Message> msgList = new ArrayList<>();
     private EditText inputText;
     private Button send;
@@ -58,7 +60,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.messageRecyclerView);
         join = findViewById(R.id.joinPublicPlanButton);
         quit = findViewById(R.id.quitPublicPlanButton);
-
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatRoomActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -178,6 +181,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
     }
 }

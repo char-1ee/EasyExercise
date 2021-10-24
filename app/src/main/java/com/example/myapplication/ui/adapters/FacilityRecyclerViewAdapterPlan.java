@@ -54,7 +54,6 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
             Intent intent= new Intent(mContext, AddPlanActivity.class);
             intent.putExtra("ChosenFacility", chosenFacility);
             mContext.startActivity(intent);
-            ((Activity)mContext).finish();
         });
     }
 

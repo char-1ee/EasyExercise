@@ -1,8 +1,11 @@
 package com.example.myapplication.ui.activities;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +24,7 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
     private List<Facility> facilityList;
     double latitude= 0;
     double longitude= 0;
+    private ActionBar actionBar;
 
     public SelectFacilityCheckInActivity() {
     }
@@ -44,6 +48,8 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         latitude= getLatitude();
         longitude= getLongitude();
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         //textView.setText(String.valueOf(latitude));
     }
 
@@ -68,4 +74,9 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity {
         return (double) getIntent().getSerializableExtra("longitude");
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
+    }
 }

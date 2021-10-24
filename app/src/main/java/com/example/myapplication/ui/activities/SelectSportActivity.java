@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +42,7 @@ public class SelectSportActivity extends AppCompatActivity {
     private Button mSportChoicesConfirmButton;
     private RecyclerView mRecyclerView, mRecyclerView2;
     private SportRecyclerViewAdapter mAdapter, mAdapter2;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,8 @@ public class SelectSportActivity extends AppCompatActivity {
         initHandler();
         handler.post(runnable);
         textView.setText(String.valueOf(latitude));
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -107,7 +113,6 @@ public class SelectSportActivity extends AppCompatActivity {
             intent.putExtra("longitude", (Serializable) longitude);
             intent.putExtra("latitude", (Serializable) latitude);
             startActivity(intent);
-            finish();
         });
     }
 
@@ -134,5 +139,10 @@ public class SelectSportActivity extends AppCompatActivity {
         return (double) getIntent().getSerializableExtra("longitude1");
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
+    }
 
 }

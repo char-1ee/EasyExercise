@@ -2,10 +2,14 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
@@ -23,18 +27,15 @@ public class CheckOutActivity extends AppCompatActivity {
     private Location location;
     private Date startDate, endDate, diff;
     private SportsImage sm;
+    private ActionBar actionBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         initButton();
+        // TODO: 2021/10/24  addRecord();
     }
 
 
@@ -72,15 +73,31 @@ public class CheckOutActivity extends AppCompatActivity {
         placeView.setText(location.getName());
         timeDuration.setText(getTimeDuration());
         sportNameView.setText(sport.getName());
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void initButton(){
         exitButton.setOnClickListener(view -> {
             Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
-            // TODO: 2021/10/11 add exercise record with facility, sport, endtime and starttime
             startActivity(intent);
             finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        moveTaskToBack(true);
+        Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 
 }

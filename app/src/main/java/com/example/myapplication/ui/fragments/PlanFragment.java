@@ -73,8 +73,8 @@ public class PlanFragment extends Fragment {
      * @author Ruan Donglin
      */
     private void initAdapter(){
-        mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
-        //mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
+        //mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
+        mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

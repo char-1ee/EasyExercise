@@ -4,12 +4,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -65,6 +67,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private Button addPlanButton, checkInButton, deleteButton;
     private CardView cardView;
     Integer[] limit= {2,3,4,5,6,7,8,9,10};
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         initMap();
         initPicker();
         initButton();
-        //sportView.setText(getTime(startDate));
 
     }
 
@@ -114,6 +116,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         startTime= findViewById(R.id.start_time);
         limitView= findViewById(R.id.limit);
         endTime= findViewById(R.id.end_time);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         location = plan.getLocation();
         sport = plan.getSport();
         if (location.getType() == Location.LocationType.FACILITY) {
@@ -193,7 +197,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .build();
         List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
         pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> {
-            //返回的分别是三个级别的选中位置
             finalLimit= options1Items.get(options1);
         })
                 .setSubmitText("Confirm")
@@ -292,6 +295,12 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                     }
                 });
         normalDialog.show();
+    }
+
+        @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
     }
 
 

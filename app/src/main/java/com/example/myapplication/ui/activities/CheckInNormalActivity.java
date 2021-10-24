@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.beans.Coordinates;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -42,6 +44,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     private CheckInSportAdapter firstAdapter;
     double latitude= 0;
     double longitude= 0;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,8 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         facilityView.setText(facility.getName());
         addressView.setText(facility.getAddress());
         postalView.setText(facility.getPostalCode());
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void initAdapter(){
@@ -126,7 +131,6 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
                 intent.putExtra("ChosenSport", ChosenSport);
                 intent.putExtra("ChosenLocation", facility);
                 startActivity(intent);
-                finish();
             }
 
         });
@@ -137,7 +141,6 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
             intent.putExtra("latitude", latitude);
             intent.putExtra("longitude", longitude);
             startActivity(intent);
-            finish();
         });
     }
 
@@ -154,4 +157,11 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         ChosenSport= firstAdapter.finalChoice;
         Toast.makeText(CheckInNormalActivity.this,String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }

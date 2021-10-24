@@ -2,6 +2,7 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,7 +64,10 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
         imageView.setImageResource(R.drawable.panorama);
         locationView= findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         dbHelper= new SportAndFacilityDBHelper(this);
+
     }
 
     private void initAdapter(){
@@ -90,5 +96,11 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ChosenSport= firstAdapter.finalChoice;
         Toast.makeText(CheckInCustomizedActivity.this,String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -3,10 +3,13 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
@@ -30,6 +33,7 @@ public class ExerciseActivity extends AppCompatActivity {
     private Double time = 0.0;
     private SportsImage sm;
     private boolean timerStarted = false;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,8 @@ public class ExerciseActivity extends AppCompatActivity {
         sportView.setImageResource(sm.SportsToImage(sport));
         timer = new Timer();
         timerStarted = true;
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void initButton(){
@@ -101,8 +107,25 @@ public class ExerciseActivity extends AppCompatActivity {
             checkInIntent.putExtra("SportExercise", sport);
             checkInIntent.putExtra("StartDate", startDate);
             checkInIntent.putExtra("timeDuration", getTimerText());
+            //checkInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(checkInIntent);
             finish();
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        Intent intent= new Intent(ExerciseActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        moveTaskToBack(true);
+        Intent intent= new Intent(ExerciseActivity.this, MainActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

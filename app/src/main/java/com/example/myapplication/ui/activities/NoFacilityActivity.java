@@ -2,8 +2,11 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
@@ -13,6 +16,7 @@ import com.example.myapplication.beans.CustomizedLocation;
 public class NoFacilityActivity extends AppCompatActivity {
     double latitude= 0;
     double longitude= 0;
+    private ActionBar actionBar;
     private Button ProceedButton, CancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class NoFacilityActivity extends AppCompatActivity {
         CancelButton= findViewById(R.id.cancel_button);
         latitude= getLatitude();
         longitude= getLongitude();
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     public double getLatitude() {
@@ -53,5 +59,10 @@ public class NoFacilityActivity extends AppCompatActivity {
         return (double) getIntent().getSerializableExtra("longitude1");
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
+    }
 
 }

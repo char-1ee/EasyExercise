@@ -63,6 +63,7 @@
             android:exported="true"
             android:label="Exercise" />
         <activity
+            android:launchMode="singleTask"
             android:name=".ui.activities.SelectSportActivity"
             android:exported="true"
             android:label="Select Sport" />
@@ -83,6 +84,7 @@
             android:exported="true"
             android:label="Add Plan" />
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:label="App">

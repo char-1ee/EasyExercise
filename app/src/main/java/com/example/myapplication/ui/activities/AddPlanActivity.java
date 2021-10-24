@@ -2,6 +2,7 @@ package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
     private TextView postalView;
     private Sport finalSport;
     private WorkoutPlan workoutPlan;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,8 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
         facilityView.setText(facility.getName());
         addressView.setText(facility.getAddress());
         postalView.setText(facility.getPostalCode());
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -108,11 +113,10 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
             }
             else{
                 workoutPlan= new WorkoutPlan(finalSport, facility, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
-                WorkoutPlanQueryImp workoutPlanQueryImp = new WorkoutPlanQueryImp();
-                workoutPlanQueryImp.insert(workoutPlan);
+                //WorkoutPlanQueryImp workoutPlanQueryImp = new WorkoutPlanQueryImp();
+                //workoutPlanQueryImp.insert(workoutPlan);
                 Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -121,5 +125,13 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         finalSport= firstAdapter.finalChoice;
         Toast.makeText(AddPlanActivity.this,String.valueOf(finalSport.getName()), Toast.LENGTH_SHORT).show();
+    }
+
+    // TODO: 2021/10/24 add plan
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
     }
 }

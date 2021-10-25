@@ -1,12 +1,16 @@
 package com.example.myapplication.ui.activities;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.sportsImage.SportsImage;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     Integer finalLimit= 0;
@@ -65,6 +71,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private WorkoutPlan plan;
     private Location location;
     private Button addPlanButton, checkInButton, deleteButton;
+    private SportsImage sm;
     private CardView cardView;
     Integer[] limit= {2,3,4,5,6,7,8,9,10};
     ActionBar actionBar;
@@ -120,6 +127,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         actionBar.setDisplayHomeAsUpEnabled(true);
         location = plan.getLocation();
         sport = plan.getSport();
+        sm= new SportsImage();
         if (location.getType() == Location.LocationType.FACILITY) {
             Facility f = (Facility) location;
             facilityView.setText(f.getName());
@@ -257,44 +265,67 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void showNormalDialog(){
-        normalDialog =
-                new AlertDialog.Builder(ViewPlanActivity.this);
-        normalDialog.setTitle("Are you sure to publish plan?");
-        normalDialog.setMessage(getTime(startDate)+"\n"+ getTime(endDate)+ "\n"+ finalLimit.toString());
-        normalDialog.setPositiveButton("Confirm",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        WorkoutPlan localPlan = getChosenPlan();
-                        Location location = plan.getLocation();
-                        int facility_id;
-                        if (location.getType() == Location.LocationType.FACILITY) {
-                            facility_id = ((Facility) location).getId();
-                        } else {
-                            facility_id = -1;
-                        }
-                        PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id);
-                        publicPlan.addMembers(10001);
-                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                        DatabaseReference mDatabase = database.getReference().child("community");
-                        String postId = mDatabase.push().getKey();
-                        mDatabase.child(postId).setValue(publicPlan);
-                        Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-        normalDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-        normalDialog.show();
+        Dialog dialog = new Dialog(ViewPlanActivity.this);
+        Button confirmButton, cancelButton;
+        TextView sportView, facilityView, peopleLimitView,  startTimeView, endTimeView;
+        ImageView imageView;
+        WorkoutPlan item = getChosenPlan();
+        dialog.setContentView(R.layout.dialog_plan);
+        confirmButton= dialog.findViewById(R.id.confirm);
+        cancelButton= dialog.findViewById(R.id.cancel);
+        sportView = dialog.findViewById(R.id.sport_view);
+        imageView = dialog.findViewById(R.id.history_sport_image);
+        facilityView = dialog.findViewById(R.id.location_view);
+        peopleLimitView= dialog.findViewById(R.id.limit);
+        startTimeView = dialog.findViewById(R.id.start_time_view);
+        endTimeView = dialog.findViewById(R.id.end_time_view);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        sportView.setText(item.getSport().getName());
+        if (item.getLocation().getType() == Location.LocationType.FACILITY) {
+            Facility f = (Facility) item.getLocation();
+            facilityView.setText(f.getName());
+        } else {
+            facilityView.setText(R.string.customized_location);
+        }
+        peopleLimitView.setText(finalLimit.toString());
+        imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        startTimeView.setText(getTime(startDate));
+        endTimeView.setText(getTime(endDate));
+        dialog.show();
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WorkoutPlan localPlan = getChosenPlan();
+                Location location = plan.getLocation();
+                int facility_id;
+                if (location.getType() == Location.LocationType.FACILITY) {
+                    facility_id = ((Facility) location).getId();
+                } else {
+                    facility_id = -1;
+                }
+                PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id);
+                publicPlan.addMembers(10001);
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                DatabaseReference mDatabase = database.getReference().child("community");
+                String postId = mDatabase.push().getKey();
+                mDatabase.child(postId).setValue(publicPlan);
+                Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+                dialog.dismiss();
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
         @Override

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.PublicPlan;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -68,8 +69,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PublicPlan publicPlan = myPlanList.get(position);
-        holder.date.setText(new Date(publicPlan.getPlanStart()).toString());
+        holder.date.setText(getTime(new Date(publicPlan.getPlanStart())));
         holder.facility.setText(String.valueOf(publicPlan.getFacility()));
+        // TODO: 2021/10/25 change id to its name 
         holder.limit.setText( publicPlan.getMembers().size() + "/" +publicPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);
@@ -79,5 +81,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public int getItemCount(){
         return myPlanList.size();
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 }

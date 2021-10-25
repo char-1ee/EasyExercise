@@ -29,4 +29,5 @@ public class PlanFragmentTest {
         onView(withId(R.id.fragment_container)).perform(click());
         onView(withId(R.id.navigation_plans)).check(matches(isDisplayed()));
     }
+
 }

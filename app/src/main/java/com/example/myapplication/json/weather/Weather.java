@@ -16,12 +16,21 @@ public class Weather {
             "https://api.data.gov.sg/v1/environment/wind-direction";
     public static final String WIND_SPEED_JSON_URL =
             "https://api.data.gov.sg/v1/environment/wind-speed";
+    /*
     public static final String UV_INDEX_JSON_URL =
             "https://api.data.gov.sg/v1/environment/uv-index";
     public static final String PM25_JSON_URL =
             "https://api.data.gov.sg/v1/environment/pm25";
     public static final String WEATHER_FORECAST_JSON_URL =
             "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast";
+     */
+    public static final String UV_INDEX_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/uv-index?date_time=2021-10-23T13%3A11%3A12";
+    public static final String PM25_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/pm25?date_time=2021-10-23T13%3A11%3A12";
+    public static final String WEATHER_FORECAST_JSON_URL =
+            "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?date_time=2021-10-23T13%3A11%3A12";
+    // TODO: This is only a temporary fix. Check data.gov.sg API status.
 
     private final RealTimeWeather airTemperature;
     private final RealTimeWeather rainfall;

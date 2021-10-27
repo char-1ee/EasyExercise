@@ -68,6 +68,7 @@ public class CheckOutActivity extends AppCompatActivity {
         sportView=findViewById(R.id.checkoutPic);
         exitButton=findViewById(R.id.exitButton);
         profileView=findViewById(R.id.checkoutProfile);
+        profileView.setClipToOutline(true);
         timeDuration = findViewById(R.id.time_duration);
         sportView.setImageResource(sm.SportsToImage(sport));
         placeView.setText(location.getName());

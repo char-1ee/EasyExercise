@@ -5,6 +5,12 @@ import com.example.myapplication.beans.Coordinates;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * A collections of both all the realtime weather results and weather forecast result.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class WeatherData {
     private final Coordinates location;
     private final Date timestamp;

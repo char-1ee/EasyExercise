@@ -33,7 +33,6 @@ public class MainActivity2 extends AppCompatActivity {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(MainActivity2.this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
-                //返回的分别是三个级别的选中位置
                 String tx = options1Items.get(options1).toString();
                 Toast.makeText(MainActivity2.this, tx, Toast.LENGTH_SHORT).show();
             }
@@ -43,7 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-    private String getTime(Date date) {//可根据需要自行截取数据显示
+    private String getTime(Date date) {
         Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);

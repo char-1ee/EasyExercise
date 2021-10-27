@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.activities.EditProfileActivity;
+import com.example.myapplication.ui.activities.MainActivity;
 import com.example.myapplication.ui.activities.SignInActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -77,6 +79,7 @@ public class MeFragment extends Fragment {
                         });
             }
         });
+
         return view;
     }
 

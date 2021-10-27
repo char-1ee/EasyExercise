@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     Intent intentToCheckIn;
     Intent intentToPlan;
     Handler handler;
@@ -88,6 +90,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void initVIew(){
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshment_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                activity= (MainActivity) getActivity();
+                setWeather(c);
+                mSwipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getContext(), "Reloading Weather Successful", Toast.LENGTH_SHORT).show();
+            }
+        });
         mMakePlanButton = view.findViewById(R.id.home_plan_button);
         mCheckInButton = view.findViewById(R.id.home_checkin_button);
         AddressText = view.findViewById(R.id.addressText);
@@ -163,6 +175,8 @@ public class HomeFragment extends Fragment {
         };
     }
 
+    private void initSwiper(){
 
+    }
 
 }

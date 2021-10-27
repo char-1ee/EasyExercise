@@ -79,26 +79,7 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
         setAllSports();
-        getCurrentLocation();
-        Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            public void run() {
-                if (latitude== 0) {
-                    Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
-                    handler.postDelayed(this, 3000);
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
-                    intentToPlan = new Intent(MainActivity.this, SelectSportActivity.class);
-                    intentToPlan.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
-                    intentToPlan.putExtra("OtherSports", (Serializable) testSelectSportOther());
-                    //Toast.makeText(MainActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
-                    intentToPlan.putExtra("latitude1", latitude);
-                    intentToPlan.putExtra("longitude1", longitude);
-                }
-            }
-        };
-        handler.post(runnable);
+        initHandler();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -148,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Get user's current location as latitude and longitude
      */
-    private void getCurrentLocation() {
+    public void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (isGPSEnabled()) {
                 LocationServices.getFusedLocationProviderClient(MainActivity.this)
@@ -290,5 +271,28 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Facility> getCheckinFacilitByDistance() {
         return FacilityRecommendation.getFacilitiesNearby(MainActivity.this, new Coordinates(latitude, longitude, ""), 5, 20);
+    }
+
+    public void initHandler(){
+        getCurrentLocation();
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+                if (latitude== 0) {
+                    //Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(this, 3000);
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
+                    intentToPlan = new Intent(MainActivity.this, SelectSportActivity.class);
+                    intentToPlan.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
+                    intentToPlan.putExtra("OtherSports", (Serializable) testSelectSportOther());
+                    //Toast.makeText(MainActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
+                    intentToPlan.putExtra("latitude1", latitude);
+                    intentToPlan.putExtra("longitude1", longitude);
+                }
+            }
+        };
+        handler.post(runnable);
     }
 }

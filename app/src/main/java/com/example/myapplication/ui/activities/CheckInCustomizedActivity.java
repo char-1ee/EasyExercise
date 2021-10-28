@@ -18,12 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
-import com.example.myapplication.beans.Sport;;
+import com.example.myapplication.beans.Sport;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * The activity class for checking in at a customized location in the checking in task, when there's no facility around.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
 
 public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private SportAndFacilityDBHelper dbHelper;
@@ -65,6 +71,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
         locationView= findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         dbHelper= new SportAndFacilityDBHelper(this);
 

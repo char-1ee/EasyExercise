@@ -16,19 +16,20 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.ui.activities.EditProfileActivity;
-import com.example.myapplication.ui.activities.MainActivity;
 import com.example.myapplication.ui.activities.SignInActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-//import com.example.myapplication.ui.activities.EditProfileActivity;
+
+/**
+ * The fragment class for showing all information of the user.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
 
 public class MeFragment extends Fragment {
     TextView userNameView, emailView;
@@ -53,32 +54,21 @@ public class MeFragment extends Fragment {
                 .requestEmail()
                 .build();
 
-        googleApiClient=new GoogleApiClient.Builder(getContext())
-                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        googleApiClient=new GoogleApiClient.Builder(requireContext())
+                .enableAutoManage(requireActivity(), connectionResult -> {
 
-                    }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
-                        new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(Status status) {
-                                if (status.isSuccess()){
-                                    gotoSignInActivity();
-                                }else{
-                                    Toast.makeText(getContext(),"Session not close", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-            }
-        });
+        logoutBtn.setOnClickListener(view -> Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                status -> {
+                    if (status.isSuccess()) {
+                        gotoSignInActivity();
+                    } else {
+                        Toast.makeText(getContext(), "Session not close", Toast.LENGTH_LONG).show();
+                    }
+                }));
 
         return view;
     }
@@ -92,25 +82,21 @@ public class MeFragment extends Fragment {
             GoogleSignInResult result=opr.get();
             handleSignInResult(result);
         }else{
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-                    handleSignInResult(googleSignInResult);
-                }
-            });
+            opr.setResultCallback(this::handleSignInResult);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        googleApiClient.stopAutoManage(getActivity());
+        googleApiClient.stopAutoManage(requireActivity());
         googleApiClient.disconnect();
     }
 
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             GoogleSignInAccount account=result.getSignInAccount();
+            assert account != null;
             userNameView.setText(account.getDisplayName());
             emailView.setText(account.getEmail());
             try{

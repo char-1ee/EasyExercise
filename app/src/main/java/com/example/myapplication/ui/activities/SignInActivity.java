@@ -18,6 +18,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+/**
+ * The activity class for signing in using a google account.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     SignInButton signInButton;

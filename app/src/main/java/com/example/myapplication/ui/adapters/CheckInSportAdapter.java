@@ -1,12 +1,10 @@
 package com.example.myapplication.ui.adapters;
 
 import android.content.Context;
-import android.graphics.fonts.Font;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -17,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.sportsImage.SportsImage;
-import com.example.myapplication.ui.activities.AddPlanActivity;
-import com.example.myapplication.utils.Box;
 
 import java.util.List;
 

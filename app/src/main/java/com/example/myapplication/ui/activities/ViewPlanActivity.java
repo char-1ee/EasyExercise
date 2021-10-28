@@ -1,7 +1,7 @@
 package com.example.myapplication.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -46,7 +45,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
+
+/**
+ * The activity class for showing a specific plan, checking in or publishing it into the community.
+ *
+ * @author Ruan Donglin
+ * @author Zhou Yuxuan
+ */
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     Integer finalLimit= 0;
@@ -54,7 +60,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     TimePickerView pvTime2;
     TimePickerView pvTime;
     OptionsPickerView pvOptions;
-    private AlertDialog.Builder normalDialog;
     private TextView startTime;
     private TextView endTime;
     private Handler handler;
@@ -106,7 +111,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     /**
      * Initialize adapter for recyclerview.
      *
-     * @author Ruan Donglin
      */
     private void initView(){
         setContentView(R.layout.activity_view_plan);
@@ -124,6 +128,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         limitView= findViewById(R.id.limit);
         endTime= findViewById(R.id.end_time);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         location = plan.getLocation();
         sport = plan.getSport();
@@ -150,33 +155,32 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void initButton(){
         addPlanButton.setOnClickListener(view -> {
-            addPlanButton.setText("Publish Plan");
+            addPlanButton.setText(R.string.publish_plan_text);
             pvOptions.show();
             pvTime2.show();
             pvTime.show();
-            mapFragment. getView().setVisibility(View.GONE);
+            mapFragment.requireView().setVisibility(View.GONE);
             cardView.setVisibility(View.VISIBLE);
             initHandler();
             handler.post(runnable);
         });
-        checkInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(ViewPlanActivity.this, ExerciseActivity.class);
-                intent.putExtra("ChosenLocation", location);
-                intent.putExtra("ChosenSport", sport);
-                startActivity(intent);
-                finish();
-            }
+        checkInButton.setOnClickListener(view -> {
+            Intent intent= new Intent(ViewPlanActivity.this, ExerciseActivity.class);
+            intent.putExtra("ChosenLocation", location);
+            intent.putExtra("ChosenSport", sport);
+            startActivity(intent);
+            finish();
         });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 2021/10/24 delete this plan
-            }
+        deleteButton.setOnClickListener(view -> {
+            // TODO: 2021/10/24 delete this plan
         });
     }
 
+
+    /**
+     * Initialize pickers for publishing the plan.
+     *
+     */
     private void initPicker(){
         pvTime = new TimePickerBuilder(this, (date1, v) -> startDate= date1)
                 .setType(new boolean[]{false, true, true, true, true, false})
@@ -204,9 +208,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .isDialog(false)
                 .build();
         List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
-        pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> {
-            finalLimit= options1Items.get(options1);
-        })
+        pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> finalLimit= options1Items.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")
                 .setTitleText("Person Number")
@@ -223,7 +225,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         pvOptions.setPicker(options1Items);
     }
 
-
+    /**
+     * Initialize handler for showing the previous choice for publishing plan.
+     *
+     */
     private void initHandler(){
         handler = new Handler();
         runnable = new Runnable() {
@@ -234,12 +239,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 else if(startDate!= null && endDate== null){
                     startTime.setText(getTime(startDate));
                     handler.postDelayed(this, 1000);
-                    //Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
                 }
                 else if(startDate!= null && endDate!= null && finalLimit== 0){
                     startTime.setText(getTime(startDate));
                     endTime.setText(getTime(endDate));
-                //Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 1000);
                 }
                 else{
@@ -247,7 +250,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                     endTime.setText(getTime(endDate));
                     limitView.setText(String.valueOf(finalLimit));
                     showNormalDialog();
-                    //Toast.makeText(ViewPlanActivity.this, finalLimit.toString(), Toast.LENGTH_SHORT).show();
                 }
 // TODO: 同步问题
 //                if(startDate.getTime() >= endDate.getTime()){
@@ -264,6 +266,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         return format.format(date);
     }
 
+    /**
+     * Initialize dialog for showing the details for publishing plan.
+     *
+     */
+    @SuppressLint("SetTextI18n")
     private void showNormalDialog(){
         Dialog dialog = new Dialog(ViewPlanActivity.this);
         Button confirmButton, cancelButton;
@@ -292,39 +299,34 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         startTimeView.setText(getTime(startDate));
         endTimeView.setText(getTime(endDate));
         dialog.show();
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WorkoutPlan localPlan = getChosenPlan();
-                Location location = plan.getLocation();
-                int facility_id;
-                if (location.getType() == Location.LocationType.FACILITY) {
-                    facility_id = ((Facility) location).getId();
-                } else {
-                    facility_id = -1;
-                }
-                PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, 10001);
-                FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                DatabaseReference mDatabase = database.getReference().child("community");
-                String postId = mDatabase.push().getKey();
-                publicPlan.setPlan(postId);
-                mDatabase.child(postId).setValue(publicPlan);
-                Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
-                dialog.dismiss();
-                startActivity(intent);
-                finish();
+        confirmButton.setOnClickListener(view -> {
+            WorkoutPlan localPlan = getChosenPlan();
+            Location location = plan.getLocation();
+            int facility_id;
+            if (location.getType() == Location.LocationType.FACILITY) {
+                facility_id = ((Facility) location).getId();
+            } else {
+                facility_id = -1;
             }
+            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, 10001);
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference mDatabase = database.getReference().child("community");
+            String postId = mDatabase.push().getKey();
+            publicPlan.setPlan(postId);
+            assert postId != null;
+            mDatabase.child(postId).setValue(publicPlan);
+            Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
+            finish();
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        cancelButton.setOnClickListener(view -> {
+            dialog.dismiss();
+            Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

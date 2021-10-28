@@ -14,7 +14,7 @@
     <string name="home_main_message_text">Message</string>
     <string name="home_main_title_text">Title</string>
     <string name="home_main_image_description">Home image</string>
-    <string name="publish_plan_text">Publish plan</string>
+    <string name="publish_plan_text">Publish Plan</string>
     <string name="customized_location">Customized Location</string>
     <string name="confirm_selection_text">Confirm selection</string>
 
@@ -47,7 +47,6 @@
     <string name="sample_user_check_out_time">08/02/2020 18:18</string>
     <string name="sample_user_check_out_duration">00:32</string>
     <string name="sample_user_check_out_calories">211</string>
-
     <string name="title_activity_chat_room">ChatRoomActivity</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="large_text">

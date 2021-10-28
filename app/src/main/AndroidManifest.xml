@@ -52,10 +52,6 @@
             android:exported="true"
             android:label="Check In" />
         <activity
-            android:name=".ui.activities.EditProfileActivity"
-            android:exported="true"
-            android:label="Edit Profile" />
-        <activity
             android:name=".ui.activities.CheckOutActivity"
             android:exported="true"
             android:label="Check Out">

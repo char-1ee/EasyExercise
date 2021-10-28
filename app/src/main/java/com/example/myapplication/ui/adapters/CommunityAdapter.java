@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import com.example.myapplication.beans.Sport;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.sportsImage.SportsImage;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +81,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         Facility facility = manager.getFacilityById(publicPlan.getFacility());
         manager.closeDatabase();
         holder.sportImage.setImageResource(image.SportsToImage(sport));
-        holder.date.setText(new Date(publicPlan.getPlanStart()).toString());
+        holder.date.setText(getTime(new Date(publicPlan.getPlanStart())));
         holder.facility.setText(facility.getName());
         holder.limit.setText( "Limit: " + publicPlan.getMembers().size() + "/" +publicPlan.getPlanLimit());
 
@@ -92,5 +92,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public int getItemCount(){
         return myPlanList.size();
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 }

@@ -17,7 +17,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.sportsImage.SportsImage;
-import com.example.myapplication.ui.activities.AddPlanActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +26,13 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     private final Context context;
     public final List<Sport> sportList;
     public int index = -1;
-    private final Facility facility;
     private final SportsImage sm;
     private AdapterView.OnItemClickListener onItemClickListener;
 
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
-        this.facility = facility;
         this.sportList = new ArrayList<>(facility.getSports());
         this.sm = new SportsImage();
-    }
-
-    public Sport getFinalChoice() {
-        return finalChoice;
     }
 
     @NonNull

@@ -13,6 +13,13 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.CustomizedLocation;
 
+/**
+ * The activity class for showing up message for no facility around in the checking in task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class NoFacilityActivity extends AppCompatActivity {
     double latitude= 0;
     double longitude= 0;
@@ -48,6 +55,7 @@ public class NoFacilityActivity extends AppCompatActivity {
         latitude= getLatitude();
         longitude= getLongitude();
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

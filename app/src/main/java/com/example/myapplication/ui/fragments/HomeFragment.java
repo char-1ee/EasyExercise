@@ -59,6 +59,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The fragment class for home, including button to start tasks of checking in and making plan.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class HomeFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     Intent intentToCheckIn;
@@ -69,9 +76,6 @@ public class HomeFragment extends Fragment {
     double latitude;
     double longitude;
     Coordinates c;
-    //    private AddPlanAdapter firstAdapter;
-//    public Facility closestFacility;
-//    public List<Facility> FacilityByDistance;
     private TextView AddressText;
     View view;
     Button mMakePlanButton;

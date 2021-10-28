@@ -21,6 +21,13 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The activity class for staying in an exercise in the checking in task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class ExerciseActivity extends AppCompatActivity {
     private Date startDate;
     private Location location;
@@ -32,7 +39,6 @@ public class ExerciseActivity extends AppCompatActivity {
     private TimerTask timerTask;
     private Double time = 0.0;
     private SportsImage sm;
-    private boolean timerStarted = false;
     private ActionBar actionBar;
 
     @Override
@@ -95,8 +101,8 @@ public class ExerciseActivity extends AppCompatActivity {
         checkOutButton = findViewById(R.id.check_out_button);
         sportView.setImageResource(sm.SportsToImage(sport));
         timer = new Timer();
-        timerStarted = true;
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

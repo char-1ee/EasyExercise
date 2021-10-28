@@ -101,13 +101,14 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/gender_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/sample_user_gender"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,13 +130,14 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/weight_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/sample_user_weight"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,13 +159,14 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/height_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/sample_user_height"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/BMI"
@@ -184,13 +187,14 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/BMI_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/sample_user_bmi"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -202,25 +206,7 @@
             android:layout_marginRight="20dp"
             android:layout_alignTop="@id/BMI"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:text="Join date"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/sample_user_join_date"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
-        </LinearLayout>
+            android:layout_marginBottom="15dp"/>
 
     </RelativeLayout>
 

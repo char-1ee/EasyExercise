@@ -31,6 +31,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The activity class for checking in at a specific facility in the checking in task, when there's facility around.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemClickListener{
     private Button button1, button2;
     private RecyclerView rv_test;
@@ -68,7 +75,6 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
      * Set google map and add marker for the designated location
      *
      * @param googleMap the main class of the Google Maps SDK for Android
-     * @author Ruan Donglin
      */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -99,6 +105,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         addressView.setText(facility.getAddress());
         postalView.setText(facility.getPostalCode());
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -112,7 +119,6 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     /**
      * Initialize map fragment for displaying google map.
      *
-     * @author Ruan Donglin
      */
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

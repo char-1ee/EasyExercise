@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -96,8 +97,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 currentPlan = task.getResult().getValue(PublicPlan.class);
                 Date startTime = new Date(currentPlan.getPlanStart());
                 Date endTime = new Date(currentPlan.getPlanFinish());
-                planStartTime.setText(startTime.toString());
-                planEndTime.setText(endTime.toString());
+                planStartTime.setText(getTime(startTime));
+                planEndTime.setText(getTime(endTime));
                 SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(ChatRoomActivity.this);
                 manager.openDatabase();
                 Sport sport = manager.getSportById(currentPlan.getSport());
@@ -213,6 +214,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 
     @Override

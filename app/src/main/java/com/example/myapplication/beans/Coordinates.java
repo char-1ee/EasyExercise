@@ -2,6 +2,7 @@ package com.example.myapplication.beans;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Coordinates implements Serializable {
     private static final double R = 6371; // radius of the earth in km
@@ -79,5 +80,21 @@ public class Coordinates implements Serializable {
     public String longitudeToString() {
         return String.format(Locale.getDefault(), "%f%s", Math.abs(longitude),
                 longitude >= 0 ? "E" : "W");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Coordinates) {
+            Coordinates otherCoordinates = (Coordinates) other;
+            return this == other ||
+                    this.latitude == otherCoordinates.latitude &&
+                            this.longitude == otherCoordinates.longitude;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(latitude, longitude, name);
     }
 }

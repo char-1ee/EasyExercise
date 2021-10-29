@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="20dp"
-                        android:text="Quit" />
+                            android:text="Quit" />
 
                     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.example.myapplication.databases;
 
+import static android.provider.BaseColumns._ID;
 import static com.example.myapplication.beans.WorkoutPlan.WorkoutPlanStatus.getType;
 import static com.example.myapplication.databases.DatabaseContract.WorkoutPlanTable.KEY_FACILITY_ID;
 import static com.example.myapplication.databases.DatabaseContract.WorkoutPlanTable.KEY_SPORT_ID;
@@ -19,14 +20,19 @@ import com.example.myapplication.beans.WorkoutPlan;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkoutPlanQueryImp {
+/**
+ *
+ *
+ * @author Li Xingjian
+ */
+public class WorkoutPlanQueryImp {  // TODO: write a test
 
     private WorkoutPlan workoutPlan;
 
     public WorkoutPlanQueryImp() {
     }
 
-    public void insert(WorkoutPlan workoutPlan) {
+    public void createWorkoutPlan(WorkoutPlan workoutPlan) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_SPORT_ID, workoutPlan.getSport().getId());
@@ -41,9 +47,15 @@ public class WorkoutPlanQueryImp {
         DatabaseManager.getInstance().closeDatabase();
     }
 
-    public void delete() {
+    public void deleteAll() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.delete(TABLE_NAME_WORKOUT_PLAN, null, null);
+        DatabaseManager.getInstance().closeDatabase();
+    }
+
+    public void deleteWorkoutPlanById(int id) {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.delete(TABLE_NAME_WORKOUT_PLAN, _ID + " =?", new String[]{String.valueOf(id)});
         DatabaseManager.getInstance().closeDatabase();
     }
 

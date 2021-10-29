@@ -1,12 +1,10 @@
 package com.example.myapplication.ui.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,10 +28,6 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
         mFacilityList = facilityList;
         mContext = context;
         mCurrentCoordinates= currentCoordinates;
-    }
-
-    public Facility getChosenFacility() {
-        return chosenFacility;
     }
 
     @NonNull
@@ -66,14 +60,12 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
 
         private final View view;
         private final TextView mSelectFacilityName;
-        private final ImageView mSelectFacilityImage;
         private final TextView mSelectFacilityDistance;
 
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
             mSelectFacilityDistance = itemView.findViewById(R.id.plan_date);
-            mSelectFacilityImage = itemView.findViewById(R.id.plan_sport_image);
             mSelectFacilityName = itemView.findViewById(R.id.plan_sport_name);
 
         }

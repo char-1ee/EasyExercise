@@ -23,10 +23,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The fragment class for showing all existing history.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class HistoryFragment extends Fragment {
-    private List<WorkoutRecord> mWorkoutHistory;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     View view;
 
     @Nullable
@@ -45,7 +50,7 @@ public class HistoryFragment extends Fragment {
 
 
     private List<WorkoutRecord> getListData() {
-        mWorkoutHistory = new ArrayList<>();
+        List<WorkoutRecord> mWorkoutHistory = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             Sport s = new Sport(0, "Free play", "swimming", Sport.SportType.INDOOR_OUTDOOR);
             Location location = testCheckinClosetFacility();
@@ -81,7 +86,7 @@ public class HistoryFragment extends Fragment {
      * @author Ruan Donglin
      */
     private void initAdapter(){
-        mAdapter = new HistoryRecyclerViewAdapter(getListData(), getContext());
+        RecyclerView.Adapter mAdapter = new HistoryRecyclerViewAdapter(getListData(), getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

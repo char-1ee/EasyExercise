@@ -17,8 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.MainActivity2"
-            android:exported="true" >
+            android:name=".ui.activities.SignInActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.ViewPlanActivity"
@@ -47,16 +52,13 @@
             android:exported="true"
             android:label="Check In" />
         <activity
-            android:name=".ui.activities.EditProfileActivity"
-            android:exported="true"
-            android:label="Edit Profile" />
-        <activity
             android:name=".ui.activities.CheckOutActivity"
             android:exported="true"
-            android:label="Check Out" >
+            android:label="Check Out">
             <intent-filter>
-                <action android:name="com.example.activitytest.ACTION_START"></action>
-                <category android:name="com.example.activitytest.CHECKOUT_CATEGORY"></category>
+                <action android:name="com.example.activitytest.ACTION_START" />
+
+                <category android:name="com.example.activitytest.CHECKOUT_CATEGORY" />
             </intent-filter>
         </activity>
         <activity
@@ -68,10 +70,10 @@
             android:exported="true"
             android:label="Exercise" />
         <activity
-            android:launchMode="singleTask"
             android:name=".ui.activities.SelectSportActivity"
             android:exported="true"
-            android:label="Select Sport" />
+            android:label="Select Sport"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.activities.SelectFacilityCheckInActivity"
             android:exported="true"
@@ -89,24 +91,13 @@
             android:exported="true"
             android:label="Add Plan" />
         <activity
-            android:launchMode="singleTop"
             android:name=".ui.activities.MainActivity"
             android:exported="true"
-            android:label="App">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="App"
+            android:launchMode="singleTask"></activity>
         <activity
             android:name=".ui.activities.authentication.LoginActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activities.authentication.UserActivity"

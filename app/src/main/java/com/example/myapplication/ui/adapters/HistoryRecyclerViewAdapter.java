@@ -3,14 +3,12 @@ package com.example.myapplication.ui.adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +20,6 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.sportsImage.SportsImage;
-import com.example.myapplication.utils.MenuItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
-    private Context mContext;
+    private final Context mContext;
     private final List<WorkoutRecord> mWorkOutHistoryList;
     private final SportsImage sm;
 
@@ -62,36 +59,33 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
         holder.planType.setText(item.getStatus().toString());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(mContext);
-                TextView sportView, facilityView, durationView, startTimeView, endTimeView;
-                ImageView imageView;
-                dialog.setContentView(R.layout.dialog_history);
-                sportView = dialog.findViewById(R.id.sport_view);
-                imageView = dialog.findViewById(R.id.history_sport_image);
-                facilityView = dialog.findViewById(R.id.location_view);
-                durationView = dialog.findViewById(R.id.duration_view);
-                startTimeView = dialog.findViewById(R.id.start_time_view);
-                endTimeView = dialog.findViewById(R.id.end_time_view);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                sportView.setText(item.getSport().getName());
-                if (item.getLocation().getType() == Location.LocationType.FACILITY) {
-                    Facility f = (Facility) item.getLocation();
-                    facilityView.setText(f.getName());
-                } else {
-                    facilityView.setText(R.string.customized_location);
-                }
-                imageView.setImageResource(sm.SportsToImage(item.getSport()));
-                long diff = item.getStartTime().getTime() - item.getEndTime().getTime();
-                long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-                durationView.setText(String.valueOf(minutes) + "min" + String.valueOf(seconds) + "sec");
-                startTimeView.setText(getTime(item.getStartTime()));
-                endTimeView.setText(getTime(item.getEndTime()));
-                dialog.show();
+        holder.cardView.setOnClickListener(view -> {
+            Dialog dialog = new Dialog(mContext);
+            TextView sportView, facilityView, durationView, startTimeView, endTimeView;
+            ImageView imageView;
+            dialog.setContentView(R.layout.dialog_history);
+            sportView = dialog.findViewById(R.id.sport_view);
+            imageView = dialog.findViewById(R.id.history_sport_image);
+            facilityView = dialog.findViewById(R.id.location_view);
+            durationView = dialog.findViewById(R.id.duration_view);
+            startTimeView = dialog.findViewById(R.id.start_time_view);
+            endTimeView = dialog.findViewById(R.id.end_time_view);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            sportView.setText(item.getSport().getName());
+            if (item.getLocation().getType() == Location.LocationType.FACILITY) {
+                Facility f = (Facility) item.getLocation();
+                facilityView.setText(f.getName());
+            } else {
+                facilityView.setText(R.string.customized_location);
             }
+            imageView.setImageResource(sm.SportsToImage(item.getSport()));
+            long diff = item.getStartTime().getTime() - item.getEndTime().getTime();
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+            durationView.setText(minutes + "min" + seconds + "sec");
+            startTimeView.setText(getTime(item.getStartTime()));
+            endTimeView.setText(getTime(item.getEndTime()));
+            dialog.show();
         });
     }
 
@@ -107,7 +101,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         private final TextView dateView;
         private final ImageView imageView;
         private final CardView cardView;
-        private TextView planType;
+        private final TextView planType;
 
 
         private MyViewHolder(View itemView) {

@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     List<Sport> allSports = new ArrayList<>();
-    Coordinates c;
+    Coordinates coordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     /**
      * Set bottom navigation view with corresponding fragments.
-     *
      */
     @SuppressLint("NonConstantResourceId")
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -141,12 +138,9 @@ public class MainActivity extends AppCompatActivity {
                                 LocationServices.getFusedLocationProviderClient(MainActivity.this)
                                         .removeLocationUpdates(this);
 
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                    int index = locationResult.getLocations().size() - 1;
-                                    latitude = locationResult.getLocations().get(index).getLatitude();
-                                    longitude = locationResult.getLocations().get(index).getLongitude();
-                                    return;
-                                }
+                                int index = locationResult.getLocations().size() - 1;
+                                latitude = locationResult.getLocations().get(index).getLatitude();
+                                longitude = locationResult.getLocations().get(index).getLongitude();
                             }
                         }, Looper.getMainLooper());
             } else {
@@ -181,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        //Device does not have location
+                        // Device does not have location
                         break;
                 }
             }
@@ -194,11 +188,8 @@ public class MainActivity extends AppCompatActivity {
      * @return the boolean value, true indicates GPS is enabled, false vice versa
      */
     private boolean isGPSEnabled() {
-        LocationManager locationManager = null;
-        boolean isEnabled;
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        return isEnabled;
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     public double getLatitude() {
@@ -217,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<Sport> testSelectSportRecommended() {
-        List<Sport> sports = new ArrayList<>();
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
                 IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -234,17 +224,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException ignored) {
         }
         Weather weather = boxWeather.get();
-        c = new Coordinates(latitude, longitude, "current");
         SportsRecommendation sportsRecommendation = new SportsRecommendation(allSports);
-        Set<Sport> recommendedSports = sportsRecommendation.getRecommendation(weather.getWeatherData(c));
-        sports.clear();
-        sports.addAll(recommendedSports);
-        return sports;
+        Set<Sport> recommendedSports =
+                sportsRecommendation.getRecommendation(
+                        weather.getWeatherData(new Coordinates(latitude, longitude, "current")));
+        return new ArrayList<>(recommendedSports);
     }
 
     private List<Sport> testSelectSportOther() {
-        List<Sport> sports = new ArrayList<>();
-        sports = allSports;
+        List<Sport> sports = allSports;
         sports.removeAll(testSelectSportRecommended());
         return sports;
     }
@@ -259,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         List<Facility> facilityList = getCheckinFacilitByDistance();
         if (facilityList.size() > 0) {
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-            intentToCheckIn.putExtra("ClosestFacility", (Serializable) getCheckinFacilitByDistance().get(0));
+            intentToCheckIn.putExtra("ClosestFacility", getCheckinFacilitByDistance().get(0));
             intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckinFacilitByDistance());
         } else {
             intentToCheckIn = new Intent(MainActivity.this, NoFacilityActivity.class);
@@ -273,16 +261,15 @@ public class MainActivity extends AppCompatActivity {
         return FacilityRecommendation.getFacilitiesNearby(MainActivity.this, new Coordinates(latitude, longitude, ""), 5, 20);
     }
 
-    public void initHandler(){
+    public void initHandler() {
         getCurrentLocation();
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {
-                if (latitude== 0) {
+                if (latitude == 0) {
                     //Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 3000);
-                }
-                else{
+                } else {
                     Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
                     intentToPlan = new Intent(MainActivity.this, SelectSportActivity.class);
                     intentToPlan.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());

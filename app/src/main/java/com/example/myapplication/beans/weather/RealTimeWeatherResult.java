@@ -4,6 +4,12 @@ import com.example.myapplication.beans.Coordinates;
 
 import java.util.Locale;
 
+/**
+ * A wrapper class for real time weather results.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class RealTimeWeatherResult extends WeatherResult {
     private final Double result;
 

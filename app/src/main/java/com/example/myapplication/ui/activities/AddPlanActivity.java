@@ -29,6 +29,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * The activity class for adding exercise plan in the making plan task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class AddPlanActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,OnMapReadyCallback  {
     private Button button;
     private RecyclerView rv_test;
@@ -59,7 +66,6 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
      * Set google map and add marker for the designated location
      *
      * @param googleMap the main class of the Google Maps SDK for Android
-     * @author Ruan Donglin
      */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -90,7 +96,6 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
     /**
      * Initialize map fragment for displaying google map.
      *
-     * @author Ruan Donglin
      */
     private void initMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

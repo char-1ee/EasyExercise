@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -46,14 +45,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         holder.sportView.setText(item.getSport().getName());
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chosenPlan = item;
-                Intent intent = new Intent(mContext, ViewPlanActivity.class);
-                intent.putExtra("ChosenPlan", chosenPlan);
-                mContext.startActivity(intent);
-            } });
+        holder.view.setOnClickListener(view -> {
+            chosenPlan = item;
+            Intent intent = new Intent(mContext, ViewPlanActivity.class);
+            intent.putExtra("ChosenPlan", chosenPlan);
+            mContext.startActivity(intent);
+        });
     }
 
     @Override
@@ -62,24 +59,21 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final View view;
         private final TextView sportView;
-        private final TextView locationView;
         private final TextView dateView;
         private final ImageView imageView;
-        private final CardView cardView;
-        private final TextView planType;
 
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            planType = itemView.findViewById(R.id.plan_type);
+            TextView planType = itemView.findViewById(R.id.plan_type);
             sportView = itemView.findViewById(R.id.plan_sport_name);
-            locationView = itemView.findViewById(R.id.plan_location_name);
+            TextView locationView = itemView.findViewById(R.id.plan_location_name);
             dateView = itemView.findViewById(R.id.plan_date);
             imageView = itemView.findViewById(R.id.plan_sport_image);
-            cardView = itemView.findViewById(R.id.history_card);
+            CardView cardView = itemView.findViewById(R.id.history_card);
         }
     }
 }

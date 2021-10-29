@@ -3,7 +3,6 @@ package com.example.myapplication.ui.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
-        holder.mSelectFacilityDistance.setText(String.valueOf( Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates)*100.0)/100.0+ "km"));
+        holder.mSelectFacilityDistance.setText(Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates) * 100.0) / 100.0 + "km");
         holder.view.setOnClickListener(view -> {
             notifyDataSetChanged();
             ChosenFacility = mFacilityList.get(position);

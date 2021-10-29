@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +18,19 @@ import com.example.myapplication.sportsImage.SportsImage;
 
 import java.util.Date;
 
+/**
+ * The activity class for checking out from a workout in the checking in task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class CheckOutActivity extends AppCompatActivity {
     private ImageView profileView, sportView;
     private Button exitButton;
     private TextView timeDuration, placeView, sportNameView;
     private Sport sport;
     private Location location;
-    private Date startDate, endDate, diff;
     private SportsImage sm;
     private ActionBar actionBar;
 
@@ -51,18 +56,11 @@ public class CheckOutActivity extends AppCompatActivity {
         return (String) getIntent().getSerializableExtra("timeDuration");
     }
 
-    private Date getStartDate(){
-        return (Date) getIntent().getSerializableExtra("StartDate");
-    }
-
     private void initView(){
         setContentView(R.layout.activity_check_out);
         sm= new SportsImage();
-        endDate= new Date();
         sport = getSport();
         location = getLocation();
-        startDate = getStartDate();
-        diff = new Date(endDate.getTime() - startDate.getTime());
         sportNameView= findViewById(R.id.checkoutSport);
         placeView= findViewById(R.id.checkoutPlace);
         sportView=findViewById(R.id.checkoutPic);
@@ -75,6 +73,7 @@ public class CheckOutActivity extends AppCompatActivity {
         timeDuration.setText(getTimeDuration());
         sportNameView.setText(sport.getName());
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

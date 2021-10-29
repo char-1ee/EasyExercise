@@ -3,6 +3,12 @@ package com.example.myapplication.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * A user's workout record.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class WorkoutRecord extends WorkoutPlan implements Serializable {
     private Date startTime;
     private Date endTime;

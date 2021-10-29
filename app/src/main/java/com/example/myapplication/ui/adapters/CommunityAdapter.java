@@ -11,14 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.PublicPlan;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.databases.SportAndFacilityDBHelper;
+import com.example.myapplication.sportsImage.SportsImage;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
 
     private final List<PublicPlan> myPlanList;
+    private final SportsImage image;
 
     public interface OnRecyclerItemClickListener{
          void onRecyclerItemClick(PublicPlan publicPlan);
@@ -33,6 +39,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     public CommunityAdapter(List<PublicPlan> planList, OnRecyclerItemClickListener listener){
         myPlanList = planList;
         myListener = listener;
+        image = new SportsImage();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,9 +75,15 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PublicPlan publicPlan = myPlanList.get(position);
-        holder.date.setText(new Date(publicPlan.getPlanStart()).toString());
-        holder.facility.setText(String.valueOf(publicPlan.getFacility()));
-        holder.limit.setText( publicPlan.getMembers().size() + "/" +publicPlan.getPlanLimit());
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(holder.sportImage.getContext());
+        manager.openDatabase();
+        Sport sport = manager.getSportById(publicPlan.getSport());
+        Facility facility = manager.getFacilityById(publicPlan.getFacility());
+        manager.closeDatabase();
+        holder.sportImage.setImageResource(image.SportsToImage(sport));
+        holder.date.setText(getTime(new Date(publicPlan.getPlanStart())));
+        holder.facility.setText(facility.getName());
+        holder.limit.setText( "Limit: " + publicPlan.getMembers().size() + "/" +publicPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);
     }
@@ -79,5 +92,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @Override
     public int getItemCount(){
         return myPlanList.size();
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 }

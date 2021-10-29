@@ -24,6 +24,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.awt.font.TextAttribute;
 import java.util.List;
 
+/**
+ * The activity class for showing all facility for making a workout plan, in the making plan task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class SelectFacilityPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     private TextView textView;
     private List<Facility> FacilityQualified;

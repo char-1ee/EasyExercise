@@ -14,6 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Processes the PM2.5 information received.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class PM25 extends WeatherJSONAPI {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssXXX";
 

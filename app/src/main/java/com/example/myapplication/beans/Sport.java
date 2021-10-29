@@ -4,6 +4,12 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
+/**
+ * A sport activity.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class Sport implements Serializable {
     public enum SportType {
         INDOOR("Indoor"), OUTDOOR("Outdoor"), INDOOR_OUTDOOR("Indoor/Outdoor");

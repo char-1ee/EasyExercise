@@ -1,18 +1,21 @@
 package com.example.myapplication.ui.activities;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -27,6 +30,7 @@ import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.sportsImage.SportsImage;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,6 +45,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
+/**
+ * The activity class for showing a specific plan, checking in or publishing it into the community.
+ *
+ * @author Ruan Donglin
+ * @author Zhou Yuxuan
+ */
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     Integer finalLimit= 0;
@@ -48,7 +60,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     TimePickerView pvTime2;
     TimePickerView pvTime;
     OptionsPickerView pvOptions;
-    private AlertDialog.Builder normalDialog;
     private TextView startTime;
     private TextView endTime;
     private Handler handler;
@@ -65,6 +76,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private WorkoutPlan plan;
     private Location location;
     private Button addPlanButton, checkInButton, deleteButton;
+    private SportsImage sm;
     private CardView cardView;
     Integer[] limit= {2,3,4,5,6,7,8,9,10};
     ActionBar actionBar;
@@ -99,7 +111,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     /**
      * Initialize adapter for recyclerview.
      *
-     * @author Ruan Donglin
      */
     private void initView(){
         setContentView(R.layout.activity_view_plan);
@@ -117,9 +128,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         limitView= findViewById(R.id.limit);
         endTime= findViewById(R.id.end_time);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         location = plan.getLocation();
         sport = plan.getSport();
+        sm= new SportsImage();
         if (location.getType() == Location.LocationType.FACILITY) {
             Facility f = (Facility) location;
             facilityView.setText(f.getName());
@@ -142,33 +155,32 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void initButton(){
         addPlanButton.setOnClickListener(view -> {
-            addPlanButton.setText("Publish Plan");
+            addPlanButton.setText(R.string.publish_plan_text);
             pvOptions.show();
             pvTime2.show();
             pvTime.show();
-            mapFragment. getView().setVisibility(View.GONE);
+            mapFragment.requireView().setVisibility(View.GONE);
             cardView.setVisibility(View.VISIBLE);
             initHandler();
             handler.post(runnable);
         });
-        checkInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(ViewPlanActivity.this, ExerciseActivity.class);
-                intent.putExtra("ChosenLocation", location);
-                intent.putExtra("ChosenSport", sport);
-                startActivity(intent);
-                finish();
-            }
+        checkInButton.setOnClickListener(view -> {
+            Intent intent= new Intent(ViewPlanActivity.this, ExerciseActivity.class);
+            intent.putExtra("ChosenLocation", location);
+            intent.putExtra("ChosenSport", sport);
+            startActivity(intent);
+            finish();
         });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 2021/10/24 delete this plan
-            }
+        deleteButton.setOnClickListener(view -> {
+            // TODO: 2021/10/24 delete this plan
         });
     }
 
+
+    /**
+     * Initialize pickers for publishing the plan.
+     *
+     */
     private void initPicker(){
         pvTime = new TimePickerBuilder(this, (date1, v) -> startDate= date1)
                 .setType(new boolean[]{false, true, true, true, true, false})
@@ -196,9 +208,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .isDialog(false)
                 .build();
         List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
-        pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> {
-            finalLimit= options1Items.get(options1);
-        })
+        pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> finalLimit= options1Items.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")
                 .setTitleText("Person Number")
@@ -215,7 +225,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         pvOptions.setPicker(options1Items);
     }
 
-
+    /**
+     * Initialize handler for showing the previous choice for publishing plan.
+     *
+     */
     private void initHandler(){
         handler = new Handler();
         runnable = new Runnable() {
@@ -226,12 +239,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 else if(startDate!= null && endDate== null){
                     startTime.setText(getTime(startDate));
                     handler.postDelayed(this, 1000);
-                    //Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
                 }
                 else if(startDate!= null && endDate!= null && finalLimit== 0){
                     startTime.setText(getTime(startDate));
                     endTime.setText(getTime(endDate));
-                //Toast.makeText(ViewPlanActivity.this, "Please Give Respond", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 1000);
                 }
                 else{
@@ -239,7 +250,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                     endTime.setText(getTime(endDate));
                     limitView.setText(String.valueOf(finalLimit));
                     showNormalDialog();
-                    //Toast.makeText(ViewPlanActivity.this, finalLimit.toString(), Toast.LENGTH_SHORT).show();
                 }
 // TODO: 同步问题
 //                if(startDate.getTime() >= endDate.getTime()){
@@ -256,45 +266,68 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         return format.format(date);
     }
 
+    /**
+     * Initialize dialog for showing the details for publishing plan.
+     *
+     */
+    @SuppressLint("SetTextI18n")
     private void showNormalDialog(){
-        normalDialog =
-                new AlertDialog.Builder(ViewPlanActivity.this);
-        normalDialog.setTitle("Are you sure to publish plan?");
-        normalDialog.setMessage(getTime(startDate)+"\n"+ getTime(endDate)+ "\n"+ finalLimit.toString());
-        normalDialog.setPositiveButton("Confirm",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        WorkoutPlan localPlan = getChosenPlan();
-                        Location location = plan.getLocation();
-                        int facility_id;
-                        if (location.getType() == Location.LocationType.FACILITY) {
-                            facility_id = ((Facility) location).getId();
-                        } else {
-                            facility_id = -1;
-                        }
-                        PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id);
-                        publicPlan.addMembers(10001);
-                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                        DatabaseReference mDatabase = database.getReference().child("community");
-                        String postId = mDatabase.push().getKey();
-                        mDatabase.child(postId).setValue(publicPlan);
-                        Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-        normalDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-        normalDialog.show();
+        Dialog dialog = new Dialog(ViewPlanActivity.this);
+        Button confirmButton, cancelButton;
+        TextView sportView, facilityView, peopleLimitView,  startTimeView, endTimeView;
+        ImageView imageView;
+        WorkoutPlan item = getChosenPlan();
+        dialog.setContentView(R.layout.dialog_plan);
+        confirmButton= dialog.findViewById(R.id.confirm);
+        cancelButton= dialog.findViewById(R.id.cancel);
+        sportView = dialog.findViewById(R.id.sport_view);
+        imageView = dialog.findViewById(R.id.history_sport_image);
+        facilityView = dialog.findViewById(R.id.location_view);
+        peopleLimitView= dialog.findViewById(R.id.limit);
+        startTimeView = dialog.findViewById(R.id.start_time_view);
+        endTimeView = dialog.findViewById(R.id.end_time_view);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        sportView.setText(item.getSport().getName());
+        if (item.getLocation().getType() == Location.LocationType.FACILITY) {
+            Facility f = (Facility) item.getLocation();
+            facilityView.setText(f.getName());
+        } else {
+            facilityView.setText(R.string.customized_location);
+        }
+        peopleLimitView.setText(finalLimit.toString());
+        imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        startTimeView.setText(getTime(startDate));
+        endTimeView.setText(getTime(endDate));
+        dialog.show();
+        confirmButton.setOnClickListener(view -> {
+            WorkoutPlan localPlan = getChosenPlan();
+            Location location = plan.getLocation();
+            int facility_id;
+            if (location.getType() == Location.LocationType.FACILITY) {
+                facility_id = ((Facility) location).getId();
+            } else {
+                facility_id = -1;
+            }
+            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, 10001);
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference mDatabase = database.getReference().child("community");
+            String postId = mDatabase.push().getKey();
+            publicPlan.setPlan(postId);
+            assert postId != null;
+            mDatabase.child(postId).setValue(publicPlan);
+            Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
+            finish();
+        });
+
+        cancelButton.setOnClickListener(view -> {
+            dialog.dismiss();
+            Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
         @Override

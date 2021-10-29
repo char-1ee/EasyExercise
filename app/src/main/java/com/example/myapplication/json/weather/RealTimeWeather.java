@@ -14,6 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Processes the real time weather information received.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public abstract class RealTimeWeather extends WeatherJSONAPI {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssXXX";
 

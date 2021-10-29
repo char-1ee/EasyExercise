@@ -15,6 +15,8 @@ public abstract class WeatherJSONAPI {
         this.type = type;
     }
 
+    public abstract boolean apiIsHealthy();
+
     public String getDataTitle() {
         return type.toString();
     }

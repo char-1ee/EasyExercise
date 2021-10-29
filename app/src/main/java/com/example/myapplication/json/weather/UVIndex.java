@@ -9,6 +9,12 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+/**
+ * Processes the UV index information received.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class UVIndex extends WeatherJSONAPI {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssXXX";
 

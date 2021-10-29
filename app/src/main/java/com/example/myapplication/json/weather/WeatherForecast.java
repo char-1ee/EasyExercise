@@ -14,7 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Processes the weather forecast information received.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class WeatherForecast extends WeatherJSONAPI {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssXXX";
 

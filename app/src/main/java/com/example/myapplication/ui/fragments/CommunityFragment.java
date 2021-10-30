@@ -40,7 +40,7 @@ public class CommunityFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_community, container, false);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("community");
 
         recyclerView = view.findViewById(R.id.community_plan_view);

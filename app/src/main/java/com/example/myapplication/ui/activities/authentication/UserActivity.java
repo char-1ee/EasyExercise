@@ -190,7 +190,7 @@ public class UserActivity extends AppCompatActivity {
                 user.delete()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                                FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
                                 DatabaseReference mDatabase = database.getReference().child("users");
                                 mDatabase.child(uid).removeValue();
                                 Toast.makeText(UserActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();

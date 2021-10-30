@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Log.e("userinfo", user.get(0));
                         user.add(currentUser.getDisplayName());
                         user.add((currentUser.getPhotoUrl() == null) ? null : currentUser.getPhotoUrl().toString());
-                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
                         DatabaseReference mDatabase = database.getReference().child("user");
                         mDatabase.child(user.get(0)).setValue(user);
                         mDatabase.child("test").setValue(1);

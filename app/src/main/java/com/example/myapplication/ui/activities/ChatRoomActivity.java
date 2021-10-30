@@ -65,7 +65,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("community").child(planID).child("chatroom");
         DatabaseReference planReference = database.getReference().child("community").child(planID);
         DatabaseReference users = database.getReference().child("user");

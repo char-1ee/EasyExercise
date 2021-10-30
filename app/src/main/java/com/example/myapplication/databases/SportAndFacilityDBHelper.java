@@ -64,10 +64,10 @@ public class SportAndFacilityDBHelper {
     }
 
     /**
-     * Open SQLite database in {@code DB_PATH}
+     * Open SQLite database in {@code DB_PATH}.
      *
      * @param dbFile database file path in {@link String}
-     * @reutrn the SQLiteDatabase in path, {@code null} if not exists
+     * @return the SQLiteDatabase in path, {@code null} if not exists
      */
     private SQLiteDatabase openDatabase(String dbFile) {
         try {
@@ -99,7 +99,7 @@ public class SportAndFacilityDBHelper {
     public List<Sport> getSports() {
         Cursor cursor = database.rawQuery("SELECT * FROM sports", null);
         if (cursor != null) {
-            List<Sport> sportList = new ArrayList<Sport>();
+            List<Sport> sportList = new ArrayList<>();
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
@@ -116,7 +116,7 @@ public class SportAndFacilityDBHelper {
     }
 
     /**
-     * Get sport data by {@code sportId}
+     * Get sport data by {@code sportId}.
      *
      * @param sportId targeted sport Id
      * @return {@link Sport} instance, otherwise {@code null} if no matches
@@ -148,7 +148,7 @@ public class SportAndFacilityDBHelper {
         Cursor cursor = database.rawQuery("SELECT * FROM facilities", null);
         if (cursor != null) {
             List<Sport> sportList = getSports();
-            List<Facility> facilityList = new ArrayList<Facility>();
+            List<Facility> facilityList = new ArrayList<>();
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
@@ -173,7 +173,7 @@ public class SportAndFacilityDBHelper {
     }
 
     /**
-     * Get sport data by {@code sportId}
+     * Get sport data by {@code sportId}.
      *
      * @param facilityId targeted facility Id
      * @return {@link Facility} instance, otherwise {@code null} if no matches

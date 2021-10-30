@@ -1,5 +1,11 @@
 package com.example.myapplication.beans.weather;
 
+/**
+ * Types of weather data.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public enum WeatherDataType {
     /**
      * Minute-by-minute air temperature readings at weather-station level.

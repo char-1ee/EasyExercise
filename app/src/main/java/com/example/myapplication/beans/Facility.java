@@ -5,6 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * A sport facility for workouts
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class Facility extends Location implements Serializable {
     private final int id;
     private final String name;

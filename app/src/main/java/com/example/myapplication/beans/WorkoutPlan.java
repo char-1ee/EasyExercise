@@ -4,6 +4,12 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
+/**
+ * A user's plan of his/her workout.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class WorkoutPlan implements Serializable {
     public enum WorkoutPlanStatus {
         PRIVATE("Private"), PUBLIC("Public"), JOINED("Joined");

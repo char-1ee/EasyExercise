@@ -52,7 +52,7 @@ public class DatabaseManager {
 
     /**
      * Open the SQLite database.
-     * @return {@link SQLiteDatabase} object
+     * @return the database opened
      */
     public synchronized SQLiteDatabase openDatabase() {
         if(mOpenCounter.incrementAndGet() == 1) {

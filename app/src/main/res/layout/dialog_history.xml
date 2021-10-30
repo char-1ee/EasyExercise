@@ -28,7 +28,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="60dp"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,6 +155,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     </RelativeLayout>
+
     <ImageView
         android:id="@+id/history_sport_image"
         android:layout_width="100dp"

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,16 +16,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Message;
 import com.example.myapplication.beans.PublicPlan;
+import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.MessageAdapter;
+import com.example.myapplication.utils.Box;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +41,11 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private final List<Message> msgList = new ArrayList<>();
     private EditText inputText;
+    private TextView planFacility;
+    private TextView planStartTime;
+    private TextView planEndTime;
+    private TextView planLimit;
+    private TextView planSport;
     private Button send;
     private Button join;
     private Button quit;
@@ -62,6 +75,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         quit = findViewById(R.id.quitPublicPlanButton);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        planStartTime = findViewById(R.id.start_time_view);
+        planEndTime = findViewById(R.id.end_time_view);
+        planLimit = findViewById(R.id.planLimitView);
+        planSport = findViewById(R.id.publicPlanSport);
+        planFacility = findViewById(R.id.publicPlanFacility);
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatRoomActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -69,14 +88,28 @@ public class ChatRoomActivity extends AppCompatActivity {
         adapter = new MessageAdapter(msgList);
         recyclerView.setAdapter(adapter);
 
+
         planReference.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }
             else {
                 currentPlan = task.getResult().getValue(PublicPlan.class);
+                Date startTime = new Date(currentPlan.getPlanStart());
+                Date endTime = new Date(currentPlan.getPlanFinish());
+                planStartTime.setText(getTime(startTime));
+                planEndTime.setText(getTime(endTime));
+                SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(ChatRoomActivity.this);
+                manager.openDatabase();
+                Sport sport = manager.getSportById(currentPlan.getSport());
+                Facility facility = manager.getFacilityById(currentPlan.getFacility());
+                manager.closeDatabase();
+                planLimit.setText(currentPlan.getMembers().size() + "/" + currentPlan.getPlanLimit());
+                planSport.setText(sport.getName());
+                planFacility.setText(facility.getName());
             }
         });
+
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -181,6 +214,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
     }
 
     @Override

@@ -23,6 +23,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+/**
+ * The activity class for showing all facility for checking in, in the checking in task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class SelectFacilityCheckInActivity extends AppCompatActivity implements OnMapReadyCallback {
     TextView textView;
     private RecyclerView mRecyclerView;
@@ -54,6 +61,7 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
         latitude= getLatitude();
         longitude= getLongitude();
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         //textView.setText(String.valueOf(latitude));
     }

@@ -21,9 +21,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
 
 public class CommunityFragment extends Fragment {
     View view;
@@ -71,4 +74,5 @@ public class CommunityFragment extends Fragment {
         });
         return view;
     }
+
 }

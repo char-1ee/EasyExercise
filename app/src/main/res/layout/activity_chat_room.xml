@@ -90,13 +90,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Time:"
+                            android:text="Start Time:"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/end_time_view"
+                            android:id="@+id/start_time_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -114,13 +114,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Published by:"
+                            android:text="End Time:"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/start_time_view"
+                            android:id="@+id/end_time_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -143,7 +143,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/sport_view"
+                            android:id="@+id/planLimitView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"

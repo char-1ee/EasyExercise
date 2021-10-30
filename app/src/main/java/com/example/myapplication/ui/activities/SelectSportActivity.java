@@ -27,6 +27,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The activity class for showing all sport for making a workout plan, in the making plan task.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class SelectSportActivity extends AppCompatActivity {
     Handler handler;
     Runnable runnable;
@@ -76,6 +83,7 @@ public class SelectSportActivity extends AppCompatActivity {
         handler.post(runnable);
         textView.setText(String.valueOf(latitude));
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -124,9 +132,6 @@ public class SelectSportActivity extends AppCompatActivity {
                 if (latitude== 0) {
                     Toast.makeText(SelectSportActivity.this, "not yet", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 1000);
-                }
-                else{
-                    //textView.setText(String.valueOf(latitude));
                 }
             }
         };

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,17 +23,25 @@ import com.example.myapplication.ui.adapters.PlanRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The fragment class for showing all existing plan in the local database.
+ *
+ * @author Ruan Donglin
+ * @author Mao Yiyun
+ */
+
 public class PlanFragment extends Fragment {
-    private View view;
     private List<WorkoutPlan> mWorkoutPlan;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private WorkoutPlanQueryImp workoutPlanQueryImp;
+
+    public PlanFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_plan, container, false);
+        View view = inflater.inflate(R.layout.fragment_plan, container, false);
         //workoutPlanQueryImp = new WorkoutPlanQueryImp();
         mRecyclerView = view.findViewById(R.id.recycler_view);
         initAdapter();
@@ -44,8 +51,7 @@ public class PlanFragment extends Fragment {
     private WorkoutPlan getListData() {
         Sport s = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Location location = testCheckinClosetFacility();
-        WorkoutPlan w = new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
-        return w;
+        return new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
     }
 
     private Facility testCheckinClosetFacility() {
@@ -70,11 +76,10 @@ public class PlanFragment extends Fragment {
     /**
      * Initialize adapter for recyclerview.
      *
-     * @author Ruan Donglin
      */
     private void initAdapter(){
         //mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
-        mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
+        RecyclerView.Adapter mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);

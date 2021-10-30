@@ -2,6 +2,12 @@ package com.example.myapplication.beans.weather;
 
 import com.example.myapplication.beans.Coordinates;
 
+/**
+ * A weather result for a particular weather type.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public abstract class WeatherResult {
     private final WeatherDataType type;
     private final Coordinates location;

@@ -4,6 +4,12 @@ import com.example.myapplication.beans.Coordinates;
 
 import java.util.Locale;
 
+/**
+ * A wrapper class for weather forecast results.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
 public class WeatherForecastResult extends WeatherResult {
     private final String result;
 

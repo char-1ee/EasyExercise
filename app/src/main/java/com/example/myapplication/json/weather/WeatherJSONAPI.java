@@ -1,16 +1,22 @@
 package com.example.myapplication.json.weather;
 
 import com.example.myapplication.beans.weather.WeatherDataType;
-import com.example.myapplication.json.JSONAPI;
 
-public abstract class WeatherJSONAPI implements JSONAPI {
+/**
+ * The common API used for weather JSON parsers.
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
+ */
+public abstract class WeatherJSONAPI {
     private final WeatherDataType type;
 
     public WeatherJSONAPI(WeatherDataType type) {
         this.type = type;
     }
 
-    @Override
+    public abstract boolean apiIsHealthy();
+
     public String getDataTitle() {
         return type.toString();
     }

@@ -14,6 +14,7 @@ import com.example.myapplication.utils.App;
 
 /**
  * Database helper class for {@code WorkoutPlan} and {@code WorkoutRecord}.
+ * TODO: this helper class doesn't help WorkoutPlan and WorkoutRecord.
  *
  * @author Li Xingjian
  */

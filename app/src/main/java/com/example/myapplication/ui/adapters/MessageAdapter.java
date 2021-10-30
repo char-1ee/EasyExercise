@@ -50,6 +50,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Message message = myMessageList.get(position);
         holder.userName.setText(message.getMessageUsername());
+        if(message.getMessageAvatarUrl() != null){
+            //TODO fill the imageview with URL
+            //holder.avatar.
+        }
         holder.messageContent.setText(message.getMessageText());
         holder.time.setText(message.getMessageTime());
     }

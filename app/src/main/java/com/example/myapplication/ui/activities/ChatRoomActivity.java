@@ -20,10 +20,10 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Message;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
-import com.example.myapplication.beans.WorkoutPlan;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.MessageAdapter;
-import com.example.myapplication.utils.Box;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +52,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
     private PublicPlan currentPlan;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("community").child(planID).child("chatroom");
         DatabaseReference planReference = database.getReference().child("community").child(planID);
+        DatabaseReference users = database.getReference().child("user");
 
         inputText = findViewById(R.id.inputText);
         send = findViewById(R.id.send);
@@ -80,6 +82,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         planLimit = findViewById(R.id.planLimitView);
         planSport = findViewById(R.id.publicPlanSport);
         planFacility = findViewById(R.id.publicPlanFacility);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatRoomActivity.this);
@@ -137,7 +140,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             if(!"".equals(content)){
                 try{
 
-                    Message handleMsg = new Message(content, "Charles", null);
+                    Message handleMsg = new Message(content, currentUser.getDisplayName(), currentUser.getPhotoUrl().toString());
                     mDatabase.child(String.valueOf(msgList.size() + 1)).setValue(handleMsg);
                     inputText.setText("");
 
@@ -158,16 +161,15 @@ public class ChatRoomActivity extends AppCompatActivity {
             });
 
             if(currentPlan.getPlanLimit() > currentPlan.getMembers().size()){
-                String userID = "CharmingCharles";
                 int i;
                 for (i = 0; i < currentPlan.getMembers().size(); i++){
-                    if(userID == currentPlan.getMembers().get(i)){
+                    if(currentUser.getUid().equals(currentPlan.getMembers().get(i))){
                         Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan", Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }
                 if(i == currentPlan.getMembers().size()){
-                    currentPlan.addMembers(userID);
+                    currentPlan.addMembers(currentUser.getUid());
                     Map<String, Object> updates = new HashMap<>();
                     updates.put("members", currentPlan.getMembers());
                     planReference.updateChildren(updates);
@@ -189,11 +191,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
             });
 
-            String userID = "Ciel";
             int i;
             boolean find = false;
             for (i = 0; i < currentPlan.getMembers().size(); i++){
-                if(userID.equals(currentPlan.getMembers().get(i))){
+                if(currentUser.getUid().equals(currentPlan.getMembers().get(i))){
                     find = true;
                     currentPlan.removeMembers(i);
                     if(currentPlan.getMembers().size() == 0){

@@ -3,6 +3,7 @@ package com.example.myapplication.ui.activities.authentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -85,16 +89,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         FirebaseUser currentUser = auth.getCurrentUser();
-                        String[] user = new String[3];
+                        List<String> user = new ArrayList<String>();
                         // String[0] uid;
                         // String[1] username;
                         // String[2] avatar uri;
-                        user[0] = currentUser.getUid();
-                        user[1] = currentUser.getDisplayName();
-                        user[2] = currentUser.getPhotoUrl().toString();
+                        user.add(currentUser.getUid());
+                        Log.e("userinfo", user.get(0));
+                        user.add(currentUser.getDisplayName());
+                        user.add((currentUser.getPhotoUrl() == null) ? null : currentUser.getPhotoUrl().toString());
                         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                        DatabaseReference mDatabase = database.getReference().child("users");
-                        mDatabase.child(user[0]).setValue(user);
+                        DatabaseReference mDatabase = database.getReference().child("user");
+                        mDatabase.child(user.get(0)).setValue(user);
+                        mDatabase.child("test").setValue(1);
 
                         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();

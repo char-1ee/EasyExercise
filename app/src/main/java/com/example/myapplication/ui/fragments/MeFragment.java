@@ -44,6 +44,8 @@ import java.util.List;
  *
  * @author Ruan Donglin
  * @author Mao Yiyun
+ * @author Li Xingjian
+ * @deprecated
  */
 
 public class MeFragment extends Fragment {
@@ -75,6 +77,9 @@ public class MeFragment extends Fragment {
         weightView= view.findViewById(R.id.weight_view);
         genderView= view.findViewById(R.id.gender_view);
         logoutBtn= view.findViewById(R.id.sign_out_button);
+
+
+
         getUserInfo();
         if(weight== 0){
             initPicker();
@@ -105,6 +110,9 @@ public class MeFragment extends Fragment {
             genderView.setText(gender);
             BMIView.setText(String.valueOf(weight/(height*height/10000)));
         }
+
+
+
 
         gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

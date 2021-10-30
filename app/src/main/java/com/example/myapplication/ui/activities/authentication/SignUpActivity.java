@@ -88,6 +88,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
+<<<<<<< HEAD
                         FirebaseUser currentUser = auth.getCurrentUser();
                         List<String> user = new ArrayList<String>();
                         // String[0] uid;
@@ -102,6 +103,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         mDatabase.child(user.get(0)).setValue(user);
                         mDatabase.child("test").setValue(1);
 
+=======
+//                        addUserInfo();  // TODO
+>>>>>>> cde1e7c (refactor: refactor MeFragment into UserFragment)
                         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();
                     }
@@ -114,5 +118,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    protected void addUserInfo() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        String[] user = new String[3];
+        // String[0] uid;
+        // String[1] username;
+        // String[2] avatar uri;
+        user[0] = currentUser.getUid();
+        user[1] = currentUser.getDisplayName();
+        user[2] = currentUser.getPhotoUrl().toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference mDatabase = database.getReference().child("users");
+        mDatabase.child(user[0]).setValue(user);
     }
 }

@@ -272,7 +272,7 @@ public class MeFragment extends Fragment {
                 .build();
         pvOptions2.setPicker(heightRange);
         genderChoice= new ArrayList<>();
-        genderChoice.add("Famale");
+        genderChoice.add("Female");
         genderChoice.add("Male");
         genderChoice.add("Prefer not to disclose");
         pvOptions3 = new OptionsPickerBuilder(getContext(), (options1, option2, options3, v) -> gender= genderChoice.get(options1))

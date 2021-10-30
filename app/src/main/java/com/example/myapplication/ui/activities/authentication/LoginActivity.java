@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential).addOnSuccessListener(this, authResult -> {
-            startActivity(new Intent(LoginActivity.this, UserActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }).addOnFailureListener(this, e -> Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show());
     }

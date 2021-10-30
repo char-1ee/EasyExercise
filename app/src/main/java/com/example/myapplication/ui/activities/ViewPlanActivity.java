@@ -308,7 +308,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             } else {
                 facility_id = -1;
             }
-            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, 10001);
+            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, "Charles");
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
             DatabaseReference mDatabase = database.getReference().child("community");
             String postId = mDatabase.push().getKey();

@@ -137,7 +137,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             if(!"".equals(content)){
                 try{
 
-                    Message handleMsg = new Message(content, "Charles");
+                    Message handleMsg = new Message(content, "Charles", null);
                     mDatabase.child(String.valueOf(msgList.size() + 1)).setValue(handleMsg);
                     inputText.setText("");
 
@@ -158,7 +158,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             });
 
             if(currentPlan.getPlanLimit() > currentPlan.getMembers().size()){
-                int userID = 10003;
+                String userID = "CharmingCharles";
                 int i;
                 for (i = 0; i < currentPlan.getMembers().size(); i++){
                     if(userID == currentPlan.getMembers().get(i)){
@@ -189,11 +189,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
             });
 
-            int userID = 10003;
+            String userID = "Ciel";
             int i;
             boolean find = false;
             for (i = 0; i < currentPlan.getMembers().size(); i++){
-                if(userID == currentPlan.getMembers().get(i)){
+                if(userID.equals(currentPlan.getMembers().get(i))){
                     find = true;
                     currentPlan.removeMembers(i);
                     if(currentPlan.getMembers().size() == 0){

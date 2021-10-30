@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -183,9 +185,14 @@ public class UserActivity extends AppCompatActivity {
         btnRemoveUser.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
             if (user != null) {
+                FirebaseUser currentUser = auth.getCurrentUser();
+                String uid = currentUser.getUid();
                 user.delete()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                                DatabaseReference mDatabase = database.getReference().child("users");
+                                mDatabase.child(uid).removeValue();
                                 Toast.makeText(UserActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(UserActivity.this, SignUpActivity.class));
                                 finish();

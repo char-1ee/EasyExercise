@@ -11,12 +11,12 @@ public class PublicPlan {
     private String plan;
     private int sport;
     private int facility;
-    private List<Integer> members;
+    private List<String> members;
 
     public PublicPlan() {
     }
 
-    public PublicPlan(int planLimit, long planStart, long planFinish, String plan, int sport, int facility, List<Integer> members) {
+    public PublicPlan(int planLimit, long planStart, long planFinish, String plan, int sport, int facility, List<String> members) {
         this.planLimit = planLimit;
         this.planStart = planStart;
         this.planFinish = planFinish;
@@ -26,13 +26,13 @@ public class PublicPlan {
         this.members = members;
     }
 
-    public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID, int userID) {
+    public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID, String userID) {
         planLimit = limit;
         planStart = start.getTime();
         planFinish = finish.getTime();
         sport = sportID;
         facility = facilityID;
-        members = new ArrayList<Integer>();
+        members = new ArrayList<String>();
         members.add(userID);
     }
 
@@ -84,15 +84,15 @@ public class PublicPlan {
         this.facility = facility;
     }
 
-    public List<Integer> getMembers() {
+    public List<String> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Integer> members) {
+    public void setMembers(List<String> members) {
         this.members = members;
     }
 
-    public void addMembers(int id) {
+    public void addMembers(String id) {
         this.members.add(id);
     }
 

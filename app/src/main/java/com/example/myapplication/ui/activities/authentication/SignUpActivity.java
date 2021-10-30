@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -81,7 +84,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        startActivity(new Intent(SignUpActivity.this, UserActivity.class));
+                        FirebaseUser currentUser = auth.getCurrentUser();
+                        String[] user = new String[3];
+                        // String[0] uid;
+                        // String[1] username;
+                        // String[2] avatar uri;
+                        user[0] = currentUser.getUid();
+                        user[1] = currentUser.getDisplayName();
+                        user[2] = currentUser.getPhotoUrl().toString();
+                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                        DatabaseReference mDatabase = database.getReference().child("users");
+                        mDatabase.child(user[0]).setValue(user);
+
+                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();
                     }
                 });

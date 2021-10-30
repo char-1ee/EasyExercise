@@ -84,18 +84,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        FirebaseUser currentUser = auth.getCurrentUser();
-                        String[] user = new String[3];
-                        // String[0] uid;
-                        // String[1] username;
-                        // String[2] avatar uri;
-                        user[0] = currentUser.getUid();
-                        user[1] = currentUser.getDisplayName();
-                        user[2] = currentUser.getPhotoUrl().toString();
-                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                        DatabaseReference mDatabase = database.getReference().child("users");
-                        mDatabase.child(user[0]).setValue(user);
-
+//                        addUserInfo();  // TODO
                         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();
                     }
@@ -108,5 +97,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    protected void addUserInfo() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        String[] user = new String[3];
+        // String[0] uid;
+        // String[1] username;
+        // String[2] avatar uri;
+        user[0] = currentUser.getUid();
+        user[1] = currentUser.getDisplayName();
+        user[2] = currentUser.getPhotoUrl().toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference mDatabase = database.getReference().child("users");
+        mDatabase.child(user[0]).setValue(user);
     }
 }

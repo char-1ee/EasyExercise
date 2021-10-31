@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.CustomizedLocation;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.WorkoutRecord;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.ui.adapters.CheckInSportAdapter;
 
@@ -40,6 +41,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
     private Sport ChosenSport;
     private TextView locationView;
     private CheckInSportAdapter firstAdapter;
+    private WorkoutRecord workoutRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

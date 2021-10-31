@@ -51,6 +51,17 @@ public class WorkoutDatabaseManager {
         return workoutPlan;
     }
 
+    public static WorkoutRecord toWorkoutRecord(FirebaseWorkoutRecord firebaseRecord, Context context){
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
+        manager.openDatabase();
+        Sport s = manager.getSportById(firebaseRecord.getSport());
+        Location l = manager.getFacilityById(firebaseRecord.getFacility());
+        manager.closeDatabase();
+        WorkoutRecord workoutRecord = new WorkoutRecord(
+                s, l, firebaseRecord.getPlanID(), new Date(firebaseRecord.startTime), new Date(firebaseRecord.endTime));
+        return workoutRecord;
+    }
+
 
     public class FirebaseWorkoutRecord {
         private int sport;

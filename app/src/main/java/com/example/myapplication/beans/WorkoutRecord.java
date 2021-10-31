@@ -21,6 +21,10 @@ public class WorkoutRecord extends Workout {
         this.endTime = endTime;
     }
 
+    public WorkoutRecord(Sport sport, Location location, String id){
+        super(sport, location, WorkoutStatus.RECORD, id);
+    }
+
     public Date getStartTime() {
         return startTime;
     }

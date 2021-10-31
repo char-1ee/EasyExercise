@@ -29,7 +29,9 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.sportsImage.SportsImage;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +39,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -73,11 +76,12 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private TextView sportView;
     private TextView addressView;
     private TextView limitView;
-    private WorkoutPlan plan;
+    private Workout plan;
     private Location location;
     private Button addPlanButton, checkInButton, deleteButton;
     private SportsImage sm;
     private CardView cardView;
+    private List<Workout> workoutList;
     Integer[] limit= {2,3,4,5,6,7,8,9,10};
     ActionBar actionBar;
 
@@ -91,8 +95,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    private WorkoutPlan getChosenPlan() {
-        return (WorkoutPlan) getIntent().getSerializableExtra("ChosenPlan");
+    private Workout getChosenPlan() {
+        return (Workout) getIntent().getSerializableExtra("plan");
     }
 
 
@@ -276,7 +280,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         Button confirmButton, cancelButton;
         TextView sportView, facilityView, peopleLimitView,  startTimeView, endTimeView;
         ImageView imageView;
-        WorkoutPlan item = getChosenPlan();
+        Workout item = getChosenPlan();
         dialog.setContentView(R.layout.dialog_plan);
         confirmButton= dialog.findViewById(R.id.confirm);
         cancelButton= dialog.findViewById(R.id.cancel);
@@ -300,7 +304,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         endTimeView.setText(getTime(endDate));
         dialog.show();
         confirmButton.setOnClickListener(view -> {
-            WorkoutPlan localPlan = getChosenPlan();
+            Workout localPlan = getChosenPlan();
             Location location = plan.getLocation();
             int facility_id;
             if (location.getType() == Location.LocationType.FACILITY) {
@@ -308,8 +312,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             } else {
                 facility_id = -1;
             }
-            PublicPlan publicPlan = new PublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, 10001);
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            WorkoutDatabaseManager.FirebasePublicPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
             DatabaseReference mDatabase = database.getReference().child("community");
             String postId = mDatabase.push().getKey();
             publicPlan.setPlan(postId);

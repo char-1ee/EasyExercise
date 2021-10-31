@@ -23,11 +23,11 @@ public class Weather {
     public static final String WIND_SPEED_JSON_URL =
             "https://api.data.gov.sg/v1/environment/wind-speed";
     public static final String UV_INDEX_JSON_URL =
-            "https://api.data.gov.sg/v1/environment/uv-index";
+            "https://api.data.gov.sg/v1/environment/uv-index?date_time=2021-10-24T13%3A11%3A12";
     public static final String PM25_JSON_URL =
-            "https://api.data.gov.sg/v1/environment/pm25";
+            "https://api.data.gov.sg/v1/environment/pm25?date_time=2021-10-24T13%3A11%3A12";
     public static final String WEATHER_FORECAST_JSON_URL =
-            "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast";
+            "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?date_time=2021-10-24T13%3A11%3A12";
 
     private final RealTimeWeather airTemperature;
     private final RealTimeWeather rainfall;

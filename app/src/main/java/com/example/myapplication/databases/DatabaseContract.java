@@ -18,8 +18,12 @@ public final class DatabaseContract {
     private static final String TEXT_TYPE = " TEXT ";
     private static final String COMMA_SEP = " , ";
 
-    // Not allowed to be instantiated
-    private DatabaseContract() {}
+    /**
+     * Private constructor.
+     */
+    private DatabaseContract() {
+        ; // Not allowed to be instantiated
+    }
 
     // List of all SQL create table statement
     public static final String[] SQL_CREATE_TABLE_LIST = {
@@ -29,6 +33,9 @@ public final class DatabaseContract {
             WorkoutHistoryTable.CREATE_TABLE_WORKOUT_HISTORY
     };
 
+    /**
+     * Inner class contains constants of {@link com.example.myapplication.beans.Sport} table name, column names, SQLite queries.
+     */
     public static abstract class SportTable implements BaseColumns {
         public static final String TABLE_NAME_SPORTS = " sports ";
         public static final String KEY_NAME = " name ";
@@ -54,6 +61,9 @@ public final class DatabaseContract {
         public static final String DELETE_TABLE_SPORTS = " DROP TABLE IF EXISTS " + TABLE_NAME_SPORTS;
     }
 
+    /**
+     * Inner class contains constants of {@link com.example.myapplication.beans.Facility} table name, column names, SQLite queries.
+     */
     public static abstract class FacilityTable implements BaseColumns {
         public static final String TABLE_NAME_FACILITIES = " facilities ";
         public static final String KEY_NAME = " name ";
@@ -93,6 +103,9 @@ public final class DatabaseContract {
         public static final String DELETE_TABLE_FACILITIES = "DROP TABLE IF EXISTS " + TABLE_NAME_FACILITIES;
     }
 
+    /**
+     * Inner class contains constants of {@link com.example.myapplication.beans.WorkoutPlan} table name, column names, SQLite queries.
+     */
     public static abstract class WorkoutPlanTable implements BaseColumns {
         public static final String TABLE_NAME_WORKOUT_PLAN = "WorkoutPlanTable";
         public static final String KEY_SPORT_ID = "sportId";
@@ -120,6 +133,9 @@ public final class DatabaseContract {
         public static final String DELETE_TABLE_WORKOUT_PLAN = "DROP TABLE IF EXISTS " + TABLE_NAME_WORKOUT_PLAN;
     }
 
+    /**
+     * Inner class contains constants of {@link com.example.myapplication.beans.WorkoutRecord} table name, column names, SQLite queries.
+     */
     public static abstract class WorkoutHistoryTable implements BaseColumns {
         public static final String TABLE_NAME_WORKOUT_HISTORY = "WorkoutHistoryTable";
         public static final String KEY_SPORT_ID = "sportId";

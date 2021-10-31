@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Ma Xinyi
  * @author Zhong Ruoyu
  */
-public class CustomizedLocation extends Location  {
+public class CustomizedLocation extends Location implements Serializable {
     public CustomizedLocation(Coordinates coordinates) {
         super(coordinates.getLatitude(), coordinates.getLongitude(),
                 coordinates.getName(), LocationType.CUSTOMISED_LOCATION);

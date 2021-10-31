@@ -7,12 +7,14 @@ import java.util.Date;
 public class Message implements Serializable {
 
     private String messageText;
-    private String messageUser;
+    private String messageUsername;
+    private String messageAvatarUrl;
     private String messageTime;
 
-    public Message(String messageText, String messageUser) {
+    public Message(String messageText, String messageUser, String messageAvatarUrl) {
         this.messageText = messageText;
-        this.messageUser = messageUser;
+        this.messageUsername = messageUser;
+        this.messageAvatarUrl = messageAvatarUrl;
 
         // Initialize to current time
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -31,12 +33,20 @@ public class Message implements Serializable {
         this.messageText = messageText;
     }
 
-    public String getMessageUser() {
-        return messageUser;
+    public String getMessageUsername() {
+        return messageUsername;
     }
 
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
+    public void setMessageUsername(String messageUsername) {
+        this.messageUsername = messageUsername;
+    }
+
+    public String getMessageAvatarUrl() {
+        return messageAvatarUrl;
+    }
+
+    public void setMessageAvatarUrl(String messageAvatarUrl) {
+        this.messageAvatarUrl = messageAvatarUrl;
     }
 
     public String getMessageTime() {

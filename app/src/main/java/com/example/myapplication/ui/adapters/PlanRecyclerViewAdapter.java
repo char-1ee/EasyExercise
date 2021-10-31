@@ -2,6 +2,7 @@ package com.example.myapplication.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +14,37 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.sportsImage.SportsImage;
 import com.example.myapplication.ui.activities.ViewPlanActivity;
 
 import java.util.List;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
-    private final List<WorkoutPlan> mPlanList;
-    private WorkoutPlan chosenPlan;
-    private final Context mContext;
+    private final List<Workout> mPlanList;
+    private Workout chosenPlan;
     private final SportsImage sm;
 
-    public PlanRecyclerViewAdapter(Context context, List<WorkoutPlan> planList) {
+    public interface OnRecyclerItemClickListener{
+        void onRecyclerItemClick(Workout workout);
+    }
+
+    private OnRecyclerItemClickListener myListener;
+
+
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
+        myListener = listener;
+    }
+
+    public PlanRecyclerViewAdapter(List<Workout> planList, OnRecyclerItemClickListener listener) {
         mPlanList = planList;
-        mContext = context;
+        myListener = listener;
         sm = new SportsImage();
     }
+
+
 
     @NonNull
     @Override
@@ -40,17 +55,21 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        WorkoutPlan item = mPlanList.get(position);
+        Workout item = mPlanList.get(position);
         holder.dateView.setText("");
         holder.sportView.setText(item.getSport().getName());
+        holder.locationView.setText(item.getLocation().getName());
+        if(item.getStatus() == Workout.WorkoutStatus.PRIVATE){
+            holder.typeView.setText("PRIVATE");
+        }
+        else{
+            holder.typeView.setText("PUBLIC");
+        }
         holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
-        holder.view.setOnClickListener(view -> {
-            chosenPlan = item;
-            Intent intent = new Intent(mContext, ViewPlanActivity.class);
-            intent.putExtra("ChosenPlan", chosenPlan);
-            mContext.startActivity(intent);
-        });
+        Log.e("test", item.getLocation().getName());
+
+        holder.bind(item, myListener);
     }
 
     @Override
@@ -63,17 +82,23 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         private final View view;
         private final TextView sportView;
         private final TextView dateView;
+        private final TextView typeView;
+        private final TextView locationView;
         private final ImageView imageView;
 
         private MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            TextView planType = itemView.findViewById(R.id.plan_type);
             sportView = itemView.findViewById(R.id.plan_sport_name);
-            TextView locationView = itemView.findViewById(R.id.plan_location_name);
+            locationView = itemView.findViewById(R.id.plan_location_name);
+            typeView = itemView.findViewById(R.id.plan_type);
             dateView = itemView.findViewById(R.id.plan_date);
             imageView = itemView.findViewById(R.id.plan_sport_image);
             CardView cardView = itemView.findViewById(R.id.history_card);
+        }
+
+        public void bind(Workout workout, PlanRecyclerViewAdapter.OnRecyclerItemClickListener myListener) {
+            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(workout));
         }
     }
 }

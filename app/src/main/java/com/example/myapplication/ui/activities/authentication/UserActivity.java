@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -49,15 +51,15 @@ public class UserActivity extends AppCompatActivity {
             }
         };
 
-        btnChangeEmail = (Button) findViewById(R.id.change_email_button);
-        btnChangePassword = (Button) findViewById(R.id.change_password_button);
-        btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
-        btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
-        changeEmail = (Button) findViewById(R.id.changeEmail);
-        changePassword = (Button) findViewById(R.id.changePass);
-        sendEmail = (Button) findViewById(R.id.send);
-        remove = (Button) findViewById(R.id.remove);
-        signOut = (Button) findViewById(R.id.sign_out);
+        btnChangeEmail = findViewById(R.id.change_email_button);
+        btnChangePassword = findViewById(R.id.change_password_button);
+        btnSendResetEmail = findViewById(R.id.sending_pass_reset_button);
+        btnRemoveUser = findViewById(R.id.remove_user_button);
+        changeEmail = findViewById(R.id.changeEmail);
+        changePassword = findViewById(R.id.changePass);
+        sendEmail = findViewById(R.id.send);
+        remove = findViewById(R.id.remove);
+        signOut = findViewById(R.id.sign_out);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -183,9 +185,14 @@ public class UserActivity extends AppCompatActivity {
         btnRemoveUser.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
             if (user != null) {
+                FirebaseUser currentUser = auth.getCurrentUser();
+                String uid = currentUser.getUid();
                 user.delete()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                                DatabaseReference mDatabase = database.getReference().child("users");
+                                mDatabase.child(uid).removeValue();
                                 Toast.makeText(UserActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(UserActivity.this, SignUpActivity.class));
                                 finish();

@@ -4,36 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PublicPlan {
+public class PublicPlan extends Workout{
+
     private int planLimit;
-    private long planStart;
-    private long planFinish;
-    private String plan;
-    private int sport;
-    private int facility;
-    private List<Integer> members;
+    private Date planStart;
+    private Date planFinish;
+    private List<String> members;
 
-    public PublicPlan() {
-    }
-
-    public PublicPlan(int planLimit, long planStart, long planFinish, String plan, int sport, int facility, List<Integer> members) {
+    public PublicPlan(Sport sport, Location location, String planID, int planLimit, Date planStart, Date planFinish, List<String> members) {
+        super(sport, location, WorkoutStatus.PUBLIC, planID);
         this.planLimit = planLimit;
         this.planStart = planStart;
         this.planFinish = planFinish;
-        this.plan = plan;
-        this.sport = sport;
-        this.facility = facility;
         this.members = members;
     }
 
-    public PublicPlan(int limit, Date start, Date finish, int sportID, int facilityID, int userID) {
-        planLimit = limit;
-        planStart = start.getTime();
-        planFinish = finish.getTime();
-        sport = sportID;
-        facility = facilityID;
-        members = new ArrayList<Integer>();
-        members.add(userID);
+    public PublicPlan() {
+        super(null, null, WorkoutStatus.PUBLIC, "");
     }
 
     public int getPlanLimit() {
@@ -44,59 +31,28 @@ public class PublicPlan {
         this.planLimit = planLimit;
     }
 
-    public long getPlanStart() {
+    public Date getPlanStart() {
         return planStart;
     }
 
-    public void setPlanStart(long planStart) {
+    public void setPlanStart(Date planStart) {
         this.planStart = planStart;
     }
 
-    public long getPlanFinish() {
+    public Date getPlanFinish() {
         return planFinish;
     }
 
-    public void setPlanFinish(long planFinish) {
+    public void setPlanFinish(Date planFinish) {
         this.planFinish = planFinish;
     }
 
-    public String getPlan() {
-        return plan;
-    }
-
-    public void setPlan(String plan) {
-        this.plan = plan;
-    }
-
-    public int getSport() {
-        return sport;
-    }
-
-    public void setSport(int sport) {
-        this.sport = sport;
-    }
-
-    public int getFacility() {
-        return facility;
-    }
-
-    public void setFacility(int facility) {
-        this.facility = facility;
-    }
-
-    public List<Integer> getMembers() {
+    public List<String> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Integer> members) {
+    public void setMembers(List<String> members) {
         this.members = members;
     }
 
-    public void addMembers(int id) {
-        this.members.add(id);
-    }
-
-    public void removeMembers(int i) {
-        this.members.remove(i);
-    }
 }

@@ -156,5 +156,12 @@
     <string name="btn_change">Change</string>
     <string name="minimum_password">min 6 digits required</string>
     <string name="auth_failed">auth failed</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_remove">Remove</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_password">Change Password</string>
+    <string name="send_password_reset_email">Send Password reset email</string>
+    <string name="remove_user">Remove user</string>
+    <string name="btn_sign_out">Sign out</string>
 
 </resources>

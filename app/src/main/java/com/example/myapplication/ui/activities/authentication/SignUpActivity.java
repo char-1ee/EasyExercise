@@ -3,6 +3,7 @@ package com.example.myapplication.ui.activities.authentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -81,7 +88,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        startActivity(new Intent(SignUpActivity.this, UserActivity.class));
+                        FirebaseUser currentUser = auth.getCurrentUser();
+                        List<String> user = new ArrayList<String>();
+                        // String[0] uid;
+                        // String[1] username;
+                        // String[2] avatar uri;
+                        user.add(currentUser.getUid());
+                        Log.e("userinfo", user.get(0));
+                        user.add(currentUser.getDisplayName());
+                        user.add((currentUser.getPhotoUrl() == null) ? null : currentUser.getPhotoUrl().toString());
+                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                        DatabaseReference mDatabase = database.getReference().child("user");
+                        mDatabase.child(user.get(0)).setValue(user);
+                        mDatabase.child("test").setValue(1);
+//                        addUserInfo();  // TODO
+                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();
                     }
                 });
@@ -93,5 +114,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    protected void addUserInfo() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        String[] user = new String[3];
+        // String[0] uid;
+        // String[1] username;
+        // String[2] avatar uri;
+        user[0] = currentUser.getUid();
+        user[1] = currentUser.getDisplayName();
+        user[2] = currentUser.getPhotoUrl().toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference mDatabase = database.getReference().child("users");
+        mDatabase.child(user[0]).setValue(user);
     }
 }

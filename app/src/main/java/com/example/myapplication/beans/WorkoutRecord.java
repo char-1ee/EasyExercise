@@ -1,5 +1,7 @@
 package com.example.myapplication.beans;
 
+import com.example.myapplication.databases.SportAndFacilityDBHelper;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,12 +11,12 @@ import java.util.Date;
  * @author Ma Xinyi
  * @author Zhong Ruoyu
  */
-public class WorkoutRecord extends WorkoutPlan implements Serializable {
+public class WorkoutRecord extends Workout {
     private Date startTime;
     private Date endTime;
 
-    public WorkoutRecord(Sport sport, Location location, long id, Date startTime, Date endTime) {
-        super(sport, location, id);
+    public WorkoutRecord(Sport sport, Location location, String id, Date startTime, Date endTime) {
+        super(sport, location, WorkoutStatus.RECORD, id);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -34,4 +36,6 @@ public class WorkoutRecord extends WorkoutPlan implements Serializable {
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
+
+
 }

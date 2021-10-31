@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.beans.PublicPlan;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.ui.activities.ChatRoomActivity;
 import com.example.myapplication.ui.adapters.CommunityAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,7 @@ import java.util.Objects;
 
 public class CommunityFragment extends Fragment {
     View view;
-    private final List<PublicPlan> publicPlanList = new ArrayList<>();
+    private final List<WorkoutDatabaseManager.FirebasePublicPlan> publicPlanList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CommunityAdapter adapter;
 
@@ -40,7 +41,7 @@ public class CommunityFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_community, container, false);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("community");
 
         recyclerView = view.findViewById(R.id.community_plan_view);
@@ -62,7 +63,7 @@ public class CommunityFragment extends Fragment {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
                 for (DataSnapshot s : task.getResult().getChildren()) {
-                    PublicPlan receivePlan = s.getValue(PublicPlan.class);
+                    WorkoutDatabaseManager.FirebasePublicPlan receivePlan = s.getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
                     if (receivePlan == null) {
                         Log.e("firebase", "Data = null", task.getException());
                     } else {

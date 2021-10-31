@@ -77,9 +77,6 @@ public class MeFragment extends Fragment {
         weightView= view.findViewById(R.id.weight_view);
         genderView= view.findViewById(R.id.gender_view);
         logoutBtn= view.findViewById(R.id.sign_out_button);
-
-
-
         getUserInfo();
         if(weight== 0){
             initPicker();

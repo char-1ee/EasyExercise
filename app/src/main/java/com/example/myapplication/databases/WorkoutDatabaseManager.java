@@ -7,6 +7,7 @@ import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.CustomizedLocation;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
+import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
@@ -36,6 +37,20 @@ public class WorkoutDatabaseManager {
         );
         return workoutPlan;
     }
+
+    public static PublicPlan toPublicPlan(FirebasePublicPlan firebasePlan, Context context){
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
+        manager.openDatabase();
+        Sport s = manager.getSportById(firebasePlan.getSport());
+        Location l = manager.getFacilityById(firebasePlan.getFacility());
+        manager.closeDatabase();
+        PublicPlan workoutPlan = new PublicPlan(
+                s, l, firebasePlan.getPlan(), firebasePlan.getPlanLimit(),
+                new Date(firebasePlan.getPlanStart()), new Date(firebasePlan.getPlanFinish()),
+                firebasePlan.getMembers());
+        return workoutPlan;
+    }
+
 
     public class FirebaseWorkoutRecord {
         private int sport;

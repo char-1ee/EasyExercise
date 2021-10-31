@@ -176,7 +176,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             finish();
         });
         deleteButton.setOnClickListener(view -> {
-            // TODO: 2021/10/24 delete this plan
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            mDatabase.child("WorkoutPlan").child(plan.getPlanID()).removeValue();
+            Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -315,11 +319,14 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             WorkoutDatabaseManager.FirebasePublicPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
             DatabaseReference mDatabase = database.getReference().child("community");
-            String postId = mDatabase.push().getKey();
-            publicPlan.setPlan(postId);
-            assert postId != null;
-            mDatabase.child(postId).setValue(publicPlan);
+            publicPlan.setPlan(plan.getPlanID());
+            assert plan.getPlanID() != null;
+            mDatabase.child(plan.getPlanID()).setValue(publicPlan);
             Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+
+            DatabaseReference workoutPlanDB = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            workoutPlanDB.child("WorkoutPlan").child(plan.getPlanID()).removeValue();
+            workoutPlanDB.child("PublicPlan").child(plan.getPlanID()).setValue(plan.getPlanID());
             Intent intent= new Intent(ViewPlanActivity.this, MainActivity.class);
             dialog.dismiss();
             startActivity(intent);

@@ -65,26 +65,19 @@ import java.util.Objects;
  */
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback,
-       TimePickerDialog.OnTimeSetListener
-{
+        TimePickerDialog.OnTimeSetListener {
     Integer finalLimit = 0;
     SupportMapFragment mapFragment;
-    TimePickerView pvTime2;
-    TimePickerView pvTime;
+//    TimePickerView pvTime2;
+//    TimePickerView pvTime;
     OptionsPickerView pvOptions;
-    private TextView startTime;
-    private TextView endTime;
     private Handler handler;
     private Runnable runnable;
-    private Date startDate;
-    private Date endDate;
+    private TextView startTime, endTime;
+    private Date startDate, endDate;
     private GoogleMap mMap;
     private Sport sport;
-    private TextView postalView;
-    private TextView facilityView;
-    private TextView sportView;
-    private TextView addressView;
-    private TextView limitView;
+    private TextView postalView, facilityView, sportView, addressView, limitView;
     private Workout plan;
     private Location location;
     private Button addPlanButton, checkInButton, deleteButton;
@@ -101,7 +94,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         initMap();
         initPicker();
         initButton();
-
     }
 
     private Workout getChosenPlan() {
@@ -364,9 +356,9 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         String minuteString = minute < 10 ? "0" + minute : "" + minute;
         String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
         String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
-        String time1 = hourString + "h" + minuteString;
-        String time2 = hourStringEnd + "h" + minuteStringEnd;
+        String time1 = "Start time: " + hourString + "h" + minuteString;
+        String time2 = "Start time: " + hourStringEnd + "h" + minuteStringEnd;
         startTime.setText(time1);
-        endTime.setText(time2);
+        endTime.setText(time2); // TODO： @rdl
     }
 }

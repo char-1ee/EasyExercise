@@ -51,6 +51,9 @@ public class HistoryFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
         adapter = new HistoryRecyclerViewAdapter(workoutRecordList, getActivity());
         mRecyclerView.setAdapter(adapter);
 
@@ -63,7 +66,9 @@ public class HistoryFragment extends Fragment {
                     if (receiveRecord == null) {
                         Log.e("firebase", "Data = null", task.getException());
                     } else {
+                        Log.e("test", receiveRecord.getPlanID());
                         workoutRecordList.add(WorkoutDatabaseManager.toWorkoutRecord(receiveRecord, getActivity()));
+                        Log.e("test", workoutRecordList.get(0).getPlanID());
                         adapter.notifyItemInserted(workoutRecordList.size() - 1);
                     }
                 }
@@ -79,7 +84,7 @@ public class HistoryFragment extends Fragment {
 
 
 
-    private Facility testCheckinClosetFacility() {
+    private Facility testCheckInClosetFacility() {
         Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);

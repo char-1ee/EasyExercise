@@ -55,7 +55,14 @@ public class WorkoutDatabaseManager {
         SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
         manager.openDatabase();
         Sport s = manager.getSportById(firebaseRecord.getSport());
-        Location l = manager.getFacilityById(firebaseRecord.getFacility());
+        Location l;
+        if(firebaseRecord.isCustomized()){
+            Coordinates c = new Coordinates(firebaseRecord.getLatitude(), firebaseRecord.getLongitude(), firebaseRecord.getName());
+            l = new CustomizedLocation(c);
+        }
+        else{
+            l = manager.getFacilityById(firebaseRecord.getFacility());
+        }
         manager.closeDatabase();
         WorkoutRecord workoutRecord = new WorkoutRecord(
                 s, l, firebaseRecord.getPlanID(),

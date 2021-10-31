@@ -42,7 +42,7 @@ public class PlanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan, container, false);
-        //workoutPlanQueryImp = new WorkoutPlanQueryImp();
+        workoutPlanQueryImp = new WorkoutPlanQueryImp();
         mRecyclerView = view.findViewById(R.id.recycler_view);
         initAdapter();
         return view;
@@ -50,11 +50,11 @@ public class PlanFragment extends Fragment {
 
     private WorkoutPlan getListData() {
         Sport s = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Location location = testCheckinClosetFacility();
+        Location location = testCheckInClosetFacility();
         return new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
     }
 
-    private Facility testCheckinClosetFacility() {
+    private Facility testCheckInClosetFacility() {
         Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Sport b = new Sport(0, "Running", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Sport c = new Sport(0, "Basketball", "swimming", Sport.SportType.INDOOR_OUTDOOR);
@@ -78,7 +78,7 @@ public class PlanFragment extends Fragment {
      *
      */
     private void initAdapter(){
-        //mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
+//        mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
         RecyclerView.Adapter mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);

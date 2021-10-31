@@ -27,12 +27,15 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.activities.authentication.LoginActivity;
 import com.example.myapplication.ui.activities.authentication.UserActivity;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private TextView emailText, usernameText, genderText, heightText, weightText, BMIText;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
+    private GoogleSignInClient mSignInClient;
+    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
 
     private List<Integer> weightRange = new ArrayList<>();
     private List<Integer> heightRange = new ArrayList<>();
@@ -69,6 +75,21 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         initGoogleClient();
         initView();
 
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        //get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        authListener = firebaseAuth -> {
+            FirebaseUser user1 = firebaseAuth.getCurrentUser();
+            if (user1 == null) {
+
+                // user auth state is changed - user is null then launch login activity
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+            }
+        };
         // TODO: pickers should not appear when first enter fragment, thus I made every textView(height, weight, BMI) clickable
 //        getUserInfo();
 //        if (weight == 0) {
@@ -133,19 +154,22 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        mSignInClient = GoogleSignIn.getClient(getActivity(), gso);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.new_sign_out_button:
-                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(status -> {
-                    if (status.isSuccess()) {
-                        gotoLoginActivity();
-                    } else {
-                        Toast.makeText(getContext(), "Session not close", Toast.LENGTH_LONG).show();
-                    }
-                });
+//                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(status -> {
+//                    if (status.isSuccess()) {
+//                        gotoLoginActivity();
+//                    } else {
+//                        Toast.makeText(getContext(), "Session not close", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+                signOut();
+
                 break;
 
             case R.id.edit_login_info_button:
@@ -221,6 +245,13 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         } else {
             gotoLoginActivity();
         }
+    }
+
+        private void signOut() {
+        auth.signOut();
+        mSignInClient.signOut();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        getActivity().finish();
     }
 
     private void gotoLoginActivity() {

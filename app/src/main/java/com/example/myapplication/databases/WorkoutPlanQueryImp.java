@@ -32,7 +32,7 @@ public class WorkoutPlanQueryImp {  // TODO: write a test
     public WorkoutPlanQueryImp() {
     }
 
-    public void createWorkoutPlan(WorkoutPlan workoutPlan) {
+    public void insert(WorkoutPlan workoutPlan) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_SPORT_ID, workoutPlan.getSport().getId());

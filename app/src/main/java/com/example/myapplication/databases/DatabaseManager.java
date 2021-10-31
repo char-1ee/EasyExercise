@@ -45,6 +45,8 @@ public class DatabaseManager {
         if (instance == null) {
             throw new IllegalStateException(DatabaseManager.class.getSimpleName() +
                     " is not initialized, call initializeInstance(..) method first.");
+        } else {
+            initializeInstance(mDatabaseHelper);
         }
 
         return instance;

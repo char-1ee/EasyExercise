@@ -161,15 +161,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.new_sign_out_button:
-//                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(status -> {
-//                    if (status.isSuccess()) {
-//                        gotoLoginActivity();
-//                    } else {
-//                        Toast.makeText(getContext(), "Session not close", Toast.LENGTH_LONG).show();
-//                    }
-//                });
                 signOut();
-
                 break;
 
             case R.id.edit_login_info_button:

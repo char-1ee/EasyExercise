@@ -20,7 +20,9 @@ import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
+import com.example.myapplication.databases.DatabaseManager;
 import com.example.myapplication.databases.WorkoutDatabaseManager;
+import com.example.myapplication.ui.activities.ChatRoomActivity;
 import com.example.myapplication.ui.activities.ViewPlanActivity;
 import com.example.myapplication.ui.adapters.PlanRecyclerViewAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,17 +56,23 @@ public class PlanFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference publicPlanDB = database.getReference().child("community");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 
         adapter = new PlanRecyclerViewAdapter(planList, workout -> {
             //on click event
-
-            Log.e("test", workout.getLocation().getName());
-            Intent intent = new Intent(getContext().getApplicationContext(), ViewPlanActivity.class);
-            intent.putExtra("plan", workout);
+            Intent intent;
+            if(workout.getStatus() == Workout.WorkoutStatus.PRIVATE){
+                intent = new Intent(getContext().getApplicationContext(), ViewPlanActivity.class);
+                intent.putExtra("plan", workout);
+            }else{
+                intent = new Intent(getContext().getApplicationContext(), ChatRoomActivity.class);
+                intent.putExtra("plan", workout.getPlanID());
+            }
             startActivity(intent);
+
         });
 
         mRecyclerView.setAdapter(adapter);
@@ -80,6 +88,38 @@ public class PlanFragment extends Fragment {
                     } else {
                         planList.add(WorkoutDatabaseManager.toWorkoutPlan(receivePlan, getActivity()));
                         adapter.notifyItemInserted(planList.size() - 1);
+                    }
+                }
+            }
+        });
+
+        mDatabase.child("PublicPlan").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                for (DataSnapshot s : task.getResult().getChildren()) {
+                    String planID = s.getValue(String.class);
+                    if (s == null) {
+                        Log.e("firebase", "Data = null", task.getException());
+                    } else {
+                        Log.e("test", "public:"+planID);
+                        publicPlanDB.get().addOnCompleteListener(t -> {
+                            if (!t.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", t.getException());
+                            } else {
+                                for(DataSnapshot g : t.getResult().getChildren()) {
+                                    WorkoutDatabaseManager.FirebasePublicPlan receivePlan = g.getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
+                                    Log.e("test", receivePlan.getPlan());
+                                    if (receivePlan == null) {
+                                        Log.e("firebase", "Data = null", t.getException());
+                                    } else if(receivePlan.getPlan().equals(planID)){
+                                        Log.e("test", "public:" + receivePlan.getPlan());
+                                        planList.add(WorkoutDatabaseManager.toPublicPlan(receivePlan, getActivity()));
+                                        adapter.notifyItemInserted(planList.size() - 1);
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
             }

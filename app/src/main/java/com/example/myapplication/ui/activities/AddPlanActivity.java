@@ -19,8 +19,9 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
-import com.example.myapplication.databases.WorkoutPlanQueryImp;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.ui.adapters.AddPlanAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +29,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * The activity class for adding exercise plan in the making plan task.
@@ -117,9 +121,13 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(AddPlanActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
             }
             else{
-                workoutPlan= new WorkoutPlan(finalSport, facility, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
-                //WorkoutPlanQueryImp workoutPlanQueryImp = new WorkoutPlanQueryImp();
-                //workoutPlanQueryImp.insert(workoutPlan);
+                workoutPlan= new WorkoutPlan(finalSport, facility, Workout.WorkoutStatus.PRIVATE, "");
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("WorkoutPlan");
+                String postId = mDatabase.push().getKey();
+                WorkoutDatabaseManager.FirebaseWorkoutPlan firebasePlan = new WorkoutDatabaseManager.FirebaseWorkoutPlan(workoutPlan, postId);
+                mDatabase.child(postId).setValue(firebasePlan);
+
                 Intent intent= new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);
             }

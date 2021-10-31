@@ -40,6 +40,7 @@ import com.example.myapplication.ui.fragments.HistoryFragment;
 import com.example.myapplication.ui.fragments.HomeFragment;
 import com.example.myapplication.ui.fragments.MeFragment;
 import com.example.myapplication.ui.fragments.PlanFragment;
+import com.example.myapplication.ui.fragments.UserFragment;
 import com.example.myapplication.utils.Box;
 import com.example.myapplication.utils.IOUtil;
 import com.google.android.gms.common.api.ApiException;
@@ -115,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new HistoryFragment();
                         break;
                     case R.id.navigation_me:
-                        selectedFragment = new MeFragment();
+//                        selectedFragment = new MeFragment();
+                        selectedFragment = new UserFragment();
                 }
                 assert selectedFragment != null;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

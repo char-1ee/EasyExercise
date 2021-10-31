@@ -41,7 +41,6 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
     private Sport ChosenSport;
     private TextView locationView;
     private CheckInSportAdapter firstAdapter;
-    private WorkoutRecord workoutRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

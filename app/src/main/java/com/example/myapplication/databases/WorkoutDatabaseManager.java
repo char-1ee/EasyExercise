@@ -58,12 +58,13 @@ public class WorkoutDatabaseManager {
         Location l = manager.getFacilityById(firebaseRecord.getFacility());
         manager.closeDatabase();
         WorkoutRecord workoutRecord = new WorkoutRecord(
-                s, l, firebaseRecord.getPlanID(), new Date(firebaseRecord.startTime), new Date(firebaseRecord.endTime));
+                s, l, firebaseRecord.getPlanID(),
+                new Date(firebaseRecord.getStartTime()), new Date(firebaseRecord.getEndTime()), firebaseRecord.getDuration());
         return workoutRecord;
     }
 
 
-    public class FirebaseWorkoutRecord {
+    public static class FirebaseWorkoutRecord {
         private int sport;
         private String planID;
         private boolean customized;
@@ -72,11 +73,12 @@ public class WorkoutDatabaseManager {
         private double latitude;
         private long startTime;
         private long endTime;
+        String duration;
         private String name;
 
-        public FirebaseWorkoutRecord(WorkoutRecord record, String id) {
+        public FirebaseWorkoutRecord(WorkoutRecord record) {
             sport = record.getSport().getId();
-            planID = id;
+            planID = record.getPlanID();
             customized = (record.getLocation().getType() == Location.LocationType.CUSTOMISED_LOCATION);
             if(customized){
                 longitude = record.getLocation().getLongitude();
@@ -90,6 +92,7 @@ public class WorkoutDatabaseManager {
                 name = "";
                 facility = ((Facility) record.getLocation()).getId();
             }
+            duration = record.getDuration();
             startTime = record.getStartTime().getTime();
             endTime = record.getEndTime().getTime();
         }
@@ -131,6 +134,10 @@ public class WorkoutDatabaseManager {
 
         public String getName() {
             return name;
+        }
+
+        public String getDuration() {
+            return duration;
         }
     }
 

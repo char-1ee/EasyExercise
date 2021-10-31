@@ -14,7 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.WorkoutRecord;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.sportsImage.SportsImage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
@@ -33,6 +38,8 @@ public class CheckOutActivity extends AppCompatActivity {
     private Location location;
     private SportsImage sm;
     private ActionBar actionBar;
+    private Date start, end;
+    private WorkoutRecord workoutRecord;
 
 
     @Override
@@ -43,6 +50,13 @@ public class CheckOutActivity extends AppCompatActivity {
         // TODO: 2021/10/24  addRecord();
     }
 
+    private Date getStart() {
+        return (Date) getIntent().getSerializableExtra("StartDate");
+    }
+
+    private Date getEnd() {
+        return (Date) getIntent().getSerializableExtra("EndDate");
+    }
 
     private Location getLocation() {
         return (Location) getIntent().getSerializableExtra("LocationExercise");
@@ -61,6 +75,8 @@ public class CheckOutActivity extends AppCompatActivity {
         sm= new SportsImage();
         sport = getSport();
         location = getLocation();
+        start = getStart();
+        end = getEnd();
         sportNameView= findViewById(R.id.checkoutSport);
         placeView= findViewById(R.id.checkoutPlace);
         sportView=findViewById(R.id.checkoutPic);
@@ -75,6 +91,18 @@ public class CheckOutActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        updateRecord();
+    }
+
+    private void updateRecord(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        WorkoutRecord workoutRecord;
+        String postId = user.push().getKey();
+        workoutRecord = new WorkoutRecord(sport, location, postId, start, end, getTimeDuration());
+        WorkoutDatabaseManager.FirebaseWorkoutRecord firebaseWorkoutRecord = new WorkoutDatabaseManager.FirebaseWorkoutRecord(workoutRecord);
+        user.child("WorkoutRecord").child(postId).setValue(firebaseWorkoutRecord);
     }
 
     private void initButton(){

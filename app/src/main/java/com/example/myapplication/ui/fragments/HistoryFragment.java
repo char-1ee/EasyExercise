@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,12 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.WorkoutRecord;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.ui.adapters.HistoryRecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +38,8 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
     private RecyclerView mRecyclerView;
+    private final List<WorkoutRecord> workoutRecordList = new ArrayList<>();
+    private HistoryRecyclerViewAdapter adapter;
     View view;
 
     @Nullable
@@ -39,7 +47,28 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_history, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
-        initAdapter();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        adapter = new HistoryRecyclerViewAdapter(workoutRecordList, getActivity());
+        mRecyclerView.setAdapter(adapter);
+
+        user.child("WorkoutRecord").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                for (DataSnapshot s : task.getResult().getChildren()) {
+                    WorkoutDatabaseManager.FirebaseWorkoutRecord receiveRecord = s.getValue(WorkoutDatabaseManager.FirebaseWorkoutRecord.class);
+                    if (receiveRecord == null) {
+                        Log.e("firebase", "Data = null", task.getException());
+                    } else {
+                        workoutRecordList.add(WorkoutDatabaseManager.toWorkoutRecord(receiveRecord, getActivity()));
+                        adapter.notifyItemInserted(workoutRecordList.size() - 1);
+                    }
+                }
+            }
+        });
         return view;
     }
 
@@ -48,25 +77,6 @@ public class HistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
-    private List<WorkoutRecord> getListData() {
-        List<WorkoutRecord> mWorkoutHistory = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            Sport s = new Sport(0, "Free play", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-            Location location = testCheckinClosetFacility();
-            Date date = new Date();
-            // TODO: Update workout record!!!!!!!!
-            WorkoutRecord w = new WorkoutRecord(s, location, "", date, date);
-            mWorkoutHistory.add(w);
-            Sport s2 = new Sport(0, "Football", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-            Location location2 = testCheckinClosetFacility();
-            Date date2 = new Date();
-            // TODO: Update workout record!!!!!!!!
-            WorkoutRecord w2 = new WorkoutRecord(s2, location2, "", date2, date2);
-            mWorkoutHistory.add(w2);
-        }
-        return mWorkoutHistory;
-    }
 
 
     private Facility testCheckinClosetFacility() {
@@ -80,16 +90,4 @@ public class HistoryFragment extends Fragment {
         return r;
     }
 
-    /**
-     * Initialize adapter for recyclerview.
-     *
-     * @author Ruan Donglin
-     */
-    private void initAdapter(){
-        RecyclerView.Adapter mAdapter = new HistoryRecyclerViewAdapter(getListData(), getContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
-    }
 }

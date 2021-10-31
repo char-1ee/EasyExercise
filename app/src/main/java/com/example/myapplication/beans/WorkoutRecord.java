@@ -14,15 +14,13 @@ import java.util.Date;
 public class WorkoutRecord extends Workout {
     private Date startTime;
     private Date endTime;
+    private String duration;
 
-    public WorkoutRecord(Sport sport, Location location, String id, Date startTime, Date endTime) {
+    public WorkoutRecord(Sport sport, Location location, String id, Date startTime, Date endTime, String duration) {
         super(sport, location, WorkoutStatus.RECORD, id);
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    public WorkoutRecord(Sport sport, Location location, String id){
-        super(sport, location, WorkoutStatus.RECORD, id);
+        this.duration = duration;
     }
 
     public Date getStartTime() {
@@ -41,5 +39,11 @@ public class WorkoutRecord extends Workout {
         this.endTime = endTime;
     }
 
+    public String getDuration() {
+        return duration;
+    }
 
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 }

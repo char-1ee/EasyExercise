@@ -1,6 +1,8 @@
 package com.example.myapplication.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,15 @@ import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
 import com.example.myapplication.beans.Sport;
+import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
-import com.example.myapplication.databases.WorkoutPlanQueryImp;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
+import com.example.myapplication.ui.activities.ViewPlanActivity;
 import com.example.myapplication.ui.adapters.PlanRecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +39,9 @@ import java.util.List;
  */
 
 public class PlanFragment extends Fragment {
-    private List<WorkoutPlan> mWorkoutPlan;
     private RecyclerView mRecyclerView;
-    private WorkoutPlanQueryImp workoutPlanQueryImp;
+    private List<Workout> planList = new ArrayList<>();
+    private PlanRecyclerViewAdapter adapter;
 
     public PlanFragment() {
     }
@@ -42,16 +50,49 @@ public class PlanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan, container, false);
-        workoutPlanQueryImp = new WorkoutPlanQueryImp();
         mRecyclerView = view.findViewById(R.id.recycler_view);
-        initAdapter();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        adapter = new PlanRecyclerViewAdapter(planList, workout -> {
+            //on click event
+
+            Log.e("test", workout.getLocation().getName());
+            Intent intent = new Intent(getContext().getApplicationContext(), ViewPlanActivity.class);
+            intent.putExtra("plan", workout);
+            startActivity(intent);
+        });
+
+        mRecyclerView.setAdapter(adapter);
+
+        mDatabase.child("WorkoutPlan").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                for (DataSnapshot s : task.getResult().getChildren()) {
+                    WorkoutDatabaseManager.FirebaseWorkoutPlan receivePlan = s.getValue(WorkoutDatabaseManager.FirebaseWorkoutPlan.class);
+                    if (receivePlan == null) {
+                        Log.e("firebase", "Data = null", task.getException());
+                    } else {
+                        planList.add(WorkoutDatabaseManager.toWorkoutPlan(receivePlan, getActivity()));
+                        adapter.notifyItemInserted(planList.size() - 1);
+                    }
+                }
+            }
+        });
+
         return view;
     }
 
     private WorkoutPlan getListData() {
         Sport s = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
         Location location = testCheckInClosetFacility();
-        return new WorkoutPlan(s, location, 0, WorkoutPlan.WorkoutPlanStatus.PRIVATE);
+        //TODO CHANGES!!!!!!!!!!!!!!!
+        return new WorkoutPlan(s, location, Workout.WorkoutStatus.PRIVATE, "");
     }
 
     private Facility testCheckInClosetFacility() {
@@ -73,16 +114,4 @@ public class PlanFragment extends Fragment {
         return plan;
     }
 
-    /**
-     * Initialize adapter for recyclerview.
-     *
-     */
-    private void initAdapter(){
-//        mAdapter = new PlanRecyclerViewAdapter(getContext(), workoutPlanQueryImp.getWorkoutPlanList(getContext()));
-        RecyclerView.Adapter mAdapter = new PlanRecyclerViewAdapter(getContext(), getListData2(getListData()));
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
-    }
 }

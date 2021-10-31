@@ -15,6 +15,7 @@ import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.sportsImage.SportsImage;
 
 import java.text.SimpleDateFormat;
@@ -23,11 +24,11 @@ import java.util.List;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
 
-    private final List<PublicPlan> myPlanList;
+    private final List<WorkoutDatabaseManager.FirebasePublicPlan> myPlanList;
     private final SportsImage image;
 
     public interface OnRecyclerItemClickListener{
-         void onRecyclerItemClick(PublicPlan publicPlan);
+         void onRecyclerItemClick(WorkoutDatabaseManager.FirebasePublicPlan firebasePublicPlan);
     }
 
     private OnRecyclerItemClickListener myListener;
@@ -36,7 +37,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         myListener = listener;
     }
 
-    public CommunityAdapter(List<PublicPlan> planList, OnRecyclerItemClickListener listener){
+    public CommunityAdapter(List<WorkoutDatabaseManager.FirebasePublicPlan> planList, OnRecyclerItemClickListener listener){
         myPlanList = planList;
         myListener = listener;
         image = new SportsImage();
@@ -47,7 +48,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         TextView facility;
         ImageView sportImage;
         TextView limit;
-        Button joinButton;
 
         public ViewHolder(View view)
         {
@@ -59,8 +59,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
         }
 
-        public void bind(PublicPlan publicPlan, OnRecyclerItemClickListener myListener) {
-            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(publicPlan));
+        public void bind(WorkoutDatabaseManager.FirebasePublicPlan firebasePublicPlan, OnRecyclerItemClickListener myListener) {
+            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(firebasePublicPlan));
         }
     }
 
@@ -74,16 +74,16 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final PublicPlan publicPlan = myPlanList.get(position);
+        final WorkoutDatabaseManager.FirebasePublicPlan firebasePublicPlan = myPlanList.get(position);
         SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(holder.sportImage.getContext());
         manager.openDatabase();
-        Sport sport = manager.getSportById(publicPlan.getSport());
-        Facility facility = manager.getFacilityById(publicPlan.getFacility());
+        Sport sport = manager.getSportById(firebasePublicPlan.getSport());
+        Facility facility = manager.getFacilityById(firebasePublicPlan.getFacility());
         manager.closeDatabase();
         holder.sportImage.setImageResource(image.SportsToImage(sport));
-        holder.date.setText(getTime(new Date(publicPlan.getPlanStart())));
+        holder.date.setText(getTime(new Date(firebasePublicPlan.getPlanStart())));
         holder.facility.setText(facility.getName());
-        holder.limit.setText( "Limit: " + publicPlan.getMembers().size() + "/" +publicPlan.getPlanLimit());
+        holder.limit.setText( "Limit: " + firebasePublicPlan.getMembers().size() + "/" + firebasePublicPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);
     }

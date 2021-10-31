@@ -21,6 +21,7 @@ import com.example.myapplication.beans.Message;
 import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
+import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.ui.adapters.MessageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,7 +52,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private Button quit;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
-    private PublicPlan currentPlan;
+    private WorkoutDatabaseManager.FirebasePublicPlan currentPlan;
     private FirebaseUser currentUser;
 
     @Override
@@ -97,7 +98,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Log.e("firebase", "Error getting data", task.getException());
             }
             else {
-                currentPlan = task.getResult().getValue(PublicPlan.class);
+                currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
                 Date startTime = new Date(currentPlan.getPlanStart());
                 Date endTime = new Date(currentPlan.getPlanFinish());
                 planStartTime.setText(getTime(startTime));
@@ -156,7 +157,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    currentPlan = task.getResult().getValue(PublicPlan.class);
+                    currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
                 }
             });
 
@@ -187,7 +188,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    currentPlan = task.getResult().getValue(PublicPlan.class);
+                    currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
                 }
             });
 

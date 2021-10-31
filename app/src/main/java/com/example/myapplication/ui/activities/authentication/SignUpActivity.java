@@ -88,7 +88,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-<<<<<<< HEAD
                         FirebaseUser currentUser = auth.getCurrentUser();
                         List<String> user = new ArrayList<String>();
                         // String[0] uid;
@@ -102,10 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         DatabaseReference mDatabase = database.getReference().child("user");
                         mDatabase.child(user.get(0)).setValue(user);
                         mDatabase.child("test").setValue(1);
-
-=======
 //                        addUserInfo();  // TODO
->>>>>>> cde1e7c (refactor: refactor MeFragment into UserFragment)
                         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();
                     }

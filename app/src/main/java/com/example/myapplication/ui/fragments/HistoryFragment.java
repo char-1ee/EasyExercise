@@ -55,14 +55,14 @@ public class HistoryFragment extends Fragment {
             Sport s = new Sport(0, "Free play", "swimming", Sport.SportType.INDOOR_OUTDOOR);
             Location location = testCheckinClosetFacility();
             Date date = new Date();
-            // TODO: Update workout record
-            WorkoutRecord w = new WorkoutRecord(s, location, 0, date, date);
+            // TODO: Update workout record!!!!!!!!
+            WorkoutRecord w = new WorkoutRecord(s, location, "", date, date);
             mWorkoutHistory.add(w);
             Sport s2 = new Sport(0, "Football", "swimming", Sport.SportType.INDOOR_OUTDOOR);
             Location location2 = testCheckinClosetFacility();
             Date date2 = new Date();
-            // TODO: Update workout record
-            WorkoutRecord w2 = new WorkoutRecord(s2, location2, 0, date2, date2);
+            // TODO: Update workout record!!!!!!!!
+            WorkoutRecord w2 = new WorkoutRecord(s2, location2, "", date2, date2);
             mWorkoutHistory.add(w2);
         }
         return mWorkoutHistory;

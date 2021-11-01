@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.format.DateUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -67,11 +68,11 @@ import java.util.Objects;
  * @author Li Xingjian
  */
 
-public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback,
-        TimePickerDialog.OnTimeSetListener,  DatePickerDialog.OnDateSetListener{
+public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener{
     Integer finalLimit = 0;
+    DatePickerDialog picker;
     SupportMapFragment mapFragment;
-    int year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd;
+    int year, monthOfYear, dayOfMonth;
     OptionsPickerView pvOptions;
     private Handler handler, handler2;
     private Runnable runnable, runnable2;
@@ -171,13 +172,19 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
             tpd.show(getFragmentManager(), "TimePickerDialog");
 
-            DatePickerDialog dpd = DatePickerDialog.newInstance(
-                    ViewPlanActivity.this,
-                    now.get(Calendar.YEAR),
-                    now.get(Calendar.MONTH),
-                    now.get(Calendar.DAY_OF_MONTH)
-            );
-            dpd.show(getFragmentManager(), "DatePickerDialog");
+            // TODO: 2021/11/2   store year, monthOfYear, dayOfMonth
+//            Calendar cldr = Calendar.getInstance();
+//            int day = cldr.get(Calendar.DAY_OF_MONTH);
+//            int month = cldr.get(Calendar.MONTH);
+//            int year = cldr.get(Calendar.YEAR);
+//            picker = new DatePickerDialog(ViewPlanActivity.this,
+//                    new DatePickerDialog.OnDateSetListener() {
+//                        @Override
+//                        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+//
+//                        }
+//                    }, year, month, day);
+//            picker.show();
 
             mapFragment.requireView().setVisibility(View.GONE);
             cardView.setVisibility(View.VISIBLE);
@@ -337,12 +344,9 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
         startDate=  new Date(year, monthOfYear, dayOfMonth, hourOfDay, minute);
-        endDate= new Date(yearEnd, monthOfYearEnd, dayOfMonthEnd, hourOfDayEnd, minuteEnd);
+        endDate= new Date(year, monthOfYear, dayOfMonth, hourOfDayEnd, minuteEnd);
         startTime.setText(getTime(startDate));
         endTime.setText(getTime(endDate));
     }
 
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-    }
 }

@@ -2,7 +2,6 @@ package com.example.myapplication.ui.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -29,14 +28,12 @@ import java.util.List;
  * @author Ruan Donglin
  * @author Mao Yiyun
  */
-
 public class SelectFacilityCheckInActivity extends AppCompatActivity implements OnMapReadyCallback {
-    TextView textView;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private List<Facility> facilityList;
-    double latitude= 0;
-    double longitude= 0;
+    double latitude = 0;
+    double longitude = 0;
     private GoogleMap mMap;
     private ActionBar actionBar;
 
@@ -49,24 +46,22 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
     }
 
 
-    private List<Facility> getFacilityList(){
+    private List<Facility> getFacilityList() {
         return (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance2");
     }
 
-    private void initView(){
-        setContentView(R.layout.activity_select_facility2);
-        textView= findViewById(R.id.textView7);
-        facilityList= getFacilityList();
+    private void initView() {
+        setContentView(R.layout.activity_select_facility);
+        facilityList = getFacilityList();
         mRecyclerView = findViewById(R.id.recycler_view);
-        latitude= getLatitude();
-        longitude= getLongitude();
+        latitude = getLatitude();
+        longitude = getLongitude();
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
-        //textView.setText(String.valueOf(latitude));
     }
 
-    private void initMap(){
+    private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapview);
         assert mapFragment != null;
@@ -78,8 +73,8 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
      *
      * @author Ruan Donglin
      */
-    private void initAdapter(){
-        mAdapter= new FacilityRecyclerViewAdapterCheckIn(SelectFacilityCheckInActivity.this, facilityList, new Coordinates(latitude, longitude, ""));
+    private void initAdapter() {
+        mAdapter = new FacilityRecyclerViewAdapterCheckIn(SelectFacilityCheckInActivity.this, facilityList, new Coordinates(latitude, longitude, ""));
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityCheckInActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
@@ -103,7 +98,7 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        for(Facility curFacility: facilityList){
+        for (Facility curFacility : facilityList) {
             LatLng cur = new LatLng(curFacility.getLatitude(), curFacility.getLongitude());
             mMap.addMarker(new MarkerOptions()
                     .position(cur)

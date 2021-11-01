@@ -34,7 +34,7 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.facility_item_row2, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.facility_item_row, parent, false);
         return new MyViewHolder(view);
     }
 

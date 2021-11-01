@@ -111,6 +111,9 @@ public class MeFragment extends Fragment {
             BMIView.setText(String.valueOf(weight/(height*height/10000)));
         }
 
+
+
+
         gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();

@@ -1,28 +1,27 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_home"
-        android:enabled="true"
-        android:icon="@drawable/ic_home"
-        android:title="@string/fragment_home_title"/>
-    <item
         android:id="@+id/navigation_plans"
         android:enabled="true"
         android:icon="@drawable/ic_plans"
         android:title="@string/fragment_plans_title"/>
 
     <item
-        android:id="@+id/navigation_community"
-        android:enabled="true"
-        android:icon="@drawable/ic_community"
-        android:title="@string/fragment_community_title"/>
-
-    <item
         android:id="@+id/navigation_history"
         android:enabled="true"
         android:icon="@drawable/ic_history"
-        android:title="@string/fragment_history_title"/>
+        android:title="@string/fragment_history_title" />
+    <item
+        android:id="@+id/navigation_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/fragment_home_title" />
 
+    <item
+        android:id="@+id/navigation_community"
+        android:enabled="true"
+        android:icon="@drawable/ic_community"
+        android:title="@string/fragment_community_title" />
     <item
         android:id="@+id/navigation_me"
         android:enabled="true"

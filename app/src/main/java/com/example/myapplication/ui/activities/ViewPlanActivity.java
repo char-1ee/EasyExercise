@@ -61,12 +61,13 @@ import java.util.List;
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener {
     Integer finalLimit = 0;
+    TimePickerDialog tpd;
     DatePickerDialog picker;
     SupportMapFragment mapFragment;
     int year, monthOfYear, dayOfMonth;
     OptionsPickerView pvOptions;
-    private Handler handler, handler2;
-    private Runnable runnable, runnable2;
+    private Handler handler, handler2, handler3;
+    private Runnable runnable, runnable2, runnable3;
     private TextView startTime, endTime;
     private Date startDate, endDate;
     private GoogleMap mMap;
@@ -152,6 +153,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void initButton() {
         addPlanButton.setOnClickListener(view -> {
+            // TODO: Wait for dialog to complete
+            addPlanButton.setText(R.string.publish_plan_text);
+            year= 0;
+            finalLimit= 0;
+            startDate= null;
             Calendar cldr = Calendar.getInstance();
             int day = cldr.get(Calendar.DAY_OF_MONTH);
             int month = cldr.get(Calendar.MONTH);
@@ -162,20 +168,16 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                         ViewPlanActivity.this.monthOfYear = m;
                         ViewPlanActivity.this.dayOfMonth = d;
                     }, year, month, day);
-            // TODO: Wait for dialog to complete
-
-            addPlanButton.setText(R.string.publish_plan_text);
+            picker.show();
+            initHandler3();
+            handler3.post(runnable3);
             Calendar now = Calendar.getInstance();
-            TimePickerDialog tpd = TimePickerDialog.newInstance(
+            tpd = TimePickerDialog.newInstance(
                     ViewPlanActivity.this,
                     now.get(Calendar.HOUR_OF_DAY),
                     now.get(Calendar.MINUTE),
                     false
             );
-            tpd.show(getFragmentManager(), "TimePickerDialog");
-
-            mapFragment.requireView().setVisibility(View.GONE);
-            cardView.setVisibility(View.VISIBLE);
             initHandler2();
             handler2.post(runnable2);
             initHandler();
@@ -231,6 +233,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 } else {
                     limitView.setText(String.valueOf(finalLimit));
                     showNormalDialog();
+                    mapFragment.requireView().setVisibility(View.GONE);
+                    cardView.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -243,7 +247,20 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 if (startDate != null) {
                     pvOptions.show();
                 } else {
-                    handler.postDelayed(this, 500);
+                    handler2.postDelayed(this, 500);
+                }
+            }
+        };
+    }
+
+    private void initHandler3() {
+        handler3 = new Handler();
+        runnable3 = new Runnable() {
+            public void run() {
+                if (year!= 0) {
+                    tpd.show(getFragmentManager(), "TimePickerDialog");
+                } else {
+                    handler3.postDelayed(this, 500);
                 }
             }
         };

@@ -91,7 +91,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             }
         };
         // TODO: pickers should not appear when first enter fragment, thus I made every textView(height, weight, BMI) clickable
-//        getUserInfo();
+        getUserInfo();
+        initPicker();
 //        if (weight == 0) {
 //            initPicker();
 //            pvOptions1.show();
@@ -168,34 +169,84 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserActivity.class));
                 break;
 
-            case R.id.edit_button:
-                clearUserInfo();
-                initPicker();
-                pvOptions1.show();
-                pvOptions2.show();
+//            case R.id.edit_button:
+//                clearUserInfo();
+//                initPicker();
+//                pvOptions1.show();
+//                pvOptions2.show();
+//                pvOptions3.show();
+//                weight = 0;
+//                Handler handler = new Handler();
+//                Runnable runnable = new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (weight == 0) {
+//                            handler.postDelayed(this, 1000);
+//                        } else {
+//                            Toast.makeText(getContext(), String.valueOf(height), Toast.LENGTH_SHORT).show();
+//                            saveUserInfo();
+//                            weightText.setText(String.valueOf(weight));
+//                            heightText.setText(String.valueOf(height));
+//                            genderText.setText(gender);
+//                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
+//                        }
+//                    }
+//                };
+//                handler.post(runnable);
+//                break;
+
+            case R.id.text_gender:
                 pvOptions3.show();
-                weight = 0;
-                Handler handler = new Handler();
-                Runnable runnable = new Runnable() {
+                Handler handler3 = new Handler();
+                Runnable runnable3 = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (gender == null) {
+                            handler3.postDelayed(this, 1000);
+                        } else {
+                            saveUserInfo();
+                            genderText.setText(gender);
+                        }
+                    }
+                };
+                handler3.post(runnable3);
+                break;
+
+            case R.id.text_weight:
+                pvOptions1.show();
+                Handler handler1 = new Handler();
+                Runnable runnable1 = new Runnable() {
                     @Override
                     public void run() {
                         if (weight == 0) {
-                            handler.postDelayed(this, 1000);
+                            handler1.postDelayed(this, 1000);
                         } else {
-                            Toast.makeText(getContext(), String.valueOf(height), Toast.LENGTH_SHORT).show();
                             saveUserInfo();
                             weightText.setText(String.valueOf(weight));
-                            heightText.setText(String.valueOf(height));
-                            genderText.setText(gender);
                             BMIText.setText(String.valueOf(weight / (height * height / 10000)));
                         }
                     }
                 };
-                handler.post(runnable);
+                handler1.post(runnable1);
                 break;
 
             case R.id.text_height:
-                // TODO: here you code
+                pvOptions2.show();
+                Handler handler2 = new Handler();
+                Runnable runnable2 = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (height == 0) {
+                            handler2.postDelayed(this, 1000);
+                        } else {
+                            saveUserInfo();
+                            heightText.setText(String.valueOf(height));
+                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
+
+                        }
+                    }
+                };
+                handler2.post(runnable2);
                 break;
         }
     }

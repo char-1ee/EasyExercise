@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +35,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +90,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             }
         };
         // TODO: pickers should not appear when first enter fragment, thus I made every textView(height, weight, BMI) clickable
-        getUserInfo();
         initPicker();
 //        if (weight == 0) {
 //            initPicker();
@@ -143,6 +141,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         heightText.setOnClickListener(this);
         weightText.setOnClickListener(this);
         genderText.setOnClickListener(this);
+        getUserInfo();
+        weightText.setText(String.valueOf(weight));
+        heightText.setText(String.valueOf(height));
+        genderText.setText(gender);
+        DecimalFormat df = new DecimalFormat("##.##");
+        BMIText.setText(df.format(weight / (height * height / 10000.0)));
     }
 
     private void initGoogleClient() {
@@ -196,6 +200,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 //                break;
 
             case R.id.text_gender:
+                clearUserGender();
+                gender = null;
                 pvOptions3.show();
                 Handler handler3 = new Handler();
                 Runnable runnable3 = new Runnable() {
@@ -204,7 +210,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (gender == null) {
                             handler3.postDelayed(this, 1000);
                         } else {
-                            saveUserInfo();
+                            saveUserGender();
                             genderText.setText(gender);
                         }
                     }
@@ -213,6 +219,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text_weight:
+                clearUserWeight();
+                weight = 0;
                 pvOptions1.show();
                 Handler handler1 = new Handler();
                 Runnable runnable1 = new Runnable() {
@@ -221,16 +229,18 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (weight == 0) {
                             handler1.postDelayed(this, 1000);
                         } else {
-                            saveUserInfo();
+                            saveUserWeight();
                             weightText.setText(String.valueOf(weight));
-                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
-                        }
+                            DecimalFormat df = new DecimalFormat("##.##");
+                            BMIText.setText(df.format(weight / (height * height / 10000.0)));                        }
                     }
                 };
                 handler1.post(runnable1);
                 break;
 
             case R.id.text_height:
+                clearUserHeight();
+                height = 0;
                 pvOptions2.show();
                 Handler handler2 = new Handler();
                 Runnable runnable2 = new Runnable() {
@@ -239,9 +249,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (height == 0) {
                             handler2.postDelayed(this, 1000);
                         } else {
-                            saveUserInfo();
+                            saveUserHeight();
                             heightText.setText(String.valueOf(height));
-                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
+                            DecimalFormat df = new DecimalFormat("##.##");
+                            BMIText.setText(df.format(weight / (height * height / 10000.0)));
 
                         }
                     }
@@ -311,6 +322,34 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         editor.apply();
     }
 
+    private void saveUserHeight() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putInt("height", height);
+        editor.apply();
+    }
+
+    private void saveUserWeight() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putInt("weight", weight);
+        editor.apply();
+    }
+
+    private void saveUserBMI() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString("gender", gender);
+        editor.putInt("weight", weight);
+        editor.putInt("height", height);
+        editor.apply();
+    }
+    private void saveUserGender() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString("gender", gender);
+        editor.apply();
+    }
     private void getUserInfo() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         gender = userInfo.getString("gender", null);
@@ -319,12 +358,27 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void clearUserInfo() {
+    private void clearUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
-        editor.clear();
-        editor.apply();
+        editor.remove("height");
+        editor.commit();
     }
+
+    private void clearUserWeight() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.remove("weight");
+        editor.commit();
+    }
+
+    private void clearUserGender() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.remove("gender");
+        editor.commit();
+    }
+
 
 
     private void initPicker() {

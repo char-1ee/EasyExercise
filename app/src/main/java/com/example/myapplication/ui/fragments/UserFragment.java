@@ -51,7 +51,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     private View view;
     private ImageView profilePhoto;
-    private Button signOutButton, authButton, editButton;
+    private Button signOutButton, authButton;
     private TextView emailText, usernameText, genderText, heightText, weightText, BMIText;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
@@ -89,35 +89,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 getActivity().finish();
             }
         };
-        // TODO: pickers should not appear when first enter fragment, thus I made every textView(height, weight, BMI) clickable
         initPicker();
-//        if (weight == 0) {
-//            initPicker();
-//            pvOptions1.show();
-//            pvOptions2.show();
-//            pvOptions3.show();
-//            Handler handler = new Handler();
-//            Runnable runnable = new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (weight == 0) {
-//                        handler.postDelayed(this, 1000);
-//                    } else {
-//                        saveUserInfo();
-//                        weightText.setText(String.valueOf(weight));
-//                        heightText.setText(String.valueOf(height));
-//                        genderText.setText(gender);
-//                        BMIText.setText(String.valueOf(weight / (height * height / 10000)));
-//                    }
-//                }
-//            };
-//            handler.post(runnable);
-//        } else {
-//            weightText.setText(String.valueOf(weight));
-//            heightText.setText(String.valueOf(height));
-//            genderText.setText(gender);
-//            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
-//        }
 
         return view;
     }
@@ -131,11 +103,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         weightText = view.findViewById(R.id.text_weight);
         genderText = view.findViewById(R.id.text_gender);
         signOutButton = view.findViewById(R.id.new_sign_out_button);
-        editButton = view.findViewById(R.id.edit_button);
         authButton = view.findViewById(R.id.edit_login_info_button);
 
         signOutButton.setOnClickListener(this);
-        editButton.setOnClickListener(this);
         authButton.setOnClickListener(this);
         BMIText.setOnClickListener(this);
         heightText.setOnClickListener(this);
@@ -172,32 +142,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.edit_login_info_button:
                 startActivity(new Intent(getActivity(), UserActivity.class));
                 break;
-
-//            case R.id.edit_button:
-//                clearUserInfo();
-//                initPicker();
-//                pvOptions1.show();
-//                pvOptions2.show();
-//                pvOptions3.show();
-//                weight = 0;
-//                Handler handler = new Handler();
-//                Runnable runnable = new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (weight == 0) {
-//                            handler.postDelayed(this, 1000);
-//                        } else {
-//                            Toast.makeText(getContext(), String.valueOf(height), Toast.LENGTH_SHORT).show();
-//                            saveUserInfo();
-//                            weightText.setText(String.valueOf(weight));
-//                            heightText.setText(String.valueOf(height));
-//                            genderText.setText(gender);
-//                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
-//                        }
-//                    }
-//                };
-//                handler.post(runnable);
-//                break;
 
             case R.id.text_gender:
                 clearUserGender();
@@ -336,14 +280,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         editor.apply();
     }
 
-    private void saveUserBMI() {
-        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putString("gender", gender);
-        editor.putInt("weight", weight);
-        editor.putInt("height", height);
-        editor.apply();
-    }
     private void saveUserGender() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();

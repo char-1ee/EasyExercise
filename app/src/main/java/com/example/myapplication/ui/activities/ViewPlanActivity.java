@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -49,6 +51,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -65,14 +68,13 @@ import java.util.Objects;
  */
 
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback,
-        TimePickerDialog.OnTimeSetListener {
+        TimePickerDialog.OnTimeSetListener,  DatePickerDialog.OnDateSetListener{
     Integer finalLimit = 0;
     SupportMapFragment mapFragment;
-//    TimePickerView pvTime2;
-//    TimePickerView pvTime;
+    int year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd;
     OptionsPickerView pvOptions;
-    private Handler handler;
-    private Runnable runnable;
+    private Handler handler, handler2;
+    private Runnable runnable, runnable2;
     private TextView startTime, endTime;
     private Date startDate, endDate;
     private GoogleMap mMap;
@@ -83,7 +85,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private Button addPlanButton, checkInButton, deleteButton;
     private SportsImage sm;
     private CardView cardView;
-    private List<Workout> workoutList;
     Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
     ActionBar actionBar;
 
@@ -160,8 +161,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private void initButton() {
         addPlanButton.setOnClickListener(view -> {
             addPlanButton.setText(R.string.publish_plan_text);
-//            pvTime2.show();
-//            pvTime.show();
             Calendar now = Calendar.getInstance();
             TimePickerDialog tpd = TimePickerDialog.newInstance(
                     ViewPlanActivity.this,
@@ -169,12 +168,21 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                     now.get(Calendar.MINUTE),
                     false
             );
+
             tpd.show(getFragmentManager(), "TimePickerDialog");
 
-            pvOptions.show();
+            DatePickerDialog dpd = DatePickerDialog.newInstance(
+                    ViewPlanActivity.this,
+                    now.get(Calendar.YEAR),
+                    now.get(Calendar.MONTH),
+                    now.get(Calendar.DAY_OF_MONTH)
+            );
+            dpd.show(getFragmentManager(), "DatePickerDialog");
 
             mapFragment.requireView().setVisibility(View.GONE);
             cardView.setVisibility(View.VISIBLE);
+            initHandler2();
+            handler2.post(runnable2);
             initHandler();
             handler.post(runnable);
         });
@@ -198,36 +206,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
      * Initialize pickers for publishing the plan.
      */
     private void initPicker() {
-//        pvTime = new TimePickerBuilder(this, (date1, v) -> startDate = date1)
-//                .setType(new boolean[]{false, true, true, true, true, false})
-//                .setCancelText("Cancel")
-//                .setSubmitText("Confirm")
-//                .setTitleSize(20)
-//                .setTitleText("Starting Time")
-//                .setOutSideCancelable(false)
-//                .isCyclic(true)
-//                .setLabel("y", "m", "d", "h", "min", "sec")
-//                .isCenterLabel(false)
-//                .isDialog(false)
-//                .build();
-//
-//        pvTime2 = new TimePickerBuilder(this, (date2, v) -> endDate = date2)
-//                .setType(new boolean[]{false, true, true, true, true, false})
-//                .setCancelText("Cancel")
-//                .setSubmitText("Confirm")
-//                .setTitleSize(20)
-//                .setTitleText("Ending Time")
-//                .setOutSideCancelable(false)
-//                .isCyclic(true)
-//                .setLabel("y", "m", "d", "h", "min", "sec")
-//                .isCenterLabel(false)
-//                .isDialog(false)
-//                .build();
         List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
         pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> finalLimit = options1Items.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")
-                .setTitleText("Person Number")
+                .setTitleText("Number of persons allowed")
                 .setSubCalSize(18)
                 .setTitleSize(20)
                 .setContentTextSize(18)
@@ -235,7 +218,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 .setCyclic(true, false, false)
                 .setSelectOptions(1, 1, 1)
                 .setOutSideCancelable(false)
-                .isDialog(false)
+                .isDialog(true)
                 .isRestoreItem(true)
                 .build();
         pvOptions.setPicker(options1Items);
@@ -248,27 +231,27 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                if (startDate == null) {
-                    handler.postDelayed(this, 1000);
-                } else if (startDate != null && endDate == null) {
-                    startTime.setText(getTime(startDate));
-                    handler.postDelayed(this, 1000);
-                } else if (startDate != null && endDate != null && finalLimit == 0) {
-                    startTime.setText(getTime(startDate));
-                    endTime.setText(getTime(endDate));
-                    handler.postDelayed(this, 1000);
-                } else {
-                    startTime.setText(getTime(startDate));
-                    endTime.setText(getTime(endDate));
+                if(finalLimit== 0){
+                    handler.postDelayed(this, 500);
+                }
+                else{
                     limitView.setText(String.valueOf(finalLimit));
                     showNormalDialog();
                 }
-// TODO: 同步问题
-//                if(startDate.getTime() >= endDate.getTime()){
-//                    Toast.makeText(ViewPlanActivity.this, "End time should be later than start time", Toast.LENGTH_SHORT).show();
-//                    startTime = null;
-//                    endDate = null;
-//                }
+            }
+        };
+    }
+
+    private void initHandler2() {
+        handler2 = new Handler();
+        runnable2 = new Runnable() {
+            public void run() {
+                if(startDate!= null){
+                    pvOptions.show();
+                }
+                else{
+                    handler.postDelayed(this, 500);
+                }
             }
         };
     }
@@ -350,15 +333,16 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
-        String minuteString = minute < 10 ? "0" + minute : "" + minute;
-        String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
-        String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
-        String time1 = "Start time: " + hourString + "h" + minuteString;
-        String time2 = "Start time: " + hourStringEnd + "h" + minuteStringEnd;
-        startTime.setText(time1);
-        endTime.setText(time2); // TODO： @rdl
+        startDate=  new Date(year, monthOfYear, dayOfMonth, hourOfDay, minute);
+        endDate= new Date(yearEnd, monthOfYearEnd, dayOfMonthEnd, hourOfDayEnd, minuteEnd);
+        startTime.setText(getTime(startDate));
+        endTime.setText(getTime(endDate));
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
     }
 }

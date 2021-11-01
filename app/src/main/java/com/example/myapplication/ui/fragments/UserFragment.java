@@ -38,6 +38,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,8 +148,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         weightText.setText(String.valueOf(weight));
         heightText.setText(String.valueOf(height));
         genderText.setText(gender);
-        BMIText.setText(String.valueOf(weight / (height * height / 10000)));
-
+        DecimalFormat df = new DecimalFormat("##.##");
+        BMIText.setText(df.format(weight / (height * height / 10000)));
     }
 
     private void initGoogleClient() {
@@ -203,6 +204,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
             case R.id.text_gender:
                 clearUserGender();
+                gender = null;
                 pvOptions3.show();
                 Handler handler3 = new Handler();
                 Runnable runnable3 = new Runnable() {
@@ -221,6 +223,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
             case R.id.text_weight:
                 clearUserWeight();
+                weight = 0;
                 pvOptions1.show();
                 Handler handler1 = new Handler();
                 Runnable runnable1 = new Runnable() {
@@ -231,15 +234,16 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         } else {
                             saveUserWeight();
                             weightText.setText(String.valueOf(weight));
-                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
-                        }
+                            DecimalFormat df = new DecimalFormat("##.##");
+                            BMIText.setText(df.format(weight / (height * height / 10000)));                        }
                     }
                 };
                 handler1.post(runnable1);
                 break;
 
             case R.id.text_height:
-                clearUserHeight();;
+                clearUserHeight();
+                height = 0;
                 pvOptions2.show();
                 Handler handler2 = new Handler();
                 Runnable runnable2 = new Runnable() {
@@ -250,7 +254,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         } else {
                             saveUserHeight();
                             heightText.setText(String.valueOf(height));
-                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
+                            DecimalFormat df = new DecimalFormat("##.##");
+                            BMIText.setText(df.format(weight / (height * height / 10000)));
 
                         }
                     }

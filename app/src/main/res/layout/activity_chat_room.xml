@@ -26,6 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp">
 
                     <RelativeLayout
@@ -39,6 +40,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:text="Swimming"
                             android:textColor="@color/black"
                             android:textSize="30sp"
@@ -61,12 +63,12 @@
 
                         <TextView
                             android:id="@+id/publicPlanFacility"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="North Hill Gym"
                             android:textColor="@color/black"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:textStyle="italic" />
 
                         <Button
@@ -136,7 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Number of people joined:"
+                            android:text="Plan Capacity:"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />

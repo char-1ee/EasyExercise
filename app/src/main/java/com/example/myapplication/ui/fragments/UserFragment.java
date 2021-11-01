@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,8 +63,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private List<Integer> heightRange = new ArrayList<>();
     private List<String> genderChoice = new ArrayList<>();
     private String gender;
-    private float weight;
-    private float height;
+    private int weight;
+    private int height;
     private OptionsPickerView pvOptions1, pvOptions2, pvOptions3; // TODO: Raw use of parameterized class
 
 
@@ -149,7 +146,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         heightText.setText(String.valueOf(height));
         genderText.setText(gender);
         DecimalFormat df = new DecimalFormat("##.##");
-        BMIText.setText(df.format(weight / (height * height / 10000)));
+        BMIText.setText(df.format(weight / (height * height / 10000.0)));
     }
 
     private void initGoogleClient() {
@@ -235,7 +232,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             saveUserWeight();
                             weightText.setText(String.valueOf(weight));
                             DecimalFormat df = new DecimalFormat("##.##");
-                            BMIText.setText(df.format(weight / (height * height / 10000)));                        }
+                            BMIText.setText(df.format(weight / (height * height / 10000.0)));                        }
                     }
                 };
                 handler1.post(runnable1);
@@ -255,7 +252,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             saveUserHeight();
                             heightText.setText(String.valueOf(height));
                             DecimalFormat df = new DecimalFormat("##.##");
-                            BMIText.setText(df.format(weight / (height * height / 10000)));
+                            BMIText.setText(df.format(weight / (height * height / 10000.0)));
 
                         }
                     }
@@ -320,22 +317,22 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
         editor.putString("gender", gender);
-        editor.putFloat("weight", weight);
-        editor.putFloat("height", height);
+        editor.putInt("weight", weight);
+        editor.putInt("height", height);
         editor.apply();
     }
 
     private void saveUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
-        editor.putFloat("height", height);
+        editor.putInt("height", height);
         editor.apply();
     }
 
     private void saveUserWeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
-        editor.putFloat("weight", weight);
+        editor.putInt("weight", weight);
         editor.apply();
     }
 
@@ -343,8 +340,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
         editor.putString("gender", gender);
-        editor.putFloat("weight", weight);
-        editor.putFloat("height", height);
+        editor.putInt("weight", weight);
+        editor.putInt("height", height);
         editor.apply();
     }
     private void saveUserGender() {
@@ -356,8 +353,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private void getUserInfo() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         gender = userInfo.getString("gender", null);
-        weight = userInfo.getFloat("weight", 0);
-        height = userInfo.getFloat("height", 0);
+        weight = userInfo.getInt("weight", 0);
+        height = userInfo.getInt("height", 0);
     }
 
 

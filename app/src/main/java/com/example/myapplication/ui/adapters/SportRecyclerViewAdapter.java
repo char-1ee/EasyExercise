@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.sportsImage.SportsImage;
+import com.example.myapplication.ui.activities.SelectSportActivity;
 import com.example.myapplication.utils.MenuItem;
 
 import java.util.ArrayList;
@@ -60,6 +61,17 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
                 chosenSportList.add(sport);
             } else {
                 boolean e = chosenSportList.remove(sport);
+            }
+            SelectSportActivity.ChosenSport1 = SelectSportActivity.mAdapter.chosenSportList;
+            SelectSportActivity.ChosenSport2 = SelectSportActivity.mAdapter2.chosenSportList;
+            SelectSportActivity.finalChoice.clear();
+            SelectSportActivity.finalChoice.addAll(SelectSportActivity.ChosenSport1);
+            SelectSportActivity.finalChoice.addAll(SelectSportActivity.ChosenSport2);
+            if(SelectSportActivity.finalChoice.size()!= 0){
+                SelectSportActivity.mSportChoicesConfirmButton.setEnabled(true);
+            }
+            else {
+                SelectSportActivity.mSportChoicesConfirmButton.setEnabled(false);
             }
         });
 

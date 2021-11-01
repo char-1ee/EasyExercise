@@ -346,10 +346,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        startDate = new Date(year, monthOfYear, dayOfMonth, hourOfDay, minute);
-        endDate = new Date(year, monthOfYear, dayOfMonth, hourOfDayEnd, minuteEnd);
-        startTime.setText(getTime(startDate));
-        endTime.setText(getTime(endDate));
+        Calendar start = new Calendar.Builder().setDate(year, monthOfYear, dayOfMonth).setTimeOfDay(hourOfDay, minute, 0).build();
+        Calendar end = new Calendar.Builder().setDate(year, monthOfYear, dayOfMonth).setTimeOfDay(hourOfDayEnd, minuteEnd, 0).build();
+        startTime.setText(getTime(start.getTime()));
+        endTime.setText(getTime(end.getTime()));
     }
 
 }

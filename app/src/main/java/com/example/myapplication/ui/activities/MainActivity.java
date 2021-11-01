@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -71,7 +73,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide the title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        // Hide the title bar
+//        getSupportActionBar().hide();
+
+        // Enable full screen
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
+
         // showing the back button in action bar
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -115,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new HistoryFragment();
                         break;
                     case R.id.navigation_me:
-//                        selectedFragment = new MeFragment();
                         selectedFragment = new UserFragment();
                 }
                 assert selectedFragment != null;

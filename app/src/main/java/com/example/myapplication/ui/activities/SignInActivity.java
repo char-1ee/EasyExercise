@@ -66,6 +66,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             gotoProfile();
+            Toast.makeText(getApplicationContext(),"Sign in!!!!!!",Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(getApplicationContext(),"Sign in cancel",Toast.LENGTH_LONG).show();
         }

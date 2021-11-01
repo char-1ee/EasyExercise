@@ -5,13 +5,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Message;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
@@ -50,9 +54,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Message message = myMessageList.get(position);
         holder.userName.setText(message.getMessageUsername());
-        if(message.getMessageAvatarUrl() != null){
-            //TODO fill the imageview with URL
-            //holder.avatar.
+        try {
+            Glide.with(holder.itemView.getContext())
+                    .load(new URL(message.getMessageAvatarUrl()))
+                    .centerCrop()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(holder.avatar);
+        } catch (NullPointerException e) {
+            Toast.makeText(holder.itemView.getContext(), "Image not found", Toast.LENGTH_LONG).show();
+        } catch (MalformedURLException e){
+            e.printStackTrace();
         }
         holder.messageContent.setText(message.getMessageText());
         holder.time.setText(message.getMessageTime());

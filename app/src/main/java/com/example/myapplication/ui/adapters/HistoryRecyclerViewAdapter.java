@@ -79,10 +79,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
                 facilityView.setText(R.string.customized_location);
             }
             imageView.setImageResource(sm.SportsToImage(item.getSport()));
-            long diff = item.getStartTime().getTime() - item.getEndTime().getTime();
-            long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+            long diff = item.getEndTime().getTime() - item.getStartTime().getTime();
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-            durationView.setText(minutes + "min" + seconds + "sec");
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+            durationView.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
             startTimeView.setText(getTime(item.getStartTime()));
             endTimeView.setText(getTime(item.getEndTime()));
             dialog.show();

@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".ui.activities.SignInActivity"
@@ -51,7 +52,6 @@
             android:label="Check Out">
             <intent-filter>
                 <action android:name="com.example.activitytest.ACTION_START" />
-
                 <category android:name="com.example.activitytest.CHECKOUT_CATEGORY" />
             </intent-filter>
         </activity>
@@ -91,9 +91,12 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activities.authentication.LoginActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".ui.activities.authentication.LoginActivity"

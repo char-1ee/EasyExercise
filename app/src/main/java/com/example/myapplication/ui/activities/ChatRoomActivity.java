@@ -24,6 +24,7 @@ import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.ui.adapters.MessageAdapter;
 import com.example.myapplication.ui.fragments.UserFragment;
+import com.example.myapplication.utils.ButtonClickUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -153,73 +154,73 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
 
         join.setOnClickListener(view -> {
-            planReference.get().addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
-                }
-            });
-
-            if(currentPlan.getPlanLimit() > currentPlan.getMembers().size()){
-                int i;
-                for (i = 0; i < currentPlan.getMembers().size(); i++){
-                    if(currentUser.getUid().equals(currentPlan.getMembers().get(i))){
-                        Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan", Toast.LENGTH_SHORT).show();
-                        Log.wtf("test", "You are already in this shared plan");
-                        break;
+            if (!ButtonClickUtil.isFastDoubleClick(R.id.joinPublicPlanButton)) {
+                planReference.get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
                     }
+                });
+
+                if (currentPlan.getPlanLimit() > currentPlan.getMembers().size()) {
+                    int i;
+                    for (i = 0; i < currentPlan.getMembers().size(); i++) {
+                        if (currentUser.getUid().equals(currentPlan.getMembers().get(i))) {
+                            Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan", Toast.LENGTH_SHORT).show();
+                            Log.wtf("test", "You are already in this shared plan");
+                            break;
+                        }
+                    }
+                    if (i == currentPlan.getMembers().size()) {
+                        currentPlan.addMembers(currentUser.getUid());
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("members", currentPlan.getMembers());
+                        planReference.updateChildren(updates);
+                        Toast.makeText(ChatRoomActivity.this, "Join successful", Toast.LENGTH_SHORT).show();
+                        Log.wtf("test", "Join successful");
+                    }
+                } else {
+                    Toast.makeText(ChatRoomActivity.this, "This plan is full", Toast.LENGTH_SHORT).show();
+                    Log.wtf("test", "full");
                 }
-                if(i == currentPlan.getMembers().size()){
-                    currentPlan.addMembers(currentUser.getUid());
-                    Map<String, Object> updates = new HashMap<>();
-                    updates.put("members", currentPlan.getMembers());
-                    planReference.updateChildren(updates);
-                    Toast.makeText(ChatRoomActivity.this, "Join successful", Toast.LENGTH_SHORT).show();
-                    Log.wtf("test", "Join successful");
-                }
-            }
-            else{
-                Toast.makeText(ChatRoomActivity.this, "This plan is full", Toast.LENGTH_SHORT).show();
-                Log.wtf("test", "full");
             }
         });
 
         quit.setOnClickListener(view -> {
-            planReference.get().addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
-                }
-            });
+            if (!ButtonClickUtil.isFastDoubleClick(R.id.quitPublicPlanButton)) {
+                planReference.get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
+                    }
+                });
 
-            int i;
-            boolean find = false;
-            for (i = 0; i < currentPlan.getMembers().size(); i++){
-                if(currentUser.getUid().equals(currentPlan.getMembers().get(i))){
-                    find = true;
-                    currentPlan.removeMembers(i);
-                    user.child("PublicPlan").child(currentPlan.getPlan()).removeValue();
-                    if(currentPlan.getMembers().size() == 0){
-                        planReference.removeValue();
-                        Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
-                        //TODO BUG!!!!!!
-                        startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
-                    }
-                    else{
-                        Map<String, Object> updates = new HashMap<>();
-                        updates.put("members", currentPlan.getMembers());
-                        planReference.updateChildren(updates);
-                        Toast.makeText(ChatRoomActivity.this, "Quit Successful", Toast.LENGTH_SHORT).show();
-                        break;
+                int i;
+                boolean find = false;
+                for (i = 0; i < currentPlan.getMembers().size(); i++) {
+                    if (currentUser.getUid().equals(currentPlan.getMembers().get(i))) {
+                        find = true;
+                        currentPlan.removeMembers(i);
+                        user.child("PublicPlan").child(currentPlan.getPlan()).removeValue();
+                        if (currentPlan.getMembers().size() == 0) {
+                            planReference.removeValue();
+                            Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
+                            //TODO BUG!!!!!!
+                            startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
+                        } else {
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("members", currentPlan.getMembers());
+                            planReference.updateChildren(updates);
+                            Toast.makeText(ChatRoomActivity.this, "Quit Successful", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                     }
                 }
-            }
-            if(!find){
-                Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
+                if (!find) {
+                    Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

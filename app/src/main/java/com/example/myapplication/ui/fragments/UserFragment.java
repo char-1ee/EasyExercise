@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -201,6 +202,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 //                break;
 
             case R.id.text_gender:
+                clearUserGender();
                 pvOptions3.show();
                 Handler handler3 = new Handler();
                 Runnable runnable3 = new Runnable() {
@@ -209,7 +211,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (gender == null) {
                             handler3.postDelayed(this, 1000);
                         } else {
-                            saveUserInfo();
+                            saveUserGender();
                             genderText.setText(gender);
                         }
                     }
@@ -218,6 +220,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text_weight:
+                clearUserWeight();
                 pvOptions1.show();
                 Handler handler1 = new Handler();
                 Runnable runnable1 = new Runnable() {
@@ -226,7 +229,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (weight == 0) {
                             handler1.postDelayed(this, 1000);
                         } else {
-                            saveUserInfo();
+                            saveUserWeight();
                             weightText.setText(String.valueOf(weight));
                             BMIText.setText(String.valueOf(weight / (height * height / 10000)));
                         }
@@ -236,6 +239,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text_height:
+                clearUserHeight();;
                 pvOptions2.show();
                 Handler handler2 = new Handler();
                 Runnable runnable2 = new Runnable() {
@@ -244,7 +248,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (height == 0) {
                             handler2.postDelayed(this, 1000);
                         } else {
-                            saveUserInfo();
+                            saveUserHeight();
                             heightText.setText(String.valueOf(height));
                             BMIText.setText(String.valueOf(weight / (height * height / 10000)));
 
@@ -316,6 +320,34 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         editor.apply();
     }
 
+    private void saveUserHeight() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putFloat("height", height);
+        editor.apply();
+    }
+
+    private void saveUserWeight() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putFloat("weight", weight);
+        editor.apply();
+    }
+
+    private void saveUserBMI() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString("gender", gender);
+        editor.putFloat("weight", weight);
+        editor.putFloat("height", height);
+        editor.apply();
+    }
+    private void saveUserGender() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString("gender", gender);
+        editor.apply();
+    }
     private void getUserInfo() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         gender = userInfo.getString("gender", null);
@@ -324,12 +356,27 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void clearUserInfo() {
+    private void clearUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
-        editor.clear();
-        editor.apply();
+        editor.remove("height");
+        editor.commit();
     }
+
+    private void clearUserWeight() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.remove("weight");
+        editor.commit();
+    }
+
+    private void clearUserGender() {
+        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.remove("gender");
+        editor.commit();
+    }
+
 
 
     private void initPicker() {

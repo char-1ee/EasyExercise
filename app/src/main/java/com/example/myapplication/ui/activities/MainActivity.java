@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Hide the title
+        // Hide the title (date, battery, notifications)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // Hide the title bar
+        // Hide the title bar (bar below title)
 //        getSupportActionBar().hide();
 
         // Enable full screen

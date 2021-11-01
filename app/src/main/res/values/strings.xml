@@ -41,6 +41,7 @@
     <string name="sample_user_weight">60</string>
     <string name="sample_user_height">175</string>
     <string name="sample_user_bmi">19.5</string>
+    <string name="click_to_set">Please click to set</string>
     <string name="sample_user_join_date">10/10/2020</string>
     <string name="sample_user_check_out_place">North Hill</string>
     <string name="sample_user_check_out_sport">swimming</string>

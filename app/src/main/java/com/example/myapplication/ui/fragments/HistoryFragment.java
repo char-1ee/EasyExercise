@@ -34,6 +34,7 @@ import java.util.List;
  *
  * @author Ruan Donglin
  * @author Mao Yiyun
+ * @author Li Xingjian
  */
 
 public class HistoryFragment extends Fragment {
@@ -82,17 +83,5 @@ public class HistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
-
-    private Facility testCheckInClosetFacility() {
-        Sport a = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport b = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Sport c = new Sport(0, "Swimming", "swimming", Sport.SportType.INDOOR_OUTDOOR);
-        Facility r = new Facility(0, "wave", "http://www.ringoeater.com/", "84073568", "64 Nanyang Cres", "nonononono", new Coordinates(0, 0));
-        r.addSport(a);
-        r.addSport(b);
-        r.addSport(c);
-        return r;
-    }
 
 }

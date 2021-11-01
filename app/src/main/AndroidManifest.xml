@@ -18,9 +18,6 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.SignInActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activities.ViewPlanActivity"
             android:exported="true" />
         <!--

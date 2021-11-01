@@ -25,21 +25,21 @@ android:padding="6dp">
         android:id="@+id/planDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UserName"
+        android:text="2021-10-21 02:51"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/planLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MessageContent" />
+        android:text="Woodlands Primary school" />
 
     <TextView
         android:id="@+id/planLimit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time"
-        android:textSize="10sp"/>
+        android:text="Limit:1/2"
+        android:textSize="15sp" />
 
 
 </LinearLayout>

@@ -23,17 +23,25 @@
 <!--            android:layout_marginBottom="30dp"-->
 <!--            android:src="@mipmap/ic_launcher" />-->
 
-
-        <TextView
-            android:id="@+id/textView3"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/primary_blue_dark"
+            >
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="30sp"
-            android:textColor="@color/browser_actions_bg_grey"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="Ontology" />
+            android:text="Easy Exercise" />
+        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

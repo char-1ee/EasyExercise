@@ -38,7 +38,6 @@ import com.example.myapplication.recommendation.SportsRecommendation;
 import com.example.myapplication.ui.fragments.CommunityFragment;
 import com.example.myapplication.ui.fragments.HistoryFragment;
 import com.example.myapplication.ui.fragments.HomeFragment;
-import com.example.myapplication.ui.fragments.MeFragment;
 import com.example.myapplication.ui.fragments.PlanFragment;
 import com.example.myapplication.ui.fragments.UserFragment;
 import com.example.myapplication.utils.Box;

@@ -47,7 +47,6 @@ public class HomeFragment extends Fragment {
     double latitude;
     double longitude;
     Coordinates c;
-    private TextView AddressText;
     View view;
     Button mMakePlanButton;
     Button mCheckInButton;
@@ -74,7 +73,6 @@ public class HomeFragment extends Fragment {
         });
         mMakePlanButton = view.findViewById(R.id.home_plan_button);
         mCheckInButton = view.findViewById(R.id.home_checkin_button);
-        AddressText = view.findViewById(R.id.addressText);
         temperature = view.findViewById(R.id.temperature);
         pm25 = view.findViewById(R.id.pm25_value);
         uvIndex = view.findViewById(R.id.UV_value);
@@ -123,7 +121,6 @@ public class HomeFragment extends Fragment {
                     latitude = activity.getLatitude();
                     handler.postDelayed(this, 2000);
                 } else {
-                    AddressText.setText(String.valueOf(latitude));
                     c = new Coordinates(latitude, longitude, "new");
                     intentToPlan = activity.getIntentToPlan();
                     intentToCheckIn = activity.getCheckInList();
@@ -133,9 +130,4 @@ public class HomeFragment extends Fragment {
             }
         };
     }
-
-    private void initSwiper() {
-
-    }
-
 }

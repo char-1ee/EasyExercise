@@ -1,12 +1,12 @@
 package com.example.myapplication.ui.activities;
 
+import android.app.AutomaticZenRule;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,20 +35,19 @@ import java.util.List;
  */
 
 public class SelectSportActivity extends AppCompatActivity {
-    Handler handler;
-    Runnable runnable;
+    Handler handler, handler2;
+    Runnable runnable, runnable2;
     double latitude= 0;
     double longitude= 0;
-    private List<Sport> finalChoice;
-    TextView textView;
-    private List<Sport> ChosenSport1;
-    private List<Sport> ChosenSport2;
+    public static List<Sport> finalChoice;
+    public static List<Sport> ChosenSport1;
+    public static List<Sport> ChosenSport2;
     private List<Facility> FinalFacility;
     private List<Sport> RecommendedSport;
     private List<Sport> OtherSport;
-    private Button mSportChoicesConfirmButton;
+    public static Button mSportChoicesConfirmButton;
     private RecyclerView mRecyclerView, mRecyclerView2;
-    private SportRecyclerViewAdapter mAdapter, mAdapter2;
+    public static SportRecyclerViewAdapter mAdapter, mAdapter2;
     private ActionBar actionBar;
 
     @Override
@@ -73,15 +72,13 @@ public class SelectSportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_sport);
         mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = findViewById(R.id.recycler_view);
-        textView= findViewById(R.id.textView);
         RecommendedSport = getRecommendedSport();
-
+        mSportChoicesConfirmButton.setEnabled(false);
         OtherSport = getOtherSport();
         latitude= getLatitude();
         longitude= getLongitude();
         initHandler();
         handler.post(runnable);
-        textView.setText(String.valueOf(latitude));
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -104,19 +101,32 @@ public class SelectSportActivity extends AppCompatActivity {
         mRecyclerView2.setHasFixedSize(true);
         mRecyclerView2.setLayoutManager(manager2);
         mRecyclerView2.setAdapter(mAdapter2);
-    }
+        ChosenSport1 = mAdapter.chosenSportList;
+        ChosenSport2 = mAdapter2.chosenSportList;
+        finalChoice.clear();
+        finalChoice.addAll(ChosenSport1);
+        finalChoice.addAll(ChosenSport2);
 
+
+    }
+    private void initHandler2() {
+        handler2 = new Handler();
+        runnable2 = new Runnable() {
+            public void run() {
+                if(finalChoice.size()== 0){
+                    handler.postDelayed(this, 500);
+                }
+                else{
+                    mSportChoicesConfirmButton.setEnabled(true);
+                }
+            }
+        };
+    }
 
     private void initButton(){
         mSportChoicesConfirmButton.setOnClickListener(view -> {
             Context context = SelectSportActivity.this;
-            ChosenSport1 = mAdapter.chosenSportList;
-            ChosenSport2 = mAdapter2.chosenSportList;
-            finalChoice.clear();
-            finalChoice.addAll(ChosenSport1);
-            finalChoice.addAll(ChosenSport2);
             FinalFacility= FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
-            textView.setText(String.valueOf(longitude));
             Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
             intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
             intent.putExtra("longitude", (Serializable) longitude);
@@ -150,5 +160,4 @@ public class SelectSportActivity extends AppCompatActivity {
         this.finish();
         return super.onOptionsItemSelected(item);
     }
-
 }

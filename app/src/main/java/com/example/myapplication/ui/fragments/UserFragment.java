@@ -64,8 +64,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private List<Integer> heightRange = new ArrayList<>();
     private List<String> genderChoice = new ArrayList<>();
     private String gender;
-    private int weight;
-    private int height;
+    private float weight;
+    private float height;
     private OptionsPickerView pvOptions1, pvOptions2, pvOptions3; // TODO: Raw use of parameterized class
 
 
@@ -91,7 +91,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             }
         };
         // TODO: pickers should not appear when first enter fragment, thus I made every textView(height, weight, BMI) clickable
-        getUserInfo();
         initPicker();
 //        if (weight == 0) {
 //            initPicker();
@@ -143,6 +142,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         heightText.setOnClickListener(this);
         weightText.setOnClickListener(this);
         genderText.setOnClickListener(this);
+        getUserInfo();
+        weightText.setText(String.valueOf(weight));
+        heightText.setText(String.valueOf(height));
+        genderText.setText(gender);
+        BMIText.setText(String.valueOf(weight / (height * height / 10000)));
+
     }
 
     private void initGoogleClient() {
@@ -306,16 +311,16 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();
         editor.putString("gender", gender);
-        editor.putInt("weight", weight);
-        editor.putInt("height", height);
+        editor.putFloat("weight", weight);
+        editor.putFloat("height", height);
         editor.apply();
     }
 
     private void getUserInfo() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         gender = userInfo.getString("gender", null);
-        weight = userInfo.getInt("weight", 0);
-        height = userInfo.getInt("height", 0);
+        weight = userInfo.getFloat("weight", 0);
+        height = userInfo.getFloat("height", 0);
     }
 
 

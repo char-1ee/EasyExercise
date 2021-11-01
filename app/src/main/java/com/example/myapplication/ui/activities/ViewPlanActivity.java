@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,11 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.format.DateUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,21 +23,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.bigkoo.pickerview.view.TimePickerView;
-import com.borax12.materialdaterangepicker.date.DatePickerController;
-import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
-import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.Workout;
-import com.example.myapplication.beans.WorkoutPlan;
 import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.sportsImage.SportsImage;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,13 +45,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The activity class for showing a specific plan, checking in or publishing it into the community.
@@ -68,7 +59,7 @@ import java.util.Objects;
  * @author Li Xingjian
  */
 
-public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener{
+public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener {
     Integer finalLimit = 0;
     DatePickerDialog picker;
     SupportMapFragment mapFragment;
@@ -161,6 +152,18 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void initButton() {
         addPlanButton.setOnClickListener(view -> {
+            Calendar cldr = Calendar.getInstance();
+            int day = cldr.get(Calendar.DAY_OF_MONTH);
+            int month = cldr.get(Calendar.MONTH);
+            int year = cldr.get(Calendar.YEAR);
+            picker = new DatePickerDialog(ViewPlanActivity.this,
+                    (v, y, m, d) -> {
+                        ViewPlanActivity.this.year = y;
+                        ViewPlanActivity.this.monthOfYear = m;
+                        ViewPlanActivity.this.dayOfMonth = d;
+                    }, year, month, day);
+            // TODO: Wait for dialog to complete
+
             addPlanButton.setText(R.string.publish_plan_text);
             Calendar now = Calendar.getInstance();
             TimePickerDialog tpd = TimePickerDialog.newInstance(
@@ -169,22 +172,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                     now.get(Calendar.MINUTE),
                     false
             );
-
             tpd.show(getFragmentManager(), "TimePickerDialog");
-
-            // TODO: 2021/11/2   store year, monthOfYear, dayOfMonth
-//            Calendar cldr = Calendar.getInstance();
-//            int day = cldr.get(Calendar.DAY_OF_MONTH);
-//            int month = cldr.get(Calendar.MONTH);
-//            int year = cldr.get(Calendar.YEAR);
-//            picker = new DatePickerDialog(ViewPlanActivity.this,
-//                    new DatePickerDialog.OnDateSetListener() {
-//                        @Override
-//                        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-//
-//                        }
-//                    }, year, month, day);
-//            picker.show();
 
             mapFragment.requireView().setVisibility(View.GONE);
             cardView.setVisibility(View.VISIBLE);
@@ -238,10 +226,9 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                if(finalLimit== 0){
+                if (finalLimit == 0) {
                     handler.postDelayed(this, 500);
-                }
-                else{
+                } else {
                     limitView.setText(String.valueOf(finalLimit));
                     showNormalDialog();
                 }
@@ -253,10 +240,9 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         handler2 = new Handler();
         runnable2 = new Runnable() {
             public void run() {
-                if(startDate!= null){
+                if (startDate != null) {
                     pvOptions.show();
-                }
-                else{
+                } else {
                     handler.postDelayed(this, 500);
                 }
             }
@@ -343,8 +329,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        startDate=  new Date(year, monthOfYear, dayOfMonth, hourOfDay, minute);
-        endDate= new Date(year, monthOfYear, dayOfMonth, hourOfDayEnd, minuteEnd);
+        startDate = new Date(year, monthOfYear, dayOfMonth, hourOfDay, minute);
+        endDate = new Date(year, monthOfYear, dayOfMonth, hourOfDayEnd, minuteEnd);
         startTime.setText(getTime(startDate));
         endTime.setText(getTime(endDate));
     }

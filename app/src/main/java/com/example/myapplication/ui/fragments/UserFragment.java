@@ -222,7 +222,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             handler1.postDelayed(this, 1000);
                         } else {
                             saveUserInfo();
-                            weightText.setText(weight);
+                            weightText.setText(String.valueOf(weight));
+                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
                         }
                     }
                 };
@@ -239,7 +240,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                             handler2.postDelayed(this, 1000);
                         } else {
                             saveUserInfo();
-                            heightText.setText(height);
+                            heightText.setText(String.valueOf(height));
+                            BMIText.setText(String.valueOf(weight / (height * height / 10000)));
+
                         }
                     }
                 };

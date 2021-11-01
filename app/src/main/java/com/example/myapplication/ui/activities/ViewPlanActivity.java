@@ -64,12 +64,12 @@ import java.util.Objects;
  * @author Li Xingjian
  */
 
-public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback,
-        TimePickerDialog.OnTimeSetListener {
+public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback{
+//        ,TimePickerDialog.OnTimeSetListener {
     Integer finalLimit = 0;
     SupportMapFragment mapFragment;
-//    TimePickerView pvTime2;
-//    TimePickerView pvTime;
+    TimePickerView pvTime2;
+    TimePickerView pvTime;
     OptionsPickerView pvOptions;
     private Handler handler;
     private Runnable runnable;
@@ -160,16 +160,16 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private void initButton() {
         addPlanButton.setOnClickListener(view -> {
             addPlanButton.setText(R.string.publish_plan_text);
-//            pvTime2.show();
-//            pvTime.show();
-            Calendar now = Calendar.getInstance();
-            TimePickerDialog tpd = TimePickerDialog.newInstance(
-                    ViewPlanActivity.this,
-                    now.get(Calendar.HOUR_OF_DAY),
-                    now.get(Calendar.MINUTE),
-                    false
-            );
-            tpd.show(getFragmentManager(), "TimePickerDialog");
+            pvTime2.show();
+            pvTime.show();
+//            Calendar now = Calendar.getInstance();
+//            TimePickerDialog tpd = TimePickerDialog.newInstance(
+//                    ViewPlanActivity.this,
+//                    now.get(Calendar.HOUR_OF_DAY),
+//                    now.get(Calendar.MINUTE),
+//                    false
+//            );
+//            tpd.show(getFragmentManager(), "TimePickerDialog");
 
             pvOptions.show();
 
@@ -198,31 +198,31 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
      * Initialize pickers for publishing the plan.
      */
     private void initPicker() {
-//        pvTime = new TimePickerBuilder(this, (date1, v) -> startDate = date1)
-//                .setType(new boolean[]{false, true, true, true, true, false})
-//                .setCancelText("Cancel")
-//                .setSubmitText("Confirm")
-//                .setTitleSize(20)
-//                .setTitleText("Starting Time")
-//                .setOutSideCancelable(false)
-//                .isCyclic(true)
-//                .setLabel("y", "m", "d", "h", "min", "sec")
-//                .isCenterLabel(false)
-//                .isDialog(false)
-//                .build();
-//
-//        pvTime2 = new TimePickerBuilder(this, (date2, v) -> endDate = date2)
-//                .setType(new boolean[]{false, true, true, true, true, false})
-//                .setCancelText("Cancel")
-//                .setSubmitText("Confirm")
-//                .setTitleSize(20)
-//                .setTitleText("Ending Time")
-//                .setOutSideCancelable(false)
-//                .isCyclic(true)
-//                .setLabel("y", "m", "d", "h", "min", "sec")
-//                .isCenterLabel(false)
-//                .isDialog(false)
-//                .build();
+        pvTime = new TimePickerBuilder(this, (date1, v) -> startDate = date1)
+                .setType(new boolean[]{false, true, true, true, true, false})
+                .setCancelText("Cancel")
+                .setSubmitText("Confirm")
+                .setTitleSize(20)
+                .setTitleText("Starting Time")
+                .setOutSideCancelable(false)
+                .isCyclic(true)
+                .setLabel("y", "m", "d", "h", "min", "sec")
+                .isCenterLabel(false)
+                .isDialog(false)
+                .build();
+
+        pvTime2 = new TimePickerBuilder(this, (date2, v) -> endDate = date2)
+                .setType(new boolean[]{false, true, true, true, true, false})
+                .setCancelText("Cancel")
+                .setSubmitText("Confirm")
+                .setTitleSize(20)
+                .setTitleText("Ending Time")
+                .setOutSideCancelable(false)
+                .isCyclic(true)
+                .setLabel("y", "m", "d", "h", "min", "sec")
+                .isCenterLabel(false)
+                .isDialog(false)
+                .build();
         List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
         pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> finalLimit = options1Items.get(options1))
                 .setSubmitText("Confirm")
@@ -349,16 +349,16 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         this.finish();
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
-        String minuteString = minute < 10 ? "0" + minute : "" + minute;
-        String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
-        String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
-        String time1 = "Start time: " + hourString + "h" + minuteString;
-        String time2 = "Start time: " + hourStringEnd + "h" + minuteStringEnd;
-        startTime.setText(time1);
-        endTime.setText(time2); // TODO： @rdl
-    }
+//
+//    @Override
+//    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
+//        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
+//        String minuteString = minute < 10 ? "0" + minute : "" + minute;
+//        String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
+//        String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
+//        String time1 = "Start time: " + hourString + "h" + minuteString;
+//        String time2 = "Start time: " + hourStringEnd + "h" + minuteStringEnd;
+//        startTime.setText(time1);
+//        endTime.setText(time2); // TODO： @rdl
+//    }
 }

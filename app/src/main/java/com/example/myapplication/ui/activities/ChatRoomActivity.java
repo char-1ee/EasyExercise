@@ -23,6 +23,7 @@ import com.example.myapplication.beans.Sport;
 import com.example.myapplication.databases.SportAndFacilityDBHelper;
 import com.example.myapplication.databases.WorkoutDatabaseManager;
 import com.example.myapplication.ui.adapters.MessageAdapter;
+import com.example.myapplication.ui.fragments.UserFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -69,7 +70,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("community").child(planID).child("chatroom");
         DatabaseReference planReference = database.getReference().child("community").child(planID);
-        DatabaseReference users = database.getReference().child("user");
+        DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         inputText = findViewById(R.id.inputText);
         send = findViewById(R.id.send);
@@ -166,6 +167,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 for (i = 0; i < currentPlan.getMembers().size(); i++){
                     if(currentUser.getUid().equals(currentPlan.getMembers().get(i))){
                         Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan", Toast.LENGTH_SHORT).show();
+                        Log.wtf("test", "You are already in this shared plan");
                         break;
                     }
                 }
@@ -175,10 +177,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                     updates.put("members", currentPlan.getMembers());
                     planReference.updateChildren(updates);
                     Toast.makeText(ChatRoomActivity.this, "Join successful", Toast.LENGTH_SHORT).show();
+                    Log.wtf("test", "Join successful");
                 }
             }
             else{
                 Toast.makeText(ChatRoomActivity.this, "This plan is full", Toast.LENGTH_SHORT).show();
+                Log.wtf("test", "full");
             }
         });
 
@@ -198,10 +202,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(currentUser.getUid().equals(currentPlan.getMembers().get(i))){
                     find = true;
                     currentPlan.removeMembers(i);
+                    user.child("PublicPlan").child(currentPlan.getPlan()).removeValue();
                     if(currentPlan.getMembers().size() == 0){
-                        startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
                         planReference.removeValue();
                         Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
+                        //TODO BUG!!!!!!
+                        startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
                     }
                     else{
                         Map<String, Object> updates = new HashMap<>();

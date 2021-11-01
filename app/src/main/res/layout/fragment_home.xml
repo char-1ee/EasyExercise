@@ -276,20 +276,6 @@
             tools:layout_conversion_absoluteHeight="58dp"
             tools:layout_conversion_absoluteWidth="129dp" />
 
-        <TextView
-            android:id="@+id/addressText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="28dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_plan_button" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

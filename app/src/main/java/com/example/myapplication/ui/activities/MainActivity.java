@@ -246,11 +246,11 @@ public class MainActivity extends AppCompatActivity {
 
     public Intent getCheckInList() {
         intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-        List<Facility> facilityList = getCheckinFacilitByDistance();
+        List<Facility> facilityList = getCheckInFacilitByDistance();
         if (facilityList.size() > 0) {
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-            intentToCheckIn.putExtra("ClosestFacility", getCheckinFacilitByDistance().get(0));
-            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckinFacilitByDistance());
+            intentToCheckIn.putExtra("ClosestFacility", getCheckInFacilitByDistance().get(0));
+            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckInFacilitByDistance());
         } else {
             intentToCheckIn = new Intent(MainActivity.this, NoFacilityActivity.class);
         }
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         return intentToCheckIn;
     }
 
-    private List<Facility> getCheckinFacilitByDistance() {
+    private List<Facility> getCheckInFacilitByDistance() {
         return FacilityRecommendation.getFacilitiesNearby(MainActivity.this, new Coordinates(latitude, longitude, ""), 5, 20);
     }
 

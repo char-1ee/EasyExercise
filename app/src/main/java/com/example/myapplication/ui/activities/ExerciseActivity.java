@@ -113,6 +113,7 @@ public class ExerciseActivity extends AppCompatActivity {
             checkInIntent.putExtra("SportExercise", sport);
             checkInIntent.putExtra("StartDate", startDate);
             checkInIntent.putExtra("timeDuration", getTimerText());
+            checkInIntent.putExtra("EndDate", new Date());
             startActivity(checkInIntent);
             finish();
         });

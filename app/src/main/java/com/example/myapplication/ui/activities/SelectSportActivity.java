@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +39,6 @@ public class SelectSportActivity extends AppCompatActivity {
     double latitude= 0;
     double longitude= 0;
     private List<Sport> finalChoice;
-    TextView textView;
     private List<Sport> ChosenSport1;
     private List<Sport> ChosenSport2;
     private List<Facility> FinalFacility;
@@ -73,7 +71,6 @@ public class SelectSportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_sport);
         mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = findViewById(R.id.recycler_view);
-        textView= findViewById(R.id.textView);
         RecommendedSport = getRecommendedSport();
 
         OtherSport = getOtherSport();
@@ -81,7 +78,6 @@ public class SelectSportActivity extends AppCompatActivity {
         longitude= getLongitude();
         initHandler();
         handler.post(runnable);
-        textView.setText(String.valueOf(latitude));
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -116,7 +112,6 @@ public class SelectSportActivity extends AppCompatActivity {
             finalChoice.addAll(ChosenSport1);
             finalChoice.addAll(ChosenSport2);
             FinalFacility= FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
-            textView.setText(String.valueOf(longitude));
             Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
             intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
             intent.putExtra("longitude", (Serializable) longitude);
@@ -150,5 +145,4 @@ public class SelectSportActivity extends AppCompatActivity {
         this.finish();
         return super.onOptionsItemSelected(item);
     }
-
 }

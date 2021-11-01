@@ -7,6 +7,7 @@ import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.beans.CustomizedLocation;
 import com.example.myapplication.beans.Facility;
 import com.example.myapplication.beans.Location;
+import com.example.myapplication.beans.PublicPlan;
 import com.example.myapplication.beans.Sport;
 import com.example.myapplication.beans.Workout;
 import com.example.myapplication.beans.WorkoutPlan;
@@ -37,7 +38,40 @@ public class WorkoutDatabaseManager {
         return workoutPlan;
     }
 
-    public class FirebaseWorkoutRecord {
+    public static PublicPlan toPublicPlan(FirebasePublicPlan firebasePlan, Context context){
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
+        manager.openDatabase();
+        Sport s = manager.getSportById(firebasePlan.getSport());
+        Location l = manager.getFacilityById(firebasePlan.getFacility());
+        manager.closeDatabase();
+        PublicPlan workoutPlan = new PublicPlan(
+                s, l, firebasePlan.getPlan(), firebasePlan.getPlanLimit(),
+                new Date(firebasePlan.getPlanStart()), new Date(firebasePlan.getPlanFinish()),
+                firebasePlan.getMembers());
+        return workoutPlan;
+    }
+
+    public static WorkoutRecord toWorkoutRecord(FirebaseWorkoutRecord firebaseRecord, Context context){
+        SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(context);
+        manager.openDatabase();
+        Sport s = manager.getSportById(firebaseRecord.getSport());
+        Location l;
+        if(firebaseRecord.isCustomized()){
+            Coordinates c = new Coordinates(firebaseRecord.getLatitude(), firebaseRecord.getLongitude(), firebaseRecord.getName());
+            l = new CustomizedLocation(c);
+        }
+        else{
+            l = manager.getFacilityById(firebaseRecord.getFacility());
+        }
+        manager.closeDatabase();
+        WorkoutRecord workoutRecord = new WorkoutRecord(
+                s, l, firebaseRecord.getPlanID(),
+                new Date(firebaseRecord.getStartTime()), new Date(firebaseRecord.getEndTime()), firebaseRecord.getDuration());
+        return workoutRecord;
+    }
+
+
+    public static class FirebaseWorkoutRecord {
         private int sport;
         private String planID;
         private boolean customized;
@@ -46,11 +80,12 @@ public class WorkoutDatabaseManager {
         private double latitude;
         private long startTime;
         private long endTime;
+        String duration;
         private String name;
 
-        public FirebaseWorkoutRecord(WorkoutRecord record, String id) {
+        public FirebaseWorkoutRecord(WorkoutRecord record) {
             sport = record.getSport().getId();
-            planID = id;
+            planID = record.getPlanID();
             customized = (record.getLocation().getType() == Location.LocationType.CUSTOMISED_LOCATION);
             if(customized){
                 longitude = record.getLocation().getLongitude();
@@ -64,6 +99,7 @@ public class WorkoutDatabaseManager {
                 name = "";
                 facility = ((Facility) record.getLocation()).getId();
             }
+            duration = record.getDuration();
             startTime = record.getStartTime().getTime();
             endTime = record.getEndTime().getTime();
         }
@@ -105,6 +141,10 @@ public class WorkoutDatabaseManager {
 
         public String getName() {
             return name;
+        }
+
+        public String getDuration() {
+            return duration;
         }
     }
 

@@ -82,7 +82,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             long diff = item.getEndTime().getTime() - item.getStartTime().getTime();
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
             long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
-            durationView.setText(minutes + ":" + seconds);
+            durationView.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
             startTimeView.setText(getTime(item.getStartTime()));
             endTimeView.setText(getTime(item.getEndTime()));
             dialog.show();

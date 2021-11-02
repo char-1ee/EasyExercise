@@ -10,10 +10,14 @@ import java.util.Date;
  * TODO Add Javadoc
  */
 public class Message implements Serializable {
-    private final String messageText;
-    private final String messageUsername;
-    private final String messageAvatarUrl;
-    private final String messageTime;
+    private String messageText;
+    private String messageUsername;
+    private String messageAvatarUrl;
+    private String messageTime;
+
+    public Message() {
+        // Needed by Firebase database
+    }
 
     public Message(String messageText, String messageUser, String messageAvatarUrl) {
         this.messageText = messageText;

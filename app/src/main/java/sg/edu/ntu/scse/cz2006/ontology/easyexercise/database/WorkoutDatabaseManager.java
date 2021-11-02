@@ -80,6 +80,7 @@ public class WorkoutDatabaseManager {
         private String name;
 
         public FirebaseWorkoutRecord() {
+            // Needed by Firebase database
         }
 
         public FirebaseWorkoutRecord(WorkoutRecord record) {
@@ -153,6 +154,7 @@ public class WorkoutDatabaseManager {
         private List<String> members;
 
         public FirebasePublicWorkoutPlan() {
+            // Needed by Firebase database
         }
 
         public FirebasePublicWorkoutPlan(
@@ -238,6 +240,7 @@ public class WorkoutDatabaseManager {
         private String name;
 
         public FirebasePrivateWorkoutPlan() {
+            // Needed by Firebase database
         }
 
         public FirebasePrivateWorkoutPlan(PrivateWorkoutPlan plan, String id) {

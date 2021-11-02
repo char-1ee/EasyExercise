@@ -86,7 +86,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_add_plan);
         facility = getFacility();
         rv_test = findViewById(R.id.check_in_sport_recycler);
-        button = findViewById(R.id.add_plan_button);
+        button = findViewById(R.id.publish_plan_button);
         facilityView = findViewById(R.id.location_view);
         addressView = findViewById(R.id.address_view);
         postalView = findViewById(R.id.postal_view);

@@ -75,7 +75,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private TextView postalView, facilityView, sportView, addressView, limitView;
     private Workout plan;
     private Location location;
-    private Button addPlanButton, checkInButton, deleteButton;
+    private Button publishPlanButton, checkInButton, deleteButton;
     private SportsImage sm;
     private CardView cardView;
     Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
@@ -118,7 +118,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         postalView = findViewById(R.id.postal_view);
         addressView = findViewById(R.id.address_view);
         checkInButton = findViewById(R.id.check_in_button);
-        addPlanButton = findViewById(R.id.add_plan_button);
+        publishPlanButton = findViewById(R.id.publish_plan_button);
         deleteButton = findViewById(R.id.delete_button);
         cardView = findViewById(R.id.timeView);
         cardView.setVisibility(View.GONE);
@@ -152,12 +152,12 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void initButton() {
-        addPlanButton.setOnClickListener(view -> {
+        publishPlanButton.setOnClickListener(view -> {
             // TODO: Wait for dialog to complete
-            addPlanButton.setText(R.string.publish_plan_text);
-            year= 0;
-            finalLimit= 0;
-            startDate= null;
+            publishPlanButton.setText(R.string.publish_plan_text);
+            year = 0;
+            finalLimit = 0;
+            startDate = null;
             Calendar cldr = Calendar.getInstance();
             int day = cldr.get(Calendar.DAY_OF_MONTH);
             int month = cldr.get(Calendar.MONTH);
@@ -257,7 +257,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         handler3 = new Handler();
         runnable3 = new Runnable() {
             public void run() {
-                if (year!= 0) {
+                if (year != 0) {
                     tpd.show(getFragmentManager(), "TimePickerDialog");
                 } else {
                     handler3.postDelayed(this, 500);

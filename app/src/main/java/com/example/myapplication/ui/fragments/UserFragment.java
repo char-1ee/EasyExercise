@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,13 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 /**
@@ -49,6 +54,7 @@ import java.util.List;
  */
 public class UserFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "UserFragment";
     private View view;
     private ImageView profilePhoto;
     private Button signOutButton, authButton;
@@ -59,13 +65,13 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
 
-    private List<Integer> weightRange = new ArrayList<>();
-    private List<Integer> heightRange = new ArrayList<>();
-    private List<String> genderChoice = new ArrayList<>();
+    private List<Integer> weightRange = IntStream.range(40, 101).boxed().collect(Collectors.toList());
+    private List<Integer> heightRange = IntStream.range(140, 201).boxed().collect(Collectors.toList());
+    private List<String> genderChoice = Arrays.asList("Female", "Male", "Prefer not to disclose");
     private String gender;
     private int weight;
     private int height;
-    private OptionsPickerView pvOptions1, pvOptions2, pvOptions3; // TODO: Raw use of parameterized class
+    private OptionsPickerView pvOptions1, pvOptions2, pvOptions3; // TODO: Raw use of parameterized class (a generic problem)
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -144,6 +150,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text_gender:
+//                clearUserInfo("gender");
                 clearUserGender();
                 gender = null;
                 pvOptions3.show();
@@ -154,6 +161,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (gender == null) {
                             handler3.postDelayed(this, 1000);
                         } else {
+//                            saveUserInfo("gender");
                             saveUserGender();
                             genderText.setText(gender);
                         }
@@ -163,6 +171,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text_weight:
+//                clearUserInfo("weight");
                 clearUserWeight();
                 weight = 0;
                 pvOptions1.show();
@@ -173,16 +182,19 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (weight == 0) {
                             handler1.postDelayed(this, 1000);
                         } else {
+//                            saveUserInfo("weight");
                             saveUserWeight();
                             weightText.setText(String.valueOf(weight));
                             DecimalFormat df = new DecimalFormat("##.##");
-                            BMIText.setText(df.format(weight / (height * height / 10000.0)));                        }
+                            BMIText.setText(df.format(weight / (height * height / 10000.0)));
+                        }
                     }
                 };
                 handler1.post(runnable1);
                 break;
 
             case R.id.text_height:
+//                clearUserInfo("height");
                 clearUserHeight();
                 height = 0;
                 pvOptions2.show();
@@ -193,6 +205,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                         if (height == 0) {
                             handler2.postDelayed(this, 1000);
                         } else {
+//                            saveUserInfo("height");
                             saveUserHeight();
                             heightText.setText(String.valueOf(height));
                             DecimalFormat df = new DecimalFormat("##.##");
@@ -245,7 +258,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-        private void signOut() {
+    private void signOut() {
         auth.signOut();
         mSignInClient.signOut();
         startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -257,14 +270,17 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
-    private void saveUserInfo() {
-        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-        SharedPreferences.Editor editor = userInfo.edit();
-        editor.putString("gender", gender);
-        editor.putInt("weight", weight);
-        editor.putInt("height", height);
-        editor.apply();
-    }
+//    private void saveUserInfo(String info) {
+//        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = userInfo.edit();
+//        switch (info) {
+//            case "gender": editor.putString("gender", gender); break;
+//            case "weight": editor.putInt("weight", weight); break;
+//            case "height": editor.putInt("height", height); break;
+//            default: Log.e(TAG, "saveUserInfo pass wrong para");
+//        }
+//        editor.apply();
+//    }
 
     private void saveUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
@@ -286,13 +302,20 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         editor.putString("gender", gender);
         editor.apply();
     }
+
     private void getUserInfo() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-        gender = userInfo.getString("gender", null);
+        gender = userInfo.getString("gender", "Click here to choose");
         weight = userInfo.getInt("weight", 0);
         height = userInfo.getInt("height", 0);
     }
 
+//    private void clearUserInfo(String info){
+//        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = userInfo.edit();
+//        editor.remove(info);
+//        editor.commit();
+//    }
 
     private void clearUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
@@ -315,12 +338,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         editor.commit();
     }
 
-
-
     private void initPicker() {
-        for (int i = 40; i <= 100; i += 2) {
-            weightRange.add(i);
-        }
         pvOptions1 = new OptionsPickerBuilder(getContext(), (options1, option2, options3, v) -> weight = weightRange.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")
@@ -337,9 +355,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 .build();
         pvOptions1.setPicker(weightRange);
 
-        for (int i = 140; i <= 200; i += 2) {
-            heightRange.add(i);
-        }
         pvOptions2 = new OptionsPickerBuilder(getContext(), (options1, option2, options3, v) -> height = heightRange.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")
@@ -356,9 +371,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 .build();
         pvOptions2.setPicker(heightRange);
 
-        genderChoice.add("Female");
-        genderChoice.add("Male");
-        genderChoice.add("Prefer not to disclose");
         pvOptions3 = new OptionsPickerBuilder(getContext(), (options1, option2, options3, v) -> gender = genderChoice.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")

@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.beans.Coordinates;
 import com.example.myapplication.json.weather.Weather;
 import com.example.myapplication.ui.activities.MainActivity;
+import com.example.myapplication.utils.ButtonClickUtil;
 import com.example.myapplication.utils.IOUtil;
 
 /**
@@ -86,8 +88,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void initButton() {
-        mMakePlanButton.setOnClickListener(v -> startActivity(intentToPlan));
-        mCheckInButton.setOnClickListener(v -> startActivity(intentToCheckIn));
+        mMakePlanButton.setOnClickListener(v -> {
+            if (!ButtonClickUtil.isFastDoubleClick(R.id.home_plan_button)) {
+                startActivity(intentToPlan);
+            }
+        });
+
+        mCheckInButton.setOnClickListener(v -> {
+            if (!ButtonClickUtil.isFastDoubleClick(R.id.home_checkin_button)) {
+                startActivity(intentToCheckIn);
+            }
+        });
     }
 
     private void setWeather(Coordinates temp) {

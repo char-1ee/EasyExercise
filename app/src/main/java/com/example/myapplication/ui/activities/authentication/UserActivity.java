@@ -3,9 +3,11 @@ package com.example.myapplication.ui.activities.authentication;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * The activity class to change user password and usernames.
+ *
+ * @author Li Xingjian
+ */
 public class UserActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
@@ -27,6 +34,7 @@ public class UserActivity extends AppCompatActivity {
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
+    private ActionBar actionBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
 
@@ -51,6 +59,11 @@ public class UserActivity extends AppCompatActivity {
             }
         };
 
+
+        actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         btnChangeEmail = findViewById(R.id.change_email_button);
         btnChangePassword = findViewById(R.id.change_password_button);
         btnSendResetEmail = findViewById(R.id.sending_pass_reset_button);
@@ -59,12 +72,11 @@ public class UserActivity extends AppCompatActivity {
         changePassword = findViewById(R.id.changePass);
         sendEmail = findViewById(R.id.send);
         remove = findViewById(R.id.remove);
-        signOut = findViewById(R.id.sign_out);
 
-        oldEmail = (EditText) findViewById(R.id.old_email);
-        newEmail = (EditText) findViewById(R.id.new_email);
-        password = (EditText) findViewById(R.id.password);
-        newPassword = (EditText) findViewById(R.id.newPassword);
+        oldEmail = findViewById(R.id.old_email);
+        newEmail = findViewById(R.id.new_email);
+        password = findViewById(R.id.password);
+        newPassword = findViewById(R.id.newPassword);
 
         oldEmail.setVisibility(View.GONE);
         newEmail.setVisibility(View.GONE);
@@ -75,7 +87,7 @@ public class UserActivity extends AppCompatActivity {
         sendEmail.setVisibility(View.GONE);
         remove.setVisibility(View.GONE);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
@@ -204,8 +216,6 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
-        signOut.setOnClickListener(v -> signOut());
-
     }
 
     public void signOut() {
@@ -231,31 +241,11 @@ public class UserActivity extends AppCompatActivity {
             auth.removeAuthStateListener(authListener);
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
+    }
 }
-//    private void setProfile() {
-//        Glide.with(this).load(getUserPhotoUrl()).into(profileImage);
-//        profileNameText.setText(getUserName());
-//    }
-//
-//    private void signOut() {
-//        auth.signOut();
-//        mSignInClient.signOut();
-//        startActivity(new Intent(this, LoginActivity.class));
-//        finish();
-//    }
-//
-//    private String getUserPhotoUrl() {
-//        FirebaseUser user = auth.getCurrentUser();
-//        if (user != null && user.getPhotoUrl() != null) {
-//            return user.getPhotoUrl().toString();
-//        }
-//        return null;
-//    }
-//
-//    private String getUserName() {
-//        FirebaseUser user = auth.getCurrentUser();
-//        if (user != null) {
-//            return user.getDisplayName();
-//        }
-//        return ANONYMOUS;
-//    }
+

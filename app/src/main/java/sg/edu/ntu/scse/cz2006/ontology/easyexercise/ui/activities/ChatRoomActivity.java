@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,10 +58,10 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
-        String planID;
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Bundle extras = getIntent().getExtras();
-        planID = extras.getString("plan");
+        String planID = extras.getString("plan");
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
@@ -72,8 +73,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         inputText = findViewById(R.id.inputText);
-        Button send = findViewById(R.id.send);
         recyclerView = findViewById(R.id.messageRecyclerView);
+        Button send = findViewById(R.id.send);
         Button join = findViewById(R.id.joinPublicPlanButton);
         Button quit = findViewById(R.id.quitPublicPlanButton);
         ActionBar actionBar = getSupportActionBar();

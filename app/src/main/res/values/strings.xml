@@ -15,8 +15,8 @@
     <string name="home_main_message_text">Message</string>
     <string name="home_main_title_text">Title</string>
     <string name="home_main_image_description">Home image</string>
-    <string name="publish_plan_text">Publish Plan</string>
-    <string name="customized_location">Customized Location</string>
+    <string name="publish_plan_text">Publish plan</string>
+    <string name="customized_location">Customized location</string>
     <string name="confirm_selection_text">Confirm selection</string>
 
     <string name="make_plan_text">Make a plan</string>
@@ -24,12 +24,13 @@
 
     <string name="check_in_text">Check in</string>
     <string name="check_out_text">Check out</string>
-    <string name="select_another_facility_text">Select another facility</string>
+    <string name="another_facility_text">Another facility</string>
+    <string name="customized_location_text">Customized location</string>
 
     <string name="stop_text">Stop</string>
 
     <string name="recommended_text">Recommended</string>
-    <string name="all_recommendation_text">Other</string>
+    <string name="all_recommendation_text">Others</string>
 
     <string name="sign_out_text">Sign out</string>
 

@@ -10,15 +10,17 @@
         android:id="@+id/checkoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="50dp">
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -27,9 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/sample_user_check_out_sport"
+                android:text="Sport"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/checkoutSport"
                 android:layout_marginLeft="10dp"
-                android:text="@string/sample_user_check_out_place"
+                android:text="Location"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintLeft_toLeftOf="parent" />
@@ -50,12 +52,13 @@
             android:id="@+id/checkoutPic"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:padding="3dp"
+            android:scaleType="fitXY"
             android:src="@drawable/swimming" />
     </RelativeLayout>
 
@@ -107,7 +110,7 @@
             android:layout_toEndOf="@id/checkoutProfile"
             android:text="@string/sample_user_check_out_time"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
 
         <View
             android:layout_width="match_parent"
@@ -129,21 +132,21 @@
                 android:id="@+id/time_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:layout_gravity="center"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="7dp"
                 android:gravity="center"
-                android:layout_gravity="center"
                 android:text="Total Time"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="18dp" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -151,7 +154,7 @@
 
     <Button
         android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="50dp"

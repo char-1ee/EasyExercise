@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/no_facility_message"
         android:textAlignment="textStart"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

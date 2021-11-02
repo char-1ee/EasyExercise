@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,8 +26,8 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/mapview"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="350dp"
-                android:layout_height="200dp"
+                android:layout_width="360dp"
+                android:layout_height="180dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +40,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/check_in_sport_recycler"
         android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/check_in_sport_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,17 +66,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="start|center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/location_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="North Hill"
+                android:layout_marginEnd="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Location"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,12 +95,15 @@
 
             <TextView
                 android:id="@+id/address_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Nanyang Cresc 64"
+                android:layout_marginEnd="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Address"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/facility_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -103,13 +112,15 @@
 
             <TextView
                 android:id="@+id/postal_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="20dp"
-                android:text="636959"
+                android:layout_marginEnd="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Postal Code"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/address_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,23 +133,36 @@
 
     <Button
         android:id="@+id/choose_another_facility_button"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_gravity="center"
-        android:text="@string/select_another_facility_text"
-        android:textAlignment="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/another_facility_text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/customized_location_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/customized_location_button"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:text="@string/customized_location_text"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/check_in_sport_button"
         android:layout_width="240dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
         android:text="@string/check_in_text"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/choose_another_facility_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

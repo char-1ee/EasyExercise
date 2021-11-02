@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,6 +22,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.shobhitpuri.custombuttons.GoogleSignInButton;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -10,12 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.AddPlanActivity;
-
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.AddPlanActivity;
 
 public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<FacilityRecyclerViewAdapterPlan.MyViewHolder> {
 

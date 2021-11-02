@@ -15,14 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Workout;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.WorkoutPlan;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.AddPlanAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +24,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.PrivateWorkoutPlan;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.AddPlanAdapter;
 
 /**
  * The activity class for adding exercise plan in the making plan task.
@@ -50,7 +50,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
     private TextView addressView;
     private TextView postalView;
     private Sport finalSport;
-    private WorkoutPlan workoutPlan;
+    private PrivateWorkoutPlan workoutPlan;
     private ActionBar actionBar;
 
     @Override
@@ -119,11 +119,11 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
             if (finalSport == null) {
                 Toast.makeText(AddPlanActivity.this, "Please select a sport", Toast.LENGTH_SHORT).show();
             } else {
-                workoutPlan = new WorkoutPlan(finalSport, facility, Workout.WorkoutStatus.PRIVATE, "");
+                workoutPlan = new PrivateWorkoutPlan(finalSport, facility, "");
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
                 DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("WorkoutPlan");
                 String postId = mDatabase.push().getKey();
-                WorkoutDatabaseManager.FirebaseWorkoutPlan firebasePlan = new WorkoutDatabaseManager.FirebaseWorkoutPlan(workoutPlan, postId);
+                WorkoutDatabaseManager.FirebasePrivateWorkoutPlan firebasePlan = new WorkoutDatabaseManager.FirebasePrivateWorkoutPlan(workoutPlan, postId);
                 mDatabase.child(postId).setValue(firebasePlan);
 
                 Intent intent = new Intent(AddPlanActivity.this, MainActivity.class);

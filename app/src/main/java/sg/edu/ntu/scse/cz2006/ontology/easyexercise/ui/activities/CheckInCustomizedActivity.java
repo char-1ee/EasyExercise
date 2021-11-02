@@ -16,13 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.CustomizedLocation;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.SportAndFacilityDBHelper;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CheckInSportAdapter;
-
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.CustomizedLocation;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.SportAndFacilityDBHelper;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CheckInSportAdapter;
 
 /**
  * The activity class for checking in at a customized location in the checking in task, when there's no facility around.

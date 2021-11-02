@@ -12,14 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Location;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Location;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 /**
  * The activity class for staying in an exercise in the checking in task.
@@ -38,7 +38,6 @@ public class ExerciseActivity extends AppCompatActivity {
     private Timer timer;
     private TimerTask timerTask;
     private Double time = 0.0;
-    private SportsImage sm;
     private ActionBar actionBar;
 
     @Override
@@ -93,13 +92,12 @@ public class ExerciseActivity extends AppCompatActivity {
     private void initView(){
         setContentView(R.layout.activity_exercise);
         startDate = new Date();
-        sm= new SportsImage();
         location = getLocation();
         sport = getSport();
         sportView= findViewById(R.id.imageView3);
         timerText = findViewById(R.id.timerText);
         checkOutButton = findViewById(R.id.check_out_button);
-        sportView.setImageResource(sm.SportsToImage(sport));
+        sportView.setImageResource(SportsImageMatcher.getImage(sport));
         timer = new Timer();
         actionBar = getSupportActionBar();
         assert actionBar != null;

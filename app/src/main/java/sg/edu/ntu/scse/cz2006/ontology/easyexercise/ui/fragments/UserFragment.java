@@ -21,9 +21,6 @@ import androidx.fragment.app.Fragment;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bumptech.glide.Glide;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.LoginActivity;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.UserActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -40,6 +37,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.LoginActivity;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.UserActivity;
 
 
 /**

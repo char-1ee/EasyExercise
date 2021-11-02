@@ -10,8 +10,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.CustomizedLocation;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.CustomizedLocation;
 
 /**
  * The activity class for showing up message for no facility around in the checking in task.

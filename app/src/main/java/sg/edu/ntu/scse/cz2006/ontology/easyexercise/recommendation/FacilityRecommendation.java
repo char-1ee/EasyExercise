@@ -2,21 +2,20 @@ package sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation;
 
 import android.content.Context;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.SportAndFacilityDBHelper;
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.SportAndFacilityDBHelper;
+
 /**
  * A utility class that generates a list of {@code Facility} based on the conditions given.
  *
  * @author Ma Xinyi
- * @author Zhong Ruoyu
  */
 public class FacilityRecommendation {
     private FacilityRecommendation() {

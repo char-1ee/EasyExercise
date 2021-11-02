@@ -1,5 +1,7 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.weather;
 
+import androidx.annotation.NonNull;
+
 /**
  * Types of weather data.
  *
@@ -55,6 +57,7 @@ public enum WeatherDataType {
         this.name = name;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return name;

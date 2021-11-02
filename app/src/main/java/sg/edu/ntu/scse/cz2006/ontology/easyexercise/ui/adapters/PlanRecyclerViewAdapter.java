@@ -11,16 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Workout;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Workout;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
     private final List<Workout> mPlanList;
     private Workout chosenPlan;
-    private final SportsImage sm;
 
     public interface OnRecyclerItemClickListener{
         void onRecyclerItemClick(Workout workout);
@@ -36,7 +35,6 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     public PlanRecyclerViewAdapter(List<Workout> planList, OnRecyclerItemClickListener listener) {
         mPlanList = planList;
         myListener = listener;
-        sm = new SportsImage();
     }
 
 
@@ -60,7 +58,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         else{
             holder.typeView.setText("PUBLIC");
         }
-        holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        holder.imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
         Log.e("test", item.getLocation().getName());
 

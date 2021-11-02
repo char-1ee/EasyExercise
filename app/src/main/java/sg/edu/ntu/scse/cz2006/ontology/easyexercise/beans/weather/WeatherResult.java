@@ -1,6 +1,8 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.weather;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
+import androidx.annotation.NonNull;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 
 /**
  * A weather result for a particular weather type.
@@ -20,6 +22,7 @@ public abstract class WeatherResult {
         this.distance = distance;
     }
 
+    @NonNull
     @Override
     public abstract String toString();
 

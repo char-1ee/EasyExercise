@@ -2,8 +2,6 @@ package sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location;
 
 import static org.junit.Assert.assertTrue;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-
 import org.junit.Test;
 
 public class SVY21CoordinatesTest {

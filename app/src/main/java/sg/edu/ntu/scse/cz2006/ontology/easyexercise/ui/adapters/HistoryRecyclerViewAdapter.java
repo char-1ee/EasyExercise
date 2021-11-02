@@ -15,26 +15,23 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Location;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.WorkoutRecord;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Location;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.WorkoutRecord;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
+public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
     private final Context mContext;
     private final List<WorkoutRecord> mWorkOutHistoryList;
-    private final SportsImage sm;
 
     public HistoryRecyclerViewAdapter(List<WorkoutRecord> workOutHistoryList, Context context) {
         mWorkOutHistoryList = workOutHistoryList;
-        sm = new SportsImage();
         mContext = context;
     }
 
@@ -56,7 +53,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         }
         holder.sportView.setText(item.getSport().getName());
         holder.dateView.setText(getTime(item.getStartTime()));
-        holder.imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        holder.imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
         holder.imageView.setClipToOutline(true);
         holder.planType.setText(item.getStatus().toString());
         holder.cardView.setOnClickListener(view -> {
@@ -78,7 +75,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             } else {
                 facilityView.setText(R.string.customized_location);
             }
-            imageView.setImageResource(sm.SportsToImage(item.getSport()));
+            imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
             long diff = item.getEndTime().getTime() - item.getStartTime().getTime();
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
             long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
@@ -120,6 +117,4 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
-
-
 }

@@ -1,13 +1,13 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities;
 
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.AIR_TEMPERATURE_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.PM25_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.RAINFALL_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.RELATIVE_HUMIDITY_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.UV_INDEX_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.WEATHER_FORECAST_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.WIND_DIRECTION_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.WIND_SPEED_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.AIR_TEMPERATURE_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.PM25_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.RAINFALL_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.RELATIVE_HUMIDITY_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.UV_INDEX_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WEATHER_FORECAST_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WIND_DIRECTION_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WIND_SPEED_JSON_URL;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,21 +29,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.SportAndFacilityDBHelper;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation.FacilityRecommendation;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation.SportsRecommendation;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.CommunityFragment;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.HistoryFragment;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.HomeFragment;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.PlanFragment;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.UserFragment;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.utils.Box;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.utils.IOUtil;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;
@@ -60,6 +45,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.SportAndFacilityDBHelper;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation.FacilityRecommendation;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation.SportsRecommendation;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.CommunityFragment;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.HistoryFragment;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.HomeFragment;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.PlanFragment;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.UserFragment;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.Box;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.RemoteFileIOUtil;
 
 public class MainActivity extends AppCompatActivity {
     Intent intentToCheckIn;
@@ -224,14 +225,14 @@ public class MainActivity extends AppCompatActivity {
     private List<Sport> testSelectSportRecommended() {
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
-                IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
-                IOUtil.readFromURL(RAINFALL_JSON_URL),
-                IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
-                IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
-                IOUtil.readFromURL(WIND_SPEED_JSON_URL),
-                IOUtil.readFromURL(UV_INDEX_JSON_URL),
-                IOUtil.readFromURL(PM25_JSON_URL),
-                IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL))));
+                RemoteFileIOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                RemoteFileIOUtil.readFromURL(RAINFALL_JSON_URL),
+                RemoteFileIOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                RemoteFileIOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                RemoteFileIOUtil.readFromURL(WIND_SPEED_JSON_URL),
+                RemoteFileIOUtil.readFromURL(UV_INDEX_JSON_URL),
+                RemoteFileIOUtil.readFromURL(PM25_JSON_URL),
+                RemoteFileIOUtil.readFromURL(WEATHER_FORECAST_JSON_URL))));
         thread.start();
         try {
             thread.join();

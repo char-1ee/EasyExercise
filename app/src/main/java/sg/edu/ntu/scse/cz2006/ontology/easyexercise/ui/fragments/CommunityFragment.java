@@ -13,11 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ChatRoomActivity;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CommunityAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,10 +20,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ChatRoomActivity;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CommunityAdapter;
+
 
 public class CommunityFragment extends Fragment {
     View view;
-    private final List<WorkoutDatabaseManager.FirebasePublicPlan> publicPlanList = new ArrayList<>();
+    private final List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> publicPlanList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CommunityAdapter adapter;
 
@@ -50,7 +50,7 @@ public class CommunityFragment extends Fragment {
             //on click event
 
             Intent intent = new Intent(getContext().getApplicationContext(), ChatRoomActivity.class);
-            intent.putExtra("plan", publicPlan.getPlan());
+            intent.putExtra("plan", publicPlan.getPlanID());
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
@@ -60,7 +60,7 @@ public class CommunityFragment extends Fragment {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
                 for (DataSnapshot s : task.getResult().getChildren()) {
-                    WorkoutDatabaseManager.FirebasePublicPlan receivePlan = s.getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
+                    WorkoutDatabaseManager.FirebasePublicWorkoutPlan receivePlan = s.getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                     if (receivePlan == null) {
                         Log.e("firebase", "Data = null", task.getException());
                     } else {

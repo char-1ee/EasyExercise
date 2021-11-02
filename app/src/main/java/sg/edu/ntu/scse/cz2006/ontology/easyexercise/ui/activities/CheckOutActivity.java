@@ -11,17 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Location;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.WorkoutRecord;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Location;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.WorkoutRecord;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 /**
  * The activity class for checking out from a workout in the checking in task.
@@ -36,7 +37,6 @@ public class CheckOutActivity extends AppCompatActivity {
     private TextView timeDuration, placeView, sportNameView;
     private Sport sport;
     private Location location;
-    private SportsImage sm;
     private ActionBar actionBar;
     private Date start, end;
     private WorkoutRecord workoutRecord;
@@ -72,7 +72,6 @@ public class CheckOutActivity extends AppCompatActivity {
 
     private void initView(){
         setContentView(R.layout.activity_check_out);
-        sm= new SportsImage();
         sport = getSport();
         location = getLocation();
         start = getStart();
@@ -84,7 +83,7 @@ public class CheckOutActivity extends AppCompatActivity {
         profileView=findViewById(R.id.checkoutProfile);
         profileView.setClipToOutline(true);
         timeDuration = findViewById(R.id.time_duration);
-        sportView.setImageResource(sm.SportsToImage(sport));
+        sportView.setImageResource(SportsImageMatcher.getImage(sport));
         placeView.setText(location.getName());
         timeDuration.setText(getTimeDuration());
         sportNameView.setText(sport.getName());

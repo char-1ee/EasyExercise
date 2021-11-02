@@ -1,6 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
+import androidx.annotation.NonNull;
 
 /**
  * Adapted from https://github.com/cgcai/SVY21.
@@ -17,19 +17,18 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
  * http://www.linz.govt.nz/geodetic/conversion-coordinates/projection-conversions/transverse-mercator-preliminary-computations/index.aspx</a>
  * @see <a href="https://github.com/cgcai/SVY21">
  * https://github.com/cgcai/SVY21</a>
+ *
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
  */
 public class SVY21Coordinates {
-    private static final double radRatio = Math.PI / 180; // Ratio to convert
-    // degrees to radians.
+    private static final double radRatio = Math.PI / 180; // Ratio to convert degrees to radians.
 
     // Datum and Projection
-    private static final double a = 6378137; // Semi-major axis of reference
-    // ellipsoid.
-    private static final double f = 1 / 298.257223563; // Ellipsoidal
-    // flattening.
+    private static final double a = 6378137; // Semi-major axis of reference ellipsoid.
+    private static final double f = 1 / 298.257223563; // Ellipsoidal flattening.
     private static final double oLat = 1.366666; // Origin latitude (degrees).
-    private static final double oLon = 103.833333; // Origin longitude
-    // (degrees).
+    private static final double oLon = 103.833333; // Origin longitude (degrees).
     private static final double No = 38744.572; // False Northing.
     private static final double Eo = 28001.642; // False Easting.
     private static final double k = 1.0; // Central meridian scale factor.
@@ -86,19 +85,14 @@ public class SVY21Coordinates {
         double Mprime = Mo + (Nprime / k);
         double sigma = (Mprime / G) * radRatio;
 
-        // Naming convention: latPrimeT1..4 are terms in an expression, not
-        // powers.
-        double latPrimeT1 =
-                ((3 * n / 2) - (27 * n3 / 32)) * Math.sin(2 * sigma);
-        double latPrimeT2 =
-                ((21 * n2 / 16) - (55 * n4 / 32)) * Math.sin(4 * sigma);
+        // Naming convention: latPrimeT1..4 are terms in an expression, not powers.
+        double latPrimeT1 = ((3 * n / 2) - (27 * n3 / 32)) * Math.sin(2 * sigma);
+        double latPrimeT2 = ((21 * n2 / 16) - (55 * n4 / 32)) * Math.sin(4 * sigma);
         double latPrimeT3 = (151 * n3 / 96) * Math.sin(6 * sigma);
         double latPrimeT4 = (1097 * n4 / 512) * Math.sin(8 * sigma);
-        double latPrime =
-                sigma + latPrimeT1 + latPrimeT2 + latPrimeT3 + latPrimeT4;
+        double latPrime = sigma + latPrimeT1 + latPrimeT2 + latPrimeT3 + latPrimeT4;
 
-        // Naming convention: sin2LatPrime = "square of sin(latPrime)" =
-        // Math.pow(sin(latPrime), 2.0)
+        // Naming convention: sin2LatPrime = "square of sin(latPrime)" = Math.pow(sin(latPrime), 2.0)
         double sinLatPrime = Math.sin(latPrime);
         double sin2LatPrime = sinLatPrime * sinLatPrime;
 
@@ -121,8 +115,7 @@ public class SVY21Coordinates {
         double x7 = x5 * x2;
 
         // Compute Latitude
-        // Naming convention: latTerm1..4 are terms in an expression, not
-        // powers.
+        // Naming convention: latTerm1..4 are terms in an expression, not powers.
         double latFactor = tPrime / (k * rhoPrime);
         double latTerm1 = latFactor * ((Eprime * x) / 2);
         double latTerm2 = latFactor * ((Eprime * x3) / 24) * ((-4 * psiPrime2
@@ -138,8 +131,7 @@ public class SVY21Coordinates {
         double lat = latPrime - latTerm1 + latTerm2 - latTerm3 + latTerm4;
 
         // Compute Longitude
-        // Naming convention: lonTerm1..4 are terms in an expression, not
-        // powers.
+        // Naming convention: lonTerm1..4 are terms in an expression, not powers.
         double secLatPrime = 1. / Math.cos(lat);
         double lonTerm1 = x * secLatPrime;
         double lonTerm2 = ((x3 * secLatPrime) / 6) * (psiPrime + 2 * tPrime2);
@@ -149,30 +141,26 @@ public class SVY21Coordinates {
                 + 72 * psiPrime * tPrime2 + 24 * tPrime4);
         double lonTerm4 = ((x7 * secLatPrime) / 5040)
                 * (61 + 662 * tPrime2 + 1320 * tPrime4 + 720 * tPrime6);
-        double lon =
-                (oLon * radRatio) + lonTerm1 - lonTerm2 + lonTerm3 - lonTerm4;
+        double lon = (oLon * radRatio) + lonTerm1 - lonTerm2 + lonTerm3 - lonTerm4;
 
         return new Coordinates(lat / radRatio, lon / radRatio, name);
     }
 
     private static double calcM(double lat) { // M: meridian distance.
         double latR = lat * radRatio;
-        double m = a * ((A0 * latR) - (A2 * Math.sin(2 * latR))
+        return a * ((A0 * latR) - (A2 * Math.sin(2 * latR))
                 + (A4 * Math.sin(4 * latR)) - (A6 * Math.sin(6 * latR)));
-        return m;
     }
 
     private static double calcRho(double sin2Lat) {
         double num = a * (1 - e2);
         double denom = Math.pow(1 - e2 * sin2Lat, 3. / 2.);
-        double rho = num / denom;
-        return rho;
+        return num / denom;
     }
 
     private static double calcV(double sin2Lat) {
         double poly = 1 - e2 * sin2Lat;
-        double v = a / Math.sqrt(poly);
-        return v;
+        return a / Math.sqrt(poly);
     }
 
     public double getN() {
@@ -187,11 +175,10 @@ public class SVY21Coordinates {
         return name;
     }
 
+    @NonNull
     @Override
     public String toString() {
-        if (name.isEmpty()) {
-            return String.format("[%sN, %sE]", N, E);
-        }
-        return String.format("[%s: %sN, %sE]", name, N, E);
+        return name.isEmpty() ? String.format("[%sN, %sE]", N, E)
+                : String.format("[%s: %sN, %sE]", name, N, E);
     }
 }

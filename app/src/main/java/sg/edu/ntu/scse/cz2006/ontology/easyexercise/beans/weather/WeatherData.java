@@ -1,9 +1,11 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.weather;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
+import androidx.annotation.NonNull;
 
 import java.util.Date;
 import java.util.Locale;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 
 /**
  * A collections of both all the realtime weather results and weather forecast result.
@@ -41,6 +43,7 @@ public class WeatherData {
         this.forecast = forecast;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return String.format(Locale.getDefault(), "Location: %s\n", location)

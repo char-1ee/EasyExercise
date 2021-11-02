@@ -12,24 +12,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapter.MyViewHolder> {
     public Sport finalChoice;
     private final Context context;
     public final List<Sport> secondList;
     public int lastCheckedPos = -1;
-    private final SportsImage sm;
     private AdapterView.OnItemClickListener onItemClickListener;
 
     public CheckInSportAdapter(Context context, List<Sport> secondList) {
         this.context = context;
         this.secondList = secondList;
-        this.sm = new SportsImage();
     }
 
     @NonNull
@@ -43,7 +41,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Sport item = secondList.get(position);
         holder.tv_question_item.setText(item.getName());
-        holder.iv_question_item.setImageResource(sm.SportsToImage(item));
+        holder.iv_question_item.setImageResource(SportsImageMatcher.getImage(item));
         holder.iv_question_item.setClipToOutline(true);
         holder.rb_question_item.setChecked(position == lastCheckedPos);
     }

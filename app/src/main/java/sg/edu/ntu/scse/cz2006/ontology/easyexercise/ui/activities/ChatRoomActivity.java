@@ -15,14 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Message;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.SportAndFacilityDBHelper;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.MessageAdapter;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.utils.ButtonClickUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +30,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Message;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.SportAndFacilityDBHelper;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.MessageAdapter;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
+
 public class ChatRoomActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private final List<Message> msgList = new ArrayList<>();
@@ -52,7 +53,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private Button quit;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
-    private WorkoutDatabaseManager.FirebasePublicPlan currentPlan;
+    private WorkoutDatabaseManager.FirebasePublicWorkoutPlan currentPlan;
     private FirebaseUser currentUser;
 
     @Override
@@ -98,15 +99,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Log.e("firebase", "Error getting data", task.getException());
             }
             else {
-                currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
+                currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                 Date startTime = new Date(currentPlan.getPlanStart());
                 Date endTime = new Date(currentPlan.getPlanFinish());
                 planStartTime.setText(getTime(startTime));
                 planEndTime.setText(getTime(endTime));
                 SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(ChatRoomActivity.this);
                 manager.openDatabase();
-                Sport sport = manager.getSportById(currentPlan.getSport());
-                Facility facility = manager.getFacilityById(currentPlan.getFacility());
+                Sport sport = manager.getSportById(currentPlan.getSportID());
+                Facility facility = manager.getFacilityById(currentPlan.getFacilityID());
                 manager.closeDatabase();
                 planLimit.setText(currentPlan.getMembers().size() + "/" + currentPlan.getPlanLimit());
                 planSport.setText(sport.getName());
@@ -157,7 +158,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (!task.isSuccessful()) {
                         Log.e("firebase", "Error getting data", task.getException());
                     } else {
-                        currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
+                        currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                     }
                 });
 
@@ -171,7 +172,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         }
                     }
                     if (i == currentPlan.getMembers().size()) {
-                        currentPlan.addMembers(currentUser.getUid());
+                        currentPlan.addMember(currentUser.getUid());
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("members", currentPlan.getMembers());
                         planReference.updateChildren(updates);
@@ -191,7 +192,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (!task.isSuccessful()) {
                         Log.e("firebase", "Error getting data", task.getException());
                     } else {
-                        currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicPlan.class);
+                        currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                     }
                 });
 
@@ -200,8 +201,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 for (i = 0; i < currentPlan.getMembers().size(); i++) {
                     if (currentUser.getUid().equals(currentPlan.getMembers().get(i))) {
                         find = true;
-                        currentPlan.removeMembers(i);
-                        user.child("PublicPlan").child(currentPlan.getPlan()).removeValue();
+                        currentPlan.removeMember(i);
+                        user.child("PublicPlan").child(currentPlan.getPlanID()).removeValue();
                         if (currentPlan.getMembers().size() == 0) {
                             planReference.removeValue();
                             Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();

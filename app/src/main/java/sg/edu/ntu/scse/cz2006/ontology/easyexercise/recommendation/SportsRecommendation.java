@@ -1,12 +1,17 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.weather.WeatherData;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.weather.WeatherData;
+
+/**
+ * A utility class that generates a list of {@code Sport} based on the weather conditions given.
+ *
+ * @author Ma Xinyi
+ */
 public class SportsRecommendation {
     private final Collection<Sport> sports;
 

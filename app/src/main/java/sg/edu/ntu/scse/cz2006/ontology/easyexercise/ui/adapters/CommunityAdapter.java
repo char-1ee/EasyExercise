@@ -9,24 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.SportAndFacilityDBHelper;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.SportAndFacilityDBHelper;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
+
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
 
-    private final List<WorkoutDatabaseManager.FirebasePublicPlan> myPlanList;
-    private final SportsImage image;
+    private final List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> myPlanList;
 
     public interface OnRecyclerItemClickListener{
-         void onRecyclerItemClick(WorkoutDatabaseManager.FirebasePublicPlan firebasePublicPlan);
+         void onRecyclerItemClick(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan);
     }
 
     private OnRecyclerItemClickListener myListener;
@@ -35,10 +34,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         myListener = listener;
     }
 
-    public CommunityAdapter(List<WorkoutDatabaseManager.FirebasePublicPlan> planList, OnRecyclerItemClickListener listener){
+    public CommunityAdapter(List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> planList, OnRecyclerItemClickListener listener){
         myPlanList = planList;
         myListener = listener;
-        image = new SportsImage();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,8 +55,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
         }
 
-        public void bind(WorkoutDatabaseManager.FirebasePublicPlan firebasePublicPlan, OnRecyclerItemClickListener myListener) {
-            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(firebasePublicPlan));
+        public void bind(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan, OnRecyclerItemClickListener myListener) {
+            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(firebasePublicWorkoutPlan));
         }
     }
 
@@ -72,16 +70,16 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final WorkoutDatabaseManager.FirebasePublicPlan firebasePublicPlan = myPlanList.get(position);
+        final WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan = myPlanList.get(position);
         SportAndFacilityDBHelper manager = new SportAndFacilityDBHelper(holder.sportImage.getContext());
         manager.openDatabase();
-        Sport sport = manager.getSportById(firebasePublicPlan.getSport());
-        Facility facility = manager.getFacilityById(firebasePublicPlan.getFacility());
+        Sport sport = manager.getSportById(firebasePublicWorkoutPlan.getSportID());
+        Facility facility = manager.getFacilityById(firebasePublicWorkoutPlan.getFacilityID());
         manager.closeDatabase();
-        holder.sportImage.setImageResource(image.SportsToImage(sport));
-        holder.date.setText(getTime(new Date(firebasePublicPlan.getPlanStart())));
+        holder.sportImage.setImageResource(SportsImageMatcher.getImage(sport));
+        holder.date.setText(getTime(new Date(firebasePublicWorkoutPlan.getPlanStart())));
         holder.facility.setText(facility.getName());
-        holder.limit.setText( "Limit: " + firebasePublicPlan.getMembers().size() + "/" + firebasePublicPlan.getPlanLimit());
+        holder.limit.setText( "Limit: " + firebasePublicWorkoutPlan.getMembers().size() + "/" + firebasePublicWorkoutPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);
     }

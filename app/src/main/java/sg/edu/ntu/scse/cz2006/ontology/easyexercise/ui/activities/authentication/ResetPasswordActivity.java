@@ -1,11 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +8,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 

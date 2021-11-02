@@ -26,14 +26,6 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Location;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Workout;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,6 +42,15 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Location;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Workout;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 /**
  * The activity class for showing a specific plan, checking in or publishing it into the community.
@@ -76,7 +77,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private Workout plan;
     private Location location;
     private Button publishPlanButton, checkInButton, deleteButton;
-    private SportsImage sm;
     private CardView cardView;
     Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
     ActionBar actionBar;
@@ -130,7 +130,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         actionBar.setDisplayHomeAsUpEnabled(true);
         location = plan.getLocation();
         sport = plan.getSport();
-        sm = new SportsImage();
         if (location.getType() == Location.LocationType.FACILITY) {
             Facility f = (Facility) location;
             facilityView.setText(f.getName());
@@ -299,23 +298,22 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             facilityView.setText(R.string.customized_location);
         }
         peopleLimitView.setText(finalLimit.toString());
-        imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
         startTimeView.setText(getTime(startDate));
         endTimeView.setText(getTime(endDate));
         dialog.show();
         confirmButton.setOnClickListener(view -> {
             Workout localPlan = getChosenPlan();
             Location location = plan.getLocation();
-            int facility_id;
+            long facility_id;
             if (location.getType() == Location.LocationType.FACILITY) {
                 facility_id = ((Facility) location).getId();
             } else {
                 facility_id = -1;
             }
-            WorkoutDatabaseManager.FirebasePublicPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
+            WorkoutDatabaseManager.FirebasePublicWorkoutPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicWorkoutPlan(finalLimit, startDate, endDate, plan.getPlanID(), localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
             DatabaseReference mDatabase = database.getReference().child("community");
-            publicPlan.setPlan(plan.getPlanID());
             assert plan.getPlanID() != null;
             mDatabase.child(plan.getPlanID()).setValue(publicPlan);
             Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
@@ -351,5 +349,4 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         startTime.setText(getTime(start.getTime()));
         endTime.setText(getTime(end.getTime()));
     }
-
 }

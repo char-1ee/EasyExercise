@@ -1,13 +1,13 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments;
 
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.AIR_TEMPERATURE_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.PM25_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.RAINFALL_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.RELATIVE_HUMIDITY_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.UV_INDEX_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.WEATHER_FORECAST_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.WIND_DIRECTION_JSON_URL;
-import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather.WIND_SPEED_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.AIR_TEMPERATURE_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.PM25_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.RAINFALL_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.RELATIVE_HUMIDITY_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.UV_INDEX_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WEATHER_FORECAST_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WIND_DIRECTION_JSON_URL;
+import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WIND_SPEED_JSON_URL;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +25,11 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.json.weather.Weather;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.utils.ButtonClickUtil;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.utils.IOUtil;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.RemoteFileIOUtil;
 
 /**
  * The fragment class for home, including button to start tasks of checking in and making plan.
@@ -102,14 +102,14 @@ public class HomeFragment extends Fragment {
 
     private void setWeather(Coordinates temp) {
         Thread thread = new Thread(() -> weather = new Weather(
-                IOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
-                IOUtil.readFromURL(RAINFALL_JSON_URL),
-                IOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
-                IOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
-                IOUtil.readFromURL(WIND_SPEED_JSON_URL),
-                IOUtil.readFromURL(UV_INDEX_JSON_URL),
-                IOUtil.readFromURL(PM25_JSON_URL),
-                IOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
+                RemoteFileIOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
+                RemoteFileIOUtil.readFromURL(RAINFALL_JSON_URL),
+                RemoteFileIOUtil.readFromURL(RELATIVE_HUMIDITY_JSON_URL),
+                RemoteFileIOUtil.readFromURL(WIND_DIRECTION_JSON_URL),
+                RemoteFileIOUtil.readFromURL(WIND_SPEED_JSON_URL),
+                RemoteFileIOUtil.readFromURL(UV_INDEX_JSON_URL),
+                RemoteFileIOUtil.readFromURL(PM25_JSON_URL),
+                RemoteFileIOUtil.readFromURL(WEATHER_FORECAST_JSON_URL)));
         thread.start();
         try {
             thread.join();

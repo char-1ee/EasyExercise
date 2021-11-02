@@ -11,30 +11,28 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectSportActivity;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.utils.MenuItem;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectSportActivity;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.Selectable;
 
 public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecyclerViewAdapter.MyViewHolder> {
     private final List<Sport> mSportList;
     public List<Sport> chosenSportList;
-    private final SportsImage sm;
-    private List<MenuItem<Sport>> sportMenuItem;
+    private List<Selectable<Sport>> sportSelectable;
 
     public SportRecyclerViewAdapter(List<Sport> sportList) {
         chosenSportList = new ArrayList<>();
         mSportList = sportList;
-        sportMenuItem = new ArrayList<>();
+        sportSelectable = new ArrayList<>();
         for (Sport s : mSportList) {
-            MenuItem<Sport> item = new MenuItem<>(s);
-            sportMenuItem.add(item);
+            Selectable<Sport> item = new Selectable<>(s);
+            sportSelectable.add(item);
         }
-        sm = new SportsImage();
     }
 
 
@@ -47,15 +45,15 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final MenuItem<Sport> item = sportMenuItem.get(position);
+        final Selectable<Sport> item = sportSelectable.get(position);
         //final Sport sport = mSportList.get(position);
         Sport sport = item.get();
         holder.textView.setText(sport.getName());
-        holder.imageView.setImageResource(sm.SportsToImage(sport));
+        holder.imageView.setImageResource(SportsImageMatcher.getImage(sport));
         holder.imageView.setClipToOutline(true);
         holder.cardView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
         holder.view.setOnClickListener(view -> {
-            item.setSelected(!item.isSelected());
+            item.toggle();
             holder.cardView.setBackgroundColor(item.isSelected() ? Color.parseColor("#b2dfdb") : Color.WHITE);
             if (item.isSelected()) {
                 chosenSportList.add(sport);

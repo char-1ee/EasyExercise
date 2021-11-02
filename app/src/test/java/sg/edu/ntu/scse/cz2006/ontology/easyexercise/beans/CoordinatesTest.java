@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+
 public class CoordinatesTest {
     @Test
     public void test(){

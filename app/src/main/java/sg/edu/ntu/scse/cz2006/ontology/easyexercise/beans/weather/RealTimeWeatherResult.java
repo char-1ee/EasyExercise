@@ -1,8 +1,10 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.weather;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
+import androidx.annotation.NonNull;
 
 import java.util.Locale;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 
 /**
  * A wrapper class for real time weather results.
@@ -23,6 +25,7 @@ public class RealTimeWeatherResult extends WeatherResult {
         this.result = result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return String.format(Locale.getDefault(), "%s (%.2fkm away): %.1f",

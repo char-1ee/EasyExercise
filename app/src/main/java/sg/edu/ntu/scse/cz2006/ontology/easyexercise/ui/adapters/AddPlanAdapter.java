@@ -13,26 +13,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHolder> {
     public Sport finalChoice;
     private final Context context;
     public final List<Sport> sportList;
     public int index = -1;
-    private final SportsImage sm;
     private AdapterView.OnItemClickListener onItemClickListener;
 
     public AddPlanAdapter(Context context, Facility facility) {
         this.context = context;
         this.sportList = new ArrayList<>(facility.getSports());
-        this.sm = new SportsImage();
     }
 
     @NonNull
@@ -46,7 +44,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Sport item = sportList.get(position);
         holder.tv_question_item.setText(item.getName());
-        holder.iv_question_item.setImageResource(sm.SportsToImage(item));
+        holder.iv_question_item.setImageResource(SportsImageMatcher.getImage(item));
         holder.iv_question_item.setClipToOutline(true);
         holder.rb_question_item.setChecked(position == index);
     }

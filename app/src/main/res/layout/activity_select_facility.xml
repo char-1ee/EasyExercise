@@ -7,7 +7,7 @@
 
     android:layout_height="match_parent"
     android:background="#EEE"
-    tools:context=".ui.activities.SelectFacilityPlanActivity">
+    tools:context="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectFacilityPlanActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

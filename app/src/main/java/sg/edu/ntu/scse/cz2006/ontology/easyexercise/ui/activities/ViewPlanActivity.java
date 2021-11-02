@@ -1,0 +1,355 @@
+package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities;
+
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
+import com.borax12.materialdaterangepicker.time.TimePickerDialog;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Facility;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Location;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Sport;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Workout;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.databases.WorkoutDatabaseManager;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.sportsImage.SportsImage;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * The activity class for showing a specific plan, checking in or publishing it into the community.
+ *
+ * @author Ruan Donglin
+ * @author Zhou Yuxuan
+ * @author Li Xingjian
+ */
+
+public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener {
+    Integer finalLimit = 0;
+    TimePickerDialog tpd;
+    DatePickerDialog picker;
+    SupportMapFragment mapFragment;
+    int year, monthOfYear, dayOfMonth;
+    OptionsPickerView pvOptions;
+    private Handler handler, handler2, handler3;
+    private Runnable runnable, runnable2, runnable3;
+    private TextView startTime, endTime;
+    private Date startDate, endDate;
+    private GoogleMap mMap;
+    private Sport sport;
+    private TextView postalView, facilityView, sportView, addressView, limitView;
+    private Workout plan;
+    private Location location;
+    private Button publishPlanButton, checkInButton, deleteButton;
+    private SportsImage sm;
+    private CardView cardView;
+    Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    ActionBar actionBar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+        initMap();
+        initPicker();
+        initButton();
+    }
+
+    private Workout getChosenPlan() {
+        return (Workout) getIntent().getSerializableExtra("plan");
+    }
+
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        Coordinates c = location.getCoordinates();
+        // Add a marker in Sydney and move the camera
+        LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
+        mMap.addMarker(new MarkerOptions()
+                .position(cur)
+                .title(location.getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+    }
+
+    /**
+     * Initialize adapter for recyclerview.
+     */
+    private void initView() {
+        setContentView(R.layout.activity_view_plan);
+        plan = getChosenPlan();
+        facilityView = findViewById(R.id.location_view);
+        sportView = findViewById(R.id.facility_view);
+        postalView = findViewById(R.id.postal_view);
+        addressView = findViewById(R.id.address_view);
+        checkInButton = findViewById(R.id.check_in_button);
+        publishPlanButton = findViewById(R.id.publish_plan_button);
+        deleteButton = findViewById(R.id.delete_button);
+        cardView = findViewById(R.id.timeView);
+        cardView.setVisibility(View.GONE);
+        startTime = findViewById(R.id.start_time);
+        limitView = findViewById(R.id.limit);
+        endTime = findViewById(R.id.end_time);
+        actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        location = plan.getLocation();
+        sport = plan.getSport();
+        sm = new SportsImage();
+        if (location.getType() == Location.LocationType.FACILITY) {
+            Facility f = (Facility) location;
+            facilityView.setText(f.getName());
+            addressView.setText(f.getAddress());
+            postalView.setText(f.getPostalCode());
+        } else {
+            facilityView.setText(getString(R.string.customized_location));
+            addressView.setText("");
+            postalView.setText("");
+        }
+        sportView.setText(sport.getName());
+    }
+
+    private void initMap() {
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapview);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
+    }
+
+    private void initButton() {
+        publishPlanButton.setOnClickListener(view -> {
+            // TODO: Wait for dialog to complete
+            publishPlanButton.setText(R.string.publish_plan_text);
+            year = 0;
+            finalLimit = 0;
+            startDate = null;
+            Calendar cldr = Calendar.getInstance();
+            int day = cldr.get(Calendar.DAY_OF_MONTH);
+            int month = cldr.get(Calendar.MONTH);
+            int year = cldr.get(Calendar.YEAR);
+            picker = new DatePickerDialog(ViewPlanActivity.this,
+                    (v, y, m, d) -> {
+                        ViewPlanActivity.this.year = y;
+                        ViewPlanActivity.this.monthOfYear = m;
+                        ViewPlanActivity.this.dayOfMonth = d;
+                    }, year, month, day);
+            picker.show();
+            initHandler3();
+            handler3.post(runnable3);
+            Calendar now = Calendar.getInstance();
+            tpd = TimePickerDialog.newInstance(
+                    ViewPlanActivity.this,
+                    now.get(Calendar.HOUR_OF_DAY),
+                    now.get(Calendar.MINUTE),
+                    false
+            );
+            initHandler2();
+            handler2.post(runnable2);
+            initHandler();
+            handler.post(runnable);
+        });
+        checkInButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ViewPlanActivity.this, ExerciseActivity.class);
+            intent.putExtra("ChosenLocation", location);
+            intent.putExtra("ChosenSport", sport);
+            startActivity(intent);
+            finish();
+        });
+        deleteButton.setOnClickListener(view -> {
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            mDatabase.child("WorkoutPlan").child(plan.getPlanID()).removeValue();
+            Intent intent = new Intent(ViewPlanActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    /**
+     * Initialize pickers for publishing the plan.
+     */
+    private void initPicker() {
+        List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
+        pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> finalLimit = options1Items.get(options1))
+                .setSubmitText("Confirm")
+                .setCancelText("Cancel")
+                .setTitleText("Number of persons allowed")
+                .setSubCalSize(18)
+                .setTitleSize(20)
+                .setContentTextSize(18)
+                .isCenterLabel(false)
+                .setCyclic(true, false, false)
+                .setSelectOptions(1, 1, 1)
+                .setOutSideCancelable(false)
+                .isDialog(true)
+                .isRestoreItem(true)
+                .build();
+        pvOptions.setPicker(options1Items);
+    }
+
+    /**
+     * Initialize handler for showing the previous choice for publishing plan.
+     */
+    private void initHandler() {
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                if (finalLimit == 0) {
+                    handler.postDelayed(this, 500);
+                } else {
+                    limitView.setText(String.valueOf(finalLimit));
+                    showNormalDialog();
+                    mapFragment.requireView().setVisibility(View.GONE);
+                    cardView.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+    }
+
+    private void initHandler2() {
+        handler2 = new Handler();
+        runnable2 = new Runnable() {
+            public void run() {
+                if (startDate != null) {
+                    pvOptions.show();
+                } else {
+                    handler2.postDelayed(this, 500);
+                }
+            }
+        };
+    }
+
+    private void initHandler3() {
+        handler3 = new Handler();
+        runnable3 = new Runnable() {
+            public void run() {
+                if (year != 0) {
+                    tpd.show(getFragmentManager(), "TimePickerDialog");
+                } else {
+                    handler3.postDelayed(this, 500);
+                }
+            }
+        };
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
+    }
+
+    /**
+     * Initialize dialog for showing the details for publishing plan.
+     */
+    @SuppressLint("SetTextI18n")
+    private void showNormalDialog() {
+        Dialog dialog = new Dialog(ViewPlanActivity.this);
+        Button confirmButton, cancelButton;
+        TextView sportView, facilityView, peopleLimitView, startTimeView, endTimeView;
+        ImageView imageView;
+        Workout item = getChosenPlan();
+        dialog.setContentView(R.layout.dialog_plan);
+        confirmButton = dialog.findViewById(R.id.confirm);
+        cancelButton = dialog.findViewById(R.id.cancel);
+        sportView = dialog.findViewById(R.id.sport_view);
+        imageView = dialog.findViewById(R.id.history_sport_image);
+        facilityView = dialog.findViewById(R.id.location_view);
+        peopleLimitView = dialog.findViewById(R.id.limit);
+        startTimeView = dialog.findViewById(R.id.start_time_view);
+        endTimeView = dialog.findViewById(R.id.end_time_view);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        sportView.setText(item.getSport().getName());
+        if (item.getLocation().getType() == Location.LocationType.FACILITY) {
+            Facility f = (Facility) item.getLocation();
+            facilityView.setText(f.getName());
+        } else {
+            facilityView.setText(R.string.customized_location);
+        }
+        peopleLimitView.setText(finalLimit.toString());
+        imageView.setImageResource(sm.SportsToImage(item.getSport()));
+        startTimeView.setText(getTime(startDate));
+        endTimeView.setText(getTime(endDate));
+        dialog.show();
+        confirmButton.setOnClickListener(view -> {
+            Workout localPlan = getChosenPlan();
+            Location location = plan.getLocation();
+            int facility_id;
+            if (location.getType() == Location.LocationType.FACILITY) {
+                facility_id = ((Facility) location).getId();
+            } else {
+                facility_id = -1;
+            }
+            WorkoutDatabaseManager.FirebasePublicPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicPlan(finalLimit, startDate, endDate, localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference mDatabase = database.getReference().child("community");
+            publicPlan.setPlan(plan.getPlanID());
+            assert plan.getPlanID() != null;
+            mDatabase.child(plan.getPlanID()).setValue(publicPlan);
+            Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+
+            DatabaseReference workoutPlanDB = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            workoutPlanDB.child("WorkoutPlan").child(plan.getPlanID()).removeValue();
+            workoutPlanDB.child("PublicPlan").child(plan.getPlanID()).setValue(plan.getPlanID());
+            Intent intent = new Intent(ViewPlanActivity.this, MainActivity.class);
+            dialog.dismiss();
+            startActivity(intent);
+            finish();
+        });
+
+        cancelButton.setOnClickListener(view -> {
+            dialog.dismiss();
+            Intent intent = new Intent(ViewPlanActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.finish();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
+        Calendar start = new Calendar.Builder().setDate(year, monthOfYear, dayOfMonth).setTimeOfDay(hourOfDay, minute, 0).build();
+        Calendar end = new Calendar.Builder().setDate(year, monthOfYear, dayOfMonth).setTimeOfDay(hourOfDayEnd, minuteEnd, 0).build();
+        startTime.setText(getTime(start.getTime()));
+        endTime.setText(getTime(end.getTime()));
+    }
+
+}

@@ -1,18 +1,59 @@
 {
   "project_info": {
     "project_number": "867339313395",
+    "firebase_url": "https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "cz2006-9c928",
     "storage_bucket": "cz2006-9c928.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:867339313395:android:a9ecd290f4278cfb27d786",
+        "mobilesdk_app_id": "1:867339313395:android:65c1cac4fa31680b27d786",
         "android_client_info": {
-          "package_name": "com.example.myapplication"
+          "package_name": "sg.edu.ntu.scse.cz2006.ontology.easyexercise"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "867339313395-2d69i0rms9hcd7eufo315ck0h6atev0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.ntu.scse.cz2006.ontology.easyexercise",
+            "certificate_hash": "a5beb67ccb1c8ade776f65ba267f540c2f836b14"
+          }
+        },
+        {
+          "client_id": "867339313395-d22lcuou79jehcec1ann9h4usjq2sau0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.ntu.scse.cz2006.ontology.easyexercise",
+            "certificate_hash": "9d3943f6e204f4aa06ab59cbb2a0b2f796449818"
+          }
+        },
+        {
+          "client_id": "867339313395-fj8locv0tc48q3v88fls02v71p13521l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.ntu.scse.cz2006.ontology.easyexercise",
+            "certificate_hash": "cee62c45d35e2ddf4d608917814e40b245ae8676"
+          }
+        },
+        {
+          "client_id": "867339313395-jon78qqnq84rdmr42f91p3qv5geba7so.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.ntu.scse.cz2006.ontology.easyexercise",
+            "certificate_hash": "1015176871ec4df98374e3313a92dda3de2c9174"
+          }
+        },
+        {
+          "client_id": "867339313395-sj2p274nd6l0gle7gpf8l6omkh01be0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.ntu.scse.cz2006.ontology.easyexercise",
+            "certificate_hash": "45d1ac6e8b1fd9e28a8f01d36c1aa8ecbe036c03"
+          }
+        },
         {
           "client_id": "867339313395-lks5qqe1heeijqa0564p2ld4tlreglhc.apps.googleusercontent.com",
           "client_type": 3

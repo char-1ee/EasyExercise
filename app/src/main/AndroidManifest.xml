@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="sg.edu.ntu.scse.cz2006.ontology.easyexercise">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -13,12 +13,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.activities.ViewPlanActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ViewPlanActivity"
             android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -36,15 +36,15 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".ui.activities.CheckInCustomizedActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.CheckInCustomizedActivity"
             android:exported="true"
             android:label="Check In" />
         <activity
-            android:name=".ui.activities.ChatRoomActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ChatRoomActivity"
             android:exported="true"
             android:label="Check In" />
         <activity
-            android:name=".ui.activities.CheckOutActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.CheckOutActivity"
             android:exported="true"
             android:label="Check Out">
             <intent-filter>
@@ -53,38 +53,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.NoFacilityActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.NoFacilityActivity"
             android:exported="true"
             android:label="No Facility" />
         <activity
-            android:name=".ui.activities.ExerciseActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ExerciseActivity"
             android:exported="true"
             android:label="Exercise" />
         <activity
-            android:name=".ui.activities.SelectSportActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectSportActivity"
             android:exported="true"
             android:label="Select Sport"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.activities.SelectFacilityCheckInActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectFacilityCheckInActivity"
             android:exported="true"
             android:label="Select Facility" />
         <activity
-            android:name=".ui.activities.SelectFacilityPlanActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectFacilityPlanActivity"
             android:exported="true"
             android:label="Select Facility" />
         <activity
-            android:name=".ui.activities.CheckInNormalActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.CheckInNormalActivity"
             android:exported="true"
             android:label="Check In" />
         <activity
-            android:name=".ui.activities.AddPlanActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.AddPlanActivity"
             android:exported="true"
             android:label="Add Plan" />
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity"
             android:exported="true"
-            android:label="App"
+            android:label="@string/app_name"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -92,18 +92,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.authentication.LoginActivity"
-            android:exported="true">
-        </activity>
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.LoginActivity"
+            android:exported="true"
+            android:label="Sign In"></activity>
         <activity
-            android:name=".ui.activities.authentication.UserActivity"
-            android:exported="true" />
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.UserActivity"
+            android:exported="true"
+            android:label="User" />
         <activity
-            android:name=".ui.activities.authentication.ResetPasswordActivity"
-            android:exported="true" />
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.ResetPasswordActivity"
+            android:exported="true"
+            android:label="Reset Password" />
         <activity
-            android:name=".ui.activities.authentication.SignUpActivity"
-            android:exported="true" />
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.SignUpActivity"
+            android:exported="true"
+            android:label="Sign Up" />
     </application>
-
 </manifest>

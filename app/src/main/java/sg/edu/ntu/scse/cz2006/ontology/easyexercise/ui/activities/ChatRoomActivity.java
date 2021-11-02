@@ -171,6 +171,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("members", currentPlan.getMembers());
                         planReference.updateChildren(updates);
+                        user.child("PublicPlan").child(currentPlan.getPlanID()).setValue(currentPlan.getPlanID());
                         Toast.makeText(
                                 ChatRoomActivity.this,
                                 "Successfully joined.",

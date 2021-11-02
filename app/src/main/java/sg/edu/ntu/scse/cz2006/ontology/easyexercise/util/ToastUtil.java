@@ -3,6 +3,8 @@ package sg.edu.ntu.scse.cz2006.ontology.easyexercise.util;
 import static android.widget.Toast.makeText;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,5 +59,14 @@ public class ToastUtil {
         TextView messageTextView = (TextView) linearLayout.getChildAt(0);
         messageTextView.setTextSize(size); // set text size of Toasts
         mToast.show();
+    }
+
+    public static void toast(final Context context, final String text) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

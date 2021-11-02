@@ -32,6 +32,7 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.PrivateWorkoutPl
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.AddPlanAdapter;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ToastUtil;
 
 /**
  * The activity class for adding exercise plan in the making plan task.
@@ -129,6 +130,9 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
                         new WorkoutDatabaseManager.FirebasePrivateWorkoutPlan(workoutPlan, postId);
                 assert postId != null;
                 mDatabase.child(postId).setValue(firebasePlan);
+
+
+                ToastUtil.toast(this,"Add plan");
 
                 Intent intent = new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);

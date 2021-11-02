@@ -25,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.util.Calendar;
+
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
@@ -37,8 +39,8 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
  *
  * @author Ruan Donglin
  * @author Mao Yiyun
+ * @author Ma Xinyi
  */
-
 public class HomeFragment extends Fragment {
     private Intent intentToCheckIn;
     private Intent intentToPlan;
@@ -91,6 +93,8 @@ public class HomeFragment extends Fragment {
         latitude = activity.getLatitude();
         initHandler();
         handler.post(runnable);
+        TextView greeting = (TextView) view.findViewById(R.id.greeting);
+        greeting.setText(getGreeting());
     }
 
     private void initButton() {
@@ -147,5 +151,17 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
+    }
+
+    private String getGreeting() {
+        Calendar now = Calendar.getInstance();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        if (hour > 4 && hour <= 12) {
+            return "Good morning.";
+        } else if (hour > 12 && hour <= 16) {
+            return "Good afternoon.";
+        } else {
+            return "Good evening.";
+        }
     }
 }

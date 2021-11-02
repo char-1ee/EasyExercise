@@ -28,6 +28,7 @@ import java.util.List;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.CustomizedLocation;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CheckInSportAdapter;
@@ -44,6 +45,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     private double longitude;
     private Button buttonSport;
     private Button buttonFacility;
+    private Button buttonLocation;
     private RecyclerView recyclerView;
     private Facility facility;
     private List<Facility> facilityList;
@@ -89,6 +91,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         facilityList = getFacilityList();
         latitude = getLatitude();
         longitude = getLongitude();
+        buttonLocation= findViewById(R.id.customized_location_button);
         recyclerView = findViewById(R.id.check_in_sport_recycler);
         buttonSport = findViewById(R.id.check_in_sport_button);
         buttonFacility = findViewById(R.id.choose_another_facility_button);
@@ -148,6 +151,18 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
             intent.putExtra("latitude", latitude);
             intent.putExtra("longitude", longitude);
             startActivity(intent);
+        });
+
+        buttonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CheckInNormalActivity.this, CheckInCustomizedActivity.class);
+                intent.putExtra("CustomizedLocation", new CustomizedLocation(new Coordinates(latitude, longitude, "Customized Location")));
+                intent.putExtra("ClosestFacility", facility);
+                intent.putExtra("FacilityByDistance", (Serializable) facilityList);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 

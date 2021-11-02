@@ -3,7 +3,8 @@
 
     <string name="default_web_client_id_hardcode">867339313395-lks5qqe1heeijqa0564p2ld4tlreglhc.apps.googleusercontent.com</string>
     <string name="firebase_database">https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
-
+    <string name="customized_location_text">Select Customized Location</string>
+    <string name="another_facility_text">Select Another Facility</string>
     <string name="fragment_home_title">Home</string>
     <string name="fragment_plans_title">Plans</string>
     <string name="fragment_community_title">Community</string>
@@ -18,7 +19,7 @@
     <string name="publish_plan_text">Publish plan</string>
     <string name="customized_location">Customized location</string>
     <string name="confirm_selection_text">Confirm selection</string>
-
+    <string name="select_facility_text">Select Facility</string>
     <string name="make_plan_text">Make a plan</string>
     <string name="add_plan_text">Add plan</string>
 

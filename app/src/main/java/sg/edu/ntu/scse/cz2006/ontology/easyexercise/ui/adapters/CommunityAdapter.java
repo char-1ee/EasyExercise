@@ -52,6 +52,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         Facility facility = manager.getFacilityById(firebasePublicWorkoutPlan.getFacilityID());
         manager.closeDatabase();
         holder.sportImage.setImageResource(SportsImageMatcher.getImage(sport));
+        holder.sportImage.setClipToOutline(true);
         holder.date.setText(getTime(new Date(firebasePublicWorkoutPlan.getPlanStart())));
         holder.facility.setText(facility.getName());
         holder.limit.setText(

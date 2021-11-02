@@ -104,20 +104,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT
                         ).show();
-                    } else {
-                        FirebaseUser currentUser = auth.getCurrentUser();
-                        List<String> user = new ArrayList<>();
-                        user.add(currentUser.getUid());
-                        Log.e("userinfo", user.get(0));
-                        user.add(currentUser.getDisplayName());
-                        user.add((currentUser.getPhotoUrl() == null) ? null : currentUser.getPhotoUrl().toString());
-                        FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
-                        DatabaseReference mDatabase = database.getReference().child("user");
-                        mDatabase.child(user.get(0)).setValue(user);
-                        mDatabase.child("test").setValue(1);
-//                        addUserInfo();  // TODO
-                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                        finish();
                     }
                 });
                 break;
@@ -128,20 +114,5 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
-    }
-
-    /**
-     * TODO: Remove?
-     */
-    protected void addUserInfo() {
-        FirebaseUser currentUser = auth.getCurrentUser();
-        String[] user = new String[]{
-                currentUser.getUid(),
-                currentUser.getDisplayName(),
-                currentUser.getPhotoUrl().toString()
-        };
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference mDatabase = database.getReference().child("users");
-        mDatabase.child(user[0]).setValue(user);
     }
 }

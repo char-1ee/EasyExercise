@@ -7,7 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * TODO Add Javadoc
+ * Message sent by user
+ *
+ * @Author Zhou Yuxuan
  */
 public class Message implements Serializable {
     private String messageText;

@@ -168,6 +168,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         currentPlan.addMember(currentUser.getUid());
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("members", currentPlan.getMembers());
+                        user.child("PublicPlan").child(currentPlan.getPlanID()).setValue(currentPlan.getPlanID());
                         planReference.updateChildren(updates);
                         user.child("PublicPlan").child(currentPlan.getPlanID()).setValue(currentPlan.getPlanID());
                         planLimit.setText(String.format("%s / %s", currentPlan.getMembers().size(), currentPlan.getPlanLimit()));

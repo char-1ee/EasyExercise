@@ -257,16 +257,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Intent getCheckInList() {
-        Intent intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
+        Intent intentToCheckIn;
         List<Facility> facilityList = getCheckInFacilitiesByDistance();
-        Toast.makeText(MainActivity.this, String.valueOf(facilityList.size()), Toast.LENGTH_SHORT).show();
         if (facilityList.size() > 0) {
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-            intentToCheckIn.putExtra("ClosestFacility", getCheckInFacilitiesByDistance().get(0));
-            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckInFacilitiesByDistance());
         } else {
             intentToCheckIn = new Intent(MainActivity.this, NoFacilityActivity.class);
         }
+        intentToCheckIn.putExtra("ClosestFacility", getCheckInFacilitiesByDistance().get(0));
+        intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckInFacilitiesByDistance());
         intentToCheckIn.putExtra("latitude1", latitude);
         intentToCheckIn.putExtra("longitude1", longitude);
         return intentToCheckIn;
@@ -284,8 +283,7 @@ public class MainActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             public void run() {
                 if (latitude == 0) {
-                    // Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
-                    handler.postDelayed(this, 3000);
+                    handler.postDelayed(this, 2000);
                 } else {
                     Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
                     intentToPlan = new Intent(MainActivity.this, SelectSportActivity.class);

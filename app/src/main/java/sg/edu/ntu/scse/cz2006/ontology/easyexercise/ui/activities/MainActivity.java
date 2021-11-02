@@ -259,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
     public Intent getCheckInList() {
         Intent intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
         List<Facility> facilityList = getCheckInFacilitiesByDistance();
+        Toast.makeText(MainActivity.this, String.valueOf(facilityList.size()), Toast.LENGTH_SHORT).show();
         if (facilityList.size() > 0) {
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
             intentToCheckIn.putExtra("ClosestFacility", getCheckInFacilitiesByDistance().get(0));
@@ -274,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Facility> getCheckInFacilitiesByDistance() {
         return FacilityRecommendation.getFacilitiesNearby(
                 MainActivity.this, new Coordinates(latitude, longitude),
-                5, 20);
+                3, 20);
     }
 
     public void initHandler() {

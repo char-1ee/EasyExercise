@@ -275,18 +275,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
-    // TODO: Remove?
-//    private void saveUserInfo(String info) {
-//        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = userInfo.edit();
-//        switch (info) {
-//            case "gender": editor.putString("gender", gender); break;
-//            case "weight": editor.putInt("weight", weight); break;
-//            case "height": editor.putInt("height", height); break;
-//            default: Log.e(TAG, "saveUserInfo pass wrong para");
-//        }
-//        editor.apply();
-//    }
 
     private void saveUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
@@ -316,13 +304,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         height = userInfo.getInt("height", 0);
     }
 
-    // TODO: Remove?
-//    private void clearUserInfo(String info){
-//        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = userInfo.edit();
-//        editor.remove(info);
-//        editor.commit();
-//    }
 
     private void clearUserHeight() {
         SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);

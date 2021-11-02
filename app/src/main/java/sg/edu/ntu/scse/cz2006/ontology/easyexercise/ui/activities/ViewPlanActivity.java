@@ -61,6 +61,8 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
  */
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener {
     private int finalLimit = 0;
+    Calendar start;
+    Calendar end;
     private TimePickerDialog tpd;
     private DatePickerDialog picker;
     private SupportMapFragment mapFragment;
@@ -76,8 +78,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private Runnable runnable3;
     private TextView startTime;
     private TextView endTime;
-    private Date startDate;
-    private Date endDate;
     private Sport sport;
     private TextView limitView;
     private Workout plan;
@@ -159,7 +159,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             buttonPublishPlan.setText(R.string.publish_plan_text);
             year = 0;
             finalLimit = 0;
-            startDate = null;
             Calendar cldr = Calendar.getInstance();
             int day = cldr.get(Calendar.DAY_OF_MONTH);
             int month = cldr.get(Calendar.MONTH);
@@ -246,7 +245,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         handler2 = new Handler();
         runnable2 = new Runnable() {
             public void run() {
-                if (startDate != null) {
+                if (start != null) {
                     pvOptions.show();
                 } else {
                     handler2.postDelayed(this, 500);
@@ -303,8 +302,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         }
         peopleLimitView.setText(String.valueOf(finalLimit));
         imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
-        startTimeView.setText(getTime(startDate));
-        endTimeView.setText(getTime(endDate));
+        startTimeView.setText(getTime(start.getTime()));
+        endTimeView.setText(getTime(end.getTime()));
         dialog.show();
         confirmButton.setOnClickListener(view -> {
             Workout localPlan = getChosenPlan();
@@ -318,8 +317,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             WorkoutDatabaseManager.FirebasePublicWorkoutPlan publicPlan =
                     new WorkoutDatabaseManager.FirebasePublicWorkoutPlan(
                             finalLimit,
-                            startDate,
-                            endDate,
+                            start.getTime(),
+                            end.getTime(),
                             plan.getPlanID(),
                             localPlan.getSport().getId(),
                             facilityId,
@@ -363,10 +362,10 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        Calendar start = new Calendar.Builder()
+        start = new Calendar.Builder()
                 .setDate(year, monthOfYear, dayOfMonth)
                 .setTimeOfDay(hourOfDay, minute, 0).build();
-        Calendar end = new Calendar.Builder()
+        end = new Calendar.Builder()
                 .setDate(year, monthOfYear, dayOfMonth)
                 .setTimeOfDay(hourOfDayEnd, minuteEnd, 0).build();
         startTime.setText(getTime(start.getTime()));

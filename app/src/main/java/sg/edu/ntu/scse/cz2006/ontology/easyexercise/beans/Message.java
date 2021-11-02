@@ -27,7 +27,7 @@ public class Message implements Serializable {
         this.messageAvatarUrl = messageAvatarUrl;
 
         // Initialize to current time
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm");
         messageTime = sdf.format(new Date());
     }
 

@@ -92,6 +92,12 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         return mWorkOutHistoryList == null ? 0 : mWorkOutHistoryList.size();
     }
 
+    private String getTime(Date date) {
+        Log.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(date);
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView sportView;
         private final TextView locationView;
@@ -110,11 +116,5 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             imageView = itemView.findViewById(R.id.plan_sport_image);
             cardView = itemView.findViewById(R.id.history_card);
         }
-    }
-
-    private String getTime(Date date) {
-        Log.d("getTime()", "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return format.format(date);
     }
 }

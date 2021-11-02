@@ -23,47 +23,20 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
 
     private final List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> myPlanList;
-
-    public interface OnRecyclerItemClickListener{
-         void onRecyclerItemClick(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan);
-    }
-
     private OnRecyclerItemClickListener myListener;
 
-    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
-        myListener = listener;
-    }
-
-    public CommunityAdapter(List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> planList, OnRecyclerItemClickListener listener){
+    public CommunityAdapter(List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> planList, OnRecyclerItemClickListener listener) {
         myPlanList = planList;
         myListener = listener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView date;
-        TextView facility;
-        ImageView sportImage;
-        TextView limit;
-
-        public ViewHolder(View view)
-        {
-            super(view);
-            date = view.findViewById(R.id.planDate);
-            facility = view.findViewById(R.id.planLocation);
-            sportImage = view.findViewById(R.id.planPic);
-            limit = view.findViewById(R.id.planLimit);
-
-        }
-
-        public void bind(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan, OnRecyclerItemClickListener myListener) {
-            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(firebasePublicWorkoutPlan));
-        }
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
+        myListener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.public_plan_layout, parent, false);
         return new ViewHolder(view);
     }
@@ -79,19 +52,43 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.sportImage.setImageResource(SportsImageMatcher.getImage(sport));
         holder.date.setText(getTime(new Date(firebasePublicWorkoutPlan.getPlanStart())));
         holder.facility.setText(facility.getName());
-        holder.limit.setText( "Limit: " + firebasePublicWorkoutPlan.getMembers().size() + "/" + firebasePublicWorkoutPlan.getPlanLimit());
+        holder.limit.setText("Limit: " + firebasePublicWorkoutPlan.getMembers().size() + "/" + firebasePublicWorkoutPlan.getPlanLimit());
 
         holder.bind(myPlanList.get(position), myListener);
     }
 
-
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return myPlanList.size();
     }
 
     private String getTime(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
+    }
+
+
+    public interface OnRecyclerItemClickListener {
+        void onRecyclerItemClick(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView date;
+        TextView facility;
+        ImageView sportImage;
+        TextView limit;
+
+        public ViewHolder(View view) {
+            super(view);
+            date = view.findViewById(R.id.planDate);
+            facility = view.findViewById(R.id.planLocation);
+            sportImage = view.findViewById(R.id.planPic);
+            limit = view.findViewById(R.id.planLimit);
+
+        }
+
+        public void bind(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan, OnRecyclerItemClickListener myListener) {
+            itemView.setOnClickListener(v -> myListener.onRecyclerItemClick(firebasePublicWorkoutPlan));
+        }
     }
 }

@@ -67,6 +67,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     SupportMapFragment mapFragment;
     int year, monthOfYear, dayOfMonth;
     OptionsPickerView pvOptions;
+    Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    ActionBar actionBar;
     private Handler handler, handler2, handler3;
     private Runnable runnable, runnable2, runnable3;
     private TextView startTime, endTime;
@@ -78,8 +80,6 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private Location location;
     private Button publishPlanButton, checkInButton, deleteButton;
     private CardView cardView;
-    Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +190,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             finish();
         });
         deleteButton.setOnClickListener(view -> {
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
             DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
             mDatabase.child("WorkoutPlan").child(plan.getPlanID()).removeValue();
             Intent intent = new Intent(ViewPlanActivity.this, MainActivity.class);
@@ -312,7 +312,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
                 facility_id = -1;
             }
             WorkoutDatabaseManager.FirebasePublicWorkoutPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicWorkoutPlan(finalLimit, startDate, endDate, plan.getPlanID(), localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
             DatabaseReference mDatabase = database.getReference().child("community");
             assert plan.getPlanID() != null;
             mDatabase.child(plan.getPlanID()).setValue(publicPlan);

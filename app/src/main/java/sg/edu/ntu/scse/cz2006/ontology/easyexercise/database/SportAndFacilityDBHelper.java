@@ -41,9 +41,8 @@ public class SportAndFacilityDBHelper {
     private static final String DB_PATH = "/data"
             + Environment.getDataDirectory().getAbsolutePath() + "/"
             + PACKAGE_NAME;
-
-    private SQLiteDatabase database;
     private final Context context;
+    private SQLiteDatabase database;
 
     /**
      * Constructor for class {@code SportAndFacilityDBHelper}.

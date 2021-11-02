@@ -31,11 +31,11 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.FacilityRecycler
  */
 
 public class SelectFacilityPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
+    double latitude = 0;
+    double longitude = 0;
     private List<Facility> FacilityQualified;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    double latitude = 0;
-    double longitude = 0;
     private GoogleMap mMap;
     private ActionBar actionBar;
 

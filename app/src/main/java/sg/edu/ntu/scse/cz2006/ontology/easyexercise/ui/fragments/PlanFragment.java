@@ -25,9 +25,9 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Location;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.PrivateWorkoutPlan;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Workout;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.PrivateWorkoutPlan;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ChatRoomActivity;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ViewPlanActivity;
@@ -54,7 +54,7 @@ public class PlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_plan, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance(getContext().getString(R.string.firebase_database));
         DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         DatabaseReference publicPlanDB = database.getReference().child("community");
 
@@ -64,10 +64,10 @@ public class PlanFragment extends Fragment {
         adapter = new PlanRecyclerViewAdapter(planList, workout -> {
             //on click event
             Intent intent;
-            if(workout.getStatus() == Workout.WorkoutStatus.PRIVATE){
+            if (workout.getStatus() == Workout.WorkoutStatus.PRIVATE) {
                 intent = new Intent(getContext().getApplicationContext(), ViewPlanActivity.class);
                 intent.putExtra("plan", workout);
-            }else{
+            } else {
                 intent = new Intent(getContext().getApplicationContext(), ChatRoomActivity.class);
                 intent.putExtra("plan", workout.getPlanID());
             }
@@ -102,17 +102,17 @@ public class PlanFragment extends Fragment {
                     if (s == null) {
                         Log.e("firebase", "Data = null", task.getException());
                     } else {
-                        Log.e("test", "public:"+planID);
+                        Log.e("test", "public:" + planID);
                         publicPlanDB.get().addOnCompleteListener(t -> {
                             if (!t.isSuccessful()) {
                                 Log.e("firebase", "Error getting data", t.getException());
                             } else {
-                                for(DataSnapshot g : t.getResult().getChildren()) {
+                                for (DataSnapshot g : t.getResult().getChildren()) {
                                     WorkoutDatabaseManager.FirebasePublicWorkoutPlan receivePlan = g.getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                                     // Log.e("test", receivePlan.getPlanID());
                                     if (receivePlan == null) {
                                         Log.e("firebase", "Data = null", t.getException());
-                                    } else if(receivePlan.getPlanID().equals(planID)){
+                                    } else if (receivePlan.getPlanID().equals(planID)) {
                                         Log.e("test", "public:" + receivePlan.getPlanID());
                                         planList.add(WorkoutDatabaseManager.toPublicPlan(receivePlan, getActivity()));
                                         adapter.notifyItemInserted(planList.size() - 1);
@@ -146,9 +146,9 @@ public class PlanFragment extends Fragment {
         return r;
     }
 
-    private List<PrivateWorkoutPlan> getListData2(PrivateWorkoutPlan w){
-        List<PrivateWorkoutPlan> plan= new ArrayList<>();
-        for(int i= 0; i< 5; i++){
+    private List<PrivateWorkoutPlan> getListData2(PrivateWorkoutPlan w) {
+        List<PrivateWorkoutPlan> plan = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
             plan.add(w);
         }
         return plan;

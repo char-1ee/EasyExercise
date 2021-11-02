@@ -9,13 +9,8 @@ import java.io.Serializable;
  * @author Zhong Ruoyu
  */
 public abstract class Location implements Serializable {
-    public enum LocationType {
-        FACILITY, CUSTOMISED_LOCATION,
-    }
-
     private final LocationType type;
     private final Coordinates coordinates;
-
     public Location(double latitude, double longitude, String name,
                     LocationType type) {
         this.coordinates = new Coordinates(latitude, longitude, name);
@@ -51,5 +46,9 @@ public abstract class Location implements Serializable {
 
     public LocationType getType() {
         return type;
+    }
+
+    public enum LocationType {
+        FACILITY, CUSTOMISED_LOCATION,
     }
 }

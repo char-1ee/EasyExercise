@@ -40,8 +40,8 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.MessageAdapter;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
 
 public class ChatRoomActivity extends AppCompatActivity {
-    private ActionBar actionBar;
     private final List<Message> msgList = new ArrayList<>();
+    private ActionBar actionBar;
     private EditText inputText;
     private TextView planFacility;
     private TextView planStartTime;
@@ -67,7 +67,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
         DatabaseReference mDatabase = database.getReference().child("community").child(planID).child("chatroom");
         DatabaseReference planReference = database.getReference().child("community").child(planID);
         DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -97,8 +97,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         planReference.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
-            }
-            else {
+            } else {
                 currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                 Date startTime = new Date(currentPlan.getPlanStart());
                 Date endTime = new Date(currentPlan.getPlanFinish());
@@ -139,14 +138,14 @@ public class ChatRoomActivity extends AppCompatActivity {
         send.setOnClickListener(v -> {
 
             String content = inputText.getText().toString();
-            if(!"".equals(content)){
-                try{
+            if (!"".equals(content)) {
+                try {
 
                     Message handleMsg = new Message(content, currentUser.getDisplayName(), currentUser.getPhotoUrl().toString());
                     mDatabase.child(String.valueOf(msgList.size() + 1)).setValue(handleMsg);
                     inputText.setText("");
 
-                } catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

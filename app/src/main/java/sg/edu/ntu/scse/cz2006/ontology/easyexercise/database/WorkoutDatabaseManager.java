@@ -79,7 +79,8 @@ public class WorkoutDatabaseManager {
         private String duration;
         private String name;
 
-        public FirebaseWorkoutRecord() {}
+        public FirebaseWorkoutRecord() {
+        }
 
         public FirebaseWorkoutRecord(WorkoutRecord record) {
             sportID = record.getSport().getId();
@@ -151,7 +152,8 @@ public class WorkoutDatabaseManager {
         private long facilityID;
         private List<String> members;
 
-        public FirebasePublicWorkoutPlan() {}
+        public FirebasePublicWorkoutPlan() {
+        }
 
         public FirebasePublicWorkoutPlan(
                 int planLimit,
@@ -235,7 +237,8 @@ public class WorkoutDatabaseManager {
         private double latitude;
         private String name;
 
-        public FirebasePrivateWorkoutPlan() {}
+        public FirebasePrivateWorkoutPlan() {
+        }
 
         public FirebasePrivateWorkoutPlan(PrivateWorkoutPlan plan, String id) {
             sportID = plan.getSport().getId();

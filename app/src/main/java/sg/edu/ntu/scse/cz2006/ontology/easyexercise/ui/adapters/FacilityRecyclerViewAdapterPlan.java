@@ -19,15 +19,15 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.AddPlanActivit
 
 public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<FacilityRecyclerViewAdapterPlan.MyViewHolder> {
 
-    private Facility chosenFacility;
     private final List<Facility> mFacilityList;
     private final Context mContext;
     private final Coordinates mCurrentCoordinates;
+    private Facility chosenFacility;
 
     public FacilityRecyclerViewAdapterPlan(Context context, List<Facility> facilityList, Coordinates currentCoordinates) {
         mFacilityList = facilityList;
         mContext = context;
-        mCurrentCoordinates= currentCoordinates;
+        mCurrentCoordinates = currentCoordinates;
     }
 
     @NonNull
@@ -42,10 +42,10 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
         final Facility facility = mFacilityList.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
 
-        holder.mSelectFacilityDistance.setText(String.valueOf( Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates)*100.0)/100.0+ "km"));
+        holder.mSelectFacilityDistance.setText(String.valueOf(Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates) * 100.0) / 100.0 + "km"));
         holder.view.setOnClickListener(view -> {
-            chosenFacility= facility;
-            Intent intent= new Intent(mContext, AddPlanActivity.class);
+            chosenFacility = facility;
+            Intent intent = new Intent(mContext, AddPlanActivity.class);
             intent.putExtra("ChosenFacility", chosenFacility);
             mContext.startActivity(intent);
         });

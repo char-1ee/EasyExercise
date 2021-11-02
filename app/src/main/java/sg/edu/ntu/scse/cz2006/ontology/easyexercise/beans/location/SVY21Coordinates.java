@@ -12,14 +12,13 @@ import androidx.annotation.NonNull;
  * to perform the conversion.
  *
  * @author cgcai
+ * @author Ma Xinyi
+ * @author Zhong Ruoyu
  * @see <a href=
  * "http://www.linz.govt.nz/geodetic/conversion-coordinates/projection-conversions/transverse-mercator-preliminary-computations/index.aspx">
  * http://www.linz.govt.nz/geodetic/conversion-coordinates/projection-conversions/transverse-mercator-preliminary-computations/index.aspx</a>
  * @see <a href="https://github.com/cgcai/SVY21">
  * https://github.com/cgcai/SVY21</a>
- *
- * @author Ma Xinyi
- * @author Zhong Ruoyu
  */
 public class SVY21Coordinates {
     private static final double radRatio = Math.PI / 180; // Ratio to convert degrees to radians.
@@ -77,6 +76,23 @@ public class SVY21Coordinates {
 
     public SVY21Coordinates(double N, double E) {
         this(N, E, "");
+    }
+
+    private static double calcM(double lat) { // M: meridian distance.
+        double latR = lat * radRatio;
+        return a * ((A0 * latR) - (A2 * Math.sin(2 * latR))
+                + (A4 * Math.sin(4 * latR)) - (A6 * Math.sin(6 * latR)));
+    }
+
+    private static double calcRho(double sin2Lat) {
+        double num = a * (1 - e2);
+        double denom = Math.pow(1 - e2 * sin2Lat, 3. / 2.);
+        return num / denom;
+    }
+
+    private static double calcV(double sin2Lat) {
+        double poly = 1 - e2 * sin2Lat;
+        return a / Math.sqrt(poly);
     }
 
     public Coordinates toCoordinates() {
@@ -144,23 +160,6 @@ public class SVY21Coordinates {
         double lon = (oLon * radRatio) + lonTerm1 - lonTerm2 + lonTerm3 - lonTerm4;
 
         return new Coordinates(lat / radRatio, lon / radRatio, name);
-    }
-
-    private static double calcM(double lat) { // M: meridian distance.
-        double latR = lat * radRatio;
-        return a * ((A0 * latR) - (A2 * Math.sin(2 * latR))
-                + (A4 * Math.sin(4 * latR)) - (A6 * Math.sin(6 * latR)));
-    }
-
-    private static double calcRho(double sin2Lat) {
-        double num = a * (1 - e2);
-        double denom = Math.pow(1 - e2 * sin2Lat, 3. / 2.);
-        return num / denom;
-    }
-
-    private static double calcV(double sin2Lat) {
-        double poly = 1 - e2 * sin2Lat;
-        return a / Math.sqrt(poly);
     }
 
     public double getN() {

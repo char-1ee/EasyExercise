@@ -31,7 +31,7 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CheckInSportAdap
  * @author Mao Yiyun
  */
 
-public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class CheckInCustomizedActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private SportAndFacilityDBHelper dbHelper;
     private ImageView imageView;
     private Button button1;
@@ -43,7 +43,7 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        customizedLocation= getCustomizedLocation();
+        customizedLocation = getCustomizedLocation();
         super.onCreate(savedInstanceState);
         initView();
         initAdapter();
@@ -51,46 +51,45 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
 
     }
 
-    private CustomizedLocation getCustomizedLocation(){
+    private CustomizedLocation getCustomizedLocation() {
         return (CustomizedLocation) getIntent().getSerializableExtra("CustomizedLocation");
     }
 
-    private List<Sport> testSelectSportAll(){
+    private List<Sport> testSelectSportAll() {
         dbHelper.openDatabase();
-        List<Sport> sports= dbHelper.getSports();
+        List<Sport> sports = dbHelper.getSports();
         dbHelper.closeDatabase();
         return sports;
     }
 
-    private void initView(){
+    private void initView() {
         setContentView(R.layout.activity_check_in_customized);
         rv_test = findViewById(R.id.check_in_sport_recycler);
         button1 = findViewById(R.id.check_in_sport_button);
         imageView = findViewById(R.id.imageView5);
         imageView.setImageResource(R.drawable.panorama);
-        locationView= findViewById(R.id.location_view);
+        locationView = findViewById(R.id.location_view);
         locationView.setText(getString(R.string.customized_location));
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
-        dbHelper= new SportAndFacilityDBHelper(this);
+        dbHelper = new SportAndFacilityDBHelper(this);
 
     }
 
-    private void initAdapter(){
+    private void initAdapter() {
         rv_test.setLayoutManager(new LinearLayoutManager(CheckInCustomizedActivity.this, LinearLayoutManager.VERTICAL, false));
         firstAdapter = new CheckInSportAdapter(CheckInCustomizedActivity.this, testSelectSportAll());
         rv_test.setAdapter(firstAdapter);
         firstAdapter.setOnItemClickListener(this);
     }
 
-    private void initButton(){
+    private void initButton() {
         button1.setOnClickListener(view -> {
-            if(ChosenSport== null){
+            if (ChosenSport == null) {
                 Toast.makeText(CheckInCustomizedActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Intent intent= new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
+            } else {
+                Intent intent = new Intent(CheckInCustomizedActivity.this, ExerciseActivity.class);
                 intent.putExtra("ChosenSport", ChosenSport);
                 intent.putExtra("ChosenLocation", customizedLocation);
                 startActivity(intent);
@@ -101,8 +100,8 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements Adap
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ChosenSport= firstAdapter.finalChoice;
-        Toast.makeText(CheckInCustomizedActivity.this,String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
+        ChosenSport = firstAdapter.finalChoice;
+        Toast.makeText(CheckInCustomizedActivity.this, String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
     }
 
     @Override

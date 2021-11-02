@@ -28,8 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.PrivateWorkoutPlan;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.AddPlanAdapter;
 
@@ -120,7 +120,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(AddPlanActivity.this, "Please select a sport", Toast.LENGTH_SHORT).show();
             } else {
                 workoutPlan = new PrivateWorkoutPlan(finalSport, facility, "");
-                FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
                 DatabaseReference mDatabase = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("WorkoutPlan");
                 String postId = mDatabase.push().getKey();
                 WorkoutDatabaseManager.FirebasePrivateWorkoutPlan firebasePlan = new WorkoutDatabaseManager.FirebasePrivateWorkoutPlan(workoutPlan, postId);

@@ -27,8 +27,8 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CommunityAdapter
 
 
 public class CommunityFragment extends Fragment {
-    View view;
     private final List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> publicPlanList = new ArrayList<>();
+    View view;
     private RecyclerView recyclerView;
     private CommunityAdapter adapter;
 
@@ -38,7 +38,7 @@ public class CommunityFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_community, container, false);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance(getContext().getString(R.string.firebase_database));
         DatabaseReference mDatabase = database.getReference().child("community");
 
         recyclerView = view.findViewById(R.id.community_plan_view);

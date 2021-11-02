@@ -19,9 +19,9 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapter.MyViewHolder> {
-    public Sport finalChoice;
-    private final Context context;
     public final List<Sport> secondList;
+    private final Context context;
+    public Sport finalChoice;
     public int lastCheckedPos = -1;
     private AdapterView.OnItemClickListener onItemClickListener;
 
@@ -58,6 +58,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
 
     /**
      * When user clicks our itemView, we still invoke the onItemClick
+     *
      * @param holder
      */
     public void onItemHolderClick(MyViewHolder holder) {
@@ -66,7 +67,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
                     holder.getAdapterPosition(), holder.getItemId());
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RadioButton rb_question_item;
         TextView tv_question_item;
         ImageView iv_question_item;
@@ -74,7 +75,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
 
         public MyViewHolder(View itemView, CheckInSportAdapter mAdapter) {
             super(itemView);
-            this.mAdapter= mAdapter;
+            this.mAdapter = mAdapter;
             rb_question_item = itemView.findViewById(R.id.check_in_sport_radio_button);
             tv_question_item = itemView.findViewById(R.id.check_in_sport_name);
             iv_question_item = itemView.findViewById(R.id.check_in_sport_image);
@@ -85,7 +86,7 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
         @Override
         public void onClick(View view) {
             lastCheckedPos = getAdapterPosition();
-            finalChoice= secondList.get(lastCheckedPos);
+            finalChoice = secondList.get(lastCheckedPos);
             notifyItemRangeChanged(0, secondList.size());
             mAdapter.onItemHolderClick(MyViewHolder.this);
         }

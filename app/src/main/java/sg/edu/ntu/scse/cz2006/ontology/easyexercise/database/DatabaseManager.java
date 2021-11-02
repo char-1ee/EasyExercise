@@ -17,15 +17,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Li Xingjian
  */
 public class DatabaseManager {
+    private static DatabaseManager instance;
+    private static SQLiteOpenHelper mDatabaseHelper;
     /**
      * A counter indicates how many times database is opened.
      * If it equals one, it means we need to create a new database;
      * if not, the database is already created.
      */
     private final AtomicInteger mOpenCounter = new AtomicInteger();
-
-    private static DatabaseManager instance;
-    private static SQLiteOpenHelper mDatabaseHelper;
     private SQLiteDatabase mDatabase;
 
     /**

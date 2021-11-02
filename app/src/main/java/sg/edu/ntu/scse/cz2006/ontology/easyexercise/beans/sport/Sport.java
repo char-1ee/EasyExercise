@@ -11,6 +11,33 @@ import java.io.Serializable;
  * @author Zhong Ruoyu
  */
 public class Sport implements Serializable {
+    private final long id;
+    private final String name;
+    private final String alternativeName;
+    private final SportType type;
+    public Sport(long id, String name, String alternativeName, SportType type) {
+        this.id = id;
+        this.name = name;
+        this.alternativeName = alternativeName;
+        this.type = type;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAlternativeName() {
+        return alternativeName;
+    }
+
+    public SportType getType() {
+        return type;
+    }
+
     public enum SportType {
         INDOOR("Indoor"), OUTDOOR("Outdoor"), INDOOR_OUTDOOR("Indoor/Outdoor");
 
@@ -34,33 +61,5 @@ public class Sport implements Serializable {
         public String toString() {
             return name;
         }
-    }
-
-    private final long id;
-    private final String name;
-    private final String alternativeName;
-    private final SportType type;
-
-    public Sport(long id, String name, String alternativeName, SportType type) {
-        this.id = id;
-        this.name = name;
-        this.alternativeName = alternativeName;
-        this.type = type;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAlternativeName() {
-        return alternativeName;
-    }
-
-    public SportType getType() {
-        return type;
     }
 }

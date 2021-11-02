@@ -34,10 +34,10 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.HistoryRecyclerV
  */
 
 public class HistoryFragment extends Fragment {
-    private RecyclerView mRecyclerView;
     private final List<WorkoutRecord> workoutRecordList = new ArrayList<>();
-    private HistoryRecyclerViewAdapter adapter;
     View view;
+    private RecyclerView mRecyclerView;
+    private HistoryRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -45,7 +45,7 @@ public class HistoryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_history, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseDatabase database = FirebaseDatabase.getInstance(getContext().getString(R.string.firebase_database));
         DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

@@ -51,7 +51,6 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.SportAndFacilityDBHelper;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation.FacilityRecommendation;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.recommendation.SportsRecommendation;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.CommunityFragment;
@@ -61,15 +60,44 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.PlanFragment;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.fragments.UserFragment;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.Box;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.RemoteFileIOUtil;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
 
 public class MainActivity extends AppCompatActivity {
+    /**
+     * Set bottom navigation view with corresponding fragments.
+     */
+    @SuppressLint("NonConstantResourceId")
+    private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+            item -> {
+                Fragment selectedFragment = null;
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case R.id.navigation_plans:
+                        selectedFragment = new PlanFragment();
+                        break;
+                    case R.id.navigation_community:
+                        selectedFragment = new CommunityFragment();
+                        break;
+                    case R.id.navigation_history:
+                        selectedFragment = new HistoryFragment();
+                        break;
+                    case R.id.navigation_me:
+                        selectedFragment = new UserFragment();
+                }
+                assert selectedFragment != null;
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        selectedFragment).commit();
+                return true;
+            };
     Intent intentToCheckIn;
     Intent intentToPlan;
-    private LocationRequest locationRequest;
     double latitude;
     double longitude;
     List<Sport> allSports = new ArrayList<>();
     Coordinates coordinates;
+    private LocationRequest locationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,35 +136,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * Set bottom navigation view with corresponding fragments.
-     */
-    @SuppressLint("NonConstantResourceId")
-    private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
-            item -> {
-                Fragment selectedFragment = null;
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        selectedFragment = new HomeFragment();
-                        break;
-                    case R.id.navigation_plans:
-                        selectedFragment = new PlanFragment();
-                        break;
-                    case R.id.navigation_community:
-                        selectedFragment = new CommunityFragment();
-                        break;
-                    case R.id.navigation_history:
-                        selectedFragment = new HistoryFragment();
-                        break;
-                    case R.id.navigation_me:
-                        selectedFragment = new UserFragment();
-                }
-                assert selectedFragment != null;
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        selectedFragment).commit();
-                return true;
-            };
 
     /**
      * Get user's current location as latitude and longitude

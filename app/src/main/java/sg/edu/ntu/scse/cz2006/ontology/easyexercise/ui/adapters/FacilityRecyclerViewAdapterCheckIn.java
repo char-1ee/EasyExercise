@@ -20,15 +20,15 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.CheckInNormalActivity;
 
 public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<FacilityRecyclerViewAdapterCheckIn.MyViewHolder> {
-    private Facility ChosenFacility;
     private final List<Facility> mFacilityList;
     private final Context mContext;
     private final Coordinates mCurrentCoordinates;
+    private Facility ChosenFacility;
 
     public FacilityRecyclerViewAdapterCheckIn(Context context, List<Facility> facilityList, Coordinates currentCoordinates) {
         mFacilityList = facilityList;
         mContext = context;
-        mCurrentCoordinates= currentCoordinates;
+        mCurrentCoordinates = currentCoordinates;
     }
 
     @NonNull
@@ -48,11 +48,11 @@ public class FacilityRecyclerViewAdapterCheckIn extends RecyclerView.Adapter<Fac
             ChosenFacility = mFacilityList.get(position);
             Intent intent = new Intent(mContext, CheckInNormalActivity.class);
             intent.putExtra("ClosestFacility", ChosenFacility);
-            intent.putExtra("FacilityByDistance",(Serializable)mFacilityList);
+            intent.putExtra("FacilityByDistance", (Serializable) mFacilityList);
             intent.putExtra("latitude1", mCurrentCoordinates.getLatitude());
             intent.putExtra("longitude1", mCurrentCoordinates.getLongitude());
             mContext.startActivity(intent);
-            ((Activity)mContext).finish();
+            ((Activity) mContext).finish();
         });
 
 

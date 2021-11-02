@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Log.e("userinfo", user.get(0));
                         user.add(currentUser.getDisplayName());
                         user.add((currentUser.getPhotoUrl() == null) ? null : currentUser.getPhotoUrl().toString());
-                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                        FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
                         DatabaseReference mDatabase = database.getReference().child("user");
                         mDatabase.child(user.get(0)).setValue(user);
                         mDatabase.child("test").setValue(1);
@@ -119,13 +119,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     protected void addUserInfo() {
         FirebaseUser currentUser = auth.getCurrentUser();
-        String[] user = new String[3];
-        // String[0] uid;
-        // String[1] username;
-        // String[2] avatar uri;
-        user[0] = currentUser.getUid();
-        user[1] = currentUser.getDisplayName();
-        user[2] = currentUser.getPhotoUrl().toString();
+        String[] user = new String[]{
+                currentUser.getUid(),
+                currentUser.getDisplayName(),
+                currentUser.getPhotoUrl().toString()
+        };
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ontology-5ae5d-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference mDatabase = database.getReference().child("users");
         mDatabase.child(user[0]).setValue(user);

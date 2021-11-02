@@ -20,24 +20,16 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
     private final List<Workout> mPlanList;
     private Workout chosenPlan;
-
-    public interface OnRecyclerItemClickListener{
-        void onRecyclerItemClick(Workout workout);
-    }
-
     private OnRecyclerItemClickListener myListener;
-
-
-    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
-        myListener = listener;
-    }
 
     public PlanRecyclerViewAdapter(List<Workout> planList, OnRecyclerItemClickListener listener) {
         mPlanList = planList;
         myListener = listener;
     }
 
-
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
+        myListener = listener;
+    }
 
     @NonNull
     @Override
@@ -52,10 +44,9 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         holder.dateView.setText("");
         holder.sportView.setText(item.getSport().getName());
         holder.locationView.setText(item.getLocation().getName());
-        if(item.getStatus() == Workout.WorkoutStatus.PRIVATE){
+        if (item.getStatus() == Workout.WorkoutStatus.PRIVATE) {
             holder.typeView.setText("PRIVATE");
-        }
-        else{
+        } else {
             holder.typeView.setText("PUBLIC");
         }
         holder.imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
@@ -70,6 +61,9 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         return mPlanList == null ? 0 : mPlanList.size();
     }
 
+    public interface OnRecyclerItemClickListener {
+        void onRecyclerItemClick(Workout workout);
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final View view;

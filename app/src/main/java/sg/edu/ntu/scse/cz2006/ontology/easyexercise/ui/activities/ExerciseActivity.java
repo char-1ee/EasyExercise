@@ -1,4 +1,3 @@
-
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities;
 
 import android.content.Intent;
@@ -89,12 +88,12 @@ public class ExerciseActivity extends AppCompatActivity {
                 String.format("%02d", seconds);
     }
 
-    private void initView(){
+    private void initView() {
         setContentView(R.layout.activity_exercise);
         startDate = new Date();
         location = getLocation();
         sport = getSport();
-        sportView= findViewById(R.id.imageView3);
+        sportView = findViewById(R.id.imageView3);
         timerText = findViewById(R.id.timerText);
         checkOutButton = findViewById(R.id.check_out_button);
         sportView.setImageResource(SportsImageMatcher.getImage(sport));
@@ -104,7 +103,7 @@ public class ExerciseActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    private void initButton(){
+    private void initButton() {
         checkOutButton.setOnClickListener(view -> {
             Intent checkInIntent = new Intent(ExerciseActivity.this, CheckOutActivity.class);
             checkInIntent.putExtra("LocationExercise", location);
@@ -121,14 +120,14 @@ public class ExerciseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-        Intent intent= new Intent(ExerciseActivity.this, MainActivity.class);
+        Intent intent = new Intent(ExerciseActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         moveTaskToBack(true);
-        Intent intent= new Intent(ExerciseActivity.this, MainActivity.class);
+        Intent intent = new Intent(ExerciseActivity.this, MainActivity.class);
         startActivity(intent);
         return super.onOptionsItemSelected(item);
     }

@@ -22,8 +22,8 @@ import android.widget.Button;
  * @author Li Xingjian
  */
 public class ButtonClickUtil {
-    private static long lastClickTime = 0;
     private static final long DIFF = 1000;
+    private static long lastClickTime = 0;
     private static int lastButtonId = -1;
 
     /**

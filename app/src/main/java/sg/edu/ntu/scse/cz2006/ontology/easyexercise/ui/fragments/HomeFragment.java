@@ -26,10 +26,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Coordinates;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.RemoteFileIOUtil;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
 
 /**
  * The fragment class for home, including button to start tasks of checking in and making plan.
@@ -39,7 +39,6 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.RemoteFileIOUtil;
  */
 
 public class HomeFragment extends Fragment {
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     Intent intentToCheckIn;
     Intent intentToPlan;
     Handler handler;
@@ -53,6 +52,7 @@ public class HomeFragment extends Fragment {
     Button mCheckInButton;
     TextView temperature, pm25, uvIndex, humidity, forecast;
     Weather weather;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
     @Override

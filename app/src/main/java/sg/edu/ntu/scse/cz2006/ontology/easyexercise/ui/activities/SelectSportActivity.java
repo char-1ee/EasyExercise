@@ -34,19 +34,19 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.SportRecyclerVie
  */
 
 public class SelectSportActivity extends AppCompatActivity {
-    Handler handler, handler2;
-    Runnable runnable, runnable2;
-    double latitude= 0;
-    double longitude= 0;
     public static List<Sport> finalChoice;
     public static List<Sport> ChosenSport1;
     public static List<Sport> ChosenSport2;
+    public static Button mSportChoicesConfirmButton;
+    public static SportRecyclerViewAdapter mAdapter, mAdapter2;
+    Handler handler, handler2;
+    Runnable runnable, runnable2;
+    double latitude = 0;
+    double longitude = 0;
     private List<Facility> FinalFacility;
     private List<Sport> RecommendedSport;
     private List<Sport> OtherSport;
-    public static Button mSportChoicesConfirmButton;
     private RecyclerView mRecyclerView, mRecyclerView2;
-    public static SportRecyclerViewAdapter mAdapter, mAdapter2;
     private ActionBar actionBar;
 
     @Override
@@ -66,16 +66,16 @@ public class SelectSportActivity extends AppCompatActivity {
         return (List<Sport>) getIntent().getSerializableExtra("OtherSports");
     }
 
-    private void initView(){
-        finalChoice= new ArrayList<>();
+    private void initView() {
+        finalChoice = new ArrayList<>();
         setContentView(R.layout.activity_select_sport);
         mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
         mRecyclerView = findViewById(R.id.recycler_view);
         RecommendedSport = getRecommendedSport();
         mSportChoicesConfirmButton.setEnabled(false);
         OtherSport = getOtherSport();
-        latitude= getLatitude();
-        longitude= getLongitude();
+        latitude = getLatitude();
+        longitude = getLongitude();
         initHandler();
         handler.post(runnable);
         actionBar = getSupportActionBar();
@@ -85,9 +85,8 @@ public class SelectSportActivity extends AppCompatActivity {
 
     /**
      * Initialize adapter for recyclerview.
-     *
      */
-    private void initAdapter(){
+    private void initAdapter() {
         mAdapter = new SportRecyclerViewAdapter(RecommendedSport);
         LinearLayoutManager manager = new GridLayoutManager(SelectSportActivity.this, 2);
         mRecyclerView.setHasFixedSize(true);
@@ -108,24 +107,24 @@ public class SelectSportActivity extends AppCompatActivity {
 
 
     }
+
     private void initHandler2() {
         handler2 = new Handler();
         runnable2 = new Runnable() {
             public void run() {
-                if(finalChoice.size()== 0){
+                if (finalChoice.size() == 0) {
                     handler.postDelayed(this, 500);
-                }
-                else{
+                } else {
                     mSportChoicesConfirmButton.setEnabled(true);
                 }
             }
         };
     }
 
-    private void initButton(){
+    private void initButton() {
         mSportChoicesConfirmButton.setOnClickListener(view -> {
             Context context = SelectSportActivity.this;
-            FinalFacility= FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
+            FinalFacility = FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
             Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
             intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
             intent.putExtra("longitude", (Serializable) longitude);
@@ -134,11 +133,11 @@ public class SelectSportActivity extends AppCompatActivity {
         });
     }
 
-    private void initHandler(){
+    private void initHandler() {
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                if (latitude== 0) {
+                if (latitude == 0) {
                     Toast.makeText(SelectSportActivity.this, "not yet", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 1000);
                 }

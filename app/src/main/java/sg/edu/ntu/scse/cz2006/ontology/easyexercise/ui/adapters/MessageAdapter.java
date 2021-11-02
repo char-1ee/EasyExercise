@@ -23,30 +23,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private final List<Message> myMessageList;
 
-    public MessageAdapter(List<Message> messageList){
+    public MessageAdapter(List<Message> messageList) {
         myMessageList = messageList;
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView userName;
-        TextView messageContent;
-        ImageView avatar;
-        TextView time;
-
-        public ViewHolder(View view)
-        {
-            super(view);
-            userName = view.findViewById(R.id.messageUserName);
-            messageContent = view.findViewById(R.id.messageContent);
-            avatar = view.findViewById(R.id.messageAvatar);
-            time = view.findViewById(R.id.messageTime);
-        }
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_layout, parent, false);
         return new ViewHolder(view);
     }
@@ -63,7 +46,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     .into(holder.avatar);
         } catch (NullPointerException e) {
             Toast.makeText(holder.itemView.getContext(), "Image not found", Toast.LENGTH_LONG).show();
-        } catch (MalformedURLException e){
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         holder.messageContent.setText(message.getMessageText());
@@ -71,7 +54,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return myMessageList.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView userName;
+        TextView messageContent;
+        ImageView avatar;
+        TextView time;
+
+        public ViewHolder(View view) {
+            super(view);
+            userName = view.findViewById(R.id.messageUserName);
+            messageContent = view.findViewById(R.id.messageContent);
+            avatar = view.findViewById(R.id.messageAvatar);
+            time = view.findViewById(R.id.messageTime);
+        }
     }
 }

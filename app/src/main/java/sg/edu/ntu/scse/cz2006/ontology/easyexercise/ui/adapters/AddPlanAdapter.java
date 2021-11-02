@@ -22,9 +22,9 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHolder> {
-    public Sport finalChoice;
-    private final Context context;
     public final List<Sport> sportList;
+    private final Context context;
+    public Sport finalChoice;
     public int index = -1;
     private AdapterView.OnItemClickListener onItemClickListener;
 
@@ -61,6 +61,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
 
     /**
      * When user clicks our itemView, we still invoke the onItemClick
+     *
      * @param holder
      */
     public void onItemHolderClick(MyViewHolder holder) {
@@ -70,7 +71,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener{
+            View.OnClickListener {
         RadioButton rb_question_item;
         TextView tv_question_item;
         ImageView iv_question_item;
@@ -78,7 +79,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
 
         public MyViewHolder(View itemView, AddPlanAdapter mAdapter) {
             super(itemView);
-            this.mAdapter= mAdapter;
+            this.mAdapter = mAdapter;
             rb_question_item = itemView.findViewById(R.id.check_in_sport_radio_button);
             tv_question_item = itemView.findViewById(R.id.check_in_sport_name);
             iv_question_item = itemView.findViewById(R.id.check_in_sport_image);
@@ -89,7 +90,7 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
         @Override
         public void onClick(View view) {
             index = getAdapterPosition();
-            finalChoice= sportList.get(index);
+            finalChoice = sportList.get(index);
             notifyItemRangeChanged(0, sportList.size());
             mAdapter.onItemHolderClick(MyViewHolder.this);
         }

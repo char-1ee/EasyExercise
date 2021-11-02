@@ -17,6 +17,13 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.WorkoutRecord;
 public final class DatabaseContract {
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "sports.db";
+    // List of all SQL create table statements
+    public static final String[] SQL_CREATE_TABLE_LIST = {
+            SportTable.CREATE_TABLE_SPORT,
+            FacilityTable.CREATE_TABLE_FACILITY,
+            WorkoutPlanTable.CREATE_TABLE_WORKOUT_PLAN,
+            WorkoutHistoryTable.CREATE_TABLE_WORKOUT_HISTORY
+    };
     private static final String INTEGER_TYPE = " INTEGER ";
     private static final String DOUBLE_TYPE = " DOUBLE ";
     private static final String PRIMARY_KEY = " PRIMARY KEY ";
@@ -29,14 +36,6 @@ public final class DatabaseContract {
     private DatabaseContract() {
         // Not allowed to be instantiated
     }
-
-    // List of all SQL create table statements
-    public static final String[] SQL_CREATE_TABLE_LIST = {
-            SportTable.CREATE_TABLE_SPORT,
-            FacilityTable.CREATE_TABLE_FACILITY,
-            WorkoutPlanTable.CREATE_TABLE_WORKOUT_PLAN,
-            WorkoutHistoryTable.CREATE_TABLE_WORKOUT_HISTORY
-    };
 
     /**
      * Inner class contains constants of {@link Sport} table name, column names, SQLite queries.

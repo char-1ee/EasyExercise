@@ -27,16 +27,14 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
     private static final int RC_SIGN_IN = 1234;
     private static final String TAG = "LoginActivity";
 
-    private EditText inputEmail, inputPassword;
+    private EditText inputEmail;
+    private EditText inputPassword;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
-    private Button toRegisterButton, loginButton, resetButton;
     private GoogleSignInClient googleSignInClient;
-    private GoogleSignInButton googleSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +63,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         inputEmail = findViewById(R.id.email_login);
         inputPassword = findViewById(R.id.password_login);
         progressBar = findViewById(R.id.progressBar_login);
-        loginButton = findViewById(R.id.login_button);
-        resetButton = findViewById(R.id.to_reset_password_button);
-        toRegisterButton = findViewById(R.id.to_register_button);
-        googleSignInButton = findViewById(R.id.google_sign_in_button);
+        Button loginButton = findViewById(R.id.login_button);
+        Button resetButton = findViewById(R.id.to_reset_password_button);
+        Button toRegisterButton = findViewById(R.id.to_register_button);
+        GoogleSignInButton googleSignInButton = findViewById(R.id.google_sign_in_button);
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -105,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 progressBar.setVisibility(View.VISIBLE);
 
-                //authenticate user
+                // authenticate user
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
 
                     // If sign in fails, display a message to the user. If sign in succeeds

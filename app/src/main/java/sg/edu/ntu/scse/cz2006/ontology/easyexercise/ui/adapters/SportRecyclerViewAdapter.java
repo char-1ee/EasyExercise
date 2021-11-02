@@ -16,9 +16,9 @@ import java.util.List;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
-import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.SelectSportActivity;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.Selectable;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecyclerViewAdapter.MyViewHolder> {
     private final List<Sport> mSportList;
@@ -65,10 +65,9 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
             SelectSportActivity.finalChoice.clear();
             SelectSportActivity.finalChoice.addAll(SelectSportActivity.ChosenSport1);
             SelectSportActivity.finalChoice.addAll(SelectSportActivity.ChosenSport2);
-            if(SelectSportActivity.finalChoice.size()!= 0){
+            if (SelectSportActivity.finalChoice.size() != 0) {
                 SelectSportActivity.mSportChoicesConfirmButton.setEnabled(true);
-            }
-            else {
+            } else {
                 SelectSportActivity.mSportChoicesConfirmButton.setEnabled(false);
             }
         });

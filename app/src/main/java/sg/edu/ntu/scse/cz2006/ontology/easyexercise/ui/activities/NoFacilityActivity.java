@@ -21,10 +21,11 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.CustomizedLoc
  */
 
 public class NoFacilityActivity extends AppCompatActivity {
-    double latitude= 0;
-    double longitude= 0;
+    double latitude = 0;
+    double longitude = 0;
     private ActionBar actionBar;
     private Button ProceedButton, CancelButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,27 +34,27 @@ public class NoFacilityActivity extends AppCompatActivity {
 
     }
 
-    private void initButton(){
+    private void initButton() {
         ProceedButton.setOnClickListener(v -> {
-            Intent intent= new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
+            Intent intent = new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
             intent.putExtra("CustomizedLocation", new CustomizedLocation(new Coordinates(latitude, longitude, "Customized Location")));
             startActivity(intent);
             finish();
         });
 
         CancelButton.setOnClickListener(v -> {
-            Intent intent= new Intent(NoFacilityActivity.this, MainActivity.class);
+            Intent intent = new Intent(NoFacilityActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
     }
 
-    private void initView(){
+    private void initView() {
         setContentView(R.layout.activity_no_facility);
-        ProceedButton= findViewById(R.id.proceed_button);
-        CancelButton= findViewById(R.id.cancel_button);
-        latitude= getLatitude();
-        longitude= getLongitude();
+        ProceedButton = findViewById(R.id.proceed_button);
+        CancelButton = findViewById(R.id.cancel_button);
+        latitude = getLatitude();
+        longitude = getLongitude();
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);

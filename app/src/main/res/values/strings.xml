@@ -2,6 +2,7 @@
     <string name="app_name">EasyExercise</string>
 
     <string name="default_web_client_id_hardcode">867339313395-lks5qqe1heeijqa0564p2ld4tlreglhc.apps.googleusercontent.com</string>
+    <string name="firebase_database">https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
 
     <string name="fragment_home_title">Home</string>
     <string name="fragment_plans_title">Plans</string>

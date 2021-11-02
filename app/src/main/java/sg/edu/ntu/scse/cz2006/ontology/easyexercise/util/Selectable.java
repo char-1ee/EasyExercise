@@ -8,8 +8,8 @@ package sg.edu.ntu.scse.cz2006.ontology.easyexercise.util;
  * @author Ma Xinyi
  */
 public class Selectable<T> extends Box<T> {
-    private boolean isSelected = false;
     private final T t;
+    private boolean isSelected = false;
 
     public Selectable(T t) {
         super(t);

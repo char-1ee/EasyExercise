@@ -70,17 +70,17 @@ public class CheckOutActivity extends AppCompatActivity {
         return (String) getIntent().getSerializableExtra("timeDuration");
     }
 
-    private void initView(){
+    private void initView() {
         setContentView(R.layout.activity_check_out);
         sport = getSport();
         location = getLocation();
         start = getStart();
         end = getEnd();
-        sportNameView= findViewById(R.id.checkoutSport);
-        placeView= findViewById(R.id.checkoutPlace);
-        sportView=findViewById(R.id.checkoutPic);
-        exitButton=findViewById(R.id.exitButton);
-        profileView=findViewById(R.id.checkoutProfile);
+        sportNameView = findViewById(R.id.checkoutSport);
+        placeView = findViewById(R.id.checkoutPlace);
+        sportView = findViewById(R.id.checkoutPic);
+        exitButton = findViewById(R.id.exitButton);
+        profileView = findViewById(R.id.checkoutProfile);
         profileView.setClipToOutline(true);
         timeDuration = findViewById(R.id.time_duration);
         sportView.setImageResource(SportsImageMatcher.getImage(sport));
@@ -94,8 +94,8 @@ public class CheckOutActivity extends AppCompatActivity {
         updateRecord();
     }
 
-    private void updateRecord(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cz2006-9c928-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    private void updateRecord() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
         DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         WorkoutRecord workoutRecord;
         String postId = user.push().getKey();
@@ -104,9 +104,9 @@ public class CheckOutActivity extends AppCompatActivity {
         user.child("WorkoutRecord").child(postId).setValue(firebaseWorkoutRecord);
     }
 
-    private void initButton(){
+    private void initButton() {
         exitButton.setOnClickListener(view -> {
-            Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+            Intent intent = new Intent(CheckOutActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
@@ -115,14 +115,14 @@ public class CheckOutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-        Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+        Intent intent = new Intent(CheckOutActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         moveTaskToBack(true);
-        Intent intent= new Intent(CheckOutActivity.this, MainActivity.class);
+        Intent intent = new Intent(CheckOutActivity.this, MainActivity.class);
         startActivity(intent);
         return super.onOptionsItemSelected(item);
     }

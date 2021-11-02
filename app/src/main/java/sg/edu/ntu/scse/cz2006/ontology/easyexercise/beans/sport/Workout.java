@@ -13,6 +13,33 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Location;
  * @author Zhong Ruoyu
  */
 public abstract class Workout implements Serializable {
+    private final Sport sport;
+    private final Location location;
+    private final WorkoutStatus status;
+    private final String planID;
+    public Workout(Sport sport, Location location, WorkoutStatus status, String planID) {
+        this.sport = sport;
+        this.location = location;
+        this.status = status;
+        this.planID = planID;
+    }
+
+    public Sport getSport() {
+        return sport;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public WorkoutStatus getStatus() {
+        return status;
+    }
+
+    public String getPlanID() {
+        return planID;
+    }
+
     public enum WorkoutStatus {
         PRIVATE("Private"), PUBLIC("Public"), RECORD("Record");
 
@@ -36,33 +63,5 @@ public abstract class Workout implements Serializable {
         public String toString() {
             return name;
         }
-    }
-
-    private final Sport sport;
-    private final Location location;
-    private final WorkoutStatus status;
-    private final String planID;
-
-    public Workout(Sport sport, Location location, WorkoutStatus status, String planID) {
-        this.sport = sport;
-        this.location = location;
-        this.status = status;
-        this.planID = planID;
-    }
-
-    public Sport getSport() {
-        return sport;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public WorkoutStatus getStatus() {
-        return status;
-    }
-
-    public String getPlanID() {
-        return planID;
     }
 }

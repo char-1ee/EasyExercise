@@ -85,16 +85,16 @@
             android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" />
+        <activity
+            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.LoginActivity"
+            android:exported="true"
+            android:label="Sign In">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.LoginActivity"
-            android:exported="true"
-            android:label="Sign In"></activity>
         <activity
             android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.UserActivity"
             android:exported="true"

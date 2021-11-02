@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
@@ -34,6 +35,7 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.Sport;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.WorkoutRecord;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseManager;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication.LoginActivity;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.DateUtil;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 /**
@@ -53,7 +55,7 @@ public class CheckOutActivity extends AppCompatActivity {
     private Date start;
     private Date end;
     private ImageView profileView;
-    private TextView userView;
+    private TextView userView, checkOutText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,8 +145,11 @@ public class CheckOutActivity extends AppCompatActivity {
         profileView = findViewById(R.id.checkoutProfile);
         profileView.setClipToOutline(true);
         userView= findViewById(R.id.checkoutUser);
+        checkOutText = findViewById(R.id.checkoutTime);
         TextView timeDuration = findViewById(R.id.time_duration);
         sportView.setImageResource(SportsImageMatcher.getImage(sport));
+        Date currTime = Calendar.getInstance().getTime();
+        checkOutText.setText(DateUtil.convertDateToString(currTime, "yyyy-MM-dd HH:mm"));
         placeView.setText(location.getName());
         timeDuration.setText(getTimeDuration());
         sportNameView.setText(sport.getName());

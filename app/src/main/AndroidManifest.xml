@@ -42,7 +42,7 @@
         <activity
             android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ChatRoomActivity"
             android:exported="true"
-            android:label="Check In" />
+            android:label="Chatroom" />
         <activity
             android:name="sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.CheckOutActivity"
             android:exported="true"

@@ -41,7 +41,7 @@ public abstract class Location implements Serializable {
      * @see Coordinates#getDistance(Coordinates)
      */
     public double getDistance(Coordinates coordinates) {
-        return coordinates.getDistance(coordinates);
+        return this.coordinates.getDistance(coordinates);
     }
 
     public LocationType getType() {

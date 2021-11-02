@@ -33,11 +33,9 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.FacilityRecycler
 public class SelectFacilityPlanActivity extends AppCompatActivity implements OnMapReadyCallback {
     double latitude = 0;
     double longitude = 0;
-    private List<Facility> FacilityQualified;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private GoogleMap mMap;
-    private ActionBar actionBar;
+    private List<Facility> facilities;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class SelectFacilityPlanActivity extends AppCompatActivity implements OnM
     }
 
 
-    private List<Facility> getFacilityQualified() {
+    private List<Facility> getFacilities() {
         return (List<Facility>) getIntent().getSerializableExtra("FacilityQualified");
     }
 
@@ -56,11 +54,14 @@ public class SelectFacilityPlanActivity extends AppCompatActivity implements OnM
         setContentView(R.layout.activity_select_facility);
         latitude = getLatitude();
         longitude = getLongitude();
-        FacilityQualified = getFacilityQualified();
-        mRecyclerView = findViewById(R.id.recycler_view);
-        actionBar = getSupportActionBar();
+        facilities = getFacilities();
+        recyclerView = findViewById(R.id.recycler_view);
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        mAdapter = new FacilityRecyclerViewAdapterPlan(SelectFacilityPlanActivity.this, FacilityQualified, new Coordinates(latitude, longitude, ""));
+        adapter = new FacilityRecyclerViewAdapterPlan(
+                SelectFacilityPlanActivity.this,
+                facilities,
+                new Coordinates(latitude, longitude));
     }
 
     private void initMap() {
@@ -75,9 +76,9 @@ public class SelectFacilityPlanActivity extends AppCompatActivity implements OnM
      */
     private void initAdapter() {
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityPlanActivity.this);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
     }
 
     public double getLatitude() {
@@ -96,14 +97,13 @@ public class SelectFacilityPlanActivity extends AppCompatActivity implements OnM
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
-        for (Facility curFacility : FacilityQualified) {
+        for (Facility curFacility : facilities) {
             LatLng cur = new LatLng(curFacility.getLatitude(), curFacility.getLongitude());
-            mMap.addMarker(new MarkerOptions()
+            googleMap.addMarker(new MarkerOptions()
                     .position(cur)
                     .title(curFacility.getName()));
         }
-        LatLng cur = new LatLng(FacilityQualified.get(0).getLatitude(), FacilityQualified.get(0).getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 13f));
+        LatLng cur = new LatLng(facilities.get(0).getLatitude(), facilities.get(0).getLongitude());
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 13f));
     }
 }

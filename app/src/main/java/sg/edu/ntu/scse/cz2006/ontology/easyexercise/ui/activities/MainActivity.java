@@ -85,18 +85,18 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_me:
                         selectedFragment = new UserFragment();
+                        break;
                 }
                 assert selectedFragment != null;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         selectedFragment).commit();
                 return true;
             };
-    Intent intentToCheckIn;
-    Intent intentToPlan;
-    double latitude;
-    double longitude;
-    List<Sport> allSports = new ArrayList<>();
-    Coordinates coordinates;
+
+    private Intent intentToPlan;
+    private double latitude;
+    private double longitude;
+    private List<Sport> allSports = new ArrayList<>();
     private LocationRequest locationRequest;
 
     @Override
@@ -104,14 +104,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Hide the title (date, battery, notifications)
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // Hide the title bar (bar below title)
-//        getSupportActionBar().hide();
+        // getSupportActionBar().hide();
 
         // Enable full screen
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //         WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
 
@@ -141,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
      * Get user's current location as latitude and longitude
      */
     public void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
             if (isGPSEnabled()) {
                 LocationServices.getFusedLocationProviderClient(MainActivity.this)
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         result.addOnCompleteListener(task -> {
             try {
                 LocationSettingsResponse response = task.getResult(ApiException.class);
-                Toast.makeText(MainActivity.this, "GPS is already turned on", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "GPS is turned on.", Toast.LENGTH_SHORT).show();
             } catch (ApiException e) {
                 switch (e.getStatusCode()) {
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        // Device does not have location
+                        // Device does not have location info
                         break;
                 }
             }
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Check if the device's GPS is enabled.
      *
-     * @return the boolean value, true indicates GPS is enabled, false vice versa
+     * @return {@code true} if GPS is enabled; {@code false} otherwise
      */
     private boolean isGPSEnabled() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -221,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         db.closeDatabase();
     }
 
-    private List<Sport> testSelectSportRecommended() {
+    private List<Sport> selectSportsRecommended() {
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
                 RemoteFileIOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -245,9 +246,9 @@ public class MainActivity extends AppCompatActivity {
         return new ArrayList<>(recommendedSports);
     }
 
-    private List<Sport> testSelectSportOther() {
-        List<Sport> sports = allSports;
-        sports.removeAll(testSelectSportRecommended());
+    private List<Sport> selectOtherSports() {
+        List<Sport> sports = new ArrayList<>(allSports);
+        sports.removeAll(selectSportsRecommended());
         return sports;
     }
 
@@ -255,14 +256,13 @@ public class MainActivity extends AppCompatActivity {
         return intentToPlan;
     }
 
-
     public Intent getCheckInList() {
-        intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-        List<Facility> facilityList = getCheckInFacilitByDistance();
+        Intent intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
+        List<Facility> facilityList = getCheckInFacilitiesByDistance();
         if (facilityList.size() > 0) {
             intentToCheckIn = new Intent(MainActivity.this, CheckInNormalActivity.class);
-            intentToCheckIn.putExtra("ClosestFacility", getCheckInFacilitByDistance().get(0));
-            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckInFacilitByDistance());
+            intentToCheckIn.putExtra("ClosestFacility", getCheckInFacilitiesByDistance().get(0));
+            intentToCheckIn.putExtra("FacilityByDistance", (Serializable) getCheckInFacilitiesByDistance());
         } else {
             intentToCheckIn = new Intent(MainActivity.this, NoFacilityActivity.class);
         }
@@ -271,8 +271,10 @@ public class MainActivity extends AppCompatActivity {
         return intentToCheckIn;
     }
 
-    private List<Facility> getCheckInFacilitByDistance() {
-        return FacilityRecommendation.getFacilitiesNearby(MainActivity.this, new Coordinates(latitude, longitude, ""), 5, 20);
+    private List<Facility> getCheckInFacilitiesByDistance() {
+        return FacilityRecommendation.getFacilitiesNearby(
+                MainActivity.this, new Coordinates(latitude, longitude),
+                5, 20);
     }
 
     public void initHandler() {
@@ -281,14 +283,13 @@ public class MainActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             public void run() {
                 if (latitude == 0) {
-                    //Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(MainActivity.this, "GPS loading", Toast.LENGTH_SHORT).show();
                     handler.postDelayed(this, 3000);
                 } else {
                     Toast.makeText(MainActivity.this, "GPS now ready", Toast.LENGTH_SHORT).show();
                     intentToPlan = new Intent(MainActivity.this, SelectSportActivity.class);
-                    intentToPlan.putExtra("RecommendedSports", (Serializable) testSelectSportRecommended());
-                    intentToPlan.putExtra("OtherSports", (Serializable) testSelectSportOther());
-                    //Toast.makeText(MainActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
+                    intentToPlan.putExtra("RecommendedSports", (Serializable) selectSportsRecommended());
+                    intentToPlan.putExtra("OtherSports", (Serializable) selectOtherSports());
                     intentToPlan.putExtra("latitude1", latitude);
                     intentToPlan.putExtra("longitude1", longitude);
                 }

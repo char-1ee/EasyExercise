@@ -32,34 +32,32 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.HistoryRecyclerV
  * @author Mao Yiyun
  * @author Li Xingjian
  */
-
 public class HistoryFragment extends Fragment {
     private final List<WorkoutRecord> workoutRecordList = new ArrayList<>();
-    View view;
-    private RecyclerView mRecyclerView;
     private HistoryRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_history, container, false);
-        mRecyclerView = view.findViewById(R.id.recycler_view);
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance(getContext().getString(R.string.firebase_database));
         DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         adapter = new HistoryRecyclerViewAdapter(workoutRecordList, getActivity());
-        mRecyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
         user.child("WorkoutRecord").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
                 for (DataSnapshot s : task.getResult().getChildren()) {
-                    WorkoutDatabaseManager.FirebaseWorkoutRecord receiveRecord = s.getValue(WorkoutDatabaseManager.FirebaseWorkoutRecord.class);
+                    WorkoutDatabaseManager.FirebaseWorkoutRecord receiveRecord =
+                            s.getValue(WorkoutDatabaseManager.FirebaseWorkoutRecord.class);
                     if (receiveRecord == null) {
                         Log.e("firebase", "Data = null", task.getException());
                     } else {
@@ -78,6 +76,4 @@ public class HistoryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-
 }

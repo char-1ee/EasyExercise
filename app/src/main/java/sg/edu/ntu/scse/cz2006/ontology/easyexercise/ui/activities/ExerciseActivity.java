@@ -1,5 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -33,11 +34,8 @@ public class ExerciseActivity extends AppCompatActivity {
     private Sport sport;
     private TextView timerText;
     private Button checkOutButton;
-    private ImageView sportView;
     private Timer timer;
-    private TimerTask timerTask;
     private Double time = 0.0;
-    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,7 @@ public class ExerciseActivity extends AppCompatActivity {
      * @author Ruan Donglin
      */
     private void startTimer() {
-        timerTask = new TimerTask() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(() -> {
@@ -69,7 +67,6 @@ public class ExerciseActivity extends AppCompatActivity {
                     timerText.setText(getTimerText());
                 });
             }
-
         };
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
@@ -83,9 +80,9 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     private String formatTime(int seconds, int minutes, int hours) {
-        return String.format("%02d", hours) + " : " +
-                String.format("%02d", minutes) + " : " +
-                String.format("%02d", seconds);
+        @SuppressLint("DefaultLocale")
+        String format = String.format("%02d : %02d : %02d", hours, minutes, seconds);
+        return format;
     }
 
     private void initView() {
@@ -93,12 +90,12 @@ public class ExerciseActivity extends AppCompatActivity {
         startDate = new Date();
         location = getLocation();
         sport = getSport();
-        sportView = findViewById(R.id.imageView3);
+        ImageView sportView = findViewById(R.id.imageView3);
         timerText = findViewById(R.id.timerText);
         checkOutButton = findViewById(R.id.check_out_button);
         sportView.setImageResource(SportsImageMatcher.getImage(sport));
         timer = new Timer();
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -115,7 +112,6 @@ public class ExerciseActivity extends AppCompatActivity {
             finish();
         });
     }
-
 
     @Override
     public void onBackPressed() {

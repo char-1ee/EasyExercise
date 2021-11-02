@@ -9,6 +9,7 @@ import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WEATH
 import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WIND_DIRECTION_JSON_URL;
 import static sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather.WIND_SPEED_JSON_URL;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,47 +40,53 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
  */
 
 public class HomeFragment extends Fragment {
-    Intent intentToCheckIn;
-    Intent intentToPlan;
-    Handler handler;
-    Runnable runnable;
-    MainActivity activity;
-    double latitude;
-    double longitude;
-    Coordinates c;
-    View view;
-    Button mMakePlanButton;
-    Button mCheckInButton;
-    TextView temperature, pm25, uvIndex, humidity, forecast;
-    Weather weather;
+    private Intent intentToCheckIn;
+    private Intent intentToPlan;
+    private Handler handler;
+    private Runnable runnable;
+    private MainActivity activity;
+    private double latitude;
+    private double longitude;
+    private Coordinates coordinates;
+    private View view;
+    private Button buttonMakePlan;
+    private Button buttonCheckIn;
+    private TextView temperature;
+    private TextView pm25;
+    private TextView uvIndex;
+    private TextView humidity;
+    private TextView forecast;
+    private Weather weather;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        latitude = 0;
-        longitude = 0;
-        initVIew();
+        initView();
         return view;
     }
 
-    private void initVIew() {
+    private void initView() {
         mSwipeRefreshLayout = view.findViewById(R.id.refreshment_layout);
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             activity = (MainActivity) getActivity();
-            setWeather(c);
+            setWeather(coordinates);
             mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getContext(), "Weather successfully reloaded", Toast.LENGTH_SHORT).show();
         });
-        mMakePlanButton = view.findViewById(R.id.home_plan_button);
-        mCheckInButton = view.findViewById(R.id.home_checkin_button);
+        buttonMakePlan = view.findViewById(R.id.home_plan_button);
+        buttonCheckIn = view.findViewById(R.id.home_checkin_button);
         temperature = view.findViewById(R.id.temperature);
         pm25 = view.findViewById(R.id.pm25_value);
         uvIndex = view.findViewById(R.id.UV_value);
         humidity = view.findViewById(R.id.Humidity_value);
         forecast = view.findViewById(R.id.Forecast);
         activity = (MainActivity) getActivity();
+        assert activity != null;
         longitude = activity.getLongitude();
         latitude = activity.getLatitude();
         initHandler();
@@ -87,19 +94,20 @@ public class HomeFragment extends Fragment {
     }
 
     private void initButton() {
-        mMakePlanButton.setOnClickListener(v -> {
+        buttonMakePlan.setOnClickListener(v -> {
             if (!ButtonClickUtil.isFastDoubleClick(R.id.home_plan_button)) {
                 startActivity(intentToPlan);
             }
         });
 
-        mCheckInButton.setOnClickListener(v -> {
+        buttonCheckIn.setOnClickListener(v -> {
             if (!ButtonClickUtil.isFastDoubleClick(R.id.home_checkin_button)) {
                 startActivity(intentToCheckIn);
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setWeather(Coordinates temp) {
         Thread thread = new Thread(() -> weather = new Weather(
                 RemoteFileIOUtil.readFromURL(AIR_TEMPERATURE_JSON_URL),
@@ -131,10 +139,10 @@ public class HomeFragment extends Fragment {
                     latitude = activity.getLatitude();
                     handler.postDelayed(this, 2000);
                 } else {
-                    c = new Coordinates(latitude, longitude, "new");
+                    coordinates = new Coordinates(latitude, longitude);
                     intentToPlan = activity.getIntentToPlan();
                     intentToCheckIn = activity.getCheckInList();
-                    setWeather(c);
+                    setWeather(coordinates);
                     initButton();
                 }
             }

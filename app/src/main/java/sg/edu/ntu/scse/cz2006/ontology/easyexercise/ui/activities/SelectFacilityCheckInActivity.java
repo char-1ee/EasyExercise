@@ -30,13 +30,10 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.FacilityRecycler
  * @author Mao Yiyun
  */
 public class SelectFacilityCheckInActivity extends AppCompatActivity implements OnMapReadyCallback {
-    double latitude = 0;
-    double longitude = 0;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private double latitude = 0;
+    private double longitude = 0;
+    private RecyclerView recyclerView;
     private List<Facility> facilityList;
-    private GoogleMap mMap;
-    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +43,6 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
         initMap();
     }
 
-
     private List<Facility> getFacilityList() {
         return (List<Facility>) getIntent().getSerializableExtra("FacilityByDistance2");
     }
@@ -54,10 +50,10 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
     private void initView() {
         setContentView(R.layout.activity_select_facility);
         facilityList = getFacilityList();
-        mRecyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         latitude = getLatitude();
         longitude = getLongitude();
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -75,11 +71,15 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
      * @author Ruan Donglin
      */
     private void initAdapter() {
-        mAdapter = new FacilityRecyclerViewAdapterCheckIn(SelectFacilityCheckInActivity.this, facilityList, new Coordinates(latitude, longitude, ""));
+        RecyclerView.Adapter facilityRecyclerViewAdapterCheckIn =
+                new FacilityRecyclerViewAdapterCheckIn(
+                        SelectFacilityCheckInActivity.this,
+                        facilityList,
+                        new Coordinates(latitude, longitude));
         LinearLayoutManager manager = new LinearLayoutManager(SelectFacilityCheckInActivity.this);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(facilityRecyclerViewAdapterCheckIn);
     }
 
     public double getLatitude() {
@@ -98,14 +98,13 @@ public class SelectFacilityCheckInActivity extends AppCompatActivity implements 
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
         for (Facility curFacility : facilityList) {
             LatLng cur = new LatLng(curFacility.getLatitude(), curFacility.getLongitude());
-            mMap.addMarker(new MarkerOptions()
+            googleMap.addMarker(new MarkerOptions()
                     .position(cur)
                     .title(curFacility.getName()));
         }
         LatLng cur = new LatLng(facilityList.get(0).getLatitude(), facilityList.get(0).getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 13f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 13f));
     }
 }

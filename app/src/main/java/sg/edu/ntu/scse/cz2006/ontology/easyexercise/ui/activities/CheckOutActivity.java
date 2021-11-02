@@ -30,24 +30,19 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
  * @author Ruan Donglin
  * @author Mao Yiyun
  */
-
 public class CheckOutActivity extends AppCompatActivity {
-    private ImageView profileView, sportView;
     private Button exitButton;
-    private TextView timeDuration, placeView, sportNameView;
     private Sport sport;
     private Location location;
-    private ActionBar actionBar;
-    private Date start, end;
-    private WorkoutRecord workoutRecord;
-
+    private Date start;
+    private Date end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         initButton();
-        // TODO: 2021/10/24  addRecord();
+        // TODO: 2021/10/24 addRecord();
     }
 
     private Date getStart() {
@@ -76,18 +71,18 @@ public class CheckOutActivity extends AppCompatActivity {
         location = getLocation();
         start = getStart();
         end = getEnd();
-        sportNameView = findViewById(R.id.checkoutSport);
-        placeView = findViewById(R.id.checkoutPlace);
-        sportView = findViewById(R.id.checkoutPic);
+        TextView sportNameView = findViewById(R.id.checkoutSport);
+        TextView placeView = findViewById(R.id.checkoutPlace);
+        ImageView sportView = findViewById(R.id.checkoutPic);
         exitButton = findViewById(R.id.exitButton);
-        profileView = findViewById(R.id.checkoutProfile);
+        ImageView profileView = findViewById(R.id.checkoutProfile);
         profileView.setClipToOutline(true);
-        timeDuration = findViewById(R.id.time_duration);
+        TextView timeDuration = findViewById(R.id.time_duration);
         sportView.setImageResource(SportsImageMatcher.getImage(sport));
         placeView.setText(location.getName());
         timeDuration.setText(getTimeDuration());
         sportNameView.setText(sport.getName());
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -96,11 +91,16 @@ public class CheckOutActivity extends AppCompatActivity {
 
     private void updateRecord() {
         FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
-        DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference user =
+                database.getReference()
+                        .child("user")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         WorkoutRecord workoutRecord;
         String postId = user.push().getKey();
         workoutRecord = new WorkoutRecord(sport, location, postId, start, end, getTimeDuration());
-        WorkoutDatabaseManager.FirebaseWorkoutRecord firebaseWorkoutRecord = new WorkoutDatabaseManager.FirebaseWorkoutRecord(workoutRecord);
+        WorkoutDatabaseManager.FirebaseWorkoutRecord firebaseWorkoutRecord =
+                new WorkoutDatabaseManager.FirebaseWorkoutRecord(workoutRecord);
+        assert postId != null;
         user.child("WorkoutRecord").child(postId).setValue(firebaseWorkoutRecord);
     }
 
@@ -126,5 +126,4 @@ public class CheckOutActivity extends AppCompatActivity {
         startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
-
 }

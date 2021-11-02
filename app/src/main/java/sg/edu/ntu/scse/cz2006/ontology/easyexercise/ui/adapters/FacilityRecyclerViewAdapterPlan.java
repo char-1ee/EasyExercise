@@ -1,5 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -18,16 +19,15 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.Facility;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.AddPlanActivity;
 
 public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<FacilityRecyclerViewAdapterPlan.MyViewHolder> {
-
-    private final List<Facility> mFacilityList;
-    private final Context mContext;
-    private final Coordinates mCurrentCoordinates;
-    private Facility chosenFacility;
+    private final List<Facility> facilities;
+    private final Context context;
+    private final Coordinates currentCoordinates;
+    private Facility facilityChosen;
 
     public FacilityRecyclerViewAdapterPlan(Context context, List<Facility> facilityList, Coordinates currentCoordinates) {
-        mFacilityList = facilityList;
-        mContext = context;
-        mCurrentCoordinates = currentCoordinates;
+        facilities = facilityList;
+        this.context = context;
+        this.currentCoordinates = currentCoordinates;
     }
 
     @NonNull
@@ -37,27 +37,28 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
         return new MyViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final Facility facility = mFacilityList.get(position);
+        final Facility facility = facilities.get(position);
         holder.mSelectFacilityName.setText(facility.getName());
 
-        holder.mSelectFacilityDistance.setText(String.valueOf(Math.round(facility.getCoordinates().getDistance(mCurrentCoordinates) * 100.0) / 100.0 + "km"));
+        holder.mSelectFacilityDistance.setText(
+                String.format("%.2fkm", facility.getCoordinates().getDistance(currentCoordinates)));
         holder.view.setOnClickListener(view -> {
-            chosenFacility = facility;
-            Intent intent = new Intent(mContext, AddPlanActivity.class);
-            intent.putExtra("ChosenFacility", chosenFacility);
-            mContext.startActivity(intent);
+            facilityChosen = facility;
+            Intent intent = new Intent(context, AddPlanActivity.class);
+            intent.putExtra("ChosenFacility", facilityChosen);
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return mFacilityList == null ? 0 : mFacilityList.size();
+        return facilities == null ? 0 : facilities.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         private final View view;
         private final TextView mSelectFacilityName;
         private final TextView mSelectFacilityDistance;
@@ -67,7 +68,6 @@ public class FacilityRecyclerViewAdapterPlan extends RecyclerView.Adapter<Facili
             view = itemView;
             mSelectFacilityDistance = itemView.findViewById(R.id.plan_date);
             mSelectFacilityName = itemView.findViewById(R.id.plan_sport_name);
-
         }
     }
 }

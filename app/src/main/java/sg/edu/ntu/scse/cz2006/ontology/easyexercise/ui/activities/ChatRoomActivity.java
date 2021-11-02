@@ -1,5 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,16 +42,12 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
 
 public class ChatRoomActivity extends AppCompatActivity {
     private final List<Message> msgList = new ArrayList<>();
-    private ActionBar actionBar;
     private EditText inputText;
     private TextView planFacility;
     private TextView planStartTime;
     private TextView planEndTime;
     private TextView planLimit;
     private TextView planSport;
-    private Button send;
-    private Button join;
-    private Button quit;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
     private WorkoutDatabaseManager.FirebasePublicWorkoutPlan currentPlan;
@@ -65,19 +62,22 @@ public class ChatRoomActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         planID = extras.getString("plan");
 
-
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
         DatabaseReference mDatabase = database.getReference().child("community").child(planID).child("chatroom");
         DatabaseReference planReference = database.getReference().child("community").child(planID);
-        DatabaseReference user = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference user =
+                database.getReference()
+                        .child("user")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         inputText = findViewById(R.id.inputText);
-        send = findViewById(R.id.send);
+        Button send = findViewById(R.id.send);
         recyclerView = findViewById(R.id.messageRecyclerView);
-        join = findViewById(R.id.joinPublicPlanButton);
-        quit = findViewById(R.id.quitPublicPlanButton);
-        actionBar = getSupportActionBar();
+        Button join = findViewById(R.id.joinPublicPlanButton);
+        Button quit = findViewById(R.id.quitPublicPlanButton);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         planStartTime = findViewById(R.id.start_time_view);
         planEndTime = findViewById(R.id.end_time_view);
@@ -108,12 +108,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Sport sport = manager.getSportById(currentPlan.getSportID());
                 Facility facility = manager.getFacilityById(currentPlan.getFacilityID());
                 manager.closeDatabase();
-                planLimit.setText(currentPlan.getMembers().size() + "/" + currentPlan.getPlanLimit());
+                planLimit.setText(String.format("%s/%s", currentPlan.getMembers().size(), currentPlan.getPlanLimit()));
                 planSport.setText(sport.getName());
                 planFacility.setText(facility.getName());
             }
         });
-
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,15 +137,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         send.setOnClickListener(v -> {
 
             String content = inputText.getText().toString();
-            if (!"".equals(content)) {
+            if (!content.isEmpty()) {
                 try {
-
                     Message handleMsg = new Message(content, currentUser.getDisplayName(), currentUser.getPhotoUrl().toString());
                     mDatabase.child(String.valueOf(msgList.size() + 1)).setValue(handleMsg);
                     inputText.setText("");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
             }
         });
@@ -165,8 +161,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     int i;
                     for (i = 0; i < currentPlan.getMembers().size(); i++) {
                         if (currentUser.getUid().equals(currentPlan.getMembers().get(i))) {
-                            Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan", Toast.LENGTH_SHORT).show();
-                            Log.wtf("test", "You are already in this shared plan");
+                            Toast.makeText(ChatRoomActivity.this, "You are already in this shared plan.", Toast.LENGTH_SHORT).show();
+                            Log.wtf("test", "You are already in this shared plan.");
                             break;
                         }
                     }
@@ -175,12 +171,20 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("members", currentPlan.getMembers());
                         planReference.updateChildren(updates);
-                        Toast.makeText(ChatRoomActivity.this, "Join successful", Toast.LENGTH_SHORT).show();
-                        Log.wtf("test", "Join successful");
+                        Toast.makeText(
+                                ChatRoomActivity.this,
+                                "Successfully joined.",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        Log.wtf("test", "Successfully joined.");
                     }
                 } else {
-                    Toast.makeText(ChatRoomActivity.this, "This plan is full", Toast.LENGTH_SHORT).show();
-                    Log.wtf("test", "full");
+                    Toast.makeText(
+                            ChatRoomActivity.this,
+                            "This plan is full.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    Log.wtf("test", "This plan is full.");
                 }
             }
         });
@@ -189,7 +193,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             if (!ButtonClickUtil.isFastDoubleClick(R.id.quitPublicPlanButton)) {
                 planReference.get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
+                        Log.e("firebase", "Error getting data.", task.getException());
                     } else {
                         currentPlan = task.getResult().getValue(WorkoutDatabaseManager.FirebasePublicWorkoutPlan.class);
                     }
@@ -204,26 +208,39 @@ public class ChatRoomActivity extends AppCompatActivity {
                         user.child("PublicPlan").child(currentPlan.getPlanID()).removeValue();
                         if (currentPlan.getMembers().size() == 0) {
                             planReference.removeValue();
-                            Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
-                            //TODO BUG!!!!!!
+                            Toast.makeText(
+                                    ChatRoomActivity.this,
+                                    "You haven't joined this plan.",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                            // TODO: BUG!!!!!!
                             startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
                         } else {
                             Map<String, Object> updates = new HashMap<>();
                             updates.put("members", currentPlan.getMembers());
                             planReference.updateChildren(updates);
-                            Toast.makeText(ChatRoomActivity.this, "Quit Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(
+                                    ChatRoomActivity.this,
+                                    "Successfully quit.",
+                                    Toast.LENGTH_SHORT
+                            ).show();
                             break;
                         }
                     }
                 }
                 if (!find) {
-                    Toast.makeText(ChatRoomActivity.this, "You haven't join this plan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            ChatRoomActivity.this,
+                            "You haven't joined this plan.",
+                            Toast.LENGTH_SHORT
+                    ).show();
                 }
             }
         });
     }
 
     private String getTime(Date date) {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }

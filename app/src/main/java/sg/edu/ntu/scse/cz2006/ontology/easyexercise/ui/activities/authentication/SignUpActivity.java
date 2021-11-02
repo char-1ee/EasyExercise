@@ -24,9 +24,8 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private EditText inputEmail, inputPassword;
-    private Button toLoginButton, signUpButton;
+    private EditText inputEmail;
+    private EditText inputPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
 
@@ -38,8 +37,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initView() {
-        toLoginButton = findViewById(R.id.to_login_button);
-        signUpButton = findViewById(R.id.register_button);
+        Button toLoginButton = findViewById(R.id.to_login_button);
+        Button signUpButton = findViewById(R.id.register_button);
         inputEmail = findViewById(R.id.register_email);
         inputPassword = findViewById(R.id.register_password);
         progressBar = findViewById(R.id.register_progressBar);
@@ -59,19 +58,28 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.register_button:
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Please enter your email address.",
+                            Toast.LENGTH_SHORT
+                    ).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Please enter your password.",
+                            Toast.LENGTH_SHORT
+                    ).show();
                     return;
                 }
-
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Password is too short. Please enter a minimum of 6 characters.",
+                            Toast.LENGTH_LONG
+                    ).show();
                     return;
                 }
 
@@ -79,21 +87,26 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 // Create user
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, task -> {
-                    Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                    // TODO: Remove debugging information?
+                    Toast.makeText(
+                            SignUpActivity.this,
+                            "createUserWithEmail:onComplete:" + task.isSuccessful(),
+                            Toast.LENGTH_SHORT
+                    ).show();
                     progressBar.setVisibility(View.GONE);
 
                     // If sign in fails, display a message to the user. If sign in succeeds
                     // the auth state listener will be notified and logic to handle the
                     // signed in user can be handled in the listener.
                     if (!task.isSuccessful()) {
-                        Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                SignUpActivity.this,
+                                "Authentication failed." + task.getException(),
+                                Toast.LENGTH_SHORT
+                        ).show();
                     } else {
                         FirebaseUser currentUser = auth.getCurrentUser();
-                        List<String> user = new ArrayList<String>();
-                        // String[0] uid;
-                        // String[1] username;
-                        // String[2] avatar uri;
+                        List<String> user = new ArrayList<>();
                         user.add(currentUser.getUid());
                         Log.e("userinfo", user.get(0));
                         user.add(currentUser.getDisplayName());
@@ -117,6 +130,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         progressBar.setVisibility(View.GONE);
     }
 
+    /**
+     * TODO: Remove?
+     */
     protected void addUserInfo() {
         FirebaseUser currentUser = auth.getCurrentUser();
         String[] user = new String[]{

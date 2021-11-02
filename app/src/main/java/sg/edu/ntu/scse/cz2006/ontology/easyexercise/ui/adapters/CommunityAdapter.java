@@ -1,5 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         return new ViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan = myPlanList.get(position);
@@ -52,7 +54,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.sportImage.setImageResource(SportsImageMatcher.getImage(sport));
         holder.date.setText(getTime(new Date(firebasePublicWorkoutPlan.getPlanStart())));
         holder.facility.setText(facility.getName());
-        holder.limit.setText("Limit: " + firebasePublicWorkoutPlan.getMembers().size() + "/" + firebasePublicWorkoutPlan.getPlanLimit());
+        holder.limit.setText(
+                String.format("Limit: %d / %d",
+                        firebasePublicWorkoutPlan.getMembers().size(),
+                        firebasePublicWorkoutPlan.getPlanLimit()));
 
         holder.bind(myPlanList.get(position), myListener);
     }
@@ -63,10 +68,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     private String getTime(Date date) {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
-
 
     public interface OnRecyclerItemClickListener {
         void onRecyclerItemClick(WorkoutDatabaseManager.FirebasePublicWorkoutPlan firebasePublicWorkoutPlan);

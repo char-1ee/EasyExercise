@@ -21,10 +21,10 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.location.CustomizedLoc
  */
 
 public class NoFacilityActivity extends AppCompatActivity {
-    double latitude = 0;
-    double longitude = 0;
-    private ActionBar actionBar;
-    private Button ProceedButton, CancelButton;
+    private double latitude = 0;
+    private double longitude = 0;
+    private Button buttonProceed;
+    private Button buttonCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +35,14 @@ public class NoFacilityActivity extends AppCompatActivity {
     }
 
     private void initButton() {
-        ProceedButton.setOnClickListener(v -> {
+        buttonProceed.setOnClickListener(v -> {
             Intent intent = new Intent(NoFacilityActivity.this, CheckInCustomizedActivity.class);
             intent.putExtra("CustomizedLocation", new CustomizedLocation(new Coordinates(latitude, longitude, "Customized Location")));
             startActivity(intent);
             finish();
         });
 
-        CancelButton.setOnClickListener(v -> {
+        buttonCancel.setOnClickListener(v -> {
             Intent intent = new Intent(NoFacilityActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -51,11 +51,11 @@ public class NoFacilityActivity extends AppCompatActivity {
 
     private void initView() {
         setContentView(R.layout.activity_no_facility);
-        ProceedButton = findViewById(R.id.proceed_button);
-        CancelButton = findViewById(R.id.cancel_button);
+        buttonProceed = findViewById(R.id.proceed_button);
+        buttonCancel = findViewById(R.id.cancel_button);
         latitude = getLatitude();
         longitude = getLongitude();
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -73,5 +73,4 @@ public class NoFacilityActivity extends AppCompatActivity {
         this.finish();
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -60,9 +60,9 @@ public class AddPlanAdapter extends RecyclerView.Adapter<AddPlanAdapter.MyViewHo
     }
 
     /**
-     * When user clicks our itemView, we still invoke the onItemClick
+     * When user clicks our itemView, we still invoke {@code onItemClick}.
      *
-     * @param holder
+     * @param holder TODO: What is this?
      */
     public void onItemHolderClick(MyViewHolder holder) {
         if (onItemClickListener != null)

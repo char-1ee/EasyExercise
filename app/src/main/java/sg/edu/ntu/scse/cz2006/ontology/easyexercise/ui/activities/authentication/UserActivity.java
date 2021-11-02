@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -28,13 +26,16 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
  * @author Li Xingjian
  */
 public class UserActivity extends AppCompatActivity {
+    private Button changeEmail;
+    private Button changePassword;
+    private Button sendEmail;
+    private Button remove;
 
-    private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
-            changeEmail, changePassword, sendEmail, remove, signOut;
-
-    private EditText oldEmail, newEmail, password, newPassword;
+    private EditText oldEmail;
+    private EditText newEmail;
+    private EditText password;
+    private EditText newPassword;
     private ProgressBar progressBar;
-    private ActionBar actionBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
 
@@ -43,31 +44,29 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        //get firebase auth instance
+        // get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        //get current user
+        // get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         authListener = firebaseAuth -> {
-            FirebaseUser user1 = firebaseAuth.getCurrentUser();
-            if (user1 == null) {
-
+            FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+            if (currentUser == null) {
                 // user auth state is changed - user is null then launch login activity
                 startActivity(new Intent(UserActivity.this, LoginActivity.class));
                 finish();
             }
         };
 
-
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        btnChangeEmail = findViewById(R.id.change_email_button);
-        btnChangePassword = findViewById(R.id.change_password_button);
-        btnSendResetEmail = findViewById(R.id.sending_pass_reset_button);
-        btnRemoveUser = findViewById(R.id.remove_user_button);
+        Button btnChangeEmail = findViewById(R.id.change_email_button);
+        Button btnChangePassword = findViewById(R.id.change_password_button);
+        Button btnSendResetEmail = findViewById(R.id.sending_pass_reset_button);
+        Button btnRemoveUser = findViewById(R.id.remove_user_button);
         changeEmail = findViewById(R.id.changeEmail);
         changePassword = findViewById(R.id.changePass);
         sendEmail = findViewById(R.id.send);
@@ -108,20 +107,25 @@ public class UserActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             if (user != null && !newEmail.getText().toString().trim().equals("")) {
                 user.updateEmail(newEmail.getText().toString().trim())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(UserActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
-                                    signOut();
-                                } else {
-                                    Toast.makeText(UserActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
-                                }
-                                progressBar.setVisibility(View.GONE);
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(
+                                        UserActivity.this,
+                                        "Email address is updated. Please sign in with the new email.",
+                                        Toast.LENGTH_LONG
+                                ).show();
+                                signOut();
+                            } else {
+                                Toast.makeText(
+                                        UserActivity.this,
+                                        "Failed to update email.",
+                                        Toast.LENGTH_SHORT
+                                ).show();
                             }
+                            progressBar.setVisibility(View.GONE);
                         });
-            } else if (newEmail.getText().toString().trim().equals("")) {
-                newEmail.setError("Enter email");
+            } else if (newEmail.getText().toString().trim().isEmpty()) {
+                newEmail.setError("Please enter an email.");
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -141,22 +145,30 @@ public class UserActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             if (user != null && !newPassword.getText().toString().trim().equals("")) {
                 if (newPassword.getText().toString().trim().length() < 6) {
-                    newPassword.setError("Password too short, enter minimum 6 characters");
+                    newPassword.setError("Password is too short. Please enter a minimum of 6 characters.");
                     progressBar.setVisibility(View.GONE);
                 } else {
                     user.updatePassword(newPassword.getText().toString().trim())
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(UserActivity.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(
+                                            UserActivity.this,
+                                            "Password is updated. Please sign in with the new password.",
+                                            Toast.LENGTH_LONG
+                                    ).show();
                                     signOut();
                                 } else {
-                                    Toast.makeText(UserActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(
+                                            UserActivity.this,
+                                            "Failed to update password.",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
                                 }
                                 progressBar.setVisibility(View.GONE);
                             });
                 }
-            } else if (newPassword.getText().toString().trim().equals("")) {
-                newPassword.setError("Enter password");
+            } else if (newPassword.getText().toString().trim().isEmpty()) {
+                newPassword.setError("Please enter a password.");
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -174,22 +186,26 @@ public class UserActivity extends AppCompatActivity {
 
         sendEmail.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
-            if (!oldEmail.getText().toString().trim().equals("")) {
+            if (!oldEmail.getText().toString().trim().isEmpty()) {
                 auth.sendPasswordResetEmail(oldEmail.getText().toString().trim())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(UserActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.GONE);
-                                } else {
-                                    Toast.makeText(UserActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.GONE);
-                                }
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(
+                                        UserActivity.this,
+                                        "Password reset email is successfully sent.",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            } else {
+                                Toast.makeText(
+                                        UserActivity.this,
+                                        "Failed to send password reset email.",
+                                        Toast.LENGTH_SHORT
+                                ).show();
                             }
+                            progressBar.setVisibility(View.GONE);
                         });
             } else {
-                oldEmail.setError("Enter email");
+                oldEmail.setError("Please enter an email address.");
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -205,17 +221,24 @@ public class UserActivity extends AppCompatActivity {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
                                 DatabaseReference mDatabase = database.getReference().child("users");
                                 mDatabase.child(uid).removeValue();
-                                Toast.makeText(UserActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        UserActivity.this,
+                                        "Your profile is deleted. Create a new account now!",
+                                        Toast.LENGTH_LONG
+                                ).show();
                                 startActivity(new Intent(UserActivity.this, SignUpActivity.class));
                                 finish();
                             } else {
-                                Toast.makeText(UserActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        UserActivity.this,
+                                        "Account deletion failed.",
+                                        Toast.LENGTH_SHORT
+                                ).show();
                             }
                             progressBar.setVisibility(View.GONE);
                         });
             }
         });
-
     }
 
     public void signOut() {
@@ -248,4 +271,3 @@ public class UserActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-

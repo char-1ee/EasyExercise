@@ -49,28 +49,34 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication
  * @author Ruan Donglin
  * @author Mao Yiyun
  * @author Li Xingjian
+ * @author Ma Xinyi
  */
 public class UserFragment extends Fragment implements View.OnClickListener {
+    private static final List<Integer> weightRange =
+            IntStream.rangeClosed(40, 100).boxed().collect(Collectors.toList());
+    private static final List<Integer> heightRange =
+            IntStream.range(140, 200).boxed().collect(Collectors.toList());
+    private static final List<String> genderChoice =
+            Arrays.asList("Female", "Male", "Prefer not to disclose");
 
-    private static final String TAG = "UserFragment";
     private View view;
     private ImageView profilePhoto;
-    private Button signOutButton, authButton;
-    private TextView emailText, usernameText, genderText, heightText, weightText, BMIText;
+    private TextView emailText;
+    private TextView usernameText;
+    private TextView genderText;
+    private TextView heightText;
+    private TextView weightText;
+    private TextView BMIText;
     private GoogleApiClient googleApiClient;
-    private GoogleSignInOptions gso;
     private GoogleSignInClient mSignInClient;
-    private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
 
-    private List<Integer> weightRange = IntStream.range(40, 101).boxed().collect(Collectors.toList());
-    private List<Integer> heightRange = IntStream.range(140, 201).boxed().collect(Collectors.toList());
-    private List<String> genderChoice = Arrays.asList("Female", "Male", "Prefer not to disclose");
     private String gender;
     private int weight;
     private int height;
-    private OptionsPickerView pvOptions1, pvOptions2, pvOptions3; // TODO: Raw use of parameterized class (a generic problem)
-
+    private OptionsPickerView pvOptions1;
+    private OptionsPickerView pvOptions2;
+    private OptionsPickerView pvOptions3;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,13 +84,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         initGoogleClient();
         initView();
 
-        //get firebase auth instance
+        // get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        //get current user
+        // get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        authListener = firebaseAuth -> {
+        // user auth state is changed - user is null then launch login activity
+        FirebaseAuth.AuthStateListener authListener = firebaseAuth -> {
             FirebaseUser user1 = firebaseAuth.getCurrentUser();
             if (user1 == null) {
 
@@ -106,11 +113,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         heightText = view.findViewById(R.id.text_height);
         weightText = view.findViewById(R.id.text_weight);
         genderText = view.findViewById(R.id.text_gender);
-        signOutButton = view.findViewById(R.id.new_sign_out_button);
-        authButton = view.findViewById(R.id.edit_login_info_button);
+        Button buttonSignOut = view.findViewById(R.id.new_sign_out_button);
+        Button buttonAuth = view.findViewById(R.id.edit_login_info_button);
 
-        signOutButton.setOnClickListener(this);
-        authButton.setOnClickListener(this);
+        buttonSignOut.setOnClickListener(this);
+        buttonAuth.setOnClickListener(this);
         BMIText.setOnClickListener(this);
         heightText.setOnClickListener(this);
         weightText.setOnClickListener(this);
@@ -124,7 +131,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initGoogleClient() {
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -268,6 +275,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    // TODO: Remove?
 //    private void saveUserInfo(String info) {
 //        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
 //        SharedPreferences.Editor editor = userInfo.edit();
@@ -308,6 +316,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         height = userInfo.getInt("height", 0);
     }
 
+    // TODO: Remove?
 //    private void clearUserInfo(String info){
 //        SharedPreferences userInfo = getActivity().getSharedPreferences("user", MODE_PRIVATE);
 //        SharedPreferences.Editor editor = userInfo.edit();

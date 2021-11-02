@@ -20,9 +20,7 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.Message;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
-
     private final List<Message> myMessageList;
-
     public MessageAdapter(List<Message> messageList) {
         myMessageList = messageList;
     }

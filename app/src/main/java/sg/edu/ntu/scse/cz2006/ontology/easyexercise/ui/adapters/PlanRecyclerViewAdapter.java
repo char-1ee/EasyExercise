@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.MyViewHolder> {
     private final List<Workout> mPlanList;
-    private Workout chosenPlan;
     private OnRecyclerItemClickListener myListener;
 
     public PlanRecyclerViewAdapter(List<Workout> planList, OnRecyclerItemClickListener listener) {
@@ -66,7 +64,6 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private final View view;
         private final TextView sportView;
         private final TextView dateView;
         private final TextView typeView;
@@ -75,13 +72,11 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
         private MyViewHolder(View itemView) {
             super(itemView);
-            view = itemView;
             sportView = itemView.findViewById(R.id.plan_sport_name);
             locationView = itemView.findViewById(R.id.plan_location_name);
             typeView = itemView.findViewById(R.id.plan_type);
             dateView = itemView.findViewById(R.id.plan_date);
             imageView = itemView.findViewById(R.id.plan_sport_image);
-            CardView cardView = itemView.findViewById(R.id.history_card);
         }
 
         public void bind(Workout workout, PlanRecyclerViewAdapter.OnRecyclerItemClickListener myListener) {

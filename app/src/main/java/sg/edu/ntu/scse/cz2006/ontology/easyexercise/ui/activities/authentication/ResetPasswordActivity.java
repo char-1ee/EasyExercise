@@ -15,9 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {
-
     private EditText inputEmail;
-    private Button resetButton, backButton;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
 
@@ -27,8 +25,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
 
         inputEmail = findViewById(R.id.reset_email);
-        resetButton = findViewById(R.id.reset_password_button);
-        backButton = findViewById(R.id.back_button);
+        Button resetButton = findViewById(R.id.reset_password_button);
+        Button backButton = findViewById(R.id.back_button);
         progressBar = findViewById(R.id.progressBar_reset);
 
         auth = FirebaseAuth.getInstance();
@@ -40,21 +38,31 @@ public class ResetPasswordActivity extends AppCompatActivity {
             String email = inputEmail.getText().toString().trim();
 
             if (TextUtils.isEmpty(email)) {
-                Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(),
+                        "Enter your registered email id",
+                        Toast.LENGTH_SHORT
+                ).show();
                 return;
             }
 
             progressBar.setVisibility(View.VISIBLE);
             auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            ResetPasswordActivity.this,
+                            "We have sent you instructions to reset your password!",
+                            Toast.LENGTH_SHORT
+                    ).show();
                 } else {
-                    Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            ResetPasswordActivity.this,
+                            "Failed to send reset email!",
+                            Toast.LENGTH_SHORT
+                    ).show();
                 }
 
                 progressBar.setVisibility(View.GONE);
             });
         });
     }
-
 }

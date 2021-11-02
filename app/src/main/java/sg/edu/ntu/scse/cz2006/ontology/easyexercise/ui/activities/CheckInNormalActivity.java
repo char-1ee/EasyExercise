@@ -40,19 +40,15 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CheckInSportAdap
  */
 
 public class CheckInNormalActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemClickListener {
-    double latitude = 0;
-    double longitude = 0;
-    private Button button1, button2;
-    private RecyclerView rv_test;
+    private double latitude;
+    private double longitude;
+    private Button buttonSport;
+    private Button buttonFacility;
+    private RecyclerView recyclerView;
     private Facility facility;
     private List<Facility> facilityList;
     private Sport ChosenSport;
-    private GoogleMap mMap;
-    private TextView facilityView;
-    private TextView addressView;
-    private TextView postalView;
-    private CheckInSportAdapter firstAdapter;
-    private ActionBar actionBar;
+    private CheckInSportAdapter checkInSportAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +59,6 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         initButton();
     }
 
-
     private Facility getFacility() {
         return (Facility) getIntent().getSerializableExtra("ClosestFacility");
     }
@@ -73,20 +68,18 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     }
 
     /**
-     * Set google map and add marker for the designated location
+     * Set Google Map and add marker for the designated location
      *
      * @param googleMap the main class of the Google Maps SDK for Android
      */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
         Coordinates c = facility.getCoordinates();
-        // Add a marker in Sydney and move the camera
         LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
-        mMap.addMarker(new MarkerOptions()
+        googleMap.addMarker(new MarkerOptions()
                 .position(cur)
                 .title(facility.getName()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
     }
 
 
@@ -96,29 +89,34 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         facilityList = getFacilityList();
         latitude = getLatitude();
         longitude = getLongitude();
-        rv_test = findViewById(R.id.check_in_sport_recycler);
-        button1 = findViewById(R.id.check_in_sport_button);
-        button2 = findViewById(R.id.choose_another_facility_button);
-        facilityView = findViewById(R.id.location_view);
-        addressView = findViewById(R.id.address_view);
-        postalView = findViewById(R.id.postal_view);
+        recyclerView = findViewById(R.id.check_in_sport_recycler);
+        buttonSport = findViewById(R.id.check_in_sport_button);
+        buttonFacility = findViewById(R.id.choose_another_facility_button);
+        TextView facilityView = findViewById(R.id.location_view);
+        TextView addressView = findViewById(R.id.address_view);
+        TextView postalView = findViewById(R.id.postal_view);
         facilityView.setText(facility.getName());
         addressView.setText(facility.getAddress());
         postalView.setText(facility.getPostalCode());
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void initAdapter() {
-        rv_test.setLayoutManager(new LinearLayoutManager(CheckInNormalActivity.this, LinearLayoutManager.VERTICAL, false));
-        firstAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
-        rv_test.setAdapter(firstAdapter);
-        firstAdapter.setOnItemClickListener(this);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(
+                        CheckInNormalActivity.this,
+                        LinearLayoutManager.VERTICAL,
+                        false
+                ));
+        checkInSportAdapter = new CheckInSportAdapter(CheckInNormalActivity.this, new ArrayList<>(facility.getSports()));
+        recyclerView.setAdapter(checkInSportAdapter);
+        checkInSportAdapter.setOnItemClickListener(this);
     }
 
     /**
-     * Initialize map fragment for displaying google map.
+     * Initialize map fragment for displaying Google Map.
      */
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -128,9 +126,13 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void initButton() {
-        button1.setOnClickListener(view -> {
+        buttonSport.setOnClickListener(view -> {
             if (ChosenSport == null) {
-                Toast.makeText(CheckInNormalActivity.this, "Please Select A Sport", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        CheckInNormalActivity.this,
+                        "Please select a sport.",
+                        Toast.LENGTH_SHORT
+                ).show();
             } else {
                 Intent intent = new Intent(CheckInNormalActivity.this, ExerciseActivity.class);
                 intent.putExtra("ChosenSport", ChosenSport);
@@ -140,7 +142,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
 
         });
 
-        button2.setOnClickListener(view -> {
+        buttonFacility.setOnClickListener(view -> {
             Intent intent = new Intent(CheckInNormalActivity.this, SelectFacilityCheckInActivity.class);
             intent.putExtra("FacilityByDistance2", (Serializable) facilityList);
             intent.putExtra("latitude", latitude);
@@ -159,7 +161,7 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ChosenSport = firstAdapter.finalChoice;
+        ChosenSport = checkInSportAdapter.finalChoice;
         Toast.makeText(CheckInNormalActivity.this, String.valueOf(ChosenSport.getName()), Toast.LENGTH_SHORT).show();
     }
 
@@ -168,5 +170,4 @@ public class CheckInNormalActivity extends AppCompatActivity implements OnMapRea
         this.finish();
         return super.onOptionsItemSelected(item);
     }
-
 }

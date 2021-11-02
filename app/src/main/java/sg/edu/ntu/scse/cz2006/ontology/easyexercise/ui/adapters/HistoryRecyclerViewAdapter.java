@@ -1,5 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -27,12 +28,12 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.WorkoutRecord;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
-    private final Context mContext;
-    private final List<WorkoutRecord> mWorkOutHistoryList;
+    private final Context context;
+    private final List<WorkoutRecord> historyWorkouts;
 
-    public HistoryRecyclerViewAdapter(List<WorkoutRecord> workOutHistoryList, Context context) {
-        mWorkOutHistoryList = workOutHistoryList;
-        mContext = context;
+    public HistoryRecyclerViewAdapter(List<WorkoutRecord> workoutRecords, Context context) {
+        historyWorkouts = workoutRecords;
+        this.context = context;
     }
 
     @NonNull
@@ -42,9 +43,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         return new MyViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final WorkoutRecord item = mWorkOutHistoryList.get(position);
+        final WorkoutRecord item = historyWorkouts.get(position);
         if (item.getLocation().getType() == Location.LocationType.FACILITY) {
             Facility f = (Facility) item.getLocation();
             holder.locationView.setText(f.getName());
@@ -57,7 +59,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.imageView.setClipToOutline(true);
         holder.planType.setText(item.getStatus().toString());
         holder.cardView.setOnClickListener(view -> {
-            Dialog dialog = new Dialog(mContext);
+            Dialog dialog = new Dialog(context);
             TextView sportView, facilityView, durationView, startTimeView, endTimeView;
             ImageView imageView;
             dialog.setContentView(R.layout.dialog_history);
@@ -79,7 +81,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             long diff = item.getEndTime().getTime() - item.getStartTime().getTime();
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
             long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
-            durationView.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
+            durationView.setText(String.format("%02d:%02d", minutes, seconds));
             startTimeView.setText(getTime(item.getStartTime()));
             endTimeView.setText(getTime(item.getEndTime()));
             dialog.show();
@@ -89,11 +91,12 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     @Override
     public int getItemCount() {
-        return mWorkOutHistoryList == null ? 0 : mWorkOutHistoryList.size();
+        return historyWorkouts == null ? 0 : historyWorkouts.size();
     }
 
     private String getTime(Date date) {
         Log.d("getTime()", "choice date millis: " + date.getTime());
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
@@ -105,7 +108,6 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         private final ImageView imageView;
         private final CardView cardView;
         private final TextView planType;
-
 
         private MyViewHolder(View itemView) {
             super(itemView);

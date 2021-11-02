@@ -57,9 +57,9 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
     }
 
     /**
-     * When user clicks our itemView, we still invoke the onItemClick
+     * When user clicks our itemView, we still invoke {@code onItemClick}.
      *
-     * @param holder
+     * @param holder TODO: What is this?
      */
     public void onItemHolderClick(MyViewHolder holder) {
         if (onItemClickListener != null)
@@ -91,6 +91,4 @@ public class CheckInSportAdapter extends RecyclerView.Adapter<CheckInSportAdapte
             mAdapter.onItemHolderClick(MyViewHolder.this);
         }
     }
-
 }
-

@@ -25,30 +25,26 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseMana
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.ChatRoomActivity;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.CommunityAdapter;
 
-
 public class CommunityFragment extends Fragment {
     private final List<WorkoutDatabaseManager.FirebasePublicWorkoutPlan> publicPlanList = new ArrayList<>();
-    View view;
-    private RecyclerView recyclerView;
     private CommunityAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_community, container, false);
+        View view = inflater.inflate(R.layout.activity_community, container, false);
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance(getContext().getString(R.string.firebase_database));
         DatabaseReference mDatabase = database.getReference().child("community");
 
-        recyclerView = view.findViewById(R.id.community_plan_view);
+        RecyclerView recyclerView = view.findViewById(R.id.community_plan_view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new CommunityAdapter(publicPlanList, publicPlan -> {
-            //on click event
-
+            // on click event
             Intent intent = new Intent(getContext().getApplicationContext(), ChatRoomActivity.class);
             intent.putExtra("plan", publicPlan.getPlanID());
             startActivity(intent);
@@ -72,5 +68,4 @@ public class CommunityFragment extends Fragment {
         });
         return view;
     }
-
 }

@@ -21,15 +21,15 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.Selectable;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
 
 public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecyclerViewAdapter.MyViewHolder> {
-    private final List<Sport> mSportList;
-    public List<Sport> chosenSportList;
-    private List<Selectable<Sport>> sportSelectable;
+    private final List<Sport> sports;
+    public final List<Sport> chosenSportList;
+    private final List<Selectable<Sport>> sportSelectable;
 
     public SportRecyclerViewAdapter(List<Sport> sportList) {
         chosenSportList = new ArrayList<>();
-        mSportList = sportList;
+        sports = sportList;
         sportSelectable = new ArrayList<>();
-        for (Sport s : mSportList) {
+        for (Sport s : sports) {
             Selectable<Sport> item = new Selectable<>(s);
             sportSelectable.add(item);
         }
@@ -46,7 +46,6 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Selectable<Sport> item = sportSelectable.get(position);
-        //final Sport sport = mSportList.get(position);
         Sport sport = item.get();
         holder.textView.setText(sport.getName());
         holder.imageView.setImageResource(SportsImageMatcher.getImage(sport));
@@ -58,25 +57,21 @@ public class SportRecyclerViewAdapter extends RecyclerView.Adapter<SportRecycler
             if (item.isSelected()) {
                 chosenSportList.add(sport);
             } else {
-                boolean e = chosenSportList.remove(sport);
+                chosenSportList.remove(sport);
             }
-            SelectSportActivity.ChosenSport1 = SelectSportActivity.mAdapter.chosenSportList;
-            SelectSportActivity.ChosenSport2 = SelectSportActivity.mAdapter2.chosenSportList;
+            SelectSportActivity.chosenSportsRecommended = SelectSportActivity.sportsRecommendedAdapter.chosenSportList;
+            SelectSportActivity.chosenOtherSports = SelectSportActivity.otherSportsAdapter.chosenSportList;
             SelectSportActivity.finalChoice.clear();
-            SelectSportActivity.finalChoice.addAll(SelectSportActivity.ChosenSport1);
-            SelectSportActivity.finalChoice.addAll(SelectSportActivity.ChosenSport2);
-            if (SelectSportActivity.finalChoice.size() != 0) {
-                SelectSportActivity.mSportChoicesConfirmButton.setEnabled(true);
-            } else {
-                SelectSportActivity.mSportChoicesConfirmButton.setEnabled(false);
-            }
+            SelectSportActivity.finalChoice.addAll(SelectSportActivity.chosenSportsRecommended);
+            SelectSportActivity.finalChoice.addAll(SelectSportActivity.chosenOtherSports);
+            SelectSportActivity.sportChoicesConfirmButton.setEnabled(SelectSportActivity.finalChoice.size() != 0);
         });
 
     }
 
     @Override
     public int getItemCount() {
-        return mSportList == null ? 0 : mSportList.size();
+        return sports == null ? 0 : sports.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -37,7 +37,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,27 +57,34 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.SportsImageMatcher;
  * @author Ruan Donglin
  * @author Zhou Yuxuan
  * @author Li Xingjian
+ * @author Zhong Ruoyu
  */
-
 public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCallback, TimePickerDialog.OnTimeSetListener {
-    Integer finalLimit = 0;
-    TimePickerDialog tpd;
-    DatePickerDialog picker;
-    SupportMapFragment mapFragment;
-    int year, monthOfYear, dayOfMonth;
-    OptionsPickerView pvOptions;
-    Integer[] limit = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-    ActionBar actionBar;
-    private Handler handler, handler2, handler3;
-    private Runnable runnable, runnable2, runnable3;
-    private TextView startTime, endTime;
-    private Date startDate, endDate;
-    private GoogleMap mMap;
+    private int finalLimit = 0;
+    private TimePickerDialog tpd;
+    private DatePickerDialog picker;
+    private SupportMapFragment mapFragment;
+    private int year;
+    private int monthOfYear;
+    private int dayOfMonth;
+    private OptionsPickerView pvOptions;
+    private Handler handler;
+    private Handler handler2;
+    private Handler handler3;
+    private Runnable runnable;
+    private Runnable runnable2;
+    private Runnable runnable3;
+    private TextView startTime;
+    private TextView endTime;
+    private Date startDate;
+    private Date endDate;
     private Sport sport;
-    private TextView postalView, facilityView, sportView, addressView, limitView;
+    private TextView limitView;
     private Workout plan;
     private Location location;
-    private Button publishPlanButton, checkInButton, deleteButton;
+    private Button buttonPublishPlan;
+    private Button buttonCheckIn;
+    private Button deleteButton;
     private CardView cardView;
 
     @Override
@@ -94,17 +100,15 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         return (Workout) getIntent().getSerializableExtra("plan");
     }
 
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
         Coordinates c = location.getCoordinates();
         // Add a marker in Sydney and move the camera
         LatLng cur = new LatLng(c.getLatitude(), c.getLongitude());
-        mMap.addMarker(new MarkerOptions()
+        googleMap.addMarker(new MarkerOptions()
                 .position(cur)
                 .title(location.getName()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15f));
     }
 
     /**
@@ -113,19 +117,19 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     private void initView() {
         setContentView(R.layout.activity_view_plan);
         plan = getChosenPlan();
-        facilityView = findViewById(R.id.location_view);
-        sportView = findViewById(R.id.facility_view);
-        postalView = findViewById(R.id.postal_view);
-        addressView = findViewById(R.id.address_view);
-        checkInButton = findViewById(R.id.check_in_button);
-        publishPlanButton = findViewById(R.id.publish_plan_button);
+        TextView facilityView = findViewById(R.id.location_view);
+        TextView sportView = findViewById(R.id.facility_view);
+        TextView postalView = findViewById(R.id.postal_view);
+        TextView addressView = findViewById(R.id.address_view);
+        buttonCheckIn = findViewById(R.id.check_in_button);
+        buttonPublishPlan = findViewById(R.id.publish_plan_button);
         deleteButton = findViewById(R.id.delete_button);
         cardView = findViewById(R.id.timeView);
         cardView.setVisibility(View.GONE);
         startTime = findViewById(R.id.start_time);
         limitView = findViewById(R.id.limit);
         endTime = findViewById(R.id.end_time);
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         location = plan.getLocation();
@@ -151,9 +155,8 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void initButton() {
-        publishPlanButton.setOnClickListener(view -> {
-            // TODO: Wait for dialog to complete
-            publishPlanButton.setText(R.string.publish_plan_text);
+        buttonPublishPlan.setOnClickListener(view -> {
+            buttonPublishPlan.setText(R.string.publish_plan_text);
             year = 0;
             finalLimit = 0;
             startDate = null;
@@ -182,7 +185,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
             initHandler();
             handler.post(runnable);
         });
-        checkInButton.setOnClickListener(view -> {
+        buttonCheckIn.setOnClickListener(view -> {
             Intent intent = new Intent(ViewPlanActivity.this, ExerciseActivity.class);
             intent.putExtra("ChosenLocation", location);
             intent.putExtra("ChosenSport", sport);
@@ -202,11 +205,11 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
      * Initialize pickers for publishing the plan.
      */
     private void initPicker() {
-        List<Integer> options1Items = new ArrayList<>(Arrays.asList(limit));
+        List<Integer> options1Items = Arrays.asList(2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
         pvOptions = new OptionsPickerBuilder(ViewPlanActivity.this, (options1, option2, options3, v) -> finalLimit = options1Items.get(options1))
                 .setSubmitText("Confirm")
                 .setCancelText("Cancel")
-                .setTitleText("Number of persons allowed")
+                .setTitleText("Capacity")
                 .setSubCalSize(18)
                 .setTitleSize(20)
                 .setContentTextSize(18)
@@ -266,6 +269,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private String getTime(Date date) {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
@@ -297,7 +301,7 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         } else {
             facilityView.setText(R.string.customized_location);
         }
-        peopleLimitView.setText(finalLimit.toString());
+        peopleLimitView.setText(String.valueOf(finalLimit));
         imageView.setImageResource(SportsImageMatcher.getImage(item.getSport()));
         startTimeView.setText(getTime(startDate));
         endTimeView.setText(getTime(endDate));
@@ -305,20 +309,35 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
         confirmButton.setOnClickListener(view -> {
             Workout localPlan = getChosenPlan();
             Location location = plan.getLocation();
-            long facility_id;
+            long facilityId;
             if (location.getType() == Location.LocationType.FACILITY) {
-                facility_id = ((Facility) location).getId();
+                facilityId = ((Facility) location).getId();
             } else {
-                facility_id = -1;
+                facilityId = -1;
             }
-            WorkoutDatabaseManager.FirebasePublicWorkoutPlan publicPlan = new WorkoutDatabaseManager.FirebasePublicWorkoutPlan(finalLimit, startDate, endDate, plan.getPlanID(), localPlan.getSport().getId(), facility_id, FirebaseAuth.getInstance().getCurrentUser().getUid());
-            FirebaseDatabase database = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
-            DatabaseReference mDatabase = database.getReference().child("community");
+            WorkoutDatabaseManager.FirebasePublicWorkoutPlan publicPlan =
+                    new WorkoutDatabaseManager.FirebasePublicWorkoutPlan(
+                            finalLimit,
+                            startDate,
+                            endDate,
+                            plan.getPlanID(),
+                            localPlan.getSport().getId(),
+                            facilityId,
+                            FirebaseAuth.getInstance().getCurrentUser().getUid());
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance(getString(R.string.firebase_database));
+            DatabaseReference databaseReference = firebaseDatabase.getReference().child("community");
             assert plan.getPlanID() != null;
-            mDatabase.child(plan.getPlanID()).setValue(publicPlan);
-            Toast.makeText(ViewPlanActivity.this, "Publish Plan Successful", Toast.LENGTH_SHORT).show();
+            databaseReference.child(plan.getPlanID()).setValue(publicPlan);
+            Toast.makeText(
+                    ViewPlanActivity.this,
+                    "Plan published successfully.",
+                    Toast.LENGTH_SHORT
+            ).show();
 
-            DatabaseReference workoutPlanDB = database.getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            DatabaseReference workoutPlanDB =
+                    firebaseDatabase.getReference()
+                            .child("user")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
             workoutPlanDB.child("WorkoutPlan").child(plan.getPlanID()).removeValue();
             workoutPlanDB.child("PublicPlan").child(plan.getPlanID()).setValue(plan.getPlanID());
             Intent intent = new Intent(ViewPlanActivity.this, MainActivity.class);
@@ -344,8 +363,12 @@ public class ViewPlanActivity extends AppCompatActivity implements OnMapReadyCal
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        Calendar start = new Calendar.Builder().setDate(year, monthOfYear, dayOfMonth).setTimeOfDay(hourOfDay, minute, 0).build();
-        Calendar end = new Calendar.Builder().setDate(year, monthOfYear, dayOfMonth).setTimeOfDay(hourOfDayEnd, minuteEnd, 0).build();
+        Calendar start = new Calendar.Builder()
+                .setDate(year, monthOfYear, dayOfMonth)
+                .setTimeOfDay(hourOfDay, minute, 0).build();
+        Calendar end = new Calendar.Builder()
+                .setDate(year, monthOfYear, dayOfMonth)
+                .setTimeOfDay(hourOfDayEnd, minuteEnd, 0).build();
         startTime.setText(getTime(start.getTime()));
         endTime.setText(getTime(end.getTime()));
     }

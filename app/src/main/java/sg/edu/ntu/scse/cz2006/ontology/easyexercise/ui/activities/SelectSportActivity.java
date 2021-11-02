@@ -35,19 +35,20 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.SportRecyclerVie
 
 public class SelectSportActivity extends AppCompatActivity {
     public static List<Sport> finalChoice;
-    public static List<Sport> ChosenSport1;
-    public static List<Sport> ChosenSport2;
-    public static Button mSportChoicesConfirmButton;
-    public static SportRecyclerViewAdapter mAdapter, mAdapter2;
-    Handler handler, handler2;
-    Runnable runnable, runnable2;
-    double latitude = 0;
-    double longitude = 0;
-    private List<Facility> FinalFacility;
-    private List<Sport> RecommendedSport;
-    private List<Sport> OtherSport;
-    private RecyclerView mRecyclerView, mRecyclerView2;
-    private ActionBar actionBar;
+    public static List<Sport> chosenSportsRecommended;
+    public static List<Sport> chosenOtherSports;
+    public static Button sportChoicesConfirmButton;
+    public static SportRecyclerViewAdapter sportsRecommendedAdapter;
+    public static SportRecyclerViewAdapter otherSportsAdapter;
+    private Handler handler;
+    private Runnable runnable;
+    private double latitude = 0;
+    private double longitude = 0;
+    private List<Facility> facilities;
+    private List<Sport> sportsRecommended;
+    private List<Sport> otherSports;
+    private RecyclerView sportsRecommendedRecyclerView;
+    private RecyclerView otherSportsRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +58,27 @@ public class SelectSportActivity extends AppCompatActivity {
         initButton();
     }
 
-
-    private List<Sport> getRecommendedSport() {
+    private List<Sport> getSportsRecommended() {
         return (List<Sport>) getIntent().getSerializableExtra("RecommendedSports");
     }
 
-    private List<Sport> getOtherSport() {
+    private List<Sport> getOtherSports() {
         return (List<Sport>) getIntent().getSerializableExtra("OtherSports");
     }
 
     private void initView() {
         finalChoice = new ArrayList<>();
         setContentView(R.layout.activity_select_sport);
-        mSportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
-        mRecyclerView = findViewById(R.id.recycler_view);
-        RecommendedSport = getRecommendedSport();
-        mSportChoicesConfirmButton.setEnabled(false);
-        OtherSport = getOtherSport();
+        sportChoicesConfirmButton = findViewById(R.id.sport_choices_confirm_button);
+        sportsRecommendedRecyclerView = findViewById(R.id.recycler_view);
+        sportsRecommended = getSportsRecommended();
+        sportChoicesConfirmButton.setEnabled(false);
+        otherSports = getOtherSports();
         latitude = getLatitude();
         longitude = getLongitude();
         initHandler();
         handler.post(runnable);
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -87,46 +87,33 @@ public class SelectSportActivity extends AppCompatActivity {
      * Initialize adapter for recyclerview.
      */
     private void initAdapter() {
-        mAdapter = new SportRecyclerViewAdapter(RecommendedSport);
-        LinearLayoutManager manager = new GridLayoutManager(SelectSportActivity.this, 2);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+        sportsRecommendedAdapter = new SportRecyclerViewAdapter(sportsRecommended);
+        LinearLayoutManager sportsRecommendedManager =
+                new GridLayoutManager(SelectSportActivity.this, 2);
+        sportsRecommendedRecyclerView.setHasFixedSize(true);
+        sportsRecommendedRecyclerView.setLayoutManager(sportsRecommendedManager);
+        sportsRecommendedRecyclerView.setAdapter(sportsRecommendedAdapter);
 
-        mRecyclerView2 = findViewById(R.id.recycler_view2);
-        mAdapter2 = new SportRecyclerViewAdapter(OtherSport);
-        LinearLayoutManager manager2 = new GridLayoutManager(SelectSportActivity.this, 2);
-        mRecyclerView2.setHasFixedSize(true);
-        mRecyclerView2.setLayoutManager(manager2);
-        mRecyclerView2.setAdapter(mAdapter2);
-        ChosenSport1 = mAdapter.chosenSportList;
-        ChosenSport2 = mAdapter2.chosenSportList;
+        otherSportsRecyclerView = findViewById(R.id.recycler_view2);
+        otherSportsAdapter = new SportRecyclerViewAdapter(otherSports);
+        LinearLayoutManager otherSportsManager =
+                new GridLayoutManager(SelectSportActivity.this, 2);
+        otherSportsRecyclerView.setHasFixedSize(true);
+        otherSportsRecyclerView.setLayoutManager(otherSportsManager);
+        otherSportsRecyclerView.setAdapter(otherSportsAdapter);
+        chosenSportsRecommended = sportsRecommendedAdapter.chosenSportList;
+        chosenOtherSports = otherSportsAdapter.chosenSportList;
         finalChoice.clear();
-        finalChoice.addAll(ChosenSport1);
-        finalChoice.addAll(ChosenSport2);
-
-
-    }
-
-    private void initHandler2() {
-        handler2 = new Handler();
-        runnable2 = new Runnable() {
-            public void run() {
-                if (finalChoice.size() == 0) {
-                    handler.postDelayed(this, 500);
-                } else {
-                    mSportChoicesConfirmButton.setEnabled(true);
-                }
-            }
-        };
+        finalChoice.addAll(chosenSportsRecommended);
+        finalChoice.addAll(chosenOtherSports);
     }
 
     private void initButton() {
-        mSportChoicesConfirmButton.setOnClickListener(view -> {
+        sportChoicesConfirmButton.setOnClickListener(view -> {
             Context context = SelectSportActivity.this;
-            FinalFacility = FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude, ""), 20);
+            facilities = FacilityRecommendation.getFacilitiesBySports(SelectSportActivity.this, finalChoice, new Coordinates(latitude, longitude), 20);
             Intent intent = new Intent(context, SelectFacilityPlanActivity.class);
-            intent.putExtra("FacilityQualified", (Serializable) FinalFacility);
+            intent.putExtra("FacilityQualified", (Serializable) facilities);
             intent.putExtra("longitude", (Serializable) longitude);
             intent.putExtra("latitude", (Serializable) latitude);
             startActivity(intent);

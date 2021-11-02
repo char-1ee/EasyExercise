@@ -86,13 +86,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         planFacility = findViewById(R.id.publicPlanFacility);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatRoomActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new MessageAdapter(msgList);
         recyclerView.setAdapter(adapter);
-
 
         planReference.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -108,7 +106,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Sport sport = manager.getSportById(currentPlan.getSportID());
                 Facility facility = manager.getFacilityById(currentPlan.getFacilityID());
                 manager.closeDatabase();
-                planLimit.setText(String.format("%s/%s", currentPlan.getMembers().size(), currentPlan.getPlanLimit()));
+                planLimit.setText(String.format("%s / %s", currentPlan.getMembers().size(), currentPlan.getPlanLimit()));
                 planSport.setText(sport.getName());
                 planFacility.setText(facility.getName());
             }
@@ -172,6 +170,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         updates.put("members", currentPlan.getMembers());
                         planReference.updateChildren(updates);
                         user.child("PublicPlan").child(currentPlan.getPlanID()).setValue(currentPlan.getPlanID());
+                        planLimit.setText(String.format("%s / %s", currentPlan.getMembers().size(), currentPlan.getPlanLimit()));
                         Toast.makeText(
                                 ChatRoomActivity.this,
                                 "Successfully joined.",
@@ -220,6 +219,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             Map<String, Object> updates = new HashMap<>();
                             updates.put("members", currentPlan.getMembers());
                             planReference.updateChildren(updates);
+                            planLimit.setText(String.format("%s / %s", currentPlan.getMembers().size(), currentPlan.getPlanLimit()));
                             Toast.makeText(
                                     ChatRoomActivity.this,
                                     "Successfully quit.",

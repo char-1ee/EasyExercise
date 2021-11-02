@@ -87,14 +87,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 // Create user
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, task -> {
-                    // TODO: Remove debugging information?
-                    Toast.makeText(
-                            SignUpActivity.this,
-                            "createUserWithEmail:onComplete:" + task.isSuccessful(),
-                            Toast.LENGTH_SHORT
-                    ).show();
                     progressBar.setVisibility(View.GONE);
-
                     // If sign in fails, display a message to the user. If sign in succeeds
                     // the auth state listener will be notified and logic to handle the
                     // signed in user can be handled in the listener.

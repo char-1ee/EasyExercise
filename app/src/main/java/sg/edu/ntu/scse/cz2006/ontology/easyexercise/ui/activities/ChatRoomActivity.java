@@ -215,7 +215,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     "You haven't joined this plan.",
                                     Toast.LENGTH_SHORT
                             ).show();
-                            // TODO: BUG!!!!!!
                             startActivity(new Intent(ChatRoomActivity.this, MainActivity.class));
                         } else {
                             Map<String, Object> updates = new HashMap<>();

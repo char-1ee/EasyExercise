@@ -131,8 +131,7 @@ public class AddPlanActivity extends AppCompatActivity implements AdapterView.On
                 assert postId != null;
                 mDatabase.child(postId).setValue(firebasePlan);
 
-
-                ToastUtil.toast(this,"Add plan");
+                ToastUtil.toast(this, "Plan successfully added.");
 
                 Intent intent = new Intent(AddPlanActivity.this, MainActivity.class);
                 startActivity(intent);

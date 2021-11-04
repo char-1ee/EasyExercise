@@ -14,6 +14,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 
+/**
+ * Activity that user reset password when forget password.
+ *
+ * @author Li Xingjian
+ */
 public class ResetPasswordActivity extends AppCompatActivity {
     private EditText inputEmail;
     private FirebaseAuth auth;

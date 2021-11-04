@@ -26,6 +26,11 @@ import com.shobhitpuri.custombuttons.GoogleSignInButton;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 
+/**
+ * Login activity
+ *
+ * @author Li Xingjian
+ */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 1234;
     private static final String TAG = "LoginActivity";

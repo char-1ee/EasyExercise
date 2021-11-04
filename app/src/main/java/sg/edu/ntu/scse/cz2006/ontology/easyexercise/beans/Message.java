@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Message sent by user
  *
- * @Author Zhou Yuxuan
+ * @author Zhou Yuxuan
  */
 public class Message implements Serializable {
     private String messageText;

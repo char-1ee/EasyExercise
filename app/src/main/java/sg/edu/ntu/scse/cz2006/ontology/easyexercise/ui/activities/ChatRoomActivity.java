@@ -41,6 +41,12 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.database.WorkoutDatabaseMana
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.adapters.MessageAdapter;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
 
+/**
+ * Activity class for chat room under public plan.
+ *
+ * @author Zhou yuxuan
+ * @author Li Xingjian
+ */
 public class ChatRoomActivity extends AppCompatActivity {
     private final List<Message> msgList = new ArrayList<>();
     private EditText inputText;

@@ -62,6 +62,13 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.Box;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.RemoteFileIOUtil;
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.weather.Weather;
 
+/**
+ * Entry activity for whole android application.
+ *
+ * @author Mao Yiyun
+ * @author Ruan Donglin
+ * @author Li Xingjian
+ */
 public class MainActivity extends AppCompatActivity {
     /**
      * Set bottom navigation view with corresponding fragments.
@@ -222,6 +229,11 @@ public class MainActivity extends AppCompatActivity {
         db.closeDatabase();
     }
 
+    /**
+     * Select all suitable sports for current weather conditions as recommended sports.
+     *
+     * @return a list of recommended sports
+     */
     private List<Sport> selectSportsRecommended() {
         final Box<Weather> boxWeather = new Box<>();
         Thread thread = new Thread(() -> boxWeather.set(new Weather(
@@ -246,16 +258,30 @@ public class MainActivity extends AppCompatActivity {
         return new ArrayList<>(recommendedSports);
     }
 
+    /**
+     * Select sports not recommended for current weather conditions.\
+     *
+     * @return list of sports except recommended sports
+     */
     private List<Sport> selectOtherSports() {
         List<Sport> sports = new ArrayList<>(allSports);
         sports.removeAll(selectSportsRecommended());
         return sports;
     }
 
+    /**
+     * Get plan information as {@code Intent}.
+     *
+     * @return {@link Intent}
+     */
     public Intent getIntentToPlan() {
         return intentToPlan;
     }
 
+    /**
+     * Get information of check-in operations as {@code Intent}.
+     * @return {@link Intent}
+     */
     public Intent getCheckInList() {
         Intent intentToCheckIn;
         List<Facility> facilityList = getCheckInFacilitiesByDistance();
@@ -271,12 +297,20 @@ public class MainActivity extends AppCompatActivity {
         return intentToCheckIn;
     }
 
+    /**
+     * Get the nearby facilities for check-in.
+     *
+     * @return list of check-in facilities
+     */
     private List<Facility> getCheckInFacilitiesByDistance() {
         return FacilityRecommendation.getFacilitiesNearby(
                 MainActivity.this, new Coordinates(latitude, longitude),
                 3, 20);
     }
 
+    /**
+     * Initialize {@link Handler}.
+     */
     public void initHandler() {
         getCurrentLocation();
         Handler handler = new Handler();

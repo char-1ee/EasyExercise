@@ -31,6 +31,7 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.beans.sport.WorkoutRecord;
  * </pre>
  *
  * @author Li Xingjian
+ * @author Zhou yuxuan
  */
 
 public class WorkoutDatabaseManager {

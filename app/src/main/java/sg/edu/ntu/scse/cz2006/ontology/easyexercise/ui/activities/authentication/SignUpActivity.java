@@ -1,5 +1,6 @@
 package sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import sg.edu.ntu.scse.cz2006.ontology.easyexercise.R;
+import sg.edu.ntu.scse.cz2006.ontology.easyexercise.ui.activities.MainActivity;
 
 /**
  * Sign up activity for user to register with email and password.
@@ -95,6 +97,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         ).show();
                     }
                 });
+
+                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                 break;
         }
     }

@@ -73,11 +73,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     return;
                 }
                 if (password.length() < 6) {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Password is too short. Please enter a minimum of 6 characters.",
-                            Toast.LENGTH_LONG
-                    ).show();
+                    Toast.makeText( getApplicationContext(),"Password is too short. Please enter a minimum of 6 characters.", Toast.LENGTH_LONG).show();
+                    return;
+                } else if (password.length() > 18) {
+                    Toast.makeText( getApplicationContext(), "Password is too long. Please enter a maximum of 18 characters.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

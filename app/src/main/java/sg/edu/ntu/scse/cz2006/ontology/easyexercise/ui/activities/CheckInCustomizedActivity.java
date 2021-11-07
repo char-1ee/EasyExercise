@@ -144,7 +144,6 @@ public class CheckInCustomizedActivity extends AppCompatActivity implements OnMa
                 intentToCheckIn.putExtra("FacilityByDistance", (Serializable) facilityList);
                 intentToCheckIn.putExtra("latitude1", customizedLocation.getLatitude());
                 intentToCheckIn.putExtra("longitude1", customizedLocation.getLongitude());
-                Toast.makeText(CheckInCustomizedActivity.this, facility.getAddress(), Toast.LENGTH_SHORT);
                 startActivity(intentToCheckIn);
                 finish();
             }

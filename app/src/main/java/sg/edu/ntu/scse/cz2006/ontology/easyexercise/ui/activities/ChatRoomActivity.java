@@ -44,7 +44,7 @@ import sg.edu.ntu.scse.cz2006.ontology.easyexercise.util.ButtonClickUtil;
 /**
  * Activity class for chat room under public plan.
  *
- * @author Zhou yuxuan
+ * @author Zhou Yuxuan
  * @author Li Xingjian
  */
 public class ChatRoomActivity extends AppCompatActivity {

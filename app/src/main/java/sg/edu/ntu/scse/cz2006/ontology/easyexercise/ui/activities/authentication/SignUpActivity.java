@@ -95,6 +95,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT
                         ).show();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Authentication succeed", Toast.LENGTH_SHORT).show();
                     }
                 });
 
